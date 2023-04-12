@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { Home } from './pages/Home.jsx';
+import { SharedLayout} from './pages/SharedLayout';
 
 export const App = () => {
     return (
@@ -7,7 +9,7 @@ export const App = () => {
                 <Route path="/" element={<SharedLayout />}>
                     <Route index element={<Home />} />
                   
-                    <Route path="about" element={<About />} />
+                    {/* <Route path="about" element={<About />} />
                     <Route path="partners" element={<Partners />} />
                     <Route path="delivery" element={<Delivery />} />
                   
@@ -24,7 +26,7 @@ export const App = () => {
                         <Route path='/selected' element={loggedIn ? <SelectedPage /> : <Redirect to='/' />} />
                     </Route>
         
-                        <Route path="*" element={<NotFound />} />
+                        <Route path="*" element={<NotFound />} /> */}
                     </Route>
             </Routes>
         </div>
