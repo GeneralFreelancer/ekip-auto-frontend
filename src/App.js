@@ -1,19 +1,24 @@
-import { Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-
+// import { Routes, Route } from "react-router-dom";
+import Basket from './components/Basket'
+import AuthNav from './components/AuthNav'
+// import HomePage from './pages/HomePage'
 
 const App = () => {
     return (
       <main>
-        <HomePage />
+        <Basket/>
+<AuthNav/>
+             {/* <HomePage /> */}
       </main>
     );
 };
+
 
 export default App;
 
 
 
+/*
 // <Routes> 
             //   <Route path="/" element={<HomePage />} /> 
             //     <Route path="/" element={<SharedLayout />}> 
@@ -36,9 +41,14 @@ export default App;
             //             <Route path='/selected' element={loggedIn ? <SelectedPage /> : <Redirect to='/' />} />
             //         </Route>
         
-            //             <Route path="*" element={<NotFound />} /> 
+                        <Route path="*" element={<NotFound />} />
             //         </Route>
-            // </Routes> 
+            // </Routes>
+        </div>
+    );
+};
+
+
 
 // import { useSelector } from "react-redux";
 // import { useMediaQuery } from "react-responsive";
