@@ -1,39 +1,44 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from './pages/Home.jsx';
-import { SharedLayout} from './pages/SharedLayout';
+import HomePage from "./pages/HomePage";
 
-export const App = () => {
+
+const App = () => {
     return (
-        <div>
-            <Routes>
-                <Route path="/" element={<SharedLayout />}>
-                    <Route index element={<Home />} />
-                  
-                    {/* <Route path="about" element={<About />} />
-                    <Route path="partners" element={<Partners />} />
-                    <Route path="delivery" element={<Delivery />} />
-                  
-                    <Route path='/catalog' element={<CatalogPage />}/>
-                    <Route path='/catalog/:sorted' element={<CatalogPage />}/>
-                    <Route path='/catalog/subcategory' element={<CatalogPage />}/>
-                    <Route path='category/subcategory/:id' element={<ProductPage />} />
-                           
-                // privare routes
-                    <Route path='/myprofile' element={loggedIn ? <Navigate to='/myprofile/basket' /> : <Redirect to='/' />}>
-                        <Route path='/mydata' element={loggedIn ? <MyDataPage /> : <Redirect to='/' />} />
-                        <Route path='/basket' element={loggedIn ? <BasketPage /> : <Redirect to='/' />} />
-                        <Route path='/orders' element={loggedIn ? <OrdersPage /> : <Redirect to='/' />} />
-                        <Route path='/selected' element={loggedIn ? <SelectedPage /> : <Redirect to='/' />} />
-                    </Route>
-        
-                        <Route path="*" element={<NotFound />} /> */}
-                    </Route>
-            </Routes>
-        </div>
+      <main>
+        <HomePage />
+      </main>
     );
 };
 
+export default App;
 
+
+
+// <Routes> 
+            //   <Route path="/" element={<HomePage />} /> 
+            //     <Route path="/" element={<SharedLayout />}> 
+            //         <Route path="/" element={<Home />} /> 
+            //         <Route path="catalog" element={<Catalog />} /> 
+            //         <Route path="about" element={<About />} />
+            //         <Route path="partners" element={<Partners />} />
+            //         <Route path="delivery" element={<Delivery />} />
+                  
+            //         <Route path='/catalog' element={<CatalogPage />}/>
+            //         <Route path='/catalog/:sorted' element={<CatalogPage />}/>
+            //         <Route path='/catalog/subcategory' element={<CatalogPage />}/>
+            //         <Route path='category/subcategory/:id' element={<ProductPage />} />
+                           
+            //     // privare routes
+            //         <Route path='/myprofile' element={loggedIn ? <Navigate to='/myprofile/basket' /> : <Redirect to='/' />}>
+            //             <Route path='/mydata' element={loggedIn ? <MyDataPage /> : <Redirect to='/' />} />
+            //             <Route path='/basket' element={loggedIn ? <BasketPage /> : <Redirect to='/' />} />
+            //             <Route path='/orders' element={loggedIn ? <OrdersPage /> : <Redirect to='/' />} />
+            //             <Route path='/selected' element={loggedIn ? <SelectedPage /> : <Redirect to='/' />} />
+            //         </Route>
+        
+            //             <Route path="*" element={<NotFound />} /> 
+            //         </Route>
+            // </Routes> 
 
 // import { useSelector } from "react-redux";
 // import { useMediaQuery } from "react-responsive";
@@ -49,7 +54,7 @@ export const App = () => {
 // };
 
 
-{/* <Route
+/* <Route
               path="register"
               element={
                 <PublicRoute navigateTo="/">
@@ -64,7 +69,7 @@ export const App = () => {
                 <PrivateRoute navigateTo="/login">
                   <TrainingPage />
                 </PrivateRoute>
-              } */}
+              } */
 
 
 //               import { useSelector } from 'react-redux';
