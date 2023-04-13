@@ -12,6 +12,7 @@ const SearchBar = () => {
       id: 1,
       name: "Product 1",
       article: "Art: SU A001",
+      src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
       priceUAH: "5000",
       priceUSD: "500",
     },
@@ -19,6 +20,7 @@ const SearchBar = () => {
       id: 2,
       name: "Product 2",
       article: "Art: SU B002",
+      src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
       priceUAH: "5000",
       priceUSD: "500",
     },
@@ -26,6 +28,7 @@ const SearchBar = () => {
       id: 3,
       name: "Product 3",
       article: "Art: SU C003",
+      src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
       priceUAH: "5000",
       priceUSD: "500",
     },
@@ -33,6 +36,7 @@ const SearchBar = () => {
       id: 4,
       name: "Product 4",
       article: "Art: SU D004",
+      src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
       priceUAH: "5000",
       priceUSD: "500",
     },
@@ -40,6 +44,7 @@ const SearchBar = () => {
       id: 5,
       name: "Product 5",
       article: "Art: SU E005",
+      src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
       priceUAH: "5000",
       priceUSD: "500",
     },
@@ -47,6 +52,7 @@ const SearchBar = () => {
       id: 6,
       name: "Product 6",
       article: "Art: SU F006",
+      src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
       priceUAH: "5000",
       priceUSD: "500",
     },
@@ -54,6 +60,7 @@ const SearchBar = () => {
       id: 7,
       name: "Product 7",
       article: "Art: SU G007",
+      src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
       priceUAH: "5000",
       priceUSD: "500",
     },
@@ -74,6 +81,14 @@ const SearchBar = () => {
     setSearchQuery(e.target.value);
     setShowResults(true);
     setSearchItems(products);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setShowResults(false);
+      setSearchQuery("");
+      setSearchItems([]);
+    }, 10000);
   };
 
   const handleOutsideClick = () => {
@@ -107,6 +122,7 @@ const SearchBar = () => {
           placeholder="Пошук..."
           value={searchQuery}
           onChange={handleSearch}
+          onBlur={handleBlur}
         />
         {showResults && (
           <div className={s.search_results}>
@@ -118,7 +134,9 @@ const SearchBar = () => {
                   onClick={() => handleItemClick(item.id)}
                 >
                   <div className={s.search_item_block}>
-                    <div className={s.search_item_image}></div>
+                    <div className={s.search_item_image}>
+                      <img src={item.src} alt="img" />
+                    </div>
                     <div>
                       <p>{item.name}</p>
                       <p>

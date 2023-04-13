@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NavbarLink from "./components/NavbarLink";
 import SearchBar from "./components/SearchBar";
-import Modal from "./components/Modal/Modal";
+import Modal from "./components/Modal";
 import './index.scss'
 
 function App() {
