@@ -1,30 +1,44 @@
-import { style } from './ProductItem.module.scss';
-import { ReactComponent as Garbage } from '../../../svg/basket/garbage.svg';
+import style from './ProductItem.module.scss';
+import { ReactComponent as Garbage } from '../../../assets/svg/basket/garbage.svg';
 
-const ProductItem = ({imgUrl, title, priceUAH, priseUSD, amount}) => {
+const ProductItem = ({id, imgUrl, title, priceUAH, priseUSD, amount, removeFromBasket }) => {
+
+    const handleClick = () => {
+        console.log(id);
+    removeFromBasket(id);
+    };
+    
+    function trimString(str) {
+  if (str.length > 20) {
+    return str.slice(0, 20) + '...';
+  } else {
+    return str;
+  }
+}
+
     return (
-        <>
-            <img src={imgUrl} />
-            <div>
-                <div>
+        <li className={style.item}>
+            <img className={style.image } src={imgUrl} alt="image"/>
+            <div className={style.wrapper}>
+                <div className={style.wrapperFirst}>
                     <p>
-                        {title}
+                        {trimString(title)}
                     </p>
                     <p>
                         {amount}
                     </p>
                 </div>
-                <div>
+                <div >
                     <p>
-                        {priceUAH}
+                        {priceUAH} UAH
                     </p>
                     <p>
-                        {priseUSD}
+                        {priseUSD} $
                     </p>
                 </div>
             </div>
-            <Garbage/>
-        </>
+            <Garbage id={id} className={style.garbage }  onClick={handleClick}/>
+        </li>
     )
 }
 

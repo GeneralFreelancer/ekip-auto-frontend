@@ -1,0 +1,72 @@
+.modalCard{
+    max-width: 565px;
+    border:1px solid black;
+    padding: 10px; 
+    border-radius: 10px;  
+    position: absolute;
+}
+
+.wrapperShoppingCard{
+    position: relative;
+    display: inline-block;
+}
+
+.shoppingCard{
+     width: 45px;
+     height: 45px;
+}
+
+.number{
+        position: absolute;
+    background: red;
+    display: inline-block;
+    padding: 3px;
+    border-radius: 100%;
+    color: #fff;
+    font-weight: 600;
+    
+    bottom: 0;
+    right: 0;
+
+    height: 15px;
+    width: 15px;
+
+    text-align: center;
+}
+
+.textAlert{
+    padding: 15px 20px 5px 20px;
+
+}
+
+.more{
+    display: flex;
+    margin: auto;
+}
+
+.wrapperPrice{
+    display: flex;
+    margin-right: 40px;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+
+.price{
+    margin-right: 10px;   
+}
+
+.button{
+    display: block;
+    color: #000;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 5px;
+    border-top: 1px solid black;
+    text-decoration: none;
+}
+
+ul{
+    margin-bottom: 8px;
+    max-height: 333px;
+    overflow: auto;
+}

@@ -1,0 +1,52 @@
+.image{
+    width: 45px;
+    height: 60px;
+    object-fit: cover;
+
+    margin-right: 15px;
+    
+}
+
+.item{
+    
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+
+    border-bottom: 1px solid black;
+}
+
+.wrapper{
+    display: flex;
+    padding: 15px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.wrapperFirst{
+    margin-right: 110px;
+}
+
+.garbage{
+    width:45px;
+    height:45px;
+    cursor:pointer;
+}
+
+li {
+  list-style-type: none;
+  /* Убираем маркеры */
+}
+
+ul {
+  margin: 0;
+  /* Отступ слева в браузере IE и Opera */
+  padding: 0;
+  /* Отступ слева в браузере Firefox, Safari, Chrome */
+}
+
+p{
+    margin: 0;
+    padding: 0;
+}
+

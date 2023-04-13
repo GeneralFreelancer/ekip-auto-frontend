@@ -1,9 +1,13 @@
 import { Routes, Route } from "react-router-dom";
+import Basket from "./components/Basket";
+import AuthNav from "./components/AuthNav";
 
-export const App = () => {
+const App = () => {
     return (
         <div>
-            <Routes>
+            <Basket/>
+<AuthNav/>
+            {/* <Routes>
                 <Route path="/" element={<SharedLayout />}>
                     <Route index element={<Home />} />
                   
@@ -26,10 +30,12 @@ export const App = () => {
         
                         <Route path="*" element={<NotFound />} />
                     </Route>
-            </Routes>
+            </Routes> */}
         </div>
     );
 };
+
+export default App;
 
 
 
