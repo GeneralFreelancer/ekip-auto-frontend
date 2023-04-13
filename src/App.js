@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import NavbarLink from "./components/NavbarLink";
 import SearchBar from "./components/SearchBar";
-import Modal from "./components/Modal";
 import "./index.scss";
 // import { Routes, Route } from "react-router-dom";
 import Basket from "./components/Basket";
 import AuthNav from "./components/AuthNav";
+import Modal from "./components/Modal/Modal";
 // import HomePage from './pages/HomePage'
 
 function App() {
@@ -20,10 +20,11 @@ function App() {
       <div
         style={{
           backgroundColor: "black",
-          display: "flex",
-          alignItems: "center",
+          // display: "flex",
+          // alignItems: "center",
         }}
       >
+        <div></div>
         {modalIsVisible && <Modal onHideCart={hideCartHandler} />}
         <NavbarLink />
         <SearchBar />
