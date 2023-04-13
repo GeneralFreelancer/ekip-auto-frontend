@@ -1,10 +1,12 @@
 import style from "./hamburger.module.scss";
+import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg"
 
 const MenuHamburgere = () => {
   return (
     <>
-      <div className="menu__hamburger">
-            <div className="menu__content">
+      <div className={style.menu__hamburger}>
+            <Humburger className={style.menu__icon}/>
+            <div className={style.menu__content}>
               <ul>
                 <a href="#">
                   <li>test</li>

@@ -1,16 +1,21 @@
-import style from "./navbar.module.scss";
+import s from "./navbar.module.scss";
 import MenuHamburger from './MenuHamburger';
-import Container from "../Container";
+import NavbarLink from "./NavbarLink";
+import SearchBar from "./SearchBar";
+import Basket from "./Basket";
+import AuthNav from "./AuthNav";
 
 const Navbar = () => {
   return (
     <section>
-      <wrapper className={style.wrapper}>
-          <Container>
-            <nav>
+      <wrapper className={s.wrapper}>
+          <div className={s.container}>
               <MenuHamburger />
-            </nav>
-          </Container>
+              <NavbarLink />
+              <SearchBar />
+              <Basket />
+              <AuthNav />
+          </div>
       </wrapper>
     </section>
   );

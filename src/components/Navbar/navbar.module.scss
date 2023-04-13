@@ -5,5 +5,13 @@
   height: 73px;
   display: flex;
   background-color: $hardGrey;
-
 }
+.container {
+  width: 1620px;
+  height: auto;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+

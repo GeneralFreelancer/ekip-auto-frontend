@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 import style from './Basket.module.scss';
 import ProductItem from './ProductItem';
-import { ReactComponent as More } from '../../assets/svg/basket/more.svg';
-import { ReactComponent as ShoppingCard } from '../../assets/svg/basket/shopping-cart.svg';
+import { ReactComponent as More } from '../../../assets/svg/basket/more.svg';
+import { ReactComponent as ShoppingCard } from '../../../assets/svg/basket/shopping-cart.svg';
 
 let numberOfProducts0 = [
     {
