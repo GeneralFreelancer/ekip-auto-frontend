@@ -42,6 +42,10 @@
   flex-direction: column;
   gap: 8px;
   padding: 10px 20px;
+  form {
+    display: flex;
+    align-items: center;
+  }
   .callBackModal_input {
     height: 35px;
     padding: 0 10px;
@@ -54,7 +58,6 @@
   .callBackModal_btn {
     margin-left: 15px;
     height: 35px;
-    padding: 0 10px;
     border-radius: 7px;
     outline: none;
     border: 2px solid $ligthGrey;
@@ -63,6 +66,11 @@
     cursor: pointer;
     &:hover {
       scale: 1.05
+    }
+    svg {
+      fill: $hardGrey;
+      width: 20px;
+      height: 30px;
     }
   }
 }
