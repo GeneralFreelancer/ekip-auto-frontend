@@ -4,12 +4,20 @@ import HomePage from "./pages/HomePage";
 
 // import { Routes, Route } from "react-router-dom";
 
+// import HomePage from './pages/HomePage'
+
+import Slider from './components/Slider';
+
+
 function App() {
   return (
     <main>
       <HomePage />
     </main>
   );
+  // return (
+  //   <Slider/>
+  // )
 }
 
 export default App;
