@@ -8,7 +8,7 @@ import AuthNav from "./components/AuthNav";
 import Modal from "./components/Modal/Modal";
 // import HomePage from './pages/HomePage'
 
-
+import Slider from './components/Slider';
 
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <main>
-      <div
+      {/* <div
         style={{
           backgroundColor: "black",
           // display: "flex",
@@ -33,10 +33,13 @@ function App() {
         <SearchBar />
         <Basket />
         <AuthNav />
-      </div>
-      
+      </div> */}
+      <Slider/>
     </main>
   );
+  // return (
+  //   <Slider/>
+  // )
 }
 
 
