@@ -1,3 +1,5 @@
+@import "../../style/variables.scss";
+
 .backdrop {
   position: fixed;
   top: 0;
@@ -11,14 +13,14 @@
 .modal {
   position: fixed;
   top: 20vh;
-  width: 640px;
-  height: 390px;
-  background-color: white;
-  box-shadow: 3px 3px 5px rgb(75, 75, 75);
+  width: 630px;
+  max-height: 550px;
+  background-color: $white;
+  box-shadow: 2px 2px 8px $hardGrey;
   z-index: 30;
   animation: slide-down 300ms ease-out forwards;
   border-radius: 5px;
-  border: 3px solid rgb(68, 68, 68);
+  border: 3px solid $hardGrey;
 }
 
 @media (min-width: 768px) {
@@ -36,5 +38,26 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.btn_close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 3px solid $hardGrey;
+  border-radius: 50%;
+  position: absolute;
+  top: -39px;
+  right: -43px;
+  cursor: pointer;
+  &:hover {
+    scale: 1.1
+  }
+  svg {
+    width: 15px;
+    height: 15px;
   }
 }

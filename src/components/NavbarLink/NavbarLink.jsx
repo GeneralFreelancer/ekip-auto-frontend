@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import s from './NavbarLink.module.scss';
+import s from "./NavbarLink.module.scss";
 
 const NavbarLink = () => {
   return (
     <div className={s.logo_navlink}>
-      <div className={s.logo}></div>
+      <Link to="/">
+        <div className={s.logo}> </div>
+      </Link>
       <div className={s.nav_links}>
         <div className={s.nav_li}>
           <Link to="/about">Про нас</Link>

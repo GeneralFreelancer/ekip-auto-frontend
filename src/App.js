@@ -5,13 +5,15 @@ import "./index.scss";
 // import { Routes, Route } from "react-router-dom";
 import Basket from "./components/Basket";
 import AuthNav from "./components/AuthNav";
-import Modal from "./components/Modal/Modal";
+import AuthModal from "./components/AuthModal";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+import CallBackButton from "./components/CallBackButton";
 // import HomePage from './pages/HomePage'
 
 function App() {
   const [modalIsVisible, setModalIsVisible] = useState(true);
 
-  const hideCartHandler = () => {
+  const hideModalHandler = () => {
     setModalIsVisible(false);
   };
 
@@ -20,16 +22,17 @@ function App() {
       <div
         style={{
           backgroundColor: "black",
-          // display: "flex",
-          // alignItems: "center",
+          display: "flex",
+          alignItems: "center",
         }}
       >
-        <div></div>
-        {modalIsVisible && <Modal onHideCart={hideCartHandler} />}
+        {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
         <NavbarLink />
         <SearchBar />
         <Basket />
         <AuthNav />
+        <ScrollToTopButton/>
+        <CallBackButton />
       </div>
     </main>
   );
