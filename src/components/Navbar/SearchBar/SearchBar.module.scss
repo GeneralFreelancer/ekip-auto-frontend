@@ -1,3 +1,5 @@
+@import '../../../style/variables.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -7,11 +9,13 @@
   display: flex;
   align-items: center;
   .search_img {
-    width: 50px;
-    height: 35px;
-    background-image: url("../../assets/magnifying-glass.svg");
+    width: 25px;
+    height: 25px;
+    background-image: url("../../../assets/magnifying-glass.svg");
     background-repeat: no-repeat;
     background-size: cover;
+    filter: invert(1);
+    transform: rotate(90deg);
   }
   .input_block {
     width: 157px;
@@ -19,8 +23,9 @@
     padding: 0 10px;
     border-radius: 7px;
     outline: none;
-    border: 2px solid rgb(224, 224, 224);
-    background-color: rgb(255, 255, 255);
+    border: 2px solid $ligthGrey;
+    background-color: $lightWhite;
+    margin: 0  25px  0 10px;
   }
 }
 

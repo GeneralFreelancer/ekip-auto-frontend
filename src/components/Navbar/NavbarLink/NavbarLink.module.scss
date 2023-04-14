@@ -1,3 +1,4 @@
+@import '../../../style/variables.scss';
 * {
   box-sizing: border-box;
 }
@@ -5,11 +6,12 @@
 .logo_navlink {
   display: flex;
   align-items: center;
-  gap: 75px;
+  gap: 58px;
+  flex: 1;
 }
 
 .logo {
-  background-image: url("../../assets/logo.png");
+  background-image: url("../../../assets/logo.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -36,7 +38,7 @@
   transition: all 0.3s ease-out;
   a {
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    color: $lightWhite;
   }
 }
 
@@ -46,7 +48,7 @@
   cursor: pointer;
   a {
     text-decoration: none;
-    color: black;
+    color: $hardGrey;
     text-shadow:  1px 1px 2px grey;
   }
 }

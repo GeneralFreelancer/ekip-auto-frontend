@@ -113,6 +113,7 @@ const SearchBar = () => {
   }, [searchQuery, searchItems]);
 
   console.log(searchedFinalItems);
+  
   return (
     <OutsideClickHandler onOutsideClick={handleOutsideClick}>
       <div className={s.search_block}>

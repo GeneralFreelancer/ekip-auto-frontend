@@ -1,0 +1,47 @@
+@import "../../../style/variables.scss";
+
+.user{
+     width: 45px;
+     height: 45px;
+     fill: $lightWhite;
+}
+
+.userOpen{
+    width: 45px;
+    height: 45px;
+    fill: $hardGrey;
+}
+
+.list{
+    width: 140px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.item{
+    padding: 8px;
+}
+
+.item:not(:last-child){
+    border-bottom: 1px solid black;
+}
+
+.userWrapper {
+    display: flex;
+    position: relative;
+    width: 73px;
+    height: 73px;
+    align-items: center;
+    justify-content: center;
+} 
+
+.userWrapperOpen {
+    display: flex;
+    position: relative;
+    width: 73px;
+    height: 73px;
+    align-items: center;
+    justify-content: center;
+    background: $lightWhite;
+}

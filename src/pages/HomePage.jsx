@@ -1,20 +1,22 @@
-import Container from '../components/Container';
+import React, { useState } from "react";
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import Modal from "../components/Modal";
+import Container from "../components/Container";
 
 
 const HomePage = () => {
+  const [modalIsVisible, setModalIsVisible] = useState(true);
+
+  const hideCartHandler = () => {
+    setModalIsVisible(false);
+  };
   return(
     <>
-      <Navbar>
-
-      </Navbar>
-      <Container>
-        
-      </Container>
-      <Footer>
-
-      </Footer>
+    {modalIsVisible && <Modal onHideCart={hideCartHandler} />}
+      <Navbar />
+      <Container />
+      <Footer />
     </>
   )
 }

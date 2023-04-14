@@ -1,40 +1,20 @@
-import React, { useState } from "react";
-import NavbarLink from "./components/NavbarLink";
-import SearchBar from "./components/SearchBar";
+import React from 'react';
 import "./index.scss";
+import HomePage from "./pages/HomePage";
+
 // import { Routes, Route } from "react-router-dom";
-import Basket from "./components/Basket";
-import AuthNav from "./components/AuthNav";
-import Modal from "./components/Modal/Modal";
+
 // import HomePage from './pages/HomePage'
 
 import Slider from './components/Slider';
 
 
 function App() {
-  const [modalIsVisible, setModalIsVisible] = useState(true);
-
-  const hideCartHandler = () => {
-    setModalIsVisible(false);
-  };
+  
 
   return (
     <main>
-      {/* <div
-        style={{
-          backgroundColor: "black",
-          // display: "flex",
-          // alignItems: "center",
-        }}
-      >
-        <div></div>
-        {modalIsVisible && <Modal onHideCart={hideCartHandler} />}
-        <NavbarLink />
-        <SearchBar />
-        <Basket />
-        <AuthNav />
-      </div> */}
-      <Slider/>
+        <HomePage />
     </main>
   );
   // return (

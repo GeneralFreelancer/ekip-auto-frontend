@@ -1,5 +1,5 @@
 import style from './ProductItem.module.scss';
-import { ReactComponent as Garbage } from '../../../assets/svg/basket/garbage.svg';
+import { ReactComponent as Garbage } from '../../../../assets/svg/basket/garbage.svg';
 
 const ProductItem = ({id, imgUrl, title, priceUAH, priseUSD, amount, removeFromBasket }) => {
 
