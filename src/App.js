@@ -1,43 +1,16 @@
-import React, { useState } from "react";
-import NavbarLink from "./components/NavbarLink";
-import SearchBar from "./components/SearchBar";
+import React from "react";
 import "./index.scss";
+import HomePage from "./pages/HomePage";
+
 // import { Routes, Route } from "react-router-dom";
-import Basket from "./components/Basket";
-import AuthNav from "./components/AuthNav";
-import AuthModal from "./components/AuthModal";
-import ScrollToTopButton from "./components/ScrollToTopButton";
-import CallBackButton from "./components/CallBackButton";
-// import HomePage from './pages/HomePage'
 
 function App() {
-  const [modalIsVisible, setModalIsVisible] = useState(true);
-
-  const hideModalHandler = () => {
-    setModalIsVisible(false);
-  };
-
   return (
     <main>
-      <div
-        style={{
-          backgroundColor: "black",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
-        <NavbarLink />
-        <SearchBar />
-        <Basket />
-        <AuthNav />
-        <ScrollToTopButton/>
-        <CallBackButton />
-      </div>
+      <HomePage />
     </main>
   );
 }
-
 
 export default App;
 

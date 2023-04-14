@@ -1,16 +1,22 @@
-import style from "./navbar.module.scss";
+import s from "./Navbar.module.scss";
 import MenuHamburger from './MenuHamburger';
+import NavbarLink from "./NavbarLink";
+import SearchBar from "./SearchBar";
+import Basket from "./Basket";
+import AuthNav from "./AuthNav";
 import Container from "../Container";
 
 const Navbar = () => {
   return (
     <section>
-      <wrapper className={style.wrapper}>
-          <Container>
-            <nav>
+      <wrapper className={s.wrapper}>
+          <Container styleName={'padding'}>
               <MenuHamburger />
-            </nav>
-          </Container>
+              <NavbarLink />
+                <SearchBar />
+                <Basket />
+                <AuthNav />   
+          </Container>   
       </wrapper>
     </section>
   );

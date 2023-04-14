@@ -1,4 +1,4 @@
-@import '../../style/variables.scss';
+@import '../../../style/variables.scss';
 
 * {
   box-sizing: border-box;
@@ -12,7 +12,7 @@
 }
 
 .logo {
-  background-image: url("../../assets/logo.png");
+  background-image: url("../../../assets/logo.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -36,7 +36,7 @@
   letter-spacing: 1.5px;
   border-radius: 7px;
   border: none;
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease-out;
   a {
     text-decoration: none;
     color: $white;
