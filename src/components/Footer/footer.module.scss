@@ -1,0 +1,12 @@
+@import '../../style/variables.scss'; 
+
+.wrapperFooter{
+    display:flex;
+    justify-content: space-between;
+    padding: 15px 45px;
+    background-color: $hardGrey;
+}
+
+.text{
+   color: $lightWhite;
+}
