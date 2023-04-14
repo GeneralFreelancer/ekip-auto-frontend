@@ -1,13 +1,13 @@
 // import { Routes, Route } from "react-router-dom";
-import Basket from './components/Basket'
-import AuthNav from './components/AuthNav'
+
 // import HomePage from './pages/HomePage'
+
+
 
 const App = () => {
     return (
       <main>
-        <Basket/>
-<AuthNav/>
+        
              {/* <HomePage /> */}
       </main>
     );

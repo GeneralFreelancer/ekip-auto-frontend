@@ -1,0 +1,59 @@
+.card{
+    box-sizing: border-box;
+    display: flex;
+    width: 255px;
+    height: 290px;
+    padding: 7px 25px;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border-right:1px solid black;
+    border-bottom:1px solid black;
+}
+
+.lastCard{
+    border-right:0;
+}
+
+.wrapperImg{
+    display: flex;
+    width: 200px;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgProduct{
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+
+    margin-bottom: 5px;
+}
+
+.title{
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.inStock{
+    text-align: end;
+    margin-bottom: 3px;
+}
+
+.inStockYes{
+    color:#008000
+}
+
+.inStockNo{
+    color: #f00;
+}
+
+.wrapperPrice{
+    display: flex;
+    justify-content: space-between;
+}
+
+h3{
+    margin:0;
+}
