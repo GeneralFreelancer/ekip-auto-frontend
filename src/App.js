@@ -10,6 +10,7 @@ import Modal from "./components/Modal/Modal";
 
 
 
+
 function App() {
   const [modalIsVisible, setModalIsVisible] = useState(true);
 
@@ -33,6 +34,7 @@ function App() {
         <Basket />
         <AuthNav />
       </div>
+      
     </main>
   );
 }
