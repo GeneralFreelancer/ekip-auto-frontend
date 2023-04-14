@@ -5,6 +5,7 @@
   height: 73px;
   display: flex;
   background-color: $hardGrey;
+  box-shadow: 0px 0px 2px 1px rgb(0 0 0 / 54%);
 }
 .container {
   width: 1620px;
@@ -13,5 +14,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.padding {
+  padding: 0 46px;
 }
 

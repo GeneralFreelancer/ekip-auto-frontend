@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import Modal from "../components/Modal";
+import Container from "../components/Container";
 
 
 const HomePage = () => {
@@ -14,6 +15,7 @@ const HomePage = () => {
     <>
     {modalIsVisible && <Modal onHideCart={hideCartHandler} />}
       <Navbar />
+      <Container />
       <Footer />
     </>
   )

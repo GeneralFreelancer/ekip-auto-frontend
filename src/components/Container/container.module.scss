@@ -1,6 +1,12 @@
 .container {
-  max-width: 1620px;
-  background: #fff;
+  width: 1620px;
   height: auto;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.padding {
+  padding: 0 46px;
 }

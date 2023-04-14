@@ -4,15 +4,16 @@ import { useState } from "react";
 
 const AuthNav = () => {
   const [showModal, setShowModal] = useState(false);
-  const [authUser, setAuthUser] = useState(false);
+  const [authUser, setAuthUser] = useState(true);
 
   const onClick = () => {
-    // if (authUser) {
-    //      setShowModal(prevState => { setShowModal(!prevState) })
-    // }else{
-    // виклик модалки
-    // }
+    if (authUser) {
+         setShowModal(prevState => { setShowModal(!prevState) })
+    }else{
+    
+    }
 
+    console.log('click')
     setShowModal((prevState) => {
       setShowModal(!prevState);
     });
@@ -20,15 +21,20 @@ const AuthNav = () => {
 
   return (
     <>
-      <User className={style.user} onClick={onClick} />
-      {showModal && (
-        <ul className={style.list}>
-          <li className={style.item}>Моя сторінка</li>
-          <li className={style.item}>Замовлення</li>
-          <li className={style.item}>Вийти</li>
-        </ul>
-      )}
-      {authUser && <p>{authUser.name}</p>}
+      <div className={!showModal ? style.userWrapper : style.userWrapperOpen}>
+        <User
+          className={!showModal ? style.user : style.userOpen}
+          onClick={onClick}
+        />
+        {showModal && (
+          <ul className={style.list}>
+            <li className={style.item}>Моя сторінка</li>
+            <li className={style.item}>Замовлення</li>
+            <li className={style.item}>Вийти</li>
+          </ul>
+        )}
+        {authUser && <p>{authUser.name}</p>}
+      </div>
     </>
   );
 };

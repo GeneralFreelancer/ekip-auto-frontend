@@ -1,15 +1,37 @@
 @import '../../../style/variables.scss';
 .modalCard{
-    max-width: 565px;
-    border:1px solid black;
+    width: 565px;
+    border:1px solid #9f9e9e;
     padding: 10px; 
     border-radius: 4px;  
     position: absolute;
+    display: block;
+    right: 0;
+    background: white;
+    top: 73px;
 }
 
 .wrapperShoppingCard{
     position: relative;
-    display: inline-block;
+    display: flex;
+    height: 73px;
+    width: 68px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.wrapperShoppingCardOpen {
+    background: $lightWhite;
+    position: relative;
+    display: flex;
+    height: 73px;
+    width: 68px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: $lightWhite;
 }
 
 .shoppingCard{
@@ -18,21 +40,24 @@
      fill: $lightWhite;
 }
 
+.shoppingCardOpen{
+    width: 45px;
+    height: 45px;
+    fill: $hardGrey;
+}
+
 .number{
     position: absolute;
-    background: red;
+    background: #f34951;
     display: inline-block;
-    padding: 3px;
+    padding: 4px;
     border-radius: 100%;
-    color: #fff;
+    color: black;
     font-weight: 600;
-    
-    bottom: 0;
-    right: 0;
-
-    height: 15px;
-    width: 15px;
-
+    bottom: 10px;
+    right: 3px;
+    height: 28px;
+    width: 28px;
     text-align: center;
 }
 
@@ -63,7 +88,7 @@
     text-transform: uppercase;
     text-align: center;
     padding-top: 5px;
-    border-top: 1px solid black;
+    border-top: 1px solid #9f9e9e;
     text-decoration: none;
 }
 

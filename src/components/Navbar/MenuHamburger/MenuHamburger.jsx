@@ -1,4 +1,4 @@
-import style from "./hamburger.module.scss";
+import style from "./Hamburger.module.scss";
 import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg"
 
 const MenuHamburgere = () => {
