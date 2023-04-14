@@ -8,6 +8,8 @@ import AuthNav from "./components/AuthNav";
 import Modal from "./components/Modal/Modal";
 // import HomePage from './pages/HomePage'
 
+
+
 function App() {
   const [modalIsVisible, setModalIsVisible] = useState(true);
 
