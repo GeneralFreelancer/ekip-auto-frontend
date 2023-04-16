@@ -16,7 +16,7 @@
   z-index: 10;
   cursor: pointer;
   &:hover {
-    scale: 1.05
+    scale: 1.05;
   }
   svg {
     fill: $hardGrey;
@@ -32,9 +32,31 @@
   border: 2px solid $hardGrey;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
   position: fixed;
-  bottom: 68px;
+  bottom: 74px;
   right: 120px;
   border-radius: 7px;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    right: -10px;
+    background-color: #ffffff;
+    height: 35px;
+    width: 36px;
+    clip-path: polygon(62% 29%, 25% 70%, 100% 100%);
+    transform: rotate(5deg);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    right: -8px;
+    background-color: #333030;
+    box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.56);
+    height: 2px;
+    width: 20px;
+    transform: rotate(17deg);
+  }
 }
 
 .callBackModalContent {
@@ -45,6 +67,17 @@
   form {
     display: flex;
     align-items: center;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0px;
+      right: -12px;
+      background-color: #333030;
+      box-shadow: 1px -1px 3px rgba(0, 0, 0, 0.56);
+      height: 2px;
+      width: 17px;
+      transform: rotate(69deg);
+    }
   }
   .callBackModal_input {
     height: 35px;
@@ -65,7 +98,7 @@
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
     cursor: pointer;
     &:hover {
-      scale: 1.05
+      scale: 1.05;
     }
     svg {
       fill: $hardGrey;
@@ -74,4 +107,3 @@
     }
   }
 }
-

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ReactComponent as Phone } from "../../assets/svg/phone-call.svg";
 import s from "./CallbackButton.module.scss";
 import { ReactComponent as Send } from "../../assets/svg/send.svg";
+import { PatternFormat } from "react-number-format";
 
 const CallBackButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,10 +17,6 @@ const CallBackButton = () => {
 
   const changePhoneHandler = (e) => {
     const cleanedValue = e.target.value.replace(/\D/g, "");
-    // let formattedValue = '+38 (0__) ___ __ __';
-    // for (let i = 0; i < cleanedValue.length && i < 8; i++) {
-    //   formattedValue = formattedValue.replace('_', cleanedValue[i]);
-    // }
 
     setPhoneNumber(cleanedValue);
   };
@@ -42,15 +39,17 @@ const CallBackButton = () => {
             <br></br>
             <p style={{ marginLeft: "10px" }}>Зателефонувати мені:</p>
             <form onSubmit={handleSubmit}>
-              <input
-                type="tel"
+              <PatternFormat
+                // type="tel"
                 id="phone"
                 name="phone"
+                format="+38 (0##) ### ## ##"
+                allowEmptyFormatting
+                mask="_"
                 className={s.callBackModal_input}
                 onChange={changePhoneHandler}
-                value={phoneNumber}
+                // value={phoneNumber}
               />
-
               <button className={s.callBackModal_btn} type="submit">
                 <Send />
               </button>
