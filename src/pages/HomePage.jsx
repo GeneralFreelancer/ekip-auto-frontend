@@ -5,12 +5,15 @@ import Container from "../components/Container";
 import AuthModal from "../components/AuthModal/AuthModal";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
+import Slider from "../components/Slider";
+import ListCards from "../components/ListCards/ListCards";
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
 
   const showModalHandler = () => {
-    if (localStorage.getItem("authSuccess")) { // localStorage
+    if (localStorage.getItem("authSuccess")) {
+      // localStorage
       setModalIsVisible(false);
     } else {
       setModalIsVisible(true);
@@ -25,7 +28,12 @@ const HomePage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <Container />
+      <Container/>
+      <Slider />
+      <ListCards title={'Останні надходження'}/>
+      <ListCards title={'Топ продажу'}/>
+      <ListCards title={'Останні переглянуті'}/>
+      <ListCards title={'Вас може зацікавити'}/>
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} />

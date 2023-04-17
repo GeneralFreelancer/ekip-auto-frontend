@@ -1,117 +1,116 @@
-@import '../../../style/variables.scss';
-.modalCard{
-    width: 565px;
-    border:1px solid #9f9e9e;
-    border-radius: 4px;  
-    position: absolute;
-    display: block;
-    right: 0;
-    background: white;
-    top: 73px;
-    & > ul {
-        margin-bottom: 8px;
-        max-height: 333px;
-        overflow: auto;
-        padding: 0 10px;
-    }
+@import "../../../style/variables.scss";
+.modalCard {
+  width: 565px;
+  border: 1px solid #9f9e9e;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  display: block;
+  right: 0;
+  background: white;
+  top: 73px;
+  & > ul {
+    margin-bottom: 8px;
+    max-height: 333px;
+    overflow: auto;
+    padding: 0 10px;
+  }
 }
 
-.wrapperShoppingCard{
-    position: relative;
-    display: flex;
-    height: 73px;
-    width: 68px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    
+.wrapperShoppingCard {
+  position: relative;
+  display: flex;
+  height: 73px;
+  width: 68px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
 }
 
 .wrapperShoppingCardOpen {
-    background: $lightWhite;
-    position: relative;
-    display: flex;
-    height: 73px;
-    width: 68px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  background: $lightWhite;
+  position: relative;
+  display: flex;
+  height: 73px;
+  width: 68px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: $lightWhite;
+}
+
+.shoppingCard {
+  width: 45px;
+  height: 45px;
+  fill: $lightWhite;
+}
+
+.shoppingCardOpen {
+  width: 45px;
+  height: 45px;
+  fill: $hardGrey;
+}
+
+.number {
+  position: absolute;
+  background: #f34951;
+  display: inline-block;
+  padding: 4px;
+  border-radius: 100%;
+  color: $lightWhite;
+  font-weight: 600;
+  bottom: 10px;
+  right: 3px;
+  height: 28px;
+  width: 28px;
+  text-align: center;
+}
+
+.numberOpen {
+  position: absolute;
+  background: #f34951;
+  display: inline-block;
+  padding: 4px;
+  border-radius: 100%;
+  color: black;
+  font-weight: 600;
+  bottom: 10px;
+  right: 3px;
+  height: 28px;
+  width: 28px;
+  text-align: center;
+}
+
+.textAlert {
+  padding: 15px 20px 5px 20px;
+}
+
+.more {
+  display: flex;
+  margin: auto;
+}
+
+.wrapperPrice {
+  display: flex;
+  margin-right: 40px;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+}
+
+.price {
+  margin-right: 10px;
+}
+
+.button {
+  display: block;
+  color: #000;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 5px 0;
+  border-top: 1px solid #9f9e9e;
+  text-decoration: none;
+  &:hover {
     background-color: $lightWhite;
+  }
 }
-
-.shoppingCard{
-     width: 45px;
-     height: 45px;
-     fill: $lightWhite;
-}
-
-.shoppingCardOpen{
-    width: 45px;
-    height: 45px;
-    fill: $hardGrey;
-}
-
-.number{
-    position: absolute;
-    background: #f34951;
-    display: inline-block;
-    padding: 4px;
-    border-radius: 100%;
-    color: $lightWhite;
-    font-weight: 600;
-    bottom: 10px;
-    right: 3px;
-    height: 28px;
-    width: 28px;
-    text-align: center;
-}
-
-.numberOpen{
-    position: absolute;
-    background: #f34951;
-    display: inline-block;
-    padding: 4px;
-    border-radius: 100%;
-    color: black;
-    font-weight: 600;
-    bottom: 10px;
-    right: 3px;
-    height: 28px;
-    width: 28px;
-    text-align: center;
-}
-
-.textAlert{
-    padding: 15px 20px 5px 20px;
-
-}
-
-.more{
-    display: flex;
-    margin: auto;
-}
-
-.wrapperPrice{
-    display: flex;
-    margin-right: 40px;
-    justify-content: flex-end;
-    margin-bottom: 5px;
-}
-
-.price{
-    margin-right: 10px;   
-}
-
-.button{
-    display: block;
-    color: #000;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 5px 0;
-    border-top: 1px solid #9f9e9e;
-    text-decoration: none;
-    &:hover {
-        background-color: $lightWhite;
-    }
-}
-

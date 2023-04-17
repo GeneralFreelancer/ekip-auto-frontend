@@ -11,7 +11,7 @@ const Navbar = (props) => {
     <section>
       <wrapper className={s.wrapper}>
         <Container styleName={"padding"}>
-          <MenuHamburger />
+          {/* <MenuHamburger /> */}
           <NavbarLink />
           <SearchBar />
           <Basket />

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import style from './ListCards.module.scss'
-import Card from '../Card'
+import Card from './Card'
 
 let cardsData = [
     {
