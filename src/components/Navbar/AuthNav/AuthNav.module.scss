@@ -14,17 +14,33 @@
 
 .list{
     width: 140px;
-    border: 1px solid black;
+    border: 1px solid $hardGrey;
     border-radius: 5px;
     text-align: center;
+    position: absolute;
+    top: 57px;
+    right: 0;
+    background: white;
+    overflow: hidden;
 }
 
 .item{
-    padding: 8px;
+    display: block;
+    text-decoration: none;
+    color: black;
+    &:hover > li {
+        background-color: $lightWhite;
+    }
+    & > li {
+        list-style-type: none;
+        height: 37px;
+        align-content: center;
+        line-height: 2.4;
+    }
 }
 
 .item:not(:last-child){
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $hardGrey;
 }
 
 .userWrapper {

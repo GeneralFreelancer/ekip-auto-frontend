@@ -26,8 +26,7 @@
 }
 
 .nav_li  {
-  width: 157px;
-  height: 35px;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,9 +36,11 @@
   border-radius: 7px;
   border: none;
   transition: all 0.3s ease-out;
+  padding: 5px;
   a {
     text-decoration: none;
-    color: $white;
+    color: $lightWhite;
+    font-size: $h2;
   }
 }
 

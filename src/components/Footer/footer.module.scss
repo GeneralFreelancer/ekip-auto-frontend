@@ -3,10 +3,30 @@
 .wrapperFooter{
     display:flex;
     justify-content: space-between;
-    padding: 15px 45px;
     background-color: $hardGrey;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 63px;
 }
 
 .text{
-   color: $lightWhite;
+   color: #bcbab5;
+   font-size: $p20;
+}
+
+.exchageContainer {
+    display: flex;
+    align-items: center;
+    .textSmall {
+        display: flex;
+        align-items: center;
+        font-size: $p; 
+        color: $lightWhite;
+        margin-right: 24px;
+        .textRate {
+            font-size: $h2; 
+            margin: 0 5px;
+        }
+    }
 }
