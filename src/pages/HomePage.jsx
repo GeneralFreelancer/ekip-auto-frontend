@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import Modal from "../components/Modal";
 import Container from "../components/Container";
+import AuthModal from "../components/AuthModal/AuthModal";
+import ScrollToTopButton from "../components/ScrollToTopButton";
+import CallBackButton from "../components/CallBackButton";
 
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
 
-  const hideCartHandler = () => {
+  const hideModalHandler = () => {
     setModalIsVisible(false);
   };
+
   return(
     <>
-    {modalIsVisible && <Modal onHideCart={hideCartHandler} />}
+    {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar />
       <Container />
+      <ScrollToTopButton/>
+      <CallBackButton />
       <Footer currentRate={'38.9'}/>
     </>
   )

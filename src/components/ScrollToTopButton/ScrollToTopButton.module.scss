@@ -1,0 +1,29 @@
+@import "../../style/variables.scss";
+
+.topButton {
+  position: fixed;
+  right: 40px;
+  bottom: 115px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  background-color: $ligthGrey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  cursor: pointer;
+  &:hover {
+    scale: 1.05
+  }
+  svg {
+    fill: $hardGrey;
+    width: 28px;
+    height: 21px;
+  }
+}
+
+
+

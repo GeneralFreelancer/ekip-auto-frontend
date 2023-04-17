@@ -1,0 +1,77 @@
+@import "../../style/variables.scss";
+
+.callButton {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  background-color: $ligthGrey;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  cursor: pointer;
+  &:hover {
+    scale: 1.05
+  }
+  svg {
+    fill: $hardGrey;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.callBackModal {
+  width: 340px;
+  height: 230px;
+  background-color: $white;
+  border: 2px solid $hardGrey;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  position: fixed;
+  bottom: 68px;
+  right: 120px;
+  border-radius: 7px;
+}
+
+.callBackModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 20px;
+  form {
+    display: flex;
+    align-items: center;
+  }
+  .callBackModal_input {
+    height: 35px;
+    padding: 0 10px;
+    border-radius: 7px;
+    outline: none;
+    border: 2px solid $ligthGrey;
+    background-color: $lightWhite;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  }
+  .callBackModal_btn {
+    margin-left: 15px;
+    height: 35px;
+    border-radius: 7px;
+    outline: none;
+    border: 2px solid $ligthGrey;
+    background-color: $lightWhite;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+    cursor: pointer;
+    &:hover {
+      scale: 1.05
+    }
+    svg {
+      fill: $hardGrey;
+      width: 20px;
+      height: 30px;
+    }
+  }
+}
+

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import "./index.scss";
 import HomePage from "./pages/HomePage";
 
@@ -6,19 +6,19 @@ import HomePage from "./pages/HomePage";
 
 // import HomePage from './pages/HomePage'
 
-
+import Slider from './components/Slider';
 
 
 function App() {
-  
-
   return (
     <main>
-        <HomePage />
+      <HomePage />
     </main>
   );
+  // return (
+  //   <Slider/>
+  // )
 }
-
 
 export default App;
 

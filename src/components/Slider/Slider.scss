@@ -1,0 +1,58 @@
+.each-slide-effect > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 350px;
+
+  span {
+    padding: 20px;
+    font-size: 20px;
+    background: #efefef;
+    text-align: center;
+  }
+}
+
+.indicators {
+  cursor: pointer;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 25px;
+  /* top: 0; */
+  left: 0;
+  right: 0;
+  margin-top: -40px;
+  overflow: hidden;
+  gap: 8px;
+
+  &.active {
+    color: #fff;
+    background: #666;
+  }
+}
+
+.wrapperSlider {
+  max-width: 1140px;
+  height: 375px;
+  position: relative;
+
+  .react-slideshow-container + ul.indicators .each-slideshow-indicator:before {
+    background: #fff !important;
+    width: 12px;
+    height: 12px;
+  }
+
+  .react-slideshow-container .default-nav {
+    background: rgba(42, 42, 42, 0.6) !important;
+
+    > svg {
+      fill: #ffffffa3;
+    }
+  }
+}
+
+
+.react-slideshow-container+ul.indicators li {
+  height: 12px;
+  width: 12px;
+}
