@@ -28,12 +28,12 @@ const HomePage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <Container/>
+      <Container />
       <Slider />
-      <ListCards title={'Останні надходження'}/>
-      <ListCards title={'Топ продажу'}/>
-      <ListCards title={'Останні переглянуті'}/>
-      <ListCards title={'Вас може зацікавити'}/>
+      <ListCards title={"Останні надходження"} />
+      <ListCards title={"Топ продажу"} />
+      <ListCards title={"Останні переглянуті"} />
+      <ListCards title={"Вас може зацікавити"} />
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} />
