@@ -1,63 +1,66 @@
 @import "../../../style/variables.scss";
 
-.user{
-     width: 45px;
-     height: 45px;
-     fill: $lightWhite;
+.user {
+  width: 45px;
+  height: 45px;
+  fill: $lightWhite;
 }
 
-.userOpen{
-    width: 45px;
-    height: 45px;
-    fill: $hardGrey;
+.userOpen {
+  width: 45px;
+  height: 45px;
+  fill: $hardGrey;
 }
 
-.list{
-    width: 140px;
-    border: 1px solid $hardGrey;
-    border-radius: 5px;
-    text-align: center;
-    position: absolute;
-    top: 57px;
-    right: 0;
-    background: white;
-    overflow: hidden;
+.list {
+  width: 140px;
+  border: 1px solid $hardGrey;
+  border-radius: 5px;
+  text-align: center;
+  position: absolute;
+  top: 57px;
+  right: 0;
+  background: white;
+  overflow: hidden;
 }
 
-.item{
-    display: block;
-    text-decoration: none;
-    color: black;
-    &:hover > li {
-        background-color: $lightWhite;
-    }
-    & > li {
-        list-style-type: none;
-        height: 37px;
-        align-content: center;
-        line-height: 2.4;
-    }
+.item {
+  display: block;
+  text-decoration: none;
+  color: black;
+  &:hover > li {
+    background-color: $lightWhite;
+  }
+  & > li {
+    list-style-type: none;
+    height: 37px;
+    align-content: center;
+    line-height: 2.4;
+  }
 }
 
-.item:not(:last-child){
-    border-bottom: 1px solid $hardGrey;
+.item:not(:last-child) {
+  border-bottom: 1px solid $hardGrey;
 }
 
 .userWrapper {
-    display: flex;
-    position: relative;
-    width: 73px;
-    height: 73px;
-    align-items: center;
-    justify-content: center;
-} 
+  display: flex;
+  position: relative;
+  width: 73px;
+  height: 73px;
+  align-items: center;
+  justify-content: center;
+  svg {
+    cursor: pointer;
+  }
+}
 
 .userWrapperOpen {
-    display: flex;
-    position: relative;
-    width: 73px;
-    height: 73px;
-    align-items: center;
-    justify-content: center;
-    background: $lightWhite;
+  display: flex;
+  position: relative;
+  width: 73px;
+  height: 73px;
+  align-items: center;
+  justify-content: center;
+  background: $lightWhite;
 }

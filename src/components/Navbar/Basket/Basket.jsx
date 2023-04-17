@@ -121,7 +121,7 @@ const Basket = () => {
       prevProducts.filter((product) => product.id !== id)
     );
   };
-  console.log(showModal);
+  // console.log(showModal);
   return (
     <>
       <div

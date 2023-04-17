@@ -112,7 +112,7 @@ const SearchBar = () => {
     );
   }, [searchQuery, searchItems]);
 
-  console.log(searchedFinalItems);
+  // console.log(searchedFinalItems);
   
   return (
     <OutsideClickHandler onOutsideClick={handleOutsideClick}>

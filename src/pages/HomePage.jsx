@@ -1,29 +1,36 @@
 import React, { useState } from "react";
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 import Container from "../components/Container";
 import AuthModal from "../components/AuthModal/AuthModal";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
 
-
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
+
+  const showModalHandler = () => {
+    if (localStorage.getItem("authSuccess")) { // localStorage
+      setModalIsVisible(false);
+    } else {
+      setModalIsVisible(true);
+    }
+  };
 
   const hideModalHandler = () => {
     setModalIsVisible(false);
   };
 
-  return(
+  return (
     <>
-    {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
-      <Navbar />
+      {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
+      <Navbar onShowModal={showModalHandler} />
       <Container />
-      <ScrollToTopButton/>
+      <ScrollToTopButton />
       <CallBackButton />
-      <Footer currentRate={'38.9'}/>
+      <Footer currentRate={"38.9"} />
     </>
-  )
-}
+  );
+};
 
 export default HomePage;

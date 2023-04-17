@@ -1,23 +1,25 @@
 import style from "./AuthNav.module.scss";
 import { ReactComponent as User } from "../../../assets/svg/authNav/user.svg";
-import { useState,} from "react";
-import { Link } from 'react-router-dom'
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const AuthNav = () => {
+const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
-  const [authUser, setAuthUser] = useState(true);
+  let [authUser, setAuthUser] = useState(false);
 
   const onClick = () => {
+    authUser = localStorage.getItem("authSuccess") // localStorage
     if (authUser) {
-         setShowModal(prevState => { setShowModal(!prevState) })
-    }else{
-    
+      setShowModal((prevState) => !prevState);
+      // setShowModal((prevState) => {
+      //   setShowModal(!prevState);
+      // });
+    } else {
     }
-
-    console.log('click')
-    setShowModal((prevState) => {
-      setShowModal(!prevState);
-    });
+    // console.log("click");
+    // setShowModal((prevState) => {
+    //   setShowModal(!prevState);
+    // });
   };
 
   return (
@@ -25,7 +27,10 @@ const AuthNav = () => {
       <div className={!showModal ? style.userWrapper : style.userWrapperOpen}>
         <User
           className={!showModal ? style.user : style.userOpen}
-          onClick={onClick}
+          onClick={() => {
+            onClick();
+            props.onShowModal();
+          }}
         />
         {showModal && (
           <ul className={style.list}>
