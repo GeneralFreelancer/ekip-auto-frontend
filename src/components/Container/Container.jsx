@@ -1,4 +1,4 @@
-import style from './container.module.scss';
+import style from './Container.module.scss';
 
 const Container = (props) => {
   

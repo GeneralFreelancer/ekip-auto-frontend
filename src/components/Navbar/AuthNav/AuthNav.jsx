@@ -1,6 +1,7 @@
 import style from "./AuthNav.module.scss";
 import { ReactComponent as User } from "../../../assets/svg/authNav/user.svg";
-import { useState } from "react";
+import { useState,} from "react";
+import { Link } from 'react-router-dom'
 
 const AuthNav = () => {
   const [showModal, setShowModal] = useState(false);
@@ -28,9 +29,15 @@ const AuthNav = () => {
         />
         {showModal && (
           <ul className={style.list}>
-            <li className={style.item}>Моя сторінка</li>
-            <li className={style.item}>Замовлення</li>
-            <li className={style.item}>Вийти</li>
+            <Link className={style.item} to={"#"}>
+              <li>Моя сторінка</li>
+            </Link>
+            <Link className={style.item} to={"#"}>
+              <li>Замовлення</li>
+            </Link>
+            <Link className={style.item} to={"#"}>
+              <li>Вийти</li>
+            </Link>
           </ul>
         )}
         {authUser && <p>{authUser.name}</p>}

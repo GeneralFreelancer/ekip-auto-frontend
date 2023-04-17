@@ -130,7 +130,7 @@ const Basket = () => {
         onMouseLeave={handleMouseLeave}
       >
         <ShoppingCard className={!showModal ? style.shoppingCard : style.shoppingCardOpen} />
-        <div className={style.number}>
+        <div className={!showModal ? style.number : style.numberOpen}>
           <p>{numberOfProducts.length}</p>
         </div>
       

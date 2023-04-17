@@ -6,7 +6,7 @@ import Container from "../components/Container";
 
 
 const HomePage = () => {
-  const [modalIsVisible, setModalIsVisible] = useState(true);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
 
   const hideCartHandler = () => {
     setModalIsVisible(false);
@@ -16,7 +16,7 @@ const HomePage = () => {
     {modalIsVisible && <Modal onHideCart={hideCartHandler} />}
       <Navbar />
       <Container />
-      <Footer />
+      <Footer currentRate={'38.9'}/>
     </>
   )
 }

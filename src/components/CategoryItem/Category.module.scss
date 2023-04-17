@@ -1,0 +1,64 @@
+@import '../../style/variables.scss';
+
+.menu {
+  &__content {
+    position: absolute;
+    width: 330px;
+    height: 445px;
+    background: $hardGrey;
+    left: 0;
+    top: 49px;
+    border: 1px solid $lightWhite;
+    border-radius: 2px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &__show_sub {
+      position: absolute;
+      width: 330px;
+      height: 445px;
+      background: $hardGrey;
+      left: 0;
+      top: 49px;
+      border: 1px solid $lightWhite;
+      border-radius: 2px;
+      overflow-y: none;
+      overflow-x: none;
+    }
+    & > ul {
+      margin: 0;
+      padding: 0;
+    }
+    &__link {
+        text-decoration: none;
+        border-bottom: 1px solid $lightWhite;
+        display: block;
+        &:hover > li {
+          background-color: $lightWhite;
+          color: $hardGrey;
+          padding: 10px 0px 10px 32px;
+        }
+        li {
+          color: $lightWhite;
+          font-size: $h2;
+          padding-left: 17px;
+          color: #f8f7f0;
+          text-transform: uppercase;
+          position: relative;
+          padding: 10px 0px 10px 17px;
+        }
+      }
+    }
+    &__subContent {
+    position: absolute;
+    width: 330px;
+    height: 445px;
+    background: $hardGrey;
+    right: -330px;
+    top: 0;
+    border: 1px solid $lightWhite;
+    border-radius: 2px;
+    overflow: auto;
+    } 
+  }   
+  
+

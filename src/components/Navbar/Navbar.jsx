@@ -13,9 +13,9 @@ const Navbar = () => {
           <Container styleName={'padding'}>
               <MenuHamburger />
               <NavbarLink />
-                <SearchBar />
-                <Basket />
-                <AuthNav />   
+              <SearchBar />
+              <Basket />
+              <AuthNav />   
           </Container>   
       </wrapper>
     </section>

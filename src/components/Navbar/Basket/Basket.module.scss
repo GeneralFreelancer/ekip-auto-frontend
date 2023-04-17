@@ -2,13 +2,18 @@
 .modalCard{
     width: 565px;
     border:1px solid #9f9e9e;
-    padding: 10px; 
     border-radius: 4px;  
     position: absolute;
     display: block;
     right: 0;
     background: white;
     top: 73px;
+    & > ul {
+        margin-bottom: 8px;
+        max-height: 333px;
+        overflow: auto;
+        padding: 0 10px;
+    }
 }
 
 .wrapperShoppingCard{
@@ -52,6 +57,21 @@
     display: inline-block;
     padding: 4px;
     border-radius: 100%;
+    color: $lightWhite;
+    font-weight: 600;
+    bottom: 10px;
+    right: 3px;
+    height: 28px;
+    width: 28px;
+    text-align: center;
+}
+
+.numberOpen{
+    position: absolute;
+    background: #f34951;
+    display: inline-block;
+    padding: 4px;
+    border-radius: 100%;
     color: black;
     font-weight: 600;
     bottom: 10px;
@@ -87,13 +107,11 @@
     color: #000;
     text-transform: uppercase;
     text-align: center;
-    padding-top: 5px;
+    padding: 5px 0;
     border-top: 1px solid #9f9e9e;
     text-decoration: none;
+    &:hover {
+        background-color: $lightWhite;
+    }
 }
 
-ul{
-    margin-bottom: 8px;
-    max-height: 333px;
-    overflow: auto;
-}
