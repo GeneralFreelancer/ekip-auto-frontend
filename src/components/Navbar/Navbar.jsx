@@ -4,7 +4,6 @@ import NavbarLink from "./NavbarLink";
 import SearchBar from "./SearchBar";
 import Basket from "./Basket";
 import AuthNav from "./AuthNav";
-import Container from "../Container";
 
 const Navbar = (props) => {
   return (

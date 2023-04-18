@@ -11,9 +11,7 @@ const translit = (name) => {
 const CategoryItem = (props) => {
   const [catId, setCatId] = useState(false);
   const [show, setShow] = useState(false);
-  
-  const setStyle = (status) => {
-    console.log(show);  
+  const setStyle = (status) => {  
     if (status) {
         return style.menu__content__show_sub;
       } else {
@@ -22,7 +20,7 @@ const CategoryItem = (props) => {
   };
 
   return (
-    <div className={setStyle(show)}>
+    <div className={setStyle(show)} style={props.active ? {display: 'block'} : {display: 'none'}}>
       <ul>
         {props.data.map(({ id, title, subCategory }) => (
           <a

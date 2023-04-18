@@ -1,4 +1,5 @@
 import style from "./Hamburger.module.scss";
+import {useState} from 'react';
 import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg"
 import CategoryItem from "../../CategoryItem";
 
@@ -412,12 +413,25 @@ const mockCategoryName = [
   },
 ];
 
+
 const MenuHamburgere = () => {
+  const [isActive, setIsActive] = useState(false);
+  
+  const handleClick = () => {
+    setIsActive(current => !current);
+  };
+
   return (
     <>
-      <div className={style.menu__hamburger}>
-        <Humburger className={style.menu__icon}/> 
-         <CategoryItem data={mockCategoryName}/>
+      <div 
+        className={style.menu__hamburger} 
+        onClick={handleClick}
+      >
+        <Humburger className={style.menu__icon} /> 
+        <CategoryItem 
+          active={isActive ? true : false}
+          data={mockCategoryName} 
+        />
       </div>
     </>
   );

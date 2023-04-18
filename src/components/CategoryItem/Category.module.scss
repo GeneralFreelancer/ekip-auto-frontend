@@ -12,6 +12,7 @@
     border-radius: 2px;
     overflow-y: scroll;
     overflow-x: hidden;
+    display: none;
     &__show_sub {
       position: absolute;
       width: 330px;
