@@ -5,10 +5,9 @@ import RegisterTab from "./RegisterTab";
 import s from "./AuthModal.module.scss";
 import StartTimer from "./StartTimer";
 
-
 const AuthModal = (props) => {
   const [activeTab, setActiveTab] = useState("login");
-  const [registrationSuccess,setRegistrationSuccess ] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess ] = useState(false);
 
   const handleFormSubmit = (isSubmitted) => {
     setRegistrationSuccess(isSubmitted);

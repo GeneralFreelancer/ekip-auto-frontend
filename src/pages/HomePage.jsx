@@ -7,13 +7,15 @@ import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
 import Slider from "../components/Slider";
 import ListCards from "../components/ListCards/ListCards";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../features/userSlice";
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
+  const user = useSelector(selectedUser);
 
   const showModalHandler = () => {
-    if (localStorage.getItem("authSuccess")) {
-      // localStorage
+    if (user.isLoggedIn) {
       setModalIsVisible(false);
     } else {
       setModalIsVisible(true);

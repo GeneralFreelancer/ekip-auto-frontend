@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import s from "./AuthModal.module.scss";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/userSlice";
 
 const LoginTab = (props) => {
   const [loginForm, setLoginForm] = useState({
@@ -8,6 +10,8 @@ const LoginTab = (props) => {
     rememberMe: true,
   });
   const [loginErrors, setloginErrors] = useState({ email: "", password: "" });
+
+  const dispatch = useDispatch();
 
   const validateLoginForm = (name, value) => {
     let errors = { ...loginErrors };
@@ -51,7 +55,9 @@ const LoginTab = (props) => {
     e.preventDefault();
     if (loginForm.email && loginForm.password) {
       console.log(loginForm);
-      localStorage.setItem("authSuccess", true); // LocalStorage
+
+      dispatch(login({ email: loginForm.email, password: loginForm.password, rememberMe: loginForm.rememberMe}));
+
       props.onSubmit(true);
     } else if (!loginForm.email) {
       validateLoginForm("email", null);
