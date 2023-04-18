@@ -1,10 +1,13 @@
 @import "../../style/variables.scss";
 
-.container {
+.container__sidebar_slider {
   display: flex;
-  justify-content: space-between;
-  gap: 50px;
-  padding: 53px 50px 0;
-  margin: 73px 145px 0;
-  background-color: $white;
+    justify-content: space-between;
+    gap: 50px;
+    padding: 0 30px;
+    margin: auto;
+    background-color: #fff;
+    width: $large1620;
+    height: 508px;
+    align-items: flex-end;
 }

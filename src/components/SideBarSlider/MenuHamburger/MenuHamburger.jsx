@@ -1,7 +1,7 @@
-import React from "react";
-import style from './SideBar.module.scss';
+import style from "./Hamburger.module.scss";
+import {useState} from 'react';
+import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg"
 import CategoryItem from "../../CategoryItem";
-
 
 const mockCategoryName = [
   {
@@ -412,13 +412,28 @@ const mockCategoryName = [
     ],
   },
 ];
-const SideBar = () => {
 
-  return(
-    <div className={style.wrapper}>
-      <CategoryItem data={mockCategoryName}/>
-    </div>
-  ); 
+
+const MenuHamburgere = () => {
+  const [isActive, setIsActive] = useState(false);
+  
+  const handleClick = () => {
+    setIsActive(current => !current);
+  };
+
+  return (
+    <>
+      <div 
+        className={style.menu__hamburger} 
+        onClick={handleClick}
+      >
+        <Humburger className={style.menu__icon} /> 
+        <CategoryItem 
+          active={isActive ? true : false}
+          data={mockCategoryName} 
+        />
+      </div>
+    </>
+  );
 };
-
-export default SideBar;
+export default MenuHamburgere;

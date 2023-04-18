@@ -20,7 +20,6 @@ const properties = {
 
 const Slider = () => {
   return (
-    <section>
       <div className="wrapperSlider">
         <Slide indicators={indicators} scale={1.4} {...properties}>
             {images.map((each, index) => (
@@ -34,7 +33,6 @@ const Slider = () => {
             ))}
         </Slide>
       </div>
-    </section>
   );
 };
 

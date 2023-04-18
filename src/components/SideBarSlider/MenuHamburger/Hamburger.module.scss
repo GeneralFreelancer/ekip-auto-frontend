@@ -1,0 +1,12 @@
+@import "../../../style/variables.scss";
+
+.menu {
+  &__hamburger {
+    position: relative;
+    margin-right: 58px;
+    display: flex;
+    svg {
+      width: 25px
+    }
+  }
+}
