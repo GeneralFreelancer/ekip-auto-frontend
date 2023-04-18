@@ -13,6 +13,19 @@
     overflow-y: scroll;
     overflow-x: hidden;
     display: none;
+    &__sidebar {
+      position: absolute;
+      width: 330px;
+      height: 445px;
+      background: $hardGrey;
+      left: 0;
+      top: 0;
+      border: 1px solid $lightWhite;
+      border-radius: 2px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      display: block!important;
+    }
     &__show_sub {
       position: absolute;
       width: 330px;
@@ -61,5 +74,5 @@
     overflow: auto;
     } 
   }   
-  
+
 

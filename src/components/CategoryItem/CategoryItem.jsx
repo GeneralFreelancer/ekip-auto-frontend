@@ -11,6 +11,8 @@ const translit = (name) => {
 const CategoryItem = (props) => {
   const [catId, setCatId] = useState(false);
   const [show, setShow] = useState(false);
+  const {styleSidebar} = props;
+  
   const setStyle = (status) => {  
     if (status) {
         return style.menu__content__show_sub;
@@ -18,9 +20,9 @@ const CategoryItem = (props) => {
         return style.menu__content;
       }
   };
-
+  console.log(props.styleSidebar);
   return (
-    <div className={setStyle(show)} style={props.active ? {display: 'block'} : {display: 'none'}}>
+    <div className={`${setStyle(show)} ${style[styleSidebar]}`} style={props.active ? {display: 'block'} : {display: 'none'}}>
       <ul>
         {props.data.map(({ id, title, subCategory }) => (
           <a
