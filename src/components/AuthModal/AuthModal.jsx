@@ -11,7 +11,6 @@ const AuthModal = (props) => {
 
   const handleFormSubmit = (isSubmitted) => {
     setRegistrationSuccess(isSubmitted);
-    localStorage.setItem("authSuccess", isSubmitted); // LocalStorage
   }
 
   const handleTabChange = (tab) => setActiveTab(tab);

@@ -32,7 +32,9 @@
 }
 
 .wrapperSlider {
-  width: 975px; //1140 975
+  min-width: 400px;
+  flex-basis: 75%;
+  // width: 1140px;
   height: 375px;
   position: relative;
   .react-slideshow-container + ul.indicators .each-slideshow-indicator:before {
@@ -48,10 +50,13 @@
       fill: #ffffffa3;
     }
   }
+
+  // @media (max-width: 1200px) {
+
+  // }
 }
 
-
-.react-slideshow-container+ul.indicators li {
+.react-slideshow-container + ul.indicators li {
   height: 12px;
   width: 12px;
 }

@@ -12,9 +12,9 @@ import SideBarSlider from "../components/SideBarSlider/SideBarSlider";
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
-console.log(localStorage.getItem("authSuccess"));
+
   const showModalHandler = () => {
-    if (user.isLoggedIn || localStorage.getItem("authSuccess")) { //localStorage
+    if (user.isLoggedIn || user.isRegistered) {
       setModalIsVisible(false);
     } else {
       setModalIsVisible(true);

@@ -11,7 +11,7 @@ const AuthNav = (props) => {
   const user = useSelector(selectedUser);
 
   const onClick = () => {
-    if (user.isLoggedIn || localStorage.getItem("authSuccess")) { //localStorage
+    if (user.isLoggedIn || user.isRegistered) { 
       setShowModal((prevState) => !prevState);
       // setShowModal((prevState) => {
       //   setShowModal(!prevState);
@@ -49,6 +49,7 @@ const AuthNav = (props) => {
         )}
       </div>
       {user.isLoggedIn && <p style={{color:'white'}}>{user.currentUser.email}</p>}
+      {user.isRegistered && <Link style={{color:'red'}}to={"#"}>Завершити реестрацію</Link>}
     </>
   );
 };

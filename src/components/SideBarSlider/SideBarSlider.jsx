@@ -7,12 +7,8 @@ import Slider from "./Slider/Slider";
 const SideBarSlider = () => {
   return (
     <div className={s.container}>
-      <div>
-        <SideBar />
-      </div>
-      <div>
-        <Slider />
-      </div>
+      <SideBar />
+      <Slider />
     </div>
   );
 };
