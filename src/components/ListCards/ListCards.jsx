@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
-import style from './ListCards.module.scss'
-import Card from './Card'
+import style from "./ListCards.module.scss";
+import Card from "./Card";
 
 let cardsData = [
   {
@@ -169,36 +169,32 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
     }
   };
 
-    return (
-        <div className={style.container}>
-            
-            <div className={style.cardGrid}>
-{title &&
-                <h2 className={style.titleCategory}>
-                    <NavLink to={link} className={style.link}>
-                        {title} :
-                    </NavLink>
-                </h2>
-                }
-                
-                {renderCards(showAll)}
+  return (
+    <div className={style.container}>
+      <div className={style.cardGrid}>
+        {title && (
+          <h2 className={style.titleCategory}>
+            <NavLink to={link} className={style.link}>
+              {title} :
+            </NavLink>
+          </h2>
+        )}
 
-                {!showAll &&
-                    (lastPage
-                        ? (
-                            <button className={style.buttonMore} onClick={handleCollapseClick}>
-                                Згорнути
-                            </button>
-                        ) : (
-                            <button className={style.buttonMore} onClick={handlePageClick}>
-                                Показати ще...
-                            </button>
-                        )
-                    )
-                }
-            </div>
-        </div>
-    )
-}
+        {renderCards(showAll)}
+
+        {!showAll &&
+          (lastPage ? (
+            <button className={style.buttonMore} onClick={handleCollapseClick}>
+              Згорнути
+            </button>
+          ) : (
+            <button className={style.buttonMore} onClick={handlePageClick}>
+              Показати ще...
+            </button>
+          ))}
+      </div>
+    </div>
+  );
+};
 
 export default ListCards;

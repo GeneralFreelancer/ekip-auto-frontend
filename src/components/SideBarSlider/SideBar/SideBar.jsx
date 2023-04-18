@@ -416,7 +416,7 @@ const SideBar = () => {
 
   return(
     <div className={style.wrapper}>
-      <CategoryItem styleSidebar={'content__sidebar'} data={mockCategoryName} />
+      <CategoryItem key={'2'} styleItem={'sidebar'} data={mockCategoryName}/>
     </div>
   ); 
 };

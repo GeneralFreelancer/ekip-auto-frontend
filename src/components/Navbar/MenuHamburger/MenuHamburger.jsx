@@ -455,10 +455,10 @@ const MenuHamburgere = () => {
         onClick={handleClick}
       >
         <Humburger className={style.menu__icon} /> 
-        <CategoryItem 
-          active={isActive ? true : false}
+        {isActive && <CategoryItem
           data={mockCategoryName} 
-        />
+        />}
+        
       </div>
   );
 };
