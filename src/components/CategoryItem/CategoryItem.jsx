@@ -19,8 +19,13 @@ const CategoryItem = (props) => {
       }
   };
 
+  console.log( `${setStyle(show)} ${style[`${props.styleItem}`]}` )
+
   return (
-    <div className={setStyle(show)} style={props.active ? {display: 'block'} : {display: 'none'}}>
+
+    <div className={props.styleItem ?
+      `${setStyle(show)} ${style[`${props.styleItem}`]}` :
+      setStyle(show)}>
       <ul>
         {props.data.map(({ id, title, subCategory }) => (
           <a
@@ -29,16 +34,16 @@ const CategoryItem = (props) => {
             href={`/${translit(title)}`}
             onMouseEnter={() => {
               console.log(catId)
-              if (subCategory.length !== 0) {  
+              if (subCategory.length !== 0) {
                 setCatId(id);
                 setShow(true);
-              } 
+              }
               if (subCategory.length === 0) {
                 setCatId(id);
                 setShow(false)
               
               }
-              }}
+            }}
           >
             <li>
               {title}
