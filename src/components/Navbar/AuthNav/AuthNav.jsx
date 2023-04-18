@@ -2,14 +2,16 @@ import style from "./AuthNav.module.scss";
 import { ReactComponent as User } from "../../../assets/svg/authNav/user.svg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../../features/userSlice";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
-  let [authUser, setAuthUser] = useState(false);
+  // let [authUser, setAuthUser] = useState(false);
+  const user = useSelector(selectedUser);
 
   const onClick = () => {
-    authUser = localStorage.getItem("authSuccess") // localStorage
-    if (authUser) {
+    if (user.isLoggedIn || localStorage.getItem("authSuccess")) { //localStorage
       setShowModal((prevState) => !prevState);
       // setShowModal((prevState) => {
       //   setShowModal(!prevState);
@@ -45,8 +47,8 @@ const AuthNav = (props) => {
             </Link>
           </ul>
         )}
-        {authUser && <p>{authUser.name}</p>}
       </div>
+      {user.isLoggedIn && <p style={{color:'white'}}>{user.currentUser.email}</p>}
     </>
   );
 };

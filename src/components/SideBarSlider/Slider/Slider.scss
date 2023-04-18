@@ -32,10 +32,13 @@
 }
 
 .wrapperSlider {
+<<<<<<< HEAD:src/components/Slider/Slider.scss
   width: 1140px;
+=======
+  width: 975px; //1140 975
+>>>>>>> origin/dev:src/components/SideBarSlider/Slider/Slider.scss
   height: 375px;
   position: relative;
-  margin-left: auto;
   .react-slideshow-container + ul.indicators .each-slideshow-indicator:before {
     background: #fff !important;
     width: 12px;

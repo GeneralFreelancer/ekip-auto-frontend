@@ -51,7 +51,8 @@
   height: 73px;
   align-items: center;
   justify-content: center;
-  svg {
+  svg:hover {
+    scale: 1.05;
     cursor: pointer;
   }
 }
