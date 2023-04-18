@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Container from "../components/Container";
 import AuthModal from "../components/AuthModal/AuthModal";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
@@ -28,7 +27,6 @@ const HomePage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <Container />
       <Slider />
       <ListCards title={"Останні надходження"} />
       <ListCards title={"Топ продажу"} />

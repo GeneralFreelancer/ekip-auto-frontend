@@ -9,7 +9,7 @@ import Container from "../Container";
 const Navbar = (props) => {
   return (
     <section>
-      <wrapper className={s.wrapper}>
+      <div className={s.wrapper}>
         <Container styleName={"padding"}>
           {/* <MenuHamburger /> */}
           <NavbarLink />
@@ -17,7 +17,7 @@ const Navbar = (props) => {
           <Basket />
           <AuthNav onShowModal={props.onShowModal} />
         </Container>
-      </wrapper>
+      </div>
     </section>
   );
 };
