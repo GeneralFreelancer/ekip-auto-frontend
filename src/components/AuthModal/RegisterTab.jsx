@@ -8,42 +8,78 @@ const RegisterTab = (props) => {
     confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [regiserErrors, setRegisterErrors] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const validate = () => {
-    let errors = {};
-    if (!registerForm.email) {
-      errors.email = "Введіть Email";
-    } else if (!/\S+@\S+\.\S+/.test(registerForm.email)) {
-      errors.email = "Email введено неправильно";
+  const validateRegisterForm = (name, value) => {
+    let errors = { ...regiserErrors };
+    switch (name) {
+      case "email":
+        errors.email = isValidEmail(value);
+        break;
+      case "password":
+        errors.password = isValidPassword(value);
+        break;
+      case "confirmPassword":
+        errors.confirmPassword = isValidConfirmPassword(value);
+        break;
+      default:
+        break;
     }
-    if (!registerForm.password) {
-      errors.password = "Введіть пароль";
-    } else if (registerForm.password.length < 5) {
-      errors.password = "Пароль повинен містити не менше 5 символів";
-    }
-    if (!registerForm.confirmPassword) {
-      errors.confirmPassword = "Підтвердіть пароль";
-    } else if (registerForm.password !== registerForm.confirmPassword) {
-      errors.confirmPassword = "Паролі не співпадають";
-    }
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
+    setRegisterErrors(errors);
   };
 
+  function isValidEmail(value) {
+    if (!value) {
+      return "Введіть Email";
+    } else if (!/\S+@\S+\.\S+/.test(value)) {
+      return "Email введено неправильно";
+    }
+  }
+
+  function isValidPassword(value) {
+    if (!value) {
+      return "Введіть пароль";
+    } else if (value.length < 5) {
+      return "Пароль повинен містити не менше 5 символів";
+    }
+  }
+
+  function isValidConfirmPassword(value) {
+    if (!value) {
+      return "Підтвердіть пароль";
+    } else if (registerForm.password !== value) {
+      return "Паролі не співпадають";
+    }
+  }
+
   const changeRegisterHandler = (event) => {
-    setRegisterForm({
-      ...registerForm,
+    setRegisterForm((prevState) => ({
+      ...prevState,
       [event.target.name]: event.target.value,
-    });
+    }));
+    validateRegisterForm(event.target.name, event.target.value);
   };
 
   const submitRegisterHandler = (e) => {
     e.preventDefault();
-    const isValid = validate();
-    if (isValid) {
+    if (
+      registerForm.email &&
+      registerForm.password &&
+      registerForm.confirmPassword
+    ) {
       console.log(registerForm);
+      localStorage.setItem("authSuccess", true); // LocalStorage
       props.onSubmit(true);
+    } else if (!registerForm.email) {
+      validateRegisterForm("email", null);
+    } else if (!registerForm.password) {
+      validateRegisterForm("password", null);
+    } else if (!registerForm.confirmPassword) {
+      validateRegisterForm("confirmPassword", null);
     }
     // try {
     //   const data = await axios.post('/api/auth/register', { ...registerForm })
@@ -59,20 +95,22 @@ const RegisterTab = (props) => {
 
   return (
     <>
-      <form >
+      <form>
         <div className={s.form_content}>
           <div className={s.form_group}>
             <label>Введіть Email:</label>
             <input
               type="email"
               name="email"
-              className={`${s.form_input} ${errors.email ? s.input_error : ""}`}
+              className={`${s.form_input} ${
+                regiserErrors.email ? s.input_error : ""
+              }`}
               value={registerForm.email}
               onChange={changeRegisterHandler}
               placeholder="Email..."
             />
-            {errors.email && (
-              <div className={s.error_message}>{errors.email}</div>
+            {regiserErrors.email && (
+              <div className={s.error_message}>{regiserErrors.email}</div>
             )}
           </div>
           <div className={s.form_hr}></div>
@@ -82,14 +120,14 @@ const RegisterTab = (props) => {
               type={showPassword ? "text" : "password"}
               name="password"
               className={`${s.form_input} ${
-                errors.password ? s.input_error : ""
+                regiserErrors.password ? s.input_error : ""
               }`}
               value={registerForm.password}
               onChange={changeRegisterHandler}
               placeholder="Пароль..."
             />
-            {errors.password && (
-              <div className={s.error_message}>{errors.password}</div>
+            {regiserErrors.password && (
+              <div className={s.error_message}>{regiserErrors.password}</div>
             )}
           </div>
           <div className={s.form_group}>
@@ -98,14 +136,16 @@ const RegisterTab = (props) => {
               type={showPassword ? "text" : "password"}
               name="confirmPassword"
               className={`${s.form_input} ${
-                errors.confirmPassword ? s.input_error : ""
+                regiserErrors.confirmPassword ? s.input_error : ""
               }`}
               value={registerForm.confirmPassword}
               onChange={changeRegisterHandler}
               placeholder="Пароль..."
             />
-            {errors.confirmPassword && (
-              <div className={s.error_message}>{errors.confirmPassword}</div>
+            {regiserErrors.confirmPassword && (
+              <div className={s.error_message}>
+                {regiserErrors.confirmPassword}
+              </div>
             )}
           </div>
           <div className={s.form_group}>

@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import Container from "../Container";
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import style from "./ListCards.module.scss";
-import Card from "../Card";
+import style from './ListCards.module.scss'
+import Card from './Card'
 
 let cardsData = [
   {
@@ -170,39 +169,36 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
     }
   };
 
-  return (
-    <section>
-      <Container>
-        <div className={style.wrapper}>
-          <div className={style.cardGrid}>
-            {title && (
-              <h2 className={style.titleCategory}>
-                <NavLink to={link} className={style.link}>
-                  {title} :
-                </NavLink>
-              </h2>
-            )}
+    return (
+        <div className={style.container}>
+            
+            <div className={style.cardGrid}>
+{title &&
+                <h2 className={style.titleCategory}>
+                    <NavLink to={link} className={style.link}>
+                        {title} :
+                    </NavLink>
+                </h2>
+                }
+                
+                {renderCards(showAll)}
 
-            {renderCards(showAll)}
-
-            {!showAll &&
-              (lastPage ? (
-                <button
-                  className={style.buttonMore}
-                  onClick={handleCollapseClick}
-                >
-                  Згорнути
-                </button>
-              ) : (
-                <button className={style.buttonMore} onClick={handlePageClick}>
-                  Показати ще...
-                </button>
-              ))}
-          </div>
+                {!showAll &&
+                    (lastPage
+                        ? (
+                            <button className={style.buttonMore} onClick={handleCollapseClick}>
+                                Згорнути
+                            </button>
+                        ) : (
+                            <button className={style.buttonMore} onClick={handlePageClick}>
+                                Показати ще...
+                            </button>
+                        )
+                    )
+                }
+            </div>
         </div>
-      </Container>
-    </section>
-  );
-};
+    )
+}
 
 export default ListCards;

@@ -12,12 +12,12 @@ const AuthModal = (props) => {
 
   const handleFormSubmit = (isSubmitted) => {
     setRegistrationSuccess(isSubmitted);
+    localStorage.setItem("authSuccess", isSubmitted); // LocalStorage
   }
 
   const handleTabChange = (tab) => setActiveTab(tab);
 
   const renderRegistrationSuccess = () => {
-
     return (
       <div className={s.modalRegistSuccess}>
         <h1>Дякуємо за реєстрацію!</h1>

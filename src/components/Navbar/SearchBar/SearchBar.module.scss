@@ -22,6 +22,7 @@
     width: 157px;
     height: 35px;
     padding: 0 10px;
+    margin-left: 15px;
     border-radius: 7px;
     outline: none;
     border: 2px solid $ligthGrey;
@@ -32,7 +33,7 @@
 .search_results {
   position: absolute;
   top: 52px;
-  left: 50px;
+  left: 38px;
   width: 500px;
   max-height: 332px;
   z-index: 1;

@@ -5,40 +5,58 @@ const LoginTab = (props) => {
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
-    rememberMe: false,
+    rememberMe: true,
   });
-  const [loginErrors, setloginErrors] = useState({});
+  const [loginErrors, setloginErrors] = useState({ email: "", password: "" });
 
-  const validate = () => {
-    let errors = {};
-    if (!loginForm.email) {
-      errors.email = "Введіть Email";
-    } else if (!/\S+@\S+\.\S+/.test(loginForm.email)) {
-      errors.email = "Email введено неправильно";
-    }
-    if (!loginForm.password) {
-      errors.password = "Введіть пароль";
-    } else if (loginForm.password.length < 5) {
-      errors.password = "Пароль повинен містити не менше 5 символів";
+  const validateLoginForm = (name, value) => {
+    let errors = { ...loginErrors };
+    switch (name) {
+      case "email":
+        errors.email = isValidEmail(value);
+        break;
+      case "password":
+        errors.password = isValidPassword(value);
+        break;
+      default:
+        break;
     }
     setloginErrors(errors);
-    return Object.keys(errors).length === 0;
   };
 
+  function isValidEmail(value) {
+    if (!value) {
+      return "Введіть Email";
+    } else if (!/\S+@\S+\.\S+/.test(value)) {
+      return "Email введено неправильно";
+    }
+  }
+
+  function isValidPassword(value) {
+    if (!value) {
+      return "Введіть пароль";
+    } else if (value.length < 5) {
+      return "Пароль повинен містити не менше 5 символів";
+    }
+  }
+
   const changeLoginHandler = (event) => {
-    setLoginForm({
-      ...loginForm,
-      [event.target.name]: event.target.value,
-      rememberMe: event.target.checked,
-    });
+    const { name, value, checked } = event.target;
+    const fieldValue = name === "rememberMe" ? checked : value;
+    setLoginForm((prevState) => ({ ...prevState, [name]: fieldValue }));
+    validateLoginForm(name, fieldValue);
   };
 
   const submitLoginHandler = (e) => {
     e.preventDefault();
-    const isValid = validate();
-    if (isValid) {
+    if (loginForm.email && loginForm.password) {
       console.log(loginForm);
+      localStorage.setItem("authSuccess", true); // LocalStorage
       props.onSubmit(true);
+    } else if (!loginForm.email) {
+      validateLoginForm("email", null);
+    } else if (!loginForm.password) {
+      validateLoginForm("password", null);
     }
     // try {
     //   const data = await axios.post("/api/auth/login", { ...loginForm });
@@ -55,7 +73,9 @@ const LoginTab = (props) => {
             <input
               type="email"
               name="email"
-              className={`${s.form_input} ${loginErrors.email ? s.input_error : ""}`}
+              className={`${s.form_input} ${
+                loginErrors.email ? s.input_error : ""
+              }`}
               value={loginForm.email}
               onChange={changeLoginHandler}
               placeholder="Email..."
@@ -93,7 +113,9 @@ const LoginTab = (props) => {
             </label>
           </div>
           <div className={s.form_submit_btn}>
-            <button type="submit" onClick={submitLoginHandler}>Увійти</button>
+            <button type="submit" onClick={submitLoginHandler}>
+              Увійти
+            </button>
           </div>
         </div>
       </form>
@@ -102,4 +124,3 @@ const LoginTab = (props) => {
 };
 
 export default LoginTab;
-
