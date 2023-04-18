@@ -5,6 +5,8 @@ import Container from "../components/Container";
 import AuthModal from "../components/AuthModal/AuthModal";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
+import Slider from '../components/Slider';
+import ListCards from "../components/ListCards/ListCards";
 
 
 const HomePage = () => {
@@ -18,7 +20,8 @@ const HomePage = () => {
     <>
     {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar />
-      <Container />
+      <Slider />
+      <ListCards />
       <ScrollToTopButton/>
       <CallBackButton />
       <Footer currentRate={'38.9'}/>

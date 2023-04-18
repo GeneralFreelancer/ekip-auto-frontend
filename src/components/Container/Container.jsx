@@ -1,9 +1,8 @@
 import style from './Container.module.scss';
 
 const Container = (props) => {
-  
   return (
-    <div className={`${style.container} ${style[props.styleName]}`} >
+    <div className={`${style[props.container]} ${style[props.mod]}`} >
       {props.children}
     </div>  
   )

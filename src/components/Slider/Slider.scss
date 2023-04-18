@@ -32,7 +32,7 @@
 }
 
 .wrapperSlider {
-  max-width: 1140px;
+  width: 1140px;
   height: 375px;
   position: relative;
 
@@ -55,4 +55,8 @@
 .react-slideshow-container+ul.indicators li {
   height: 12px;
   width: 12px;
+}
+
+.slider_position {
+  justify-content: flex-end;
 }
