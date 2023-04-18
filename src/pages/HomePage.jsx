@@ -4,17 +4,17 @@ import Navbar from "../components/Navbar";
 import AuthModal from "../components/AuthModal/AuthModal";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
-import Slider from "../components/Slider";
 import ListCards from "../components/ListCards/ListCards";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../features/userSlice";
+import SideBarSlider from "../components/SideBarSlider/SideBarSlider";
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
-
+console.log(localStorage.getItem("authSuccess"));
   const showModalHandler = () => {
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn || localStorage.getItem("authSuccess")) { //localStorage
       setModalIsVisible(false);
     } else {
       setModalIsVisible(true);
@@ -29,7 +29,7 @@ const HomePage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <Slider />
+      <SideBarSlider />
       <ListCards title={"Останні надходження"} />
       <ListCards title={"Топ продажу"} />
       <ListCards title={"Останні переглянуті"} />

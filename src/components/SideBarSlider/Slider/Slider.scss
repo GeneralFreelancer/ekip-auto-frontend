@@ -32,10 +32,9 @@
 }
 
 .wrapperSlider {
-  max-width: 1140px;
+  width: 975px; //1140 975
   height: 375px;
   position: relative;
-  margin-left: auto;
   .react-slideshow-container + ul.indicators .each-slideshow-indicator:before {
     background: #fff !important;
     width: 12px;

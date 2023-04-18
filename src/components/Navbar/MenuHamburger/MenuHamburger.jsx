@@ -412,7 +412,7 @@ const mockCategoryName = [
   },
 ];
 
-const MenuHamburgere = () => {
+const MenuHamburger = () => {
   return (
     <>
       <div className={style.menu__hamburger}>
@@ -422,4 +422,4 @@ const MenuHamburgere = () => {
     </>
   );
 };
-export default MenuHamburgere;
+export default MenuHamburger;

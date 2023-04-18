@@ -11,7 +11,7 @@ const AuthNav = (props) => {
   const user = useSelector(selectedUser);
 
   const onClick = () => {
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn || localStorage.getItem("authSuccess")) { //localStorage
       setShowModal((prevState) => !prevState);
       // setShowModal((prevState) => {
       //   setShowModal(!prevState);
