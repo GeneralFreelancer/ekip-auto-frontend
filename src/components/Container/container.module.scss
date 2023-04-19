@@ -1,15 +1,35 @@
+@import "../../style/variables.scss";
+
 .container {
-  width: 1620px;
+  width: $large1620;
   height: auto;
   margin: auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  &__center {
+    width: $large1620;
+    height: auto;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__space-between{
+    width: $large1620;
+    height: auto;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .padding {
   padding: 0 46px;
 }
+.slider_positin {
+  justify-content: flex-end;
+}
+
 
 .footer {
   &__container{

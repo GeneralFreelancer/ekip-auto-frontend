@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
-import { login } from "../../features/userSlice";
+import { login } from "../../redux/features/userSlice";
 
 const LoginTab = (props) => {
   const [loginForm, setLoginForm] = useState({

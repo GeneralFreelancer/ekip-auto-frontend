@@ -6,8 +6,9 @@ import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
 import ListCards from "../components/ListCards/ListCards";
 import { useSelector } from "react-redux";
-import { selectedUser } from "../features/userSlice";
-import SideBarSlider from "../components/SideBarSlider/SideBarSlider";
+import { selectedUser } from "../redux/features/userSlice";
+import SideBarSlider from "../components/SideBarSlider/";
+import MainContainer from "../components/MainContainer";
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -29,11 +30,14 @@ const HomePage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <SideBarSlider />
-      <ListCards title={"Останні надходження"} />
-      <ListCards title={"Топ продажу"} />
-      <ListCards title={"Останні переглянуті"} />
-      <ListCards title={"Вас може зацікавити"} />
+
+      <MainContainer>
+        <SideBarSlider />
+        <ListCards title={"Останні надходження"} />
+        <ListCards title={"Топ продажу"} />
+        <ListCards title={"Останні переглянуті"} />
+        <ListCards title={"Вас може зацікавити"} />
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} />

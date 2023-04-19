@@ -1,6 +1,8 @@
 import style from "./Category.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
@@ -11,60 +13,61 @@ const translit = (name) => {
 const CategoryItem = (props) => {
   const [catId, setCatId] = useState(false);
   const [show, setShow] = useState(false);
-  
-  const setStyle = (status) => {
-    console.log(show);  
+  console.log(show);
+  const setStyle = (status) => {  
     if (status) {
         return style.menu__content__show_sub;
       } else {
         return style.menu__content;
       }
   };
-
+  
+  console.log(`${style[`${props.styleItem}`]}` )
+  
   return (
-    <div className={setStyle(show)}>
-      <ul>
+    <div className={props.styleItem ?
+      `${setStyle(show)} ${style[`${props.styleItem}`]}` :
+      setStyle(show)}>
+      <div>
         {props.data.map(({ id, title, subCategory }) => (
-          <a
+          <Link
+            key={id+1}
             id={id}
             className={style.menu__content__link}
-            href={`/${translit(title)}`}
+            to={`/${translit(title)}`}
             onMouseEnter={() => {
-              console.log(catId)
-              if (subCategory.length !== 0) {  
+              if (subCategory.length !== 0) {
                 setCatId(id);
                 setShow(true);
-              } 
+              }
               if (subCategory.length === 0) {
                 setCatId(id);
                 setShow(false)
-              
               }
-              }}
+            }}
           >
-            <li>
               {title}
               {subCategory.length > 0 ? (
                 <div className={style.menu__subContent}>
-                  <ul>
+                  <div>
                     {subCategory.map(({ id, title }) => (
-                      <a
+                      <Link
+                        key={id+1}
                         id={id}
                         className={style.menu__content__link}
-                        href={`/${translit(title)}`}
+                        to={`/${translit(title)}`}
                       >
-                        <li>{title}</li>
-                      </a>
+                        {title}
+                      </Link>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ) : (
                 " "
               )}
-            </li>
-          </a>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

@@ -1,14 +1,14 @@
 @import '../../style/variables.scss'; 
 
-.wrapperFooter{
+.container__footer{
     display:flex;
     justify-content: space-between;
+    align-items: center;
     background-color: $hardGrey;
-    // position: absolute;
-    margin-top: 50px;
-    width: 100%;
-    bottom: 0;
+    width: $large1620;
     height: 63px;
+    padding: 0 30px;
+    margin: auto;
 }
 
 .text{
@@ -28,6 +28,7 @@
         .textRate {
             font-size: $h2; 
             margin: 0 5px;
+            color: $lightWhite;
         }
     }
 }

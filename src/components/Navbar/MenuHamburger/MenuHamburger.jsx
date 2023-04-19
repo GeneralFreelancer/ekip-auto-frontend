@@ -1,6 +1,8 @@
 import style from "./Hamburger.module.scss";
+import {useEffect ,useState} from 'react';
 import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg"
 import CategoryItem from "../../CategoryItem";
+import { useLocation } from "react-router-dom";
 
 const mockCategoryName = [
   {
@@ -412,14 +414,52 @@ const mockCategoryName = [
   },
 ];
 
-const MenuHamburger = () => {
+
+const MenuHamburgere = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [scrollPosition, setPosition] = useState({ scrollX: 0, scrollY: 0 })
+  const location = useLocation();
+
+  const handleClick = () => {
+    if (scrollPosition.scrollY < 435 && location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      setIsActive(current => !current);
+    }
+  };
+
+  useEffect(() => {
+    if (scrollPosition.scrollY < 435 && location.pathname === '/') {
+      setIsActive(false);
+    }
+  }, [isActive, scrollPosition.scrollY]);
+  
+  
+  const useWindowScrollPositions = () => {
+    useEffect(() => {
+     function updatePosition() {
+         setPosition({ scrollX: window.scrollX, scrollY: window.scrollY })
+     }
+ 
+     window.addEventListener('scroll', updatePosition)
+     updatePosition()
+     
+     return () => window.removeEventListener('scroll', updatePosition)
+    }, []) 
+ }
+
+ useWindowScrollPositions()
   return (
-    <>
-      <div className={style.menu__hamburger}>
-        <Humburger className={style.menu__icon}/> 
-         <CategoryItem data={mockCategoryName}/>
+      <div 
+        className={style.menu__hamburger} 
+        onClick={handleClick}
+      >
+        <Humburger className={style.menu__icon} /> 
+        {isActive && <CategoryItem
+          data={mockCategoryName} 
+        />}
+        
       </div>
-    </>
   );
 };
-export default MenuHamburger;
+export default MenuHamburgere;

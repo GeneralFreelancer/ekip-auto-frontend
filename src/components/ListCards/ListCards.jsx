@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import style from "./ListCards.module.scss";
@@ -110,8 +110,47 @@ let cardsData = [
 const ListCards = ({ title = "Product", showAll = false, link }) => {
   const [cards] = useState(cardsData);
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage] = useState(6);
+  const [cardsPerPage, setCardsPerPage] = useState(6);
   const [lastPage, setLastPage] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  const changeCardsQuantity = (width) => {
+    switch (width) {
+      case 1575:
+        console.log(width);
+        setCardsPerPage(5);
+        console.log(cardsPerPage);
+        break;
+      case 1350:
+        setCardsPerPage(4);
+        console.log(cardsPerPage);
+        break;
+      case 1075:
+        setCardsPerPage(3);
+        console.log(cardsPerPage);
+        break;
+      case 825:
+        setCardsPerPage(2);
+        break;
+      case 578:
+        setCardsPerPage(1);
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    changeCardsQuantity(viewportWidth);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [viewportWidth, cardsPerPage]);
 
   const handlePageClick = (event) => {
     event.preventDefault();

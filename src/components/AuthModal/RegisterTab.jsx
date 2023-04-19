@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
-import { register } from "../../features/userSlice";
+import { register } from "../../redux/features/userSlice";
 
 const RegisterTab = (props) => {
   const [registerForm, setRegisterForm] = useState({
@@ -78,7 +78,7 @@ const RegisterTab = (props) => {
       console.log(registerForm);
 
       dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
-      
+
       props.onSubmit(true);
     } else if (!registerForm.email) {
       validateRegisterForm("email", null);

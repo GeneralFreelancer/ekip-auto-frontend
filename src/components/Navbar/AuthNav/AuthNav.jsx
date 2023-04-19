@@ -3,7 +3,7 @@ import { ReactComponent as User } from "../../../assets/svg/authNav/user.svg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectedUser } from "../../../features/userSlice";
+import { selectedUser } from "../../../redux/features/userSlice";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);

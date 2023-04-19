@@ -4,12 +4,16 @@ import SideBar from "./SideBar";
 import s from "./SideBarSlider.module.scss";
 import Slider from "./Slider/Slider";
 
+
+
 const SideBarSlider = () => {
   return (
-    <div className={s.container}>
-      <SideBar />
-      <Slider />
-    </div>
+    <section>
+      <div className={s.container__sidebar_slider}>
+          <SideBar/>
+          <Slider />
+      </div>
+    </section>
   );
 };
 
