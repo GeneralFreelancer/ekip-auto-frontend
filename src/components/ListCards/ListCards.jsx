@@ -278,7 +278,6 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
                     priceUAH={priceUAH}
                     priseUSD={priseUSD}
                     inStock={inStock}
-                    styleCard={(index + 1) % cardsPerPage === 0 && "lastCard"}
                   />
                 )
               )}
