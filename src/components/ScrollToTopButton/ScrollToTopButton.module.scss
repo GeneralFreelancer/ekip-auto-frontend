@@ -23,6 +23,12 @@
     width: 28px;
     height: 21px;
   }
+  
+  @media screen and (max-width: 730px) {
+    right: 20px;
+    bottom: 95px;
+  }
+
 }
 
 
