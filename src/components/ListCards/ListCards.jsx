@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import style from "./ListCards.module.scss";
@@ -112,6 +112,17 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage] = useState(6);
   const [lastPage, setLastPage] = useState(false);
+  const [viewportHeight, setViewportHeight] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setViewportHeight(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  console.log(viewportHeight);
 
   const handlePageClick = (event) => {
     event.preventDefault();

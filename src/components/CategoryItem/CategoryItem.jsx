@@ -2,7 +2,7 @@ import style from "./Category.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-const classNames = require('classnames');
+
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
