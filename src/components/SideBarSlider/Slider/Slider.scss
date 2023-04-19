@@ -56,6 +56,22 @@
   // }
 }
 
+.sliderCard{
+    max-width: 345px;
+    min-width: 0;
+    margin: auto;
+    margin-top: 40px;
+    height: auto;
+    .react-slideshow-container .default-nav{
+      width: 65px;
+      height:65px;
+      @media screen and (max-width: 450px){
+        display:none;
+      }
+    }
+
+  }
+
 .react-slideshow-container + ul.indicators li {
   height: 12px;
   width: 12px;
