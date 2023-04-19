@@ -25,7 +25,7 @@ const Slider = () => {
         {images.map((each, index) => (
           <div key={index} style={{ width: "100%" }}>
             <img
-              style={{ objectFit: "fill", width: "100%", height: "120px" }}
+              style={{ objectFit: "fill", width: "100%", height: "375px" }}
               alt="Slide Image"
               src={each}
             />
