@@ -20,19 +20,19 @@ const properties = {
 
 const Slider = () => {
   return (
-      <div className="wrapperSlider">
-        <Slide indicators={indicators} scale={1.4} {...properties}>
-            {images.map((each, index) => (
-            <div key={index} style={{ width: "100%" }}>
-                <img
-                style={{ objectFit: "fill", width: "100%", height: "370px" }}
-                alt="Slide Image"
-                src={each}
-                />
-            </div>
-            ))}
-        </Slide>
-      </div>
+    <div className="wrapperSlider">
+      <Slide indicators={indicators} scale={1.4} {...properties}>
+        {images.map((each, index) => (
+          <div key={index} style={{ width: "100%" }}>
+            <img
+              style={{ objectFit: "fill", width: "100%", height: "120px" }}
+              alt="Slide Image"
+              src={each}
+            />
+          </div>
+        ))}
+      </Slide>
+    </div>
   );
 };
 
