@@ -49,7 +49,7 @@ const AuthNav = (props) => {
         )}
       </div>
       {user.isLoggedIn && <p style={{color:'white'}}>{user.currentUser.email}</p>}
-      {user.isRegistered && <Link style={{color:'red'}}to={"#"}>Завершити реестрацію</Link>}
+      {user.isRegistered && <Link style={{color:'red', textDecoration:'none'}}to={"#"}>Завершити <br></br> реестрацію</Link>}
     </>
   );
 };

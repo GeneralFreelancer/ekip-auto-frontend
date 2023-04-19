@@ -133,24 +133,16 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
       setCardsPerPage(6);
     }
     if (width <= 1575) {
-      console.log(width);
       setCardsPerPage(5);
-      console.log(cardsPerPage);
     }
     if (width <= 1350) {
-      console.log(width);
       setCardsPerPage(4);
-      console.log(cardsPerPage);
     }
     if (width <= 1075) {
-      console.log(width);
       setCardsPerPage(3);
-      console.log(cardsPerPage);
     }
     if (width <= 825) {
-      console.log(width);
       setCardsPerPage(2);
-      console.log(cardsPerPage);
     }
     isLastPage();
   };
@@ -161,7 +153,6 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
     }
     window.addEventListener("resize", handleResize);
     // handleResize();
-
     // changeCardsQuantity(viewportWidth);
 
     return () => window.removeEventListener("resize", handleResize);

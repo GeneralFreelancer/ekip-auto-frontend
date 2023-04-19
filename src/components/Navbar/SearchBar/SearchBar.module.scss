@@ -20,7 +20,7 @@
     transform: rotate(90deg);
   }
   .input_block {
-    width: 157px;
+    width: 157px; // 200px
     height: 40px;
     padding: 0 10px;
     margin-left: 15px;
@@ -34,7 +34,7 @@
 .search_results {
   position: absolute;
   top: 56px;
-  left: 38px;
+  left: 38px;// -10px
   width: 500px;
   max-height: 332px;
   z-index: 1;

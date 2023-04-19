@@ -55,6 +55,10 @@
     flex-basis: 95%;
   }
 
+  @media screen and (max-width: 825px) {
+    height: 280px;
+  }
+
 }
 
 .sliderCard{
