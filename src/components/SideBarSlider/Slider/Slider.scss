@@ -32,7 +32,7 @@
 }
 
 .wrapperSlider {
-  min-width: 400px;
+  min-width: 280px;
   flex-basis: 75%;
   // width: 1140px;
   height: 375px;
@@ -51,9 +51,10 @@
     }
   }
 
-  // @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1024px) {
+    flex-basis: 95%;
+  }
 
-  // }
 }
 
 .react-slideshow-container + ul.indicators li {

@@ -10,4 +10,12 @@
     /* width: $large1620; */
     height: 508px;
     align-items: flex-end;
+    
+  @media screen and (max-width: 1024px) {
+    justify-content: center;
+  }
+
+  // @media screen and (max-width: 585px) {
+  //   height: 400px;
+  // }
 }
