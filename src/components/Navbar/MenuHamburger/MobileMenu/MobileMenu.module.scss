@@ -1,0 +1,48 @@
+@import "../../../../style/variables.scss";
+
+.mobile {
+  &_modal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background-color: $hardGrey;
+    z-index: 1000;
+    animation: MobileMenu_slide-down__rdixe 300ms ease-out forwards;
+    &_header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &_cross {
+    display: flex;
+    position: relative;
+    width: 73px;
+    height: 73px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.cross {
+  fill: $lightWhite;
+  width: 38px;
+  height: 38px;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

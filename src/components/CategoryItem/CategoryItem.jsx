@@ -13,7 +13,6 @@ const translit = (name) => {
 const CategoryItem = (props) => {
   const [catId, setCatId] = useState(false);
   const [show, setShow] = useState(false);
-  console.log(show);
   const setStyle = (status) => {  
     if (status) {
         return style.menu__content__show_sub;
@@ -22,7 +21,7 @@ const CategoryItem = (props) => {
       }
   };
   
-  console.log(`${style[`${props.styleItem}`]}` )
+  // console.log(`${style[`${props.styleItem}`]}` )
   
   return (
     <div className={props.styleItem ?

@@ -4,24 +4,31 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
+import { useDispatch } from "react-redux";
+import { logout, register } from "../../../redux/features/userSlice";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
   // let [authUser, setAuthUser] = useState(false);
   const user = useSelector(selectedUser);
 
+  const dispatch = useDispatch();
+
   const onClick = () => {
-    if (user.isLoggedIn || user.isRegistered) { 
+    if (user.isLoggedIn || user.isRegistered) {
       setShowModal((prevState) => !prevState);
-      // setShowModal((prevState) => {
-      //   setShowModal(!prevState);
-      // });
     } else {
     }
     // console.log("click");
     // setShowModal((prevState) => {
     //   setShowModal(!prevState);
     // });
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout())
+    setShowModal(false);
   };
 
   return (
@@ -43,13 +50,19 @@ const AuthNav = (props) => {
               <li>Замовлення</li>
             </Link>
             <Link className={style.item} to={"#"}>
-              <li>Вийти</li>
+              <li onClick={handleLogout}>Вийти</li>
             </Link>
           </ul>
         )}
       </div>
-      {user.isLoggedIn && <p style={{color:'white'}}>{user.currentUser.email}</p>}
-      {user.isRegistered && <Link style={{color:'red', textDecoration:'none'}}to={"#"}>Завершити <br></br> реестрацію</Link>}
+      {user.isLoggedIn && (
+        <p style={{ color: "white" }}>{user.currentUser.email}</p>
+      )}
+      {user.isRegistered && (
+        <Link style={{ color: "red", textDecoration: "none" }} to={"#"}>
+          Завершити <br></br> реестрацію
+        </Link>
+      )}
     </>
   );
 };
