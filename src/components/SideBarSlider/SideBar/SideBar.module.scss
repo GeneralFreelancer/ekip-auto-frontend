@@ -3,4 +3,8 @@
   height: 435px; 
   position: relative;
   background: red; 
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
 }
+

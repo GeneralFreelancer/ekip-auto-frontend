@@ -1,8 +1,18 @@
-import { useState } from "react";
+import "react-slideshow-image/dist/styles.css";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+
+import { Slide } from "react-slideshow-image";
+import "../SideBarSlider/Slider/Slider.scss";
 
 import style from "./ListCards.module.scss";
 import Card from "./Card";
+
+const images = [
+  "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+  "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+  "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+];
 
 let cardsData = [
   {
@@ -107,11 +117,59 @@ let cardsData = [
   },
 ];
 
+const properties = {
+  autoplay: false,
+};
+
 const ListCards = ({ title = "Product", showAll = false, link }) => {
   const [cards] = useState(cardsData);
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage] = useState(6);
+  const [cardsPerPage, setCardsPerPage] = useState(6);
   const [lastPage, setLastPage] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  const changeCardsQuantity = (width) => {
+    if (width > 1575) {
+      setCardsPerPage(6);
+    }
+    if (width <= 1575) {
+      setCardsPerPage(5);
+    }
+    if (width <= 1350) {
+      setCardsPerPage(4);
+    }
+    if (width <= 1075) {
+      setCardsPerPage(3);
+    }
+    if (width <= 825) {
+      setCardsPerPage(2);
+    }
+    isLastPage();
+  };
+
+  useEffect(() => {
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    // handleResize();
+    // changeCardsQuantity(viewportWidth);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    changeCardsQuantity(viewportWidth);
+  }, [viewportWidth]);
+
+  const isLastPage = () => {
+    const totalPages = Math.ceil(cards.length / cardsPerPage);
+    if (currentPage === totalPages) {
+      setLastPage(true);
+    } else {
+      setLastPage(false);
+    }
+  };
 
   const handlePageClick = (event) => {
     event.preventDefault();
@@ -170,30 +228,65 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
   };
 
   return (
-    <div className={style.container}>
-      <div className={style.cardGrid}>
-        {title && (
-          <h2 className={style.titleCategory}>
-            <NavLink to={link} className={style.link}>
-              {title} :
-            </NavLink>
-          </h2>
-        )}
+    <>
+      {viewportWidth > 578 ? (
+        <div className={style.container}>
+          <div className={style.cardGrid}>
+            {title && (
+              <h2 className={style.titleCategory}>
+                <NavLink to={link} className={style.link}>
+                  {title} :
+                </NavLink>
+              </h2>
+            )}
 
-        {renderCards(showAll)}
+            {renderCards(showAll)}
 
-        {!showAll &&
-          (lastPage ? (
-            <button className={style.buttonMore} onClick={handleCollapseClick}>
-              Згорнути
-            </button>
-          ) : (
-            <button className={style.buttonMore} onClick={handlePageClick}>
-              Показати ще...
-            </button>
-          ))}
-      </div>
-    </div>
+            {!showAll &&
+              (lastPage ? (
+                <button
+                  className={style.buttonMore}
+                  onClick={handleCollapseClick}
+                >
+                  Згорнути
+                </button>
+              ) : (
+                <button className={style.buttonMore} onClick={handlePageClick}>
+                  Показати ще...
+                </button>
+              ))}
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="wrapperSlider sliderCard">
+            {title && (
+              <h2 className={style.titleCategoryForMobile}>
+                <NavLink to={link} className={style.link}>
+                  {title} :
+                </NavLink>
+              </h2>
+            )}
+            <Slide {...properties}>
+              {cards.map(
+                ({ id, imgUrl, title, priceUAH, priseUSD, inStock }, index) => (
+                  <Card
+                    key={id}
+                    id={id}
+                    imgUrl={imgUrl}
+                    title={title}
+                    priceUAH={priceUAH}
+                    priseUSD={priseUSD}
+                    inStock={inStock}
+                    styleCard={"lastCard"}
+                  />
+                )
+              )}
+            </Slide>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

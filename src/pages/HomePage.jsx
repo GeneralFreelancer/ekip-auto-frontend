@@ -6,15 +6,16 @@ import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
 import ListCards from "../components/ListCards/ListCards";
 import { useSelector } from "react-redux";
-import { selectedUser } from "../features/userSlice";
-import SideBarSlider from "../components/SideBarSlider/SideBarSlider";
+import { selectedUser } from "../redux/features/userSlice";
+import SideBarSlider from "../components/SideBarSlider/";
+import MainContainer from "../components/MainContainer";
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
 
   const showModalHandler = () => {
-    if (user.isLoggedIn || localStorage.getItem("authSuccess")) { //localStorage
+    if (user.isLoggedIn || user.isRegistered) {
       setModalIsVisible(false);
     } else {
       setModalIsVisible(true);
@@ -29,14 +30,17 @@ const HomePage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <SideBarSlider />
-      <ListCards title={"Останні надходження"} />
-      <ListCards title={"Топ продажу"} />
-      <ListCards title={"Останні переглянуті"} />
-      <ListCards title={"Вас може зацікавити"} />
+
+      <MainContainer>
+        <SideBarSlider />
+        <ListCards title={"Останні надходження"} />
+        <ListCards title={"Топ продажу"} />
+        <ListCards title={"Останні переглянуті"} />
+        <ListCards title={"Вас може зацікавити"} />
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
-      <Footer currentRate={"38.9"} />
+      <Footer currentRate={"38.9"} /> 
     </>
   );
 };

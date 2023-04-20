@@ -1,16 +1,15 @@
 import style from "./Hamburger.module.scss";
-import {useEffect ,useState} from 'react';
-import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg"
+import { useEffect, useState } from "react";
+import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg";
 import CategoryItem from "../../CategoryItem";
 import { useLocation } from "react-router-dom";
+import MobileMenu from "./MobileMenu/MobileMenu";
 
 const mockCategoryName = [
   {
     id: "1",
     title: "Автоаксесуари",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "2",
@@ -41,23 +40,17 @@ const mockCategoryName = [
   {
     id: "3",
     title: "Фари",
-    subCategory: [
-     
-    ],
+    subCategory: [],
   },
   {
     id: "4",
     title: "Декоративне свiтло",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "5",
     title: "Електроннi компоненти",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "6",
@@ -69,7 +62,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "1-1",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -79,7 +72,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "64635",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -89,7 +82,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "987",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -99,7 +92,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "1fg5",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -109,7 +102,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "5-5",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -119,7 +112,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "6-6",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -129,7 +122,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "7-7",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -139,7 +132,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "8_8",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -149,7 +142,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "9-9",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -159,7 +152,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "10-1",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -169,7 +162,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "11-1",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -179,7 +172,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "12-12",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -189,7 +182,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "13-133",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -199,7 +192,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "232",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -209,7 +202,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "23235yfd",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -219,7 +212,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "1fdffdfwer",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -229,7 +222,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "17-17",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -239,7 +232,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "18-18",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -249,7 +242,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "19-19",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -259,7 +252,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "20-20",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -269,7 +262,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "21-21",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -279,7 +272,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "22-22",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -289,7 +282,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "23-23",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -299,7 +292,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "24-24",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -308,179 +301,168 @@ const mockCategoryName = [
   {
     id: "7",
     title: "Лазерне обладнання",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "8",
     title: "Мiкрофони та аксесуари",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "9",
     title: "Металевi стiйки, ферми",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "10",
     title: "Свiтлове обладнання",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "11",
     title: "Свiтлове обладнання",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "12",
     title: "Трансляцiйне обладнання",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "13",
     title: "Автоаксесуари",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "14",
     title: "Led та освітлення",
-    subCategory: [
-     
-    ],
+    subCategory: [],
   },
   {
     id: "15",
     title: "Фари",
-    subCategory: [
-     
-    ],
+    subCategory: [],
   },
   {
     id: "16",
     title: "Декоративне свiтло",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "17",
     title: "Електроннi компоненти",
-    subCategory: [
-     
-    ],
+    subCategory: [],
   },
   {
     id: "18",
     title: "Кабельна продукцiя",
-    subCategory: [
-     
-    ],
+    subCategory: [],
   },
   {
     id: "19",
     title: "Лазерне обладнання",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "20",
     title: "Мiкрофони та аксесуари",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "21",
     title: "Металевi стiйки, ферми",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "22",
     title: "Свiтлове обладнання",
-    subCategory: [
-     
-    ],
+    subCategory: [],
   },
   {
     id: "23",
     title: "Свiтлове обладнання",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
   {
     id: "24",
     title: "Трансляцiйне обладнання",
-    subCategory: [
-      
-    ],
+    subCategory: [],
   },
 ];
 
-
-const MenuHamburgere = () => {
+const MenuHamburgere = (props) => {
   const [isActive, setIsActive] = useState(false);
-  const [scrollPosition, setPosition] = useState({ scrollX: 0, scrollY: 0 })
+  const [scrollPosition, setPosition] = useState({ scrollX: 0, scrollY: 0 });
   const location = useLocation();
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  let desktopV = viewportWidth > 1024;
 
   const handleClick = () => {
-    if (scrollPosition.scrollY < 435 && location.pathname === '/') {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    if (desktopV) {
+      if (scrollPosition.scrollY < 435 && location.pathname === "/") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        setIsActive((current) => !current);
+      }
     } else {
-      setIsActive(current => !current);
+      setIsActive(true);
     }
   };
 
   useEffect(() => {
-    if (scrollPosition.scrollY < 435 && location.pathname === '/') {
-      setIsActive(false);
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
     }
-  }, [isActive, scrollPosition.scrollY]);
-  
-  
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (desktopV) {
+      if (scrollPosition.scrollY < 435 && location.pathname === "/") {
+        setIsActive(false);
+      }
+    }
+  }, [
+    desktopV,
+    isActive,
+    location.pathname,
+    scrollPosition.scrollY,
+    viewportWidth,
+  ]);
+
   const useWindowScrollPositions = () => {
     useEffect(() => {
-     function updatePosition() {
-         setPosition({ scrollX: window.scrollX, scrollY: window.scrollY })
-     }
- 
-     window.addEventListener('scroll', updatePosition)
-     updatePosition()
-     
-     return () => window.removeEventListener('scroll', updatePosition)
-    }, []) 
- }
+      function updatePosition() {
+        setPosition({ scrollX: window.scrollX, scrollY: window.scrollY });
+      }
+      window.addEventListener("scroll", updatePosition);
+      updatePosition();
+      return () => window.removeEventListener("scroll", updatePosition);
+    }, []);
+  };
 
- useWindowScrollPositions()
+  useWindowScrollPositions();
+
+  const hideModalHandler = () => {
+    setIsActive(false);
+  };
+
+
   return (
-      <div 
-        className={style.menu__hamburger} 
-        onClick={handleClick}
-      >
-        <Humburger className={style.menu__icon} /> 
-        <div className={style.menu__wrapper}>
-          {isActive && <CategoryItem
-            data={mockCategoryName} 
-          />}
-        </div>
-        
-      </div>
+    <div className={style.menu__hamburger} onClick={handleClick}>
+      <Humburger className={style.menu__icon} />
+      {isActive &&
+        (desktopV ? (
+          <CategoryItem data={mockCategoryName} />
+        ) : (
+          <MobileMenu 
+          // onShowModal={props.onShowModal}
+          onClick={hideModalHandler} 
+          />
+        ))}
+    </div>
   );
 };
 export default MenuHamburgere;

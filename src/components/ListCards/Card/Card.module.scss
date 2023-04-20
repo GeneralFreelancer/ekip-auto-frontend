@@ -1,3 +1,5 @@
+@import "../../../style/variables.scss";
+
 .card{
     box-sizing: border-box;
     display: flex;
@@ -7,8 +9,10 @@
     flex-direction: column;
     justify-content: space-between;
 
-    border-right:1px solid black;
-    border-bottom:1px solid black;
+    border-right:1px solid $ligthGrey;
+    border-bottom:1px solid $ligthGrey;
+
+    margin:auto;
 }
 
 .lastCard{

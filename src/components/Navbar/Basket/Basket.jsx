@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import style from "./Basket.module.scss";
@@ -104,6 +104,17 @@ const Basket = () => {
   const [isMouseInside, setIsMouseInside] = useState(false);
   const [numberOfProducts, setNumberOfProducts] = useState(numberOfProducts0);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  let desktopV = viewportWidth > 1024;
+
+  useEffect(() => {
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleMouseEnter = () => {
     setShowModal(true);
@@ -121,78 +132,85 @@ const Basket = () => {
       prevProducts.filter((product) => product.id !== id)
     );
   };
+
   // console.log(showModal);
   return (
     <>
       <div
-        className={!showModal ? style.wrapperShoppingCard : style.wrapperShoppingCardOpen}
+        className={
+          !showModal ? style.wrapperShoppingCard : style.wrapperShoppingCardOpen
+        }
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <ShoppingCard className={!showModal ? style.shoppingCard : style.shoppingCardOpen} />
-        <div className={!showModal ? style.number : style.numberOpen}>
-          <p>{numberOfProducts.length}</p>
-        </div>
-      
-      {showModal && (
-        <div
-          className={style.modalCard}
-          onMouseEnter={() => {
-            setIsMouseInside(true);
-            clearTimeout(timeoutId);
-          }}
-          onMouseLeave={() => {
-            setIsMouseInside(false);
-            setTimeoutId(setTimeout(() => setShowModal(false), 400));
-          }}
-        >
-          {numberOfProducts.length ? (
-            <ul>
-              {numberOfProducts.map(
-                ({ id, imgUrl, title, priceUAH, priseUSD, amount }) => (
-                  <ProductItem
-                    key={id}
-                    id={id}
-                    imgUrl={imgUrl}
-                    title={title}
-                    priceUAH={priceUAH}
-                    priseUSD={priseUSD}
-                    amount={amount}
-                    removeFromBasket={removeFromBasket}
-                  />
-                )
-              )}
-            </ul>
-          ) : (
-            <p className={style.textAlert}>
-              Ви ще не зробили жодного замовлення
-            </p>
-          )}
-
-          <More style={{ width: 45, height: 45 }} className={style.more} />
-          <div className={style.wrapperPrice}>
-            <p className={style.price}>Загальна вартість:</p>
-            <div>
-              <p>
-                {numberOfProducts.reduce((accumulator, currentValue) => {
-                  return accumulator + Number(currentValue.priceUAH);
-                }, 0)}{" "}
-                UAH
-              </p>
-              <p>
-                {numberOfProducts.reduce((accumulator, currentValue) => {
-                  return accumulator + Number(currentValue.priseUSD);
-                }, 0)}{" "}
-                $
-              </p>
-            </div>
+        <NavLink to="/myprofile/basket">
+          <ShoppingCard
+            className={!showModal ? style.shoppingCard : style.shoppingCardOpen}
+          />
+          <div className={!showModal ? style.number : style.numberOpen}>
+            <p>{numberOfProducts.length}</p>
           </div>
+        </NavLink>
+        
+        {desktopV && showModal && (
+          <div
+            className={style.modalCard}
+            onMouseEnter={() => {
+              setIsMouseInside(true);
+              clearTimeout(timeoutId);
+            }}
+            onMouseLeave={() => {
+              setIsMouseInside(false);
+              setTimeoutId(setTimeout(() => setShowModal(false), 400));
+            }}
+          >
+            {numberOfProducts.length ? (
+              <ul>
+                {numberOfProducts.map(
+                  ({ id, imgUrl, title, priceUAH, priseUSD, amount }) => (
+                    <ProductItem
+                      key={id}
+                      id={id}
+                      imgUrl={imgUrl}
+                      title={title}
+                      priceUAH={priceUAH}
+                      priseUSD={priseUSD}
+                      amount={amount}
+                      removeFromBasket={removeFromBasket}
+                    />
+                  )
+                )}
+              </ul>
+            ) : (
+              <p className={style.textAlert}>
+                Ви ще не зробили жодного замовлення
+              </p>
+            )}
 
-          <NavLink className={style.button} to="/myprofile/basket">
-            Перейти до замовлення
-          </NavLink>
-        </div>
-      )}
+            <More style={{ width: 45, height: 45 }} className={style.more} />
+            <div className={style.wrapperPrice}>
+              <p className={style.price}>Загальна вартість:</p>
+              <div>
+                <p>
+                  {numberOfProducts.reduce((accumulator, currentValue) => {
+                    return accumulator + Number(currentValue.priceUAH);
+                  }, 0)}{" "}
+                  UAH
+                </p>
+                <p>
+                  {numberOfProducts.reduce((accumulator, currentValue) => {
+                    return accumulator + Number(currentValue.priseUSD);
+                  }, 0)}{" "}
+                  $
+                </p>
+              </div>
+            </div>
+
+            <NavLink className={style.button} to="/myprofile/basket">
+              Перейти до замовлення
+            </NavLink>
+          </div>
+        )}
       </div>
     </>
   );

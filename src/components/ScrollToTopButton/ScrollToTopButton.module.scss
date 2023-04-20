@@ -16,14 +16,15 @@
   z-index: 10;
   cursor: pointer;
   &:hover {
-    scale: 1.05
+    scale: 1.05;
   }
   svg {
     fill: $hardGrey;
     width: 28px;
     height: 21px;
   }
+  @media screen and (max-width: 730px) {
+    right: 20px;
+    bottom: 95px;
+  }
 }
-
-
-

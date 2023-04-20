@@ -1,4 +1,4 @@
-@import '../../../style/variables.scss';
+@import "../../../../style/variables.scss";
 
 * {
   box-sizing: border-box;
@@ -16,7 +16,7 @@
 }
 
 .logo {
-  background-image: url("../../../assets/logo.png");
+  background-image: url("../../../../assets/logo.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -24,18 +24,23 @@
   height: 70px;
   @media screen and (max-width: 1280px) {
     width: 135px;
+  @media screen and (max-width: 540px) {
+    display: none;
   }
 }
-
+}
 .nav_links {
   display: flex;
   gap: 25px;
   @media screen and (max-width: 1280px) {
     gap: 5px;
+  @media screen and (max-width: 1024px) {
+    display: none;
   }
 }
+}
 
-.nav_li  {
+.nav_li {
   width: auto;
   display: flex;
   justify-content: center;
@@ -61,13 +66,25 @@
   }
 }
 
-.nav_li:hover  {
+.nav_li:hover {
   border: 2px solid $ligthGrey;
   background-color: $white;
   cursor: pointer;
   a {
     text-decoration: none;
     color: $solidBlack;
-    text-shadow:  1px 1px 2px $hardGrey;
+    text-shadow: 1px 1px 2px $hardGrey;
+  }
+}
+
+.logo_navlink_mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  .nav_links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

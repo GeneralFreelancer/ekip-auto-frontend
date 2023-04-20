@@ -23,6 +23,10 @@
     width: 30px;
     height: 30px;
   }
+  @media screen and (max-width: 730px) {
+    right: 20px;
+    bottom: 20px;
+  }
 }
 
 .callBackModal {

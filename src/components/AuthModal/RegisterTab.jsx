@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import s from "./AuthModal.module.scss";
+import { useDispatch } from "react-redux";
+import { register } from "../../redux/features/userSlice";
 
 const RegisterTab = (props) => {
   const [registerForm, setRegisterForm] = useState({
@@ -13,6 +15,8 @@ const RegisterTab = (props) => {
     password: "",
     confirmPassword: "",
   });
+
+  const dispatch = useDispatch();
 
   const validateRegisterForm = (name, value) => {
     let errors = { ...regiserErrors };
@@ -72,7 +76,9 @@ const RegisterTab = (props) => {
       registerForm.confirmPassword
     ) {
       console.log(registerForm);
-      localStorage.setItem("authSuccess", true); // LocalStorage
+
+      dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
+
       props.onSubmit(true);
     } else if (!registerForm.email) {
       validateRegisterForm("email", null);
