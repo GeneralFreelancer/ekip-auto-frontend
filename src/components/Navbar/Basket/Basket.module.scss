@@ -65,6 +65,9 @@
   height: 28px;
   width: 28px;
   text-align: center;
+  & > p {
+    color: $lightWhite;
+  }
 }
 
 .numberOpen {

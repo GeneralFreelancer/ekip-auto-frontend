@@ -5,6 +5,9 @@
     position: relative;
     margin-right: 58px;
     z-index: 50;
+    @media screen and (max-width: 1420px) {
+      margin-right: 5px;
+    }
     svg {
       width: 25px
     }
