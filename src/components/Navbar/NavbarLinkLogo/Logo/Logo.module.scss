@@ -5,4 +5,7 @@
   background-size: contain;
   width: 175px;
   height: 70px;
+  @media screen and (max-width: 420px) {
+    width: 140px;
+  }
 }

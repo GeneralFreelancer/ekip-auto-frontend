@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { useDispatch } from "react-redux";
-import { logout, register } from "../../../redux/features/userSlice";
+import { logout } from "../../../redux/features/userSlice";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -17,7 +17,6 @@ const AuthNav = (props) => {
   const onClick = () => {
     if (user.isLoggedIn || user.isRegistered) {
       setShowModal((prevState) => !prevState);
-    } else {
     }
     // console.log("click");
     // setShowModal((prevState) => {
@@ -27,7 +26,7 @@ const AuthNav = (props) => {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout())
+    dispatch(logout());
     setShowModal(false);
   };
 
@@ -55,9 +54,7 @@ const AuthNav = (props) => {
           </ul>
         )}
       </div>
-      {user.isLoggedIn && (
-        <p style={{ color: "white" }}>{user.currentUser.email}</p>
-      )}
+      {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>}
       {user.isRegistered && (
         <Link style={{ color: "red", textDecoration: "none" }} to={"#"}>
           Завершити <br></br> реестрацію

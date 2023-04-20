@@ -428,7 +428,6 @@ const MenuHamburgere = (props) => {
     setIsActive(false);
   };
 
-
   return (
     <div className={style.menu__hamburger} onClick={handleClick}>
       <Humburger className={style.menu__icon} />
@@ -436,9 +435,9 @@ const MenuHamburgere = (props) => {
         (desktopV ? (
           <CategoryItem data={mockCategoryName} />
         ) : (
-          <MobileMenu 
-          // onShowModal={props.onShowModal}
-          onClick={hideModalHandler} 
+          <MobileMenu
+          onShowModal={props.onShowModal}
+          onHideMobModal={hideModalHandler}
           />
         ))}
     </div>
