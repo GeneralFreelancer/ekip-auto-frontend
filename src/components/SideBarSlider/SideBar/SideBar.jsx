@@ -15,7 +15,26 @@ const mockCategoryName = [
     id: "2",
     title: "Led та освітлення",
     subCategory: [
-      
+      {
+        id: "56789ijh",
+        title: "Автоаксесуари",
+        subCategory: [
+          {
+            id: "1-1",
+            title: ""
+          },
+        ],
+      },
+      {
+        id: "98iuhb",
+        title: "Led та освітлення",
+        subCategory: [
+          {
+            id: "64635",
+            title: ""
+          },
+        ],
+      },
     ],
   },
   {
@@ -412,10 +431,11 @@ const mockCategoryName = [
     ],
   },
 ];
+
 const SideBar = () => {
 
   return(
-    <div className={style.wrapper}>
+    <div className={style.wrapper} >
       <CategoryItem key={'2'} styleItem={'sidebar'} data={mockCategoryName}/>
     </div>
   ); 

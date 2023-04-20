@@ -1,52 +1,33 @@
 @import '../../style/variables.scss';
 
 .menu {
-  &__content {
+  &__wrapper{
     position: absolute;
+    width: auto;
+    display: block;
+    height: auto;
+    z-index: 50;
+    top: 23px;
+  }
+  &__content {
+    // position: absolute;
     width: 330px;
     height: 445px;
     background: $hardGrey;
     left: 0;
-    top: 48px;
+    top: 23px;
     border: 1px solid $lightWhite;
     border-radius: 2px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: scroll;
     z-index: 50;
-    &__sidebar {
-      position: absolute;
-      width: 330px;
-      height: 445px;
-      background: $hardGrey;
-      left: 0;
-      top: 0;
-      border: 1px solid $lightWhite;
-      border-radius: 2px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      display: block!important;
-    }
-    &__show_sub {
-      position: absolute;
-      width: 330px;
-      height: 445px;
-      background: $hardGrey;
-      left: 0;
-      top: 49px;
-      border: 1px solid $lightWhite;
-      border-radius: 2px;
-      // overflow-y: none;
-      // overflow-x: none;
-    }
     & > div {
       margin: 0;
       padding: 0;
     }
     &__link {
         text-decoration: none;
-        white-space: nowrap;
         border-bottom: 1px solid $lightWhite;
-        height: 37px;
+        height: auto;
         display: block;
         color: $lightWhite;
         font-size: $h2;
@@ -55,6 +36,7 @@
         text-transform: uppercase;
         position: relative;
         padding: 10px 0px 10px 17px;
+        transition: all 0.2s;
         &:hover {
           background-color: $lightWhite;
           color: $hardGrey;
@@ -62,23 +44,17 @@
         }
       }
     }
-    &__subContent {
-    position: absolute;
-    width: 330px;
-    height: 445px;
-    background: $hardGrey;
-    right: -330px;
-    top: 0;
-    border: 1px solid $lightWhite;
-    border-radius: 2px;
-    // overflow: auto;
-    } 
-  }   
+  }
+
+  .activeCategory {
+    background-color: $lightWhite;
+    color: $hardGrey;
+    padding: 10px 0px 10px 32px;
+  }
   .hidden {
     display: none;
   }
   .sidebar{
     display: block;
     top: 0;
-
   }

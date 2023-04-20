@@ -16,7 +16,26 @@ const mockCategoryName = [
     id: "2",
     title: "Led та освітлення",
     subCategory: [
-      
+      {
+        id: "56789ijh",
+        title: "Автоаксесуари",
+        subCategory: [
+          {
+            id: "1-1",
+            title: ""
+          },
+        ],
+      },
+      {
+        id: "98iuhb",
+        title: "Led та освітлення",
+        subCategory: [
+          {
+            id: "64635",
+            title: ""
+          },
+        ],
+      },
     ],
   },
   {
@@ -455,9 +474,11 @@ const MenuHamburgere = () => {
         onClick={handleClick}
       >
         <Humburger className={style.menu__icon} /> 
-        {isActive && <CategoryItem
-          data={mockCategoryName} 
-        />}
+        <div className={style.menu__wrapper}>
+          {isActive && <CategoryItem
+            data={mockCategoryName} 
+          />}
+        </div>
         
       </div>
   );

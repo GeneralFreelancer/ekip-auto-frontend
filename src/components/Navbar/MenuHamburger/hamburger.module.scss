@@ -4,10 +4,16 @@
   &__hamburger {
     position: relative;
     margin-right: 58px;
-    display: flex;
     z-index: 50;
     svg {
       width: 25px
     }
+  }
+  &__wrapper{
+    position: relative;
+    width: auto;
+    display: block;
+    height: auto;
+    z-index: 50;
   }
 }

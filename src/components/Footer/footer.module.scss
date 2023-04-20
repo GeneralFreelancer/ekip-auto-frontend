@@ -5,10 +5,15 @@
     justify-content: space-between;
     align-items: center;
     background-color: $hardGrey;
-    width: $large1620;
+    max-width: $large1620;
     height: 63px;
     padding: 0 30px;
     margin: auto;
+    @media  screen and (max-width: 740px) {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
 }
 
 .text{
@@ -19,6 +24,11 @@
 .exchageContainer {
     display: flex;
     align-items: center;
+    @media screen and (max-width: 540px) {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
     .textSmall {
         display: flex;
         align-items: center;
