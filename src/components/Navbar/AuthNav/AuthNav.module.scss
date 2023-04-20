@@ -55,6 +55,9 @@
     scale: 1.05;
     cursor: pointer;
   }
+  // @media screen and (max-width: 1024px) {
+  //   display: none;
+  // }
 }
 
 .userWrapperOpen {
@@ -66,3 +69,5 @@
   justify-content: center;
   background: $lightWhite;
 }
+
+

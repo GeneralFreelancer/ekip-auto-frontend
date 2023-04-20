@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import style from "./Basket.module.scss";
@@ -104,6 +104,17 @@ const Basket = () => {
   const [isMouseInside, setIsMouseInside] = useState(false);
   const [numberOfProducts, setNumberOfProducts] = useState(numberOfProducts0);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  let desktopV = viewportWidth > 1024;
+
+  useEffect(() => {
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleMouseEnter = () => {
     setShowModal(true);
@@ -121,6 +132,7 @@ const Basket = () => {
       prevProducts.filter((product) => product.id !== id)
     );
   };
+
   // console.log(showModal);
   return (
     <>
@@ -131,14 +143,16 @@ const Basket = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <ShoppingCard
-          className={!showModal ? style.shoppingCard : style.shoppingCardOpen}
-        />
-        <div className={!showModal ? style.number : style.numberOpen}>
-          <p>{numberOfProducts.length}</p>
-        </div>
-
-        {showModal && (
+        <NavLink to="/myprofile/basket">
+          <ShoppingCard
+            className={!showModal ? style.shoppingCard : style.shoppingCardOpen}
+          />
+          <div className={!showModal ? style.number : style.numberOpen}>
+            <p>{numberOfProducts.length}</p>
+          </div>
+        </NavLink>
+        
+        {desktopV && showModal && (
           <div
             className={style.modalCard}
             onMouseEnter={() => {

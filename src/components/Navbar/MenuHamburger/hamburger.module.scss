@@ -6,8 +6,12 @@
     margin-right: 58px;
     display: flex;
     z-index: 50;
-    svg {
-      width: 25px
+    @media screen and (max-width: 640px) {
+      margin-right: 20px;
     }
+  }
+  &__icon {
+    width: 25px;
+    height: 25px;
   }
 }

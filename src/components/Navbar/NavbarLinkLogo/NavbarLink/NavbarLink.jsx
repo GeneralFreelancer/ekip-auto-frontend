@@ -2,12 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import s from "./NavbarLink.module.scss";
 
-const NavbarLink = () => {
+const NavbarLink = ({styleItem}) => {
+
   return (
-    <div className={s.logo_navlink}>
-      <Link to="/">
-        <div className={s.logo}> </div>
-      </Link>
+    <div className={styleItem ? `${s[`${styleItem}`]} ${s.logo_navlink}` : s.logo_navlink}>
       <div className={s.nav_links}>
         <div className={s.nav_li}>
           <Link to="/about">Про нас</Link>
