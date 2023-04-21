@@ -1,33 +1,395 @@
+import React, { useState, useRef } from "react";
 import "./Accordion.scss";
-import { useState, useRef } from "react";
 
-const faqs = [
+const mockCategoryName = [
   {
-    id: 1,
-    header: "What is Lorem Ipsum?",
-    text: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`,
+    id: "1",
+    title: "Автоаксесуари",
+    subCategory: [],
   },
   {
-    id: 2,
-    header: "Where does it come from?",
-    text: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. `,
+    id: "2",
+    title: "Led та освітлення",
+    subCategory: [
+      {
+        id: "56789ijh",
+        title: "Автоаксесуари",
+        subCategory: [
+          {
+            id: "1-1",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "98iuhb",
+        title: "Led та освітлення",
+        subCategory: [
+          {
+            id: "64635",
+            title: "",
+          },
+        ],
+      },
+    ],
   },
   {
-    id: 3,
-    header: "Why do we use it?",
-    text: `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature,`,
+    id: "3",
+    title: "Фари",
+    subCategory: [],
   },
   {
-    id: 4,
-    header: "Where can I get some?",
-    text: `There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.`,
+    id: "4",
+    title: "Декоративне свiтло",
+    subCategory: [],
+  },
+  {
+    id: "5",
+    title: "Електроннi компоненти",
+    subCategory: [],
+  },
+  {
+    id: "6",
+    title: "Кабельна продукцiя",
+    subCategory: [
+      {
+        id: "1",
+        title: "Автоаксесуари",
+        subCategory: [
+          {
+            id: "1-1",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "2",
+        title: "Led та освітлення",
+        subCategory: [
+          {
+            id: "64635",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "3",
+        title: "Фари",
+        subCategory: [
+          {
+            id: "987",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "4",
+        title: "Декоративне свiтло",
+        subCategory: [
+          {
+            id: "1fg5",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "5",
+        title: "Електроннi компоненти",
+        subCategory: [
+          {
+            id: "5-5",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "6",
+        title: "Кабельна продукцiя",
+        subCategory: [
+          {
+            id: "6-6",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "7",
+        title: "Лазерне обладнання",
+        subCategory: [
+          {
+            id: "7-7",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "8",
+        title: "Мiкрофони та аксесуари",
+        subCategory: [
+          {
+            id: "8_8",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "9",
+        title: "Металевi стiйки, ферми",
+        subCategory: [
+          {
+            id: "9-9",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "10",
+        title: "Свiтлове обладнання",
+        subCategory: [
+          {
+            id: "10-1",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "11",
+        title: "Свiтлове обладнання",
+        subCategory: [
+          {
+            id: "11-1",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "12",
+        title: "Трансляцiйне обладнання",
+        subCategory: [
+          {
+            id: "12-12",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "13",
+        title: "Автоаксесуари",
+        subCategory: [
+          {
+            id: "13-133",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "14",
+        title: "Led та освітлення",
+        subCategory: [
+          {
+            id: "232",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "15",
+        title: "Фари",
+        subCategory: [
+          {
+            id: "23235yfd",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "16",
+        title: "Декоративне свiтло",
+        subCategory: [
+          {
+            id: "1fdffdfwer",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "17",
+        title: "Електроннi компоненти",
+        subCategory: [
+          {
+            id: "17-17",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "18",
+        title: "Кабельна продукцiя",
+        subCategory: [
+          {
+            id: "18-18",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "19",
+        title: "Лазерне обладнання",
+        subCategory: [
+          {
+            id: "19-19",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "20",
+        title: "Мiкрофони та аксесуари",
+        subCategory: [
+          {
+            id: "20-20",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "21",
+        title: "Металевi стiйки, ферми",
+        subCategory: [
+          {
+            id: "21-21",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "22",
+        title: "Свiтлове обладнання",
+        subCategory: [
+          {
+            id: "22-22",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "23",
+        title: "Свiтлове обладнання",
+        subCategory: [
+          {
+            id: "23-23",
+            title: "",
+          },
+        ],
+      },
+      {
+        id: "24",
+        title: "Трансляцiйне обладнання",
+        subCategory: [
+          {
+            id: "24-24",
+            title: "",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "7",
+    title: "Лазерне обладнання",
+    subCategory: [],
+  },
+  {
+    id: "8",
+    title: "Мiкрофони та аксесуари",
+    subCategory: [],
+  },
+  {
+    id: "9",
+    title: "Металевi стiйки, ферми",
+    subCategory: [],
+  },
+  {
+    id: "10",
+    title: "Свiтлове обладнання",
+    subCategory: [],
+  },
+  {
+    id: "11",
+    title: "Свiтлове обладнання",
+    subCategory: [],
+  },
+  {
+    id: "12",
+    title: "Трансляцiйне обладнання",
+    subCategory: [],
+  },
+  {
+    id: "13",
+    title: "Автоаксесуари",
+    subCategory: [],
+  },
+  {
+    id: "14",
+    title: "Led та освітлення",
+    subCategory: [],
+  },
+  {
+    id: "15",
+    title: "Фари",
+    subCategory: [],
+  },
+  {
+    id: "16",
+    title: "Декоративне свiтло",
+    subCategory: [],
+  },
+  {
+    id: "17",
+    title: "Електроннi компоненти",
+    subCategory: [],
+  },
+  {
+    id: "18",
+    title: "Кабельна продукцiя",
+    subCategory: [],
+  },
+  {
+    id: "19",
+    title: "Лазерне обладнання",
+    subCategory: [],
+  },
+  {
+    id: "20",
+    title: "Мiкрофони та аксесуари",
+    subCategory: [],
+  },
+  {
+    id: "21",
+    title: "Металевi стiйки, ферми",
+    subCategory: [],
+  },
+  {
+    id: "22",
+    title: "Свiтлове обладнання",
+    subCategory: [],
+  },
+  {
+    id: "23",
+    title: "Свiтлове обладнання",
+    subCategory: [],
+  },
+  {
+    id: "24",
+    title: "Трансляцiйне обладнання",
+    subCategory: [],
   },
 ];
 
 const AccordionItem = (props) => {
   const contentEl = useRef();
-  const { handleToggle, active, faq } = props;
-  const { header, id, text } = faq;
+  const { handleToggle, active, item } = props;
+  const { id = 1, title = "d", subCategory } = item;
 
   return (
     <div className="rc-accordion-card">
@@ -36,7 +398,7 @@ const AccordionItem = (props) => {
           className={`rc-accordion-toggle p-3 ${active === id ? "active" : ""}`}
           onClick={() => handleToggle(id)}
         >
-          <h5 className="rc-accordion-title">{header}</h5>
+          <h5 className="rc-accordion-title">{title}</h5>
           <i className="fa fa-chevron-down rc-accordion-icon"></i>
         </div>
       </div>
@@ -50,7 +412,14 @@ const AccordionItem = (props) => {
         }
       >
         <div className="rc-accordion-body">
-          <p className="mb-0">{text}</p>
+          {subCategory &&
+            subCategory.map((sub) => {
+              return (
+                <p id={sub.id} key={sub.id}>
+                  {sub.title}
+                </p>
+              );
+            })}
         </div>
       </div>
     </div>
@@ -78,13 +447,13 @@ const Accordion = () => {
                 <h4 className="form-heading mb-4 text-primary text-center mt-3">
                   React Accordion
                 </h4>
-                {faqs.map((faq, index) => {
+                {mockCategoryName.map((item, index) => {
                   return (
                     <AccordionItem
                       key={index}
                       active={active}
                       handleToggle={handleToggle}
-                      faq={faq}
+                      item={item}
                     />
                   );
                 })}
