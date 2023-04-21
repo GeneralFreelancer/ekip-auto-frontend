@@ -40,7 +40,7 @@ const HomePage = () => {
       </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
-      {/* <Footer currentRate={"38.9"} />  */}
+      <Footer currentRate={"38.9"} /> 
     </>
   );
 };
