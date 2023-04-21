@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import s from "./MobileMenu.module.scss";
 
 import NavbarLink from "../../NavbarLinkLogo/NavbarLink";
-import Accordion from "./Accordion";
+import Accordion from "./Accordion/Accordion";
 import Logo from "../../NavbarLinkLogo/Logo/Logo";
 
 import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";

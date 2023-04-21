@@ -1,5 +1,9 @@
 import React, { useState, useRef } from "react";
+import { NavLink } from "react-router-dom";
+
 import "./Accordion.scss";
+
+import CyrillicToTranslit from "cyrillic-to-translit-js";
 
 const mockCategoryName = [
   {
@@ -386,19 +390,27 @@ const mockCategoryName = [
   },
 ];
 
+const cyrillicToTranslit = new CyrillicToTranslit();
+// rus to lat use this on backend for dynamic ulr
+const translit = (name) => {
+  return cyrillicToTranslit.transform(String(name), "-").toLowerCase();
+};
+
 const AccordionItem = (props) => {
   const contentEl = useRef();
   const { handleToggle, active, item } = props;
-  const { id = 1, title = "d", subCategory } = item;
+  const { id, title, subCategory } = item;
 
   return (
     <div className="rc-accordion-card">
       <div className="rc-accordion-header">
         <div
           className={`rc-accordion-toggle p-3 ${active === id ? "active" : ""}`}
-          onClick={() => handleToggle(id)}
+          onClick={(e) => handleToggle(id, e)}
         >
-          <h5 className="rc-accordion-title">{title}</h5>
+          <NavLink to={`/${translit(title)}`} className="rc-accordion-title">
+            {title}
+          </NavLink>
           <i className="fa fa-chevron-down rc-accordion-icon"></i>
         </div>
       </div>
@@ -415,9 +427,13 @@ const AccordionItem = (props) => {
           {subCategory &&
             subCategory.map((sub) => {
               return (
-                <p id={sub.id} key={sub.id}>
+                <NavLink
+                  to={`${translit(title)}/${translit(sub.title)}`}
+                  id={sub.id}
+                  key={sub.id}
+                >
                   {sub.title}
-                </p>
+                </NavLink>
               );
             })}
         </div>
@@ -429,13 +445,13 @@ const AccordionItem = (props) => {
 const Accordion = () => {
   const [active, setActive] = useState(null);
 
-  const handleToggle = (e, index) => {
-    console.log(e.currentTarget);
-    console.log(e.target);
-    if (active === index) {
-      setActive(null);
-    } else {
-      setActive(index);
+  const handleToggle = (index, e) => {
+    if (e.target.localName === "div") {
+      if (active === index) {
+        setActive(null);
+      } else {
+        setActive(index);
+      }
     }
   };
 
@@ -446,9 +462,9 @@ const Accordion = () => {
           <div className="col-md-8 mt-2">
             <div className="card">
               <div className="card-body">
-                <h4 className="form-heading mb-4 text-primary text-center mt-3">
+                {/* <h4 className="form-heading mb-4 text-primary text-center mt-3">
                   React Accordion
-                </h4>
+                </h4> */}
                 {mockCategoryName.map((item, index) => {
                   return (
                     <AccordionItem
