@@ -27,9 +27,13 @@ const userSlice = createSlice({
       state.isRegistered = true;
       state.currentUser = action.payload;
     },
+    registerOut: (state) => {
+      state.isRegistered = false;
+      state.currentUser = null;
+    },
   },
 });
 
-export const { login, logout, register } = userSlice.actions;
+export const { login, logout, register, registerOut } = userSlice.actions;
 export default userSlice.reducer;
 export const selectedUser = (state) => state.user;

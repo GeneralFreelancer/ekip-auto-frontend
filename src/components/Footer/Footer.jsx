@@ -1,7 +1,7 @@
 import style from "./Footer.module.scss";
 
 const Footer = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
       <footer>
         <div className={style.container__footer}>

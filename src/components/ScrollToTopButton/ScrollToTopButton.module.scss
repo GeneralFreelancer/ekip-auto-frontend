@@ -3,7 +3,7 @@
 .topButton {
   position: fixed;
   right: 40px;
-  bottom: 115px;
+  bottom: 145px;
   width: 55px;
   height: 55px;
   border: none;
@@ -25,6 +25,10 @@
   }
   @media screen and (max-width: 730px) {
     right: 20px;
-    bottom: 95px;
+    bottom: 153px;
+  }
+  @media screen and (max-width: 540px) {
+    right: 20px;
+    bottom: 198px;
   }
 }

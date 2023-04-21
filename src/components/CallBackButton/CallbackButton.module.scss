@@ -3,7 +3,7 @@
 .callButton {
   position: fixed;
   right: 40px;
-  bottom: 40px;
+  bottom: 70px;
   width: 55px;
   height: 55px;
   border: none;
@@ -25,7 +25,11 @@
   }
   @media screen and (max-width: 730px) {
     right: 20px;
-    bottom: 20px;
+    bottom: 78px;
+  }
+  @media screen and (max-width: 540px) {
+    right: 20px;
+    bottom: 123px;
   }
 }
 
@@ -36,8 +40,9 @@
   border: 2px solid $hardGrey;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
   position: fixed;
-  bottom: 74px;
-  right: 120px;
+  bottom: 110px;
+  right: 115px;
+  z-index: 10;
   border-radius: 7px;
   &::before {
     content: "";
@@ -61,6 +66,19 @@
     width: 20px;
     transform: rotate(17deg);
   }
+  @media screen and (max-width: 730px) {
+    right: 95px;
+  }
+  @media screen and (max-width: 540px) {
+    bottom: 155px;
+  }
+  @media screen and (max-width: 450px) {
+    width: 280px;
+    right: 85px;
+  }
+  @media screen and (max-width: 380px) {
+    width: 250px;
+  }
 }
 
 .callBackModalContent {
@@ -74,13 +92,13 @@
     &::after {
       content: "";
       position: absolute;
-      bottom: 0px;
+      bottom: 1px;
       right: -12px;
       background-color: #333030;
       box-shadow: 1px -1px 3px rgba(0, 0, 0, 0.56);
       height: 2px;
-      width: 17px;
-      transform: rotate(69deg);
+      width: 16px;
+      transform: rotate(71deg)
     }
   }
   .callBackModal_input {
@@ -91,6 +109,9 @@
     border: 2px solid $ligthGrey;
     background-color: $lightWhite;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+    @media screen and (max-width: 450px) {
+      width: 150px;
+    }
   }
   .callBackModal_btn {
     margin-left: 15px;

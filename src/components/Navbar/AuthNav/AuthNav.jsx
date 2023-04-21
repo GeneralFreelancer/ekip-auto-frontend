@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../redux/features/userSlice";
+import { logout, registerOut} from "../../../redux/features/userSlice";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -27,6 +27,7 @@ const AuthNav = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
+    dispatch(registerOut());
     setShowModal(false);
   };
 

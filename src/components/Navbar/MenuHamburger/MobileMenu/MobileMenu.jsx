@@ -36,7 +36,7 @@ const MobileMenu = (props) => {
               props.onShowModal();
             }}
           />
-          {user.isLoggedIn && <p style={{ color: "white" }}>Тимурsdfsd</p>}
+          {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>}
           {user.isRegistered && (
             <Link style={{ color: "red", textDecoration: "none" }} to={"#"}>
               Завершити
