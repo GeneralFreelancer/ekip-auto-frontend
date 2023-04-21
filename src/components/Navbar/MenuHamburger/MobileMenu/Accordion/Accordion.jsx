@@ -430,8 +430,6 @@ const Accordion = () => {
   const [active, setActive] = useState(null);
 
   const handleToggle = (e, index) => {
-    console.log(e.currentTarget);
-    console.log(e.target);
     if (active === index) {
       setActive(null);
     } else {
