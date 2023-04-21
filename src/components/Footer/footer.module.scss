@@ -9,6 +9,7 @@
     height: 63px;
     padding: 0 30px;
     margin: auto;
+    box-shadow: 0px 0px 7px 1px $hardGrey;
     @media  screen and (max-width: 740px) {
         flex-direction: column;
         height: auto;
@@ -35,6 +36,7 @@
         font-size: $p; 
         color: $lightWhite;
         margin-right: 24px;
+        text-transform: uppercase;
         .textRate {
             font-size: $h2; 
             margin: 0 5px;

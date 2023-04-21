@@ -1,67 +1,72 @@
 @import "../../../style/variables.scss";
 
-.card{
-    box-sizing: border-box;
-    display: flex;
-    width: 255px;
-    height: 290px;
-    padding: 7px 25px;
-    flex-direction: column;
-    justify-content: space-between;
-
-    border-right:1px solid $ligthGrey;
-    border-bottom:1px solid $ligthGrey;
-
-    margin:auto;
+.card {
+  box-sizing: border-box;
+  display: flex;
+  width: 255px;
+  height: 290px;
+  padding: 7px 25px;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid $ligthGrey;
+  border-bottom: 1px solid $ligthGrey;
+  margin: auto;
+  &:hover{
+    transform: scale(1.02);
+  }
 }
 
-.lastCard{
-    border-right:0;
+.lastCard {
+  border-right: 0;
 }
 
-.wrapperImg{
-    display: flex;
-    width: 200px;
-    height: 200px;
-    align-items: center;
-    justify-content: center;
+.wrapperImg {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  overflow: hidden;
 }
 
-.imgProduct{
-    max-width: 200px;
-    max-height: 200px;
-    object-fit: contain;
+.imgProduct {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: contain;
 
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
-.title{
-    margin-bottom: 8px;
-    font-size: 12px;
+.title {
+  margin-bottom: 8px;  
+    font-size: 16px;
+    height: 50px;
+    overflow: hidden;
 }
 
-.inStock{
-    text-align: end;
-    margin-bottom: 3px;
+.inStock {
+  text-align: end;
+  margin-bottom: 3px;
 }
 
-.inStockYes{
-    color:#008000
+.inStockYes {
+  color: #008000;
 }
 
-.inStockNo{
-    color: #f00;
+.inStockNo {
+  color: #f00;
 }
 
-.wrapperPrice{
-    display: flex;
-    justify-content: space-between;
+.wrapperPrice {
+  display: flex;
+  justify-content: space-between;
 }
 
-.priceUAH{
-    font-weight: 600;
+.priceUAH {
+  font-weight: 600;
 }
 
-h3{
-    margin:0;
+h3 {
+  margin: 0;
 }

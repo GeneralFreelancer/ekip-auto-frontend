@@ -25,7 +25,7 @@ const Card = ({
           <p className={`${style.inStock} ${style.inStockYes}`}>В наявності</p>
         ) : (
           <p className={`${style.inStock} ${style.inStockNo}`}>
-            Нема в наявності
+            Немає в наявності
           </p>
         )}
 

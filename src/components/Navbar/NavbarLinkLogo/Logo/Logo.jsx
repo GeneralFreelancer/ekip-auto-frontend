@@ -5,7 +5,7 @@ import s from "./Logo.module.scss";
 
 const Logo = () => {
   return (
-    <div>
+    <div className={s.logo__wrapper}>
       <Link to="/">
         <div className={s.logo}> </div>
       </Link>
