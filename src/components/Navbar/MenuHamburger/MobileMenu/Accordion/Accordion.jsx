@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./Accordion.scss";
+import { ReactComponent as ArrowDown } from "../../../../../assets/svg/up-arrow.svg";
 
 const mockCategoryName = [
   {
@@ -389,39 +390,43 @@ const mockCategoryName = [
 const AccordionItem = (props) => {
   const contentEl = useRef();
   const { handleToggle, active, item } = props;
-  const { id = 1, title = "d", subCategory } = item;
+  const { id, title, subCategory } = item;
 
   return (
     <div className="rc-accordion-card">
       <div className="rc-accordion-header">
         <div
-          className={`rc-accordion-toggle p-3 ${active === id ? "active" : ""}`}
+          className={`rc-accordion-toggle p-3 ${ active === id ? "active" : ""}`}
           onClick={() => handleToggle(id)}
         >
-          <h5 className="rc-accordion-title">{title}</h5>
-          <i className="fa fa-chevron-down rc-accordion-icon"></i>
+          <p className="rc-accordion-title">{title}</p>
+          <div><ArrowDown className="arrow-down"/></div>
         </div>
       </div>
-      <div
-        ref={contentEl}
-        className={`rc-collapse ${active === id ? "show" : ""}`}
-        style={
-          active === id
-            ? { height: contentEl.current.scrollHeight }
-            : { height: "0px" }
-        }
-      >
-        <div className="rc-accordion-body">
-          {subCategory &&
-            subCategory.map((sub) => {
-              return (
-                <p id={sub.id} key={sub.id}>
-                  {sub.title}
-                </p>
-              );
-            })}
+
+      {subCategory.length > 0 &&
+        <div
+          ref={contentEl}
+          className={`rc-collapse ${active === id ? "show" : ""}`}
+          style={
+            active === id
+              ? { height: contentEl.current.scrollHeight }
+              : { height: "0px" }
+          }
+        >
+          <div className="rc-accordion-body">
+            {subCategory &&
+              subCategory.map((sub) => {
+                return (
+                  <div id={sub.id} key={sub.id}>
+                    {sub.title}
+                  </div>
+                );
+              })}
+          </div>
         </div>
-      </div>
+      }
+
     </div>
   );
 };
@@ -429,7 +434,7 @@ const AccordionItem = (props) => {
 const Accordion = () => {
   const [active, setActive] = useState(null);
 
-  const handleToggle = (e, index) => {
+  const handleToggle = (index) => {
     if (active === index) {
       setActive(null);
     } else {
@@ -439,27 +444,18 @@ const Accordion = () => {
 
   return (
     <>
-      <div className="container-fluid mt-5 mb-5">
-        <div className="row justify-content-center">
-          <div className="col-md-8 mt-2">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="form-heading mb-4 text-primary text-center mt-3">
-                  React Accordion
-                </h4>
-                {mockCategoryName.map((item, index) => {
-                  return (
-                    <AccordionItem
-                      key={index}
-                      active={active}
-                      handleToggle={handleToggle}
-                      item={item}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+      <div className="card">
+        <div className="card-body">
+          {mockCategoryName.map((item, index) => {
+            return (
+              <AccordionItem
+                key={index}
+                active={active}
+                handleToggle={handleToggle}
+                item={item}
+              />
+            );
+          })}
         </div>
       </div>
     </>
