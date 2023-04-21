@@ -32,7 +32,7 @@ const MobileMenu = (props) => {
         >
           <Cross className={s.cross} onClick={props.onClick} />
         </div>
-        <Logo />
+        <Logo styleItem={'modal__center'}/>
         <div className={s.userMob_block}>
           <UserMob
             className={s.userMob}
