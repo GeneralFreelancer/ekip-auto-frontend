@@ -1,12 +1,16 @@
-import React from "react";
-import s from "./MobileMenu.module.scss";
-import NavbarLink from "../../NavbarLinkLogo/NavbarLink/NavbarLink";
-import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
-import Logo from "../../NavbarLinkLogo/Logo/Logo";
-import { selectedUser } from "../../../../redux/features/userSlice";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+
+import s from "./MobileMenu.module.scss";
+
+import NavbarLink from "../../NavbarLinkLogo/NavbarLink";
+import Accordion from "./Accordion";
+import Logo from "../../NavbarLinkLogo/Logo/Logo";
+
+import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
 import { ReactComponent as UserMob } from "../../../../assets/svg/authNav/user.svg";
+
+import { selectedUser } from "../../../../redux/features/userSlice";
 
 const MobileMenu = (props) => {
   console.log(props.onHideMobModal);
@@ -45,6 +49,7 @@ const MobileMenu = (props) => {
         </div>
       </div>
       <NavbarLink styleItem={"logo_navlink_mobile"} />
+      <Accordion />
     </div>
   );
 };
