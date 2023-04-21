@@ -20,7 +20,7 @@ const CategoryItem = (props) => {
         className={s.menu__content}>
           {props.data.map(({ id, title, subCategory}, i) => ( 
             <Link
-              key={id+1}
+              key={`${title}_${id}`}
               id={id}
               className={isActive && id === catId ? `${s.menu__content__link} ${s.activeCategory}` : s.menu__content__link}
               to={`/${translit(title)}`}

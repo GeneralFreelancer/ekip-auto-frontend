@@ -13,7 +13,7 @@ const Subcategoryitem = (props) => {
         <div>
           {props.subCategory.map(({id, title}) => ( 
               <Link
-                key={id+1}
+                key={`${id}-${title}`}
                 id={id}
                 className={style.menu__content__link}
                 to={`${props.categoryLink}/${translit(title)}`}
