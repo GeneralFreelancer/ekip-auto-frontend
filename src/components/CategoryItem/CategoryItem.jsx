@@ -1,8 +1,8 @@
-import style from "./Category.module.scss";
+import s from "./Category.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
-
+import Subcategoryitem from "./SubCategoryItem";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
@@ -11,63 +11,40 @@ const translit = (name) => {
 };
 
 const CategoryItem = (props) => {
+  const [isActive, setIsSubCat] = useState(false);
   const [catId, setCatId] = useState(false);
-  const [show, setShow] = useState(false);
-  const setStyle = (status) => {  
-    if (status) {
-        return style.menu__content__show_sub;
-      } else {
-        return style.menu__content;
-      }
-  };
-  
-  // console.log(`${style[`${props.styleItem}`]}` )
-  
+  const [categoryLink, setCategoryLink] = useState(false);
   return (
-    <div className={props.styleItem ?
-      `${setStyle(show)} ${style[`${props.styleItem}`]}` :
-      setStyle(show)}>
-      <div>
-        {props.data.map(({ id, title, subCategory }) => (
-          <Link
-            key={id+1}
-            id={id}
-            className={style.menu__content__link}
-            to={`/${translit(title)}`}
-            onMouseEnter={() => {
-              if (subCategory.length !== 0) {
-                setCatId(id);
-                setShow(true);
-              }
-              if (subCategory.length === 0) {
-                setCatId(id);
-                setShow(false)
-              }
-            }}
-          >
-              {title}
-              {subCategory.length > 0 ? (
-                <div className={style.menu__subContent}>
-                  <div>
-                    {subCategory.map(({ id, title }) => (
-                      <Link
-                        key={id+1}
-                        id={id}
-                        className={style.menu__content__link}
-                        to={`/${translit(title)}`}
-                      >
-                        {title}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                " "
-              )}
-          </Link>
-        ))}
+    <div className={props.styleItem ? `${s.menu__wrapper} ${s[`${props.styleItem}`]}`: s.menu__wrapper}>
+      <div 
+        className={s.menu__content}>
+          {props.data.map(({ id, title, subCategory}, i) => ( 
+            <Link
+              key={id+1}
+              id={id}
+              className={isActive && id === catId ? `${s.menu__content__link} ${s.activeCategory}` : s.menu__content__link}
+              to={`/${translit(title)}`}
+              onMouseEnter={() => {
+                if (subCategory.length > 0) {
+                  setIsSubCat(true);
+                  setCatId(id);
+                  setCategoryLink(`${translit(title)}`); 
+                }
+                else {
+                  if (id !== catId) {
+                    setIsSubCat(false);
+                    setCategoryLink(false);
+                  }
+                }
+              }}
+              >
+                {title}
+            </Link>
+          ))}
       </div>
+          {isActive && props.data.map(({id, subCategory}) => (subCategory.length > 0 && id === catId ? <Subcategoryitem subCategory={subCategory} categoryLink={categoryLink}/> : '')) }
     </div>
+    
   );
 };
 

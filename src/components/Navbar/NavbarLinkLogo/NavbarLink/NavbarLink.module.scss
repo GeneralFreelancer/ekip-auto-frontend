@@ -10,17 +10,34 @@
   align-items: center;
   gap: 75px;
   flex: 1;
+  @media screen and (max-width: 1420px) {
+    gap: 0;
+  }
+}
+
+.logo {
+  background-image: url("../../../../assets/logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 175px;
+  height: 70px;
+  @media screen and (max-width: 1280px) {
+    width: 135px;
   @media screen and (max-width: 540px) {
     display: none;
   }
 }
-
+}
 .nav_links {
   display: flex;
   gap: 25px;
+  @media screen and (max-width: 1280px) {
+    gap: 5px;
   @media screen and (max-width: 1024px) {
     display: none;
   }
+}
 }
 
 .nav_li {
@@ -35,10 +52,17 @@
   border: none;
   transition: all 0.2s ease-out;
   padding: 0 23px;
+  @media screen and (max-width: 1280px) {
+    padding: 0 5px;
+  }
   a {
     text-decoration: none;
     color: $lightWhite;
     font-size: $h2;
+    white-space: nowrap;
+    @media screen and (max-width: 1280px) {
+      font-size: 20px;
+    }
   }
 }
 
