@@ -1,0 +1,68 @@
+.user {
+  width: 45px;
+  height: 45px;
+  fill: #f8f7f0;
+}
+
+.userOpen {
+  width: 45px;
+  height: 45px;
+  fill: #333030;
+}
+
+.list {
+  width: 140px;
+  z-index: 1;
+  border: 1px solid #333030;
+  border-radius: 5px;
+  text-align: center;
+  position: absolute;
+  top: 57px;
+  right: 0;
+  background: white;
+  overflow: hidden;
+}
+
+.item {
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+.item:hover > li {
+  background-color: #f8f7f0;
+}
+.item > li {
+  list-style-type: none;
+  height: 37px;
+  align-content: center;
+  line-height: 2.4;
+}
+
+.item:not(:last-child) {
+  border-bottom: 1px solid #333030;
+}
+
+.userWrapper {
+  display: flex;
+  position: relative;
+  width: 73px;
+  height: 73px;
+  align-items: center;
+  justify-content: center;
+}
+.userWrapper svg:hover {
+  scale: 1.05;
+  cursor: pointer;
+}
+
+.userWrapperOpen {
+  display: flex;
+  position: relative;
+  width: 73px;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+  background: #f8f7f0;
+  margin-left: 10px;
+  margin-right: 3px;
+}/*# sourceMappingURL=AuthNav.module.css.map */

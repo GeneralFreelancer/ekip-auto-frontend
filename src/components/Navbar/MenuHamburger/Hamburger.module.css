@@ -1,0 +1,20 @@
+.menu__hamburger {
+  position: relative;
+  margin-right: 58px;
+  z-index: 50;
+}
+@media screen and (max-width: 1420px) {
+  .menu__hamburger {
+    margin-right: 5px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .menu__hamburger {
+    margin-right: 20px;
+  }
+}
+.menu__icon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}/*# sourceMappingURL=Hamburger.module.css.map */

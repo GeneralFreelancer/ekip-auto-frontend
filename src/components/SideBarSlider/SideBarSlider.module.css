@@ -1,0 +1,21 @@
+.container__sidebar_slider {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  /* padding: 0 30px; */
+  /* margin: auto;
+    background-color: #fff; */
+  /* width: $large1620; */
+  height: 508px;
+  align-items: flex-end;
+}
+@media screen and (max-width: 1024px) {
+  .container__sidebar_slider {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 825px) {
+  .container__sidebar_slider {
+    height: 413px;
+  }
+}/*# sourceMappingURL=SideBarSlider.module.css.map */
