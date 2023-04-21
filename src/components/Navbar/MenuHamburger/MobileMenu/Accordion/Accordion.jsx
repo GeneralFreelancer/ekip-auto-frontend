@@ -1,5 +1,9 @@
 import React, { useState, useRef } from "react";
+import { NavLink } from "react-router-dom";
+
 import "./Accordion.scss";
+
+import CyrillicToTranslit from "cyrillic-to-translit-js";
 import { ReactComponent as ArrowDown } from "../../../../../assets/svg/up-arrow.svg";
 
 const mockCategoryName = [
@@ -387,6 +391,12 @@ const mockCategoryName = [
   },
 ];
 
+const cyrillicToTranslit = new CyrillicToTranslit();
+// rus to lat use this on backend for dynamic ulr
+const translit = (name) => {
+  return cyrillicToTranslit.transform(String(name), "-").toLowerCase();
+};
+
 const AccordionItem = (props) => {
   const contentEl = useRef();
   const { handleToggle, active, item } = props;
@@ -396,15 +406,16 @@ const AccordionItem = (props) => {
     <div className="rc-accordion-card">
       <div className="rc-accordion-header">
         <div
-          className={`rc-accordion-toggle p-3 ${ active === id ? "active" : ""}`}
-          onClick={() => handleToggle(id)}
+          className={`rc-accordion-toggle p-3 ${active === id ? "active" : ""}`}
+          onClick={(e) => handleToggle(id, e)}
         >
-          <p className="rc-accordion-title">{title}</p>
-          <div><ArrowDown className="arrow-down"/></div>
+          <NavLink to={`/${translit(title)}`} className="rc-accordion-title">
+            {title}
+          </NavLink>
+          {subCategory.length > 0 && <ArrowDown className="arrow-down" />}
         </div>
       </div>
-
-      {subCategory.length > 0 &&
+      {subCategory.length > 0 && (
         <div
           ref={contentEl}
           className={`rc-collapse ${active === id ? "show" : ""}`}
@@ -418,15 +429,18 @@ const AccordionItem = (props) => {
             {subCategory &&
               subCategory.map((sub) => {
                 return (
-                  <div id={sub.id} key={sub.id}>
-                    {sub.title}
-                  </div>
+                  <NavLink
+                    to={`${translit(title)}/${translit(sub.title)}`}
+                    id={sub.id}
+                    key={sub.id}
+                  >
+                    <div className="rc-accordion-body-title"> {sub.title}</div>
+                  </NavLink>
                 );
               })}
           </div>
         </div>
-      }
-
+      )}
     </div>
   );
 };
@@ -434,11 +448,13 @@ const AccordionItem = (props) => {
 const Accordion = () => {
   const [active, setActive] = useState(null);
 
-  const handleToggle = (index) => {
-    if (active === index) {
-      setActive(null);
-    } else {
-      setActive(index);
+  const handleToggle = (index, e) => {
+    if (e.target.localName === "div") {
+      if (active === index) {
+        setActive(null);
+      } else {
+        setActive(index);
+      }
     }
   };
 

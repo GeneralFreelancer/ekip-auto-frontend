@@ -21,7 +21,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "1-1",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -31,7 +31,7 @@ const mockCategoryName = [
         subCategory: [
           {
             id: "64635",
-            title: ""
+            title: "",
           },
         ],
       },
@@ -406,7 +406,7 @@ const MenuHamburgere = (props) => {
         setIsActive((current) => !current);
       }
     } else {
-      setIsActive(true);
+      setIsActive((prevState) => !prevState);
     }
   };
 
@@ -445,23 +445,21 @@ const MenuHamburgere = (props) => {
 
   useWindowScrollPositions();
 
-  const hideModalHandler = () => {
-    setIsActive(false);
-  };
-
   return (
-    <div className={style.menu__hamburger} onClick={handleClick}>
-      <Humburger className={style.menu__icon} />
+    <>
+      <div className={style.menu__hamburger} onClick={handleClick}>
+        <Humburger className={style.menu__icon} />
+      </div>
       {isActive &&
         (desktopV ? (
           <CategoryItem data={mockCategoryName} />
         ) : (
           <MobileMenu
-          onShowModal={props.onShowModal}
-          onHideMobModal={hideModalHandler}
+            onShowModal={props.onShowModal}
+            onClick={() => handleClick()}
           />
         ))}
-    </div>
+    </>
   );
 };
 export default MenuHamburgere;

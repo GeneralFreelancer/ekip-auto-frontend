@@ -29,13 +29,15 @@
   transform: rotate(180deg);
 }
 .rc-accordion-card {
-  border: 1px solid $lightWhite;
+  border-top: 1px solid $lightWhite;
   border-radius: 2px;
-  margin-bottom: 10px;
   overflow: hidden;
+  border-left: 1px solid $lightWhite;
+  border-right: 1px solid $lightWhite;
 }
 .rc-accordion-card:last-child {
   margin-bottom: 0;
+  border-bottom: 1px solid $lightWhite;
 }
 .rc-accordion-title {
   color: $lightWhite;
@@ -60,18 +62,23 @@
   font-size: 18px;
   color: $lightWhite;
   padding: 10px;
-  border-bottom: 1px solid $lightWhite;
   border-radius: 2px;
+  a {
+    color: #f8f7f0;
+  }
 }
 
-.rc-accordion-body div:last-child {
-  border: none;
+.rc-accordion-body-title {
+  border-bottom: 1px solid $lightWhite;
 }
 
 .rc-accordion-body div:hover {
   background-color: $lightWhite;
   color: $hardGrey;
   cursor: pointer;
+  a {
+    color: $hardGrey;
+  }
 }
 
 .rc-collapse {
@@ -84,11 +91,10 @@
   height: auto;
 }
 
-
 .arrow-down {
-    margin-right: 10px;
-    width: 15px;
-    height: 15px;
-    fill: $lightWhite;
-    transform: rotate(180deg);
+  margin-right: 10px;
+  width: 15px;
+  height: 15px;
+  fill: $lightWhite;
+  transform: rotate(180deg);
 }
