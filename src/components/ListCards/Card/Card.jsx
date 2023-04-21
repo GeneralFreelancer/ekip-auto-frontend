@@ -30,8 +30,8 @@ const Card = ({
         )}
 
         <div className={style.wrapperPrice}>
-          <p className={style.priceUSD}>{priceUAH} ₴</p>
-          <p className={style.priceUAH}>{priseUSD} $</p>
+          <p className={style.priceUSD}>{priseUSD} $</p>
+          <p className={style.priceUAH}>{priceUAH} ₴</p>
         </div>
       </div>
     </div>

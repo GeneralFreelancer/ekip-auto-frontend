@@ -1,0 +1,77 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+@media screen and (max-width: 1024px) {
+  .backdrop {
+    -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 20vh;
+  max-width: 630px;
+  max-height: 550px;
+  background-color: #fff;
+  box-shadow: 2px 2px 8px #333030;
+  z-index: 1000;
+  animation: slide-down 300ms ease-out forwards;
+  border-radius: 5px;
+  width: 100%;
+  border: 3px solid #333030;
+}
+@media screen and (min-width: 650px) {
+  .modal {
+    width: 40rem;
+    left: calc(50% - 20rem);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.btn_close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #333030;
+  border-radius: 50%;
+  position: absolute;
+  top: -39px;
+  right: -43px;
+  cursor: pointer;
+}
+.btn_close:hover {
+  scale: 1.1;
+}
+.btn_close svg {
+  width: 15px;
+  height: 15px;
+}
+@media screen and (max-width: 1024px) {
+  .btn_close {
+    background-color: #f8f7f0;
+  }
+}
+@media screen and (max-width: 685px) {
+  .btn_close {
+    top: -46px;
+    right: -3px;
+  }
+}/*# sourceMappingURL=ModalWindow.module.css.map */

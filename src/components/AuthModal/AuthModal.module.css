@@ -1,0 +1,189 @@
+* {
+  box-sizing: border-box;
+  color: #333030;
+}
+
+.modal_tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.modal_tab {
+  width: 320px;
+  padding: 15px 0px;
+  text-align: center;
+  cursor: pointer;
+}
+.modal_tab:hover {
+  background-color: #f8f7f0;
+}
+
+.modal_tab_active1 {
+  background-color: #f8f7f0;
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #000;
+  border-radius: 0px 0px 5px 0px;
+}
+
+.modal_tab_active2 {
+  background-color: #f8f7f0;
+  border-bottom: 2px solid #000;
+  border-left: 2px solid #000;
+  border-radius: 0px 0px 0px 5px;
+}
+
+.modalRegistSuccess {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+.modalRegistSuccess h1 {
+  color: #2c2929;
+  text-shadow: 1px 1px 2px #333030;
+  margin: 0;
+}
+.modalRegistSuccess p {
+  margin-top: 20px;
+}
+
+.modalRegistSuccess_btn {
+  margin: 25px auto 0;
+}
+.modalRegistSuccess_btn button {
+  height: 25px;
+  padding: 0 25px;
+  border-radius: 7px;
+  outline: none;
+  border: 2px solid #bcbab5;
+  background-color: #f8f7f0;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.modalRegistSuccess_btn button:hover {
+  scale: 1.1;
+}
+
+.modalRegistSuccess_send {
+  margin: 25px auto 0;
+}
+.modalRegistSuccess_send button {
+  height: 25px;
+  padding: 0 15px;
+  border-radius: 7px;
+  outline: none;
+  border: 2px solid #bcbab5;
+  background-color: #bcbab5;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.modalRegistSuccess_send button:hover {
+  scale: 1.1;
+}
+
+.form_content {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.form_group {
+  display: flex;
+  gap: 7px;
+  flex-direction: column;
+  max-width: 310px;
+}
+.form_group label {
+  margin: 15px 0 0 10px;
+}
+
+/* Hide the default checkbox */
+.custom_checkbox input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Style the custom checkbox */
+.custom_checkbox .checkmark {
+  position: relative;
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  border: 2px solid #333030;
+  border-radius: 3px;
+  margin-right: 7px;
+}
+
+/* Style the checked state */
+.custom_checkbox input[type=checkbox]:checked + .checkmark:after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  width: 5px;
+  height: 10px;
+  border: solid #333030;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Style the label text */
+.custom_checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.form_input {
+  height: 35px;
+  padding: 0 10px;
+  border-radius: 7px;
+  outline: none;
+  border: 2px solid #bcbab5;
+  background-color: #f8f7f0;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+}
+
+.error_message {
+  margin-left: 10px;
+  color: red;
+}
+
+.input_error {
+  border: 1px solid red;
+}
+
+.form_submit_btn {
+  margin: 25px auto 0;
+}
+.form_submit_btn button {
+  height: 25px;
+  padding: 0 15px;
+  border-radius: 7px;
+  outline: none;
+  border: 2px solid #bcbab5;
+  background-color: #f8f7f0;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.form_submit_btn button:hover {
+  scale: 1.1;
+}
+
+.form_hr {
+  background-color: #333030;
+  width: 350px;
+  height: 1px;
+  margin: 20px 0 10px -5px;
+}
+
+.form_hr2 {
+  background-color: #333030;
+  width: 320px;
+  height: 1px;
+  margin: 20px 0 10px -30px;
+}/*# sourceMappingURL=AuthModal.module.css.map */

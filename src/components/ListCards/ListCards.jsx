@@ -119,6 +119,7 @@ let cardsData = [
 
 const properties = {
   autoplay: false,
+  transitionDuration: 250,
 };
 
 const ListCards = ({ title = "Product", showAll = false, link }) => {

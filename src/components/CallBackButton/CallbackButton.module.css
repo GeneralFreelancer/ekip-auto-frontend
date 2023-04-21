@@ -1,0 +1,114 @@
+.callButton {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  background-color: #bcbab5;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  cursor: pointer;
+}
+.callButton:hover {
+  scale: 1.05;
+}
+.callButton svg {
+  fill: #333030;
+  width: 30px;
+  height: 30px;
+}
+@media screen and (max-width: 730px) {
+  .callButton {
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+.callBackModal {
+  width: 340px;
+  height: 230px;
+  background-color: #fff;
+  border: 2px solid #333030;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  position: fixed;
+  bottom: 74px;
+  right: 120px;
+  border-radius: 7px;
+}
+.callBackModal::before {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: -10px;
+  background-color: #ffffff;
+  height: 35px;
+  width: 36px;
+  -webkit-clip-path: polygon(62% 29%, 25% 70%, 100% 100%);
+          clip-path: polygon(62% 29%, 25% 70%, 100% 100%);
+  transform: rotate(5deg);
+}
+.callBackModal::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  right: -8px;
+  background-color: #333030;
+  box-shadow: 2px 1px 2px rgba(0, 0, 0, 0.56);
+  height: 2px;
+  width: 20px;
+  transform: rotate(17deg);
+}
+
+.callBackModalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 20px;
+}
+.callBackModalContent form {
+  display: flex;
+  align-items: center;
+}
+.callBackModalContent form::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  right: -12px;
+  background-color: #333030;
+  box-shadow: 1px -1px 3px rgba(0, 0, 0, 0.56);
+  height: 2px;
+  width: 17px;
+  transform: rotate(69deg);
+}
+.callBackModalContent .callBackModal_input {
+  height: 35px;
+  padding: 0 10px;
+  border-radius: 7px;
+  outline: none;
+  border: 2px solid #bcbab5;
+  background-color: #f8f7f0;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+}
+.callBackModalContent .callBackModal_btn {
+  margin-left: 15px;
+  height: 35px;
+  border-radius: 7px;
+  outline: none;
+  border: 2px solid #bcbab5;
+  background-color: #f8f7f0;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  cursor: pointer;
+}
+.callBackModalContent .callBackModal_btn:hover {
+  scale: 1.05;
+}
+.callBackModalContent .callBackModal_btn svg {
+  fill: #333030;
+  width: 20px;
+  height: 30px;
+}/*# sourceMappingURL=CallbackButton.module.css.map */
