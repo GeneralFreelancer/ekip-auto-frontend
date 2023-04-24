@@ -16,10 +16,7 @@
   .search_img {
     width: 25px;
     height: 25px;
-    background-image: url("../../../assets/magnifying-glass.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    filter: invert(1);
+    fill: $lightWhite;
     transform: rotate(90deg);
   }
   .input_block {
@@ -33,6 +30,12 @@
     background-color: $lightWhite;
     &_wide {
       width: 400px;
+      @media screen and (max-width: 1550px) {
+        width: 250px;
+      }
+      @media screen and (max-width: 1100px) {
+        width: 157px;
+      }
     }
     &::placeholder {
       color: $searchPlaceholder;
@@ -54,7 +57,7 @@
 .search_results {
   position: absolute;
   top: 56px;
-  right: -185px;
+  right: -50px;
   width: 500px;
   max-height: 332px;
   z-index: 1;

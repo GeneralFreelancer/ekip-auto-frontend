@@ -42,7 +42,7 @@
 .rc-accordion-title {
   color: $lightWhite;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   position: relative;
   margin-bottom: 0;
   transition: 0.3s;
@@ -59,7 +59,7 @@
   padding: 10px;
 }
 .rc-accordion-body div {
-  font-size: 18px;
+  font-size: 16px;
   color: $lightWhite;
   padding: 10px;
   border-radius: 2px;
@@ -97,4 +97,9 @@
   height: 15px;
   fill: $lightWhite;
   transform: rotate(180deg);
+}
+
+.rc-accordion-card a {
+  text-decoration: none;
+  text-transform: uppercase;
 }

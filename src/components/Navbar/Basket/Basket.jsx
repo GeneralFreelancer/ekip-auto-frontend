@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 
 import style from "./Basket.module.scss";
 import ProductItem from "./ProductItem";
-import { ReactComponent as More } from "../../../assets/svg/basket/more.svg";
 import { ReactComponent as ShoppingCard } from "../../../assets/svg/basket/shopping-cart.svg";
 
 let numberOfProducts0 = [
@@ -116,15 +115,8 @@ const Basket = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleMouseEnter = () => {
-    setShowModal(true);
-  };
-
-  const handleMouseLeave = () => {
-    if (!isMouseInside) {
-      clearTimeout(timeoutId);
-      setShowModal(false);
-    }
+  const handelClick = () => {
+    setShowModal((prevState) => !prevState);
   };
 
   const removeFromBasket = (id) => {
@@ -140,8 +132,7 @@ const Basket = () => {
         className={
           !showModal ? style.wrapperShoppingCard : style.wrapperShoppingCardOpen
         }
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onClick={handelClick}
       >
         <NavLink to="/myprofile/basket">
           <ShoppingCard
@@ -151,19 +142,9 @@ const Basket = () => {
             <p>{numberOfProducts.length}</p>
           </div>
         </NavLink>
-        
+
         {desktopV && showModal && (
-          <div
-            className={style.modalCard}
-            onMouseEnter={() => {
-              setIsMouseInside(true);
-              clearTimeout(timeoutId);
-            }}
-            onMouseLeave={() => {
-              setIsMouseInside(false);
-              setTimeoutId(setTimeout(() => setShowModal(false), 400));
-            }}
-          >
+          <div className={style.modalCard}>
             {numberOfProducts.length ? (
               <ul>
                 {numberOfProducts.map(
@@ -187,7 +168,6 @@ const Basket = () => {
               </p>
             )}
 
-            <More style={{ width: 45, height: 45 }} className={style.more} />
             <div className={style.wrapperPrice}>
               <p className={style.price}>Загальна вартість:</p>
               <div>

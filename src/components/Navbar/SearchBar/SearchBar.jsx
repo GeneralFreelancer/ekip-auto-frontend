@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import s from "./SearchBar.module.scss";
+import { ReactComponent as Search } from "../../../assets/magnifying-glass.svg";
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -86,7 +87,12 @@ const SearchBar = () => {
 
   const handleBlur = () => {
     setIsFocused(false);
+    setShowResults(false);
+    setSearchQuery("");
+    setSearchItems([]);
+
     setTimeout(() => {
+      setIsFocused(false);
       setShowResults(false);
       setSearchQuery("");
       setSearchItems([]);
@@ -119,7 +125,7 @@ const SearchBar = () => {
   return (
     <OutsideClickHandler onOutsideClick={handleOutsideClick}>
       <div className={s.search_block}>
-        <div className={`${s.search_img} ${isFocused ? s.hidden : ""}`}></div>
+        <Search className={`${s.search_img} ${isFocused ? s.hidden : ""}`} />
         <input
           className={`${s.input_block} ${isFocused ? s.input_block_wide : ""}`}
           placeholder="Пошук..."
