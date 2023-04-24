@@ -69,4 +69,17 @@
   margin-right: 3px;
 }
 
+.userLog {
+  color: $lightWhite;
+  @media screen and (max-width: 1100px) {
+    display: none;
+  }
+}
 
+.userRegister {
+  color: #f34951;
+  text-decoration: none;
+  @media screen and (max-width: 1100px) {
+   display: none;
+  }
+}

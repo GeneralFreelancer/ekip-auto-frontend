@@ -36,8 +36,9 @@ const CallBackButton = () => {
             <p>+38 (050) 395 31 45</p>
             <p style={{ marginLeft: "10px" }}>Сайт</p>
             <p>+38 (095) 101 50 79</p>
-            <br></br>
-            <p style={{ marginLeft: "10px" }}>Зателефонувати мені:</p>
+            <hr></hr>
+            <p style={{ marginLeft: "10px" }}
+            >Зателефонувати мені:</p>
             <form onSubmit={handleSubmit}>
               <PatternFormat
                 // type="tel"

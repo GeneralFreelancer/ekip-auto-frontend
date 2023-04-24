@@ -6,6 +6,7 @@ const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchItems, setSearchItems] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const products = [
     {
@@ -84,12 +85,15 @@ const SearchBar = () => {
   };
 
   const handleBlur = () => {
+    setIsFocused(false);
     setTimeout(() => {
       setShowResults(false);
       setSearchQuery("");
       setSearchItems([]);
     }, 10000);
   };
+
+  const handleFocus = () => setIsFocused(true);
 
   const handleOutsideClick = () => {
     setShowResults(false);
@@ -112,18 +116,17 @@ const SearchBar = () => {
     );
   }, [searchQuery, searchItems]);
 
-  // console.log(searchedFinalItems);
-  
   return (
     <OutsideClickHandler onOutsideClick={handleOutsideClick}>
       <div className={s.search_block}>
-        <div className={s.search_img}></div>
+        <div className={`${s.search_img} ${isFocused ? s.hidden : ""}`}></div>
         <input
-          className={s.input_block}
+          className={`${s.input_block} ${isFocused ? s.input_block_wide : ""}`}
           placeholder="Пошук..."
           value={searchQuery}
           onChange={handleSearch}
           onBlur={handleBlur}
+          onFocus={handleFocus}
         />
         {showResults && (
           <div className={s.search_results}>

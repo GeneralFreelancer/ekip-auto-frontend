@@ -31,6 +31,10 @@
     right: 20px;
     bottom: 123px;
   }
+  @media screen and (min-width: 1920px) {
+    right: 20px;
+    bottom: 40px;
+  }
 }
 
 .callBackModal {
@@ -77,7 +81,11 @@
     right: 85px;
   }
   @media screen and (max-width: 380px) {
-    width: 250px;
+    width: 260px;
+  }
+  @media screen and (min-width: 1920px) {
+    bottom: 80px;
+    right: 100px;
   }
 }
 
@@ -98,12 +106,17 @@
       box-shadow: 1px -1px 3px rgba(0, 0, 0, 0.56);
       height: 2px;
       width: 16px;
-      transform: rotate(71deg)
+      transform: rotate(71deg);
     }
+  }
+  hr {
+    border-bottom: 1px solid #bcbab5;
+    width: 100%;
   }
   .callBackModal_input {
     height: 35px;
     padding: 0 10px;
+    font-size: 14px;
     border-radius: 7px;
     outline: none;
     border: 2px solid $ligthGrey;

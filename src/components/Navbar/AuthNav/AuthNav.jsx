@@ -55,9 +55,9 @@ const AuthNav = (props) => {
           </ul>
         )}
       </div>
-      {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>}
+      {user.isLoggedIn && <p className={style.userLog}>Тимур</p>}
       {user.isRegistered && (
-        <Link style={{ color: "red", textDecoration: "none" }} to={"#"}>
+        <Link className={style.userRegister} to={"#"}>
           Завершити <br></br> реестрацію
         </Link>
       )}
