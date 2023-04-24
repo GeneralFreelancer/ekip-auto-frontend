@@ -44,6 +44,11 @@
   border-bottom: 1px solid $hardGrey;
 }
 
+.userWrapper_block {
+  display: flex;
+  align-items: center;
+}
+
 .userWrapper {
   display: flex;
   position: relative;

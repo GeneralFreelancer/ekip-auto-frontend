@@ -100,7 +100,6 @@ let numberOfProducts0 = [
 
 const Basket = () => {
   const [showModal, setShowModal] = useState(false);
-  const [isMouseInside, setIsMouseInside] = useState(false);
   const [numberOfProducts, setNumberOfProducts] = useState(numberOfProducts0);
   const [timeoutId, setTimeoutId] = useState(null);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -112,7 +111,6 @@ const Basket = () => {
       setViewportWidth(window.innerWidth);
     }
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };

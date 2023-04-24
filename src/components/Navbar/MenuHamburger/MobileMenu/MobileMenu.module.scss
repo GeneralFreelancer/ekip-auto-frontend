@@ -14,6 +14,7 @@
     background-color: $hardGrey;
     z-index: 1000;
     animation: MobileMenu_slide-down__rdixe 300ms ease-out forwards;
+    overflow: hidden;
     &_header {
       display: flex;
       justify-content: space-between;

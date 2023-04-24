@@ -9,7 +9,6 @@ import { logout, registerOut } from "../../../redux/features/userSlice";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
-  // let [authUser, setAuthUser] = useState(false);
   const user = useSelector(selectedUser);
 
   const dispatch = useDispatch();
@@ -33,7 +32,6 @@ const AuthNav = (props) => {
     } else {
       window.removeEventListener("click", handleClickWindow);
     }
-
     // Повернути функцію очищення ефекту
     return () => {
       window.removeEventListener("click", handleClickWindow);
@@ -58,7 +56,7 @@ const AuthNav = (props) => {
   };
 
   return (
-    <div ref={wrapperAuthRef}>
+    <div className={style.userWrapper_block} ref={wrapperAuthRef}>
       <div className={!showModal ? style.userWrapper : style.userWrapperOpen}>
         <User
           className={!showModal ? style.user : style.userOpen}
