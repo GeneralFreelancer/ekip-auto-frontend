@@ -417,7 +417,7 @@ const AccordionItem = (props) => {
             {title}
           </NavLink>
 
-          {subCategory.length > 0 && <ArrowDown className="arrow-down" />}
+          <ArrowDown className="arrow-down" />
         </div>
       )}
 
@@ -455,7 +455,7 @@ const Accordion = () => {
   const [active, setActive] = useState(null);
 
   const handleToggle = (index, e) => {
-    if (e.target.localName === "div") {
+    if (e.target.localName === "div" || e.target.localName === "svg") {
       if (active === index) {
         setActive(null);
       } else {
