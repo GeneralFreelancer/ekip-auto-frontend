@@ -410,6 +410,14 @@ const MenuHamburgere = (props) => {
     }
   };
 
+  useEffect (() => {
+    if (isActive && !desktopV) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [desktopV, isActive])
+
   useEffect(() => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
