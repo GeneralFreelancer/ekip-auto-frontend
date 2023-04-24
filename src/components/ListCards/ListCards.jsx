@@ -145,7 +145,7 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
     if (width <= 825) {
       setCardsPerPage(2);
     }
-    isLastPage();
+    // isLastPage();
   };
 
   useEffect(() => {
@@ -163,33 +163,33 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
     changeCardsQuantity(viewportWidth);
   }, [viewportWidth]);
 
-  const isLastPage = () => {
-    const totalPages = Math.ceil(cards.length / cardsPerPage);
-    if (currentPage === totalPages) {
-      setLastPage(true);
-    } else {
-      setLastPage(false);
-    }
-  };
+  // const isLastPage = () => {
+  //   const totalPages = Math.ceil(cards.length / cardsPerPage);
+  //   if (currentPage === totalPages) {
+  //     setLastPage(true);
+  //   } else {
+  //     setLastPage(false);
+  //   }
+  // };
 
-  const handlePageClick = (event) => {
-    event.preventDefault();
-    const totalPages = Math.ceil(cards.length / cardsPerPage);
-    if (currentPage < totalPages) {
-      setCurrentPage((prevState) => prevState + 1);
-      if (cards.length / cardsPerPage === currentPage + 1) {
-        setLastPage(true);
-      }
-    } else {
-      setLastPage(true);
-    }
-  };
+  // const handlePageClick = (event) => {
+  //   event.preventDefault();
+  //   const totalPages = Math.ceil(cards.length / cardsPerPage);
+  //   if (currentPage < totalPages) {
+  //     setCurrentPage((prevState) => prevState + 1);
+  //     if (cards.length / cardsPerPage === currentPage + 1) {
+  //       setLastPage(true);
+  //     }
+  //   } else {
+  //     setLastPage(true);
+  //   }
+  // };
 
-  const handleCollapseClick = (event) => {
-    event.preventDefault();
-    setCurrentPage(1);
-    setLastPage(false);
-  };
+  // const handleCollapseClick = (event) => {
+  //   event.preventDefault();
+  //   setCurrentPage(1);
+  //   setLastPage(false);
+  // };
 
   const renderCards = (showAll) => {
     const indexOfLastCard = currentPage * cardsPerPage;
@@ -233,17 +233,17 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
       {viewportWidth > 578 ? (
         <div className={style.container}>
           <div className={style.cardGrid}>
-            {title && (
-              <h2 className={style.titleCategory}>
-                <NavLink to={link} className={style.link}>
-                  {title} :
-                </NavLink>
-              </h2>
-            )}
+            {title && <h2 className={style.titleCategory}>{title} :</h2>}
 
             {renderCards(showAll)}
 
-            {!showAll &&
+            {!showAll && (
+              <NavLink className={style.buttonMore} to={link}>
+                Перейти до замовлення
+              </NavLink>
+            )}
+
+            {/* {!showAll &&
               (lastPage ? (
                 <button
                   className={style.buttonMore}
@@ -255,7 +255,7 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
                 <button className={style.buttonMore} onClick={handlePageClick}>
                   Показати ще...
                 </button>
-              ))}
+              ))} */}
           </div>
         </div>
       ) : (

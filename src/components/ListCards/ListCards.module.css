@@ -11,14 +11,6 @@
   top: -28px;
   font-weight: 400;
 }
-.titleCategory:hover, .titleCategory:focus {
-  font-weight: 600;
-}
-
-.link {
-  padding-bottom: 2px;
-  color: black;
-}
 
 .cardGrid {
   display: grid;
@@ -57,9 +49,11 @@
 .buttonMore {
   position: absolute;
   right: 0;
-  bottom: -21px;
+  bottom: -42px;
+  border: 1px solid black;
+  padding: 7px;
 }
 
 h2 {
   margin: 0;
-}/*# sourceMappingURL=ListCards.module.css.map */
+} /*# sourceMappingURL=ListCards.module.css.map */
