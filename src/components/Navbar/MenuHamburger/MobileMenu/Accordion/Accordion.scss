@@ -25,9 +25,6 @@
   color: $hardGrey;
 }
 
-.rc-accordion-toggle.active .rc-accordion-icon {
-  transform: rotate(180deg);
-}
 .rc-accordion-card {
   border-top: 1px solid $lightWhite;
   border-radius: 2px;
@@ -48,7 +45,16 @@
   transition: 0.3s;
   color: $lightWhite;
   padding: 10px 0px 10px 20px;
+  &:active {
+    text-shadow: $lightWhite 1px 0 10px;
+  }
 }
+
+  .single:active {
+    background-color: $lightWhite;
+    color: $hardGrey;
+  }
+
 .rc-accordion-toggle.active .rc-accordion-title {
   color: $hardGrey;
 }

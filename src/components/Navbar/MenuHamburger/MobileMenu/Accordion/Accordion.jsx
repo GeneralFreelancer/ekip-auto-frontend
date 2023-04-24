@@ -404,7 +404,11 @@ const AccordionItem = (props) => {
 
   return (
     <div className="rc-accordion-card">
-      <div className="rc-accordion-header">
+      {subCategory.length === 0 ? (
+        <NavLink to={`/${translit(title)}`}>
+          <div className="rc-accordion-title single">{title}</div>
+        </NavLink>
+      ) : (
         <div
           className={`rc-accordion-toggle p-3 ${active === id ? "active" : ""}`}
           onClick={(e) => handleToggle(id, e)}
@@ -412,9 +416,11 @@ const AccordionItem = (props) => {
           <NavLink to={`/${translit(title)}`} className="rc-accordion-title">
             {title}
           </NavLink>
+
           {subCategory.length > 0 && <ArrowDown className="arrow-down" />}
         </div>
-      </div>
+      )}
+
       {subCategory.length > 0 && (
         <div
           ref={contentEl}

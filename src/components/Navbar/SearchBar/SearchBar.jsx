@@ -86,17 +86,19 @@ const SearchBar = () => {
   };
 
   const handleBlur = () => {
-    setIsFocused(false);
-    setShowResults(false);
-    setSearchQuery("");
-    setSearchItems([]);
-
-    setTimeout(() => {
+    console.log('111');
       setIsFocused(false);
       setShowResults(false);
       setSearchQuery("");
       setSearchItems([]);
-    }, 10000);
+
+      setTimeout(() => {
+        setShowResults(false);
+        setSearchQuery("");
+        setSearchItems([]);
+        console.log('2222');
+      }, 10000);
+    
   };
 
   const handleFocus = () => setIsFocused(true);
