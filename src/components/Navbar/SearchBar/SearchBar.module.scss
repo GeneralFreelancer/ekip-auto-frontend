@@ -30,7 +30,11 @@
     border-radius: 7px;
     outline: none;
     border: 2px solid $ligthGrey;
-    background-color: $white;
+    background-color: $lightWhite;
+    &::placeholder {
+      color: $searchPlaceholder;
+      opacity: 0.5;
+    }
     @media screen and (max-width: 365px) {
       width: 140px;
     }
