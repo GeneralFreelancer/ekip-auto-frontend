@@ -1,11 +1,11 @@
 import style from "./AuthNav.module.scss";
 import { ReactComponent as User } from "../../../assets/svg/authNav/user.svg";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { useDispatch } from "react-redux";
-import { logout, registerOut} from "../../../redux/features/userSlice";
+import { logout, registerOut } from "../../../redux/features/userSlice";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -13,6 +13,32 @@ const AuthNav = (props) => {
   const user = useSelector(selectedUser);
 
   const dispatch = useDispatch();
+
+  const wrapperAuthRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickWindow = (e) => {
+      if (showModal === true) {
+        if (
+          wrapperAuthRef.current &&
+          !wrapperAuthRef.current.contains(e.target)
+        ) {
+          setShowModal(false);
+        }
+      }
+    };
+
+    if (showModal === true) {
+      window.addEventListener("click", handleClickWindow);
+    } else {
+      window.removeEventListener("click", handleClickWindow);
+    }
+
+    // Повернути функцію очищення ефекту
+    return () => {
+      window.removeEventListener("click", handleClickWindow);
+    };
+  }, [showModal]);
 
   const onClick = () => {
     if (user.isLoggedIn || user.isRegistered) {
@@ -32,7 +58,7 @@ const AuthNav = (props) => {
   };
 
   return (
-    <>
+    <div ref={wrapperAuthRef}>
       <div className={!showModal ? style.userWrapper : style.userWrapperOpen}>
         <User
           className={!showModal ? style.user : style.userOpen}
@@ -61,7 +87,7 @@ const AuthNav = (props) => {
           Завершити <br></br> реестрацію
         </Link>
       )}
-    </>
+    </div>
   );
 };
 

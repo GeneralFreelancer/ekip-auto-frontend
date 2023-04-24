@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 
 import style from "./Basket.module.scss";
@@ -112,8 +112,37 @@ const Basket = () => {
       setViewportWidth(window.innerWidth);
     }
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
+  const wrapperShoppingCardRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickWindow = (e) => {
+      if (showModal === true) {
+        if (
+          wrapperShoppingCardRef.current &&
+          !wrapperShoppingCardRef.current.contains(e.target)
+        ) {
+          setShowModal(false);
+        }
+      }
+    };
+
+    if (showModal === true) {
+      window.addEventListener("click", handleClickWindow);
+    } else {
+      window.removeEventListener("click", handleClickWindow);
+    }
+
+    // Повернути функцію очищення ефекту
+    return () => {
+      window.removeEventListener("click", handleClickWindow);
+    };
+  }, [showModal]);
 
   const handelClick = () => {
     setShowModal((prevState) => !prevState);
@@ -127,21 +156,20 @@ const Basket = () => {
 
   // console.log(showModal);
   return (
-    <>
+    <div ref={wrapperShoppingCardRef}>
       <div
         className={
           !showModal ? style.wrapperShoppingCard : style.wrapperShoppingCardOpen
         }
-        onClick={handelClick}
       >
-        <NavLink to="/myprofile/basket">
+        <div onClick={handelClick}>
           <ShoppingCard
             className={!showModal ? style.shoppingCard : style.shoppingCardOpen}
           />
           <div className={!showModal ? style.number : style.numberOpen}>
             <p>{numberOfProducts.length}</p>
           </div>
-        </NavLink>
+        </div>
 
         {desktopV && showModal && (
           <div className={style.modalCard}>
@@ -192,7 +220,7 @@ const Basket = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
