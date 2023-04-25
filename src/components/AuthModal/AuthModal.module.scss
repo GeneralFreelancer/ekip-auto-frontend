@@ -10,28 +10,35 @@
   justify-content: center;
 }
 
-.modal_tab {
-  width: 320px;
-  padding: 15px 0px;
-  text-align: center;
-  cursor: pointer;
-  &:hover {
-    background-color: $lightWhite;
-  }
-}
-
-.modal_tab_active1 {
+.modal_tab1 {
   background-color: $lightWhite;
   border-bottom: 2px solid $solidBlack;
   border-right: 2px solid $solidBlack;
   border-radius: 0px 0px 5px 0px;
+  width: 320px;
+  padding: 15px 0px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
 }
 
-.modal_tab_active2 {
+.modal_tab2 {
   background-color: $lightWhite;
   border-bottom: 2px solid $solidBlack;
   border-left: 2px solid $solidBlack;
   border-radius: 0px 0px 0px 5px;
+
+  width: 320px;
+  padding: 15px 0px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.5);
+}
+
+.modal_tab_active {
+  background-color: $white;
+  border: none;
+  box-shadow: none;
 }
 
 .modalRegistSuccess {
@@ -185,7 +192,6 @@
   height: 1px;
   margin: 20px 0 10px -5px;
 }
-
 
 .form_hr2 {
   background-color: $hardGrey;
