@@ -53,6 +53,7 @@
   position: absolute;
   top: -39px;
   right: -43px;
+  background-color: $lightWhite;
   cursor: pointer;
   &:hover {
     scale: 1.1;
@@ -60,9 +61,6 @@
   svg {
     width: 15px;
     height: 15px;
-  }
-  @media screen and (max-width: 1024px) {
-    background-color: $lightWhite;
   }
   @media screen and (max-width: 685px) {
     top: -46px;

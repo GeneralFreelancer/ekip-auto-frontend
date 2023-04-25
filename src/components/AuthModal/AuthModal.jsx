@@ -51,16 +51,16 @@ const AuthModal = (props) => {
           <div>
             <div className={s.modal_tabs}>
               <div
-                className={`${s.modal_tab} ${
-                  activeTab === "login" ? s.modal_tab_active1 : ""
+                className={`${s.modal_tab1} ${
+                  activeTab === "login" ? s.modal_tab_active : ""
                 }`}
                 onClick={() => handleTabChange("login")}
               >
                 Увійти
               </div>
               <div
-                className={`${s.modal_tab} ${
-                  activeTab === "register" ? s.modal_tab_active2 : ""
+                className={`${s.modal_tab2} ${
+                  activeTab === "register" ? s.modal_tab_active : ""
                 }`}
                 onClick={() => handleTabChange("register")}
               >
