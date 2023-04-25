@@ -56,9 +56,18 @@
   height: 73px;
   align-items: center;
   justify-content: center;
-  svg:hover {
-    scale: 1.05;
-    cursor: pointer;
+  cursor: pointer;
+  &:hover {
+    svg{
+      fill: $hardGrey;
+    }
+    background-color: $lightWhite;
+  }
+  &:active {
+    svg{
+      fill: $hardGrey;
+    }
+    background-color: $lightWhite;
   }
 }
 
