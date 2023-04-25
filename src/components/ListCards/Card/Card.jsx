@@ -1,4 +1,11 @@
 import style from "./Card.module.scss";
+import CyrillicToTranslit from "cyrillic-to-translit-js";
+
+const cyrillicToTranslit = new CyrillicToTranslit();
+// rus to lat use this on backend for dynamic ulr
+const translit = (name) => {
+  return cyrillicToTranslit.transform(String(name).replace(',', ''), "-").toLowerCase();
+};
 
 const Card = ({
   id,
@@ -15,7 +22,9 @@ const Card = ({
       className={
         styleCard ? `${style[`${styleCard}`]} ${style.card}` : style.card
       }
+      onClick={(e) =>{console.log(e.target)}}
     >
+      {/* <span className={style.clickArea} onClick={(e) =>{console.log(e.target)}}> */}
       <div className={style.wrapperImg}>
         <img className={style.imgProduct} src={imgUrl} alt="photoProduct" />
       </div>
@@ -34,6 +43,7 @@ const Card = ({
           <p className={style.priceUAH}>{priceUAH} ₴</p>
         </div>
       </div>
+      {/* </span> */}
     </div>
   );
 };

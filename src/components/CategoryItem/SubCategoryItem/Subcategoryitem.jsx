@@ -9,7 +9,7 @@ const translit = (name) => {
 };
 const Subcategoryitem = (props) => {
   return(
-      <div className={style.menu__subContent }>
+      <div className={style.menu__subContent} style={{top: `${props.catPosition}px`}}>
         <div>
           {props.subCategory.map(({id, title}) => ( 
               <Link

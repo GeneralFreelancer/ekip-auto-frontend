@@ -8,6 +8,14 @@ import "../SideBarSlider/Slider/Slider.scss";
 import style from "./ListCards.module.scss";
 import Card from "./Card";
 
+import CyrillicToTranslit from "cyrillic-to-translit-js";
+
+const cyrillicToTranslit = new CyrillicToTranslit();
+// rus to lat use this on backend for dynamic ulr
+const translit = (name) => {
+  return cyrillicToTranslit.transform(String(name).replace(',', ''), "-").toLowerCase();
+};
+
 const images = [
   "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
   "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
@@ -238,8 +246,8 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
             {renderCards(showAll)}
 
             {!showAll && (
-              <NavLink className={style.buttonMore} to={link}>
-                Перейти до замовлення
+              <NavLink className={style.buttonMore} to={`/${translit(title)}`}>
+                Показати ще...
               </NavLink>
             )}
 
@@ -263,7 +271,7 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
           <div className="wrapperSlider sliderCard">
             {title && (
               <h2 className={style.titleCategoryForMobile}>
-                <NavLink to={link} className={style.link}>
+                <NavLink to={`/${translit(title)}`} className={style.link}>
                   {title} :
                 </NavLink>
               </h2>

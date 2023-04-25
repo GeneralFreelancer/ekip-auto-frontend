@@ -8,6 +8,7 @@
     height: auto;
     z-index: 50;
     top: 73px;
+    
   }
   &__content {
     // position: absolute;
@@ -28,7 +29,7 @@
     &__link {
         text-decoration: none;
         border-bottom: 1px solid $lightWhite;
-        height: auto;
+        height: 40px;
         display: block;
         color: $lightWhite;
         font-size: $p;
@@ -59,3 +60,25 @@
     display: block;
     top: 0;
   }
+
+  /* width */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
