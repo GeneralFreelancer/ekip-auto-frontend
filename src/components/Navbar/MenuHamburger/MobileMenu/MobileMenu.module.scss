@@ -10,7 +10,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    padding: 30px;
+    padding: 5px;
     background-color: $hardGrey;
     z-index: 1000;
     animation: MobileMenu_slide-down__rdixe 300ms ease-out forwards;
@@ -23,8 +23,6 @@
   }
   &_cross {
     display: flex;
-    width: 75px;
-    height: 75px;
     align-items: center;
     justify-content: center;
   }
@@ -60,6 +58,20 @@
   width: 45px;
   height: 45px;
   fill: $lightWhite;
+  @media screen and (max-width: 540px) {
+    width: 30px;
+    height: 30px;
+  }
+  &:hover {
+    scale: 1.05;
+    cursor: pointer;
+  }
+}
+
+.userMob_red {
+  width: 45px;
+  height: 45px;
+  fill: red;
   @media screen and (max-width: 540px) {
     width: 30px;
     height: 30px;

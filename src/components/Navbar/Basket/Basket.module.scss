@@ -60,6 +60,10 @@
   width: 45px;
   height: 45px;
   fill: $hardGrey;
+  @media screen and (max-width: 540px) {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .number {

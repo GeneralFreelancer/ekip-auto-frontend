@@ -13,7 +13,6 @@ import { ReactComponent as UserMob } from "../../../../assets/svg/authNav/user.s
 import { selectedUser } from "../../../../redux/features/userSlice";
 
 const MobileMenu = (props) => {
-
   const user = useSelector(selectedUser);
   const navigate = useNavigate();
 
@@ -24,7 +23,6 @@ const MobileMenu = (props) => {
   };
 
   return (
-
     <div className={s.mobile_modal}>
       <div className={s.mobile_modal_header}>
         <div
@@ -32,20 +30,21 @@ const MobileMenu = (props) => {
         >
           <Cross className={s.cross} onClick={props.onClick} />
         </div>
-        <Logo styleItem={'modal__center'}/>
+        <Logo styleItem={"modal__center"} />
         <div className={s.userMob_block}>
-          <UserMob
-            className={s.userMob}
-            onClick={() => {
-              onClickNavigate();
-              props.onShowModal();
-            }}
-          />
-          {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>}
-          {user.isRegistered && (
-            <Link style={{ color: "red", textDecoration: "none" }} to={"#"}>
-              Завершити
+          {/* {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>} */}
+          {user.isRegistered ? (
+            <Link to={"#"}>
+              <UserMob className={s.userMob_red} />
             </Link>
+          ) : (
+            <UserMob
+              className={s.userMob}
+              onClick={() => {
+                onClickNavigate();
+                props.onShowModal();
+              }}
+            />
           )}
         </div>
       </div>
