@@ -29,6 +29,10 @@
 }
 
 .garbage{
+    background-image: url('../../../../assets/svg/basket/garbage.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
     width:20px;
     height:22px;
     cursor:pointer;

@@ -117,13 +117,14 @@ const Basket = () => {
   }, []);
 
   const wrapperShoppingCardRef = useRef(null);
-
   useEffect(() => {
     const handleClickWindow = (e) => {
+      
       if (showModal === true) {
+        console.dir(e.target.tagName);
         if (
           wrapperShoppingCardRef.current &&
-          !wrapperShoppingCardRef.current.contains(e.target)
+          !wrapperShoppingCardRef.current.contains(e.target) && e.target.tagName !== 'SPAN'
         ) {
           setShowModal(false);
         }

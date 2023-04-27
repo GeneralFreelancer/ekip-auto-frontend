@@ -4,5 +4,11 @@
     padding: 0 30px 50px 30px;
     margin: auto;
     background-color: #fff;
-    max-width: $large1620; // ?
+    max-width: $large1620; 
+    @media screen and (max-width: 1024px) {
+        padding: 0 15px 50px 15px;
+    }
+    @media screen and (max-width: 540px) {
+        padding: 0 5px 25px 5px;
+    }
 }
