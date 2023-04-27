@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
-import OutsideClickHandler from "react-outside-click-handler";
 import s from "./SearchBar.module.scss";
 import { ReactComponent as Search } from "../../../assets/magnifying-glass.svg";
 
@@ -69,14 +68,14 @@ const SearchBar = () => {
     },
   ];
 
-  const wrapperShoppingCardRef = useRef(null);
+  const wrapperSearchBarRef = useRef(null);
 
   useEffect(() => {
     const handleClickWindow = (e) => {
       if (showResults === true) {
         if (
-          wrapperShoppingCardRef.current &&
-          !wrapperShoppingCardRef.current.contains(e.target)
+          wrapperSearchBarRef.current &&
+          !wrapperSearchBarRef.current.contains(e.target)
         ) {
           setIsFocused(false);
           setShowResults(false);
@@ -150,15 +149,9 @@ const SearchBar = () => {
     );
   }, [searchQuery, searchItems]);
 
-  // const handleOutsideClick = () => {
-  //   setShowResults(false);
-  //   setSearchQuery("");
-  //   setSearchItems([]);
-  // };
 
   return (
-    // <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-    <div className={s.search_block} ref={wrapperShoppingCardRef}>
+    <div className={s.search_block} ref={wrapperSearchBarRef}>
       <Search className={`${s.search_img} ${isFocused ? s.hidden : ""}`} />
       <input
         className={`${s.input_block} ${isFocused ? s.input_block_wide : ""}`}
@@ -201,8 +194,6 @@ const SearchBar = () => {
         </div>
       )}
     </div>
-
-    // </OutsideClickHandler>
   );
 };
 
