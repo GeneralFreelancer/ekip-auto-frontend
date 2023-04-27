@@ -1,5 +1,4 @@
 import style from './ProductItem.module.scss';
-import { ReactComponent as Garbage } from '../../../../assets/svg/basket/garbage.svg';
 
 const ProductItem = ({id, imgUrl, title, priceUAH, priseUSD, amount, removeFromBasket }) => {
 
@@ -37,7 +36,7 @@ const ProductItem = ({id, imgUrl, title, priceUAH, priseUSD, amount, removeFromB
                     </p>
                 </div>
             </div>
-            <Garbage id={id} className={style.garbage }  onClick={handleClick}/>
+            <span id={id} className={style.garbage }  onClick={handleClick}></span>
         </li>
     )
 }
