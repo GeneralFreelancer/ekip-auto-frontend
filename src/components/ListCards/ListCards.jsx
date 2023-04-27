@@ -270,10 +270,8 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
         <>
           <div className="wrapperSlider sliderCard">
             {title && (
-              <h2 className={style.titleCategoryForMobile}>
-                <NavLink to={`/${translit(title)}`} className={style.link}>
-                  {title} :
-                </NavLink>
+              <h2 className={style.titleCategory}>
+                 {title} :
               </h2>
             )}
             <Slide {...properties}>
