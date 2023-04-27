@@ -3,8 +3,7 @@ import CyrillicToTranslit from "cyrillic-to-translit-js";
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Subcategoryitem from "./SubCategoryItem";
-import { useSelector } from "react-redux";
-import { selectedState } from "../../redux/features/subMenu";
+
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
