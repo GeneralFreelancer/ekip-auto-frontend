@@ -9,6 +9,9 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  min-width: 157px;
+  width: 100%;
   @media screen and (max-width: 1280px) {
     margin-right: 0px;
   }
@@ -20,23 +23,33 @@
     height: 25px;
     fill: $lightWhite;
     transform: rotate(90deg);
+
+    @media screen and (min-width: 1024px) and (max-width: 1080px) {
+      display: none;
+    }
+    @media screen and (max-width: 570px) {
+      display: none;
+    }
   }
   .input_block {
-    width: 157px; 
+    width: 157px;
     height: 40px;
-    padding: 0 10px;
+    padding: 0px 10px 0;
     margin-left: 15px;
     border-radius: 7px;
     outline: none;
     border: 2px solid $ligthGrey;
     background-color: $lightWhite;
+    font-size: 18px;
     &_wide {
-      width: 465px;
-      @media screen and (max-width: 1550px) {
-        width: 465px;
+      min-width: 157px;
+      width: 100%;
+      margin-left: 45px;
+      @media screen and (max-width: 1330px) {
+        margin-left: 10px;
       }
-      @media screen and (max-width: 1190px) {
-        width: 157px;
+      @media screen and (max-width: 1024px) {
+        margin-left: 30px;
       }
     }
     &::placeholder {
@@ -44,12 +57,23 @@
       opacity: 0.7;
       font-size: 18px;
     }
-    @media screen and (max-width: 365px) {
-      width: 140px;
+    @media screen and (max-width: 540px) {
+      width: 100%;
+      margin-left: 0px;
     }
   }
+  @media screen and (max-width: 540px) {
+    width: 320px;
+    margin-right: 0px;
+  }
   @media screen and (max-width: 460px) {
-    margin-right: 10px;
+    width: 270px;
+  }
+  @media screen and (max-width: 430px) {
+    width: 230px;
+  }
+  @media screen and (max-width: 380px) {
+    width: 200px;
   }
 }
 
@@ -60,7 +84,7 @@
 .search_results {
   position: absolute;
   top: 56px;
-  right: -50px;
+  right: -5px;
   width: 500px;
   max-height: 332px;
   z-index: 1;
@@ -103,31 +127,46 @@
       border-radius: 2px;
     }
   }
-  @media screen and (max-width: 1295px) {
+  @media screen and (max-width: 1500px) {
     right: -6px;
     width: 400px;
   }
 
-  @media screen and (max-width: 1040px) {
-    right: 0px;
+  @media screen and (max-width: 1024px) {
+    right: 50px;
+    width: 500px;
+  }
+
+  @media screen and (max-width: 950px) {
+    right: 10px;
+    width: 450px;
+  }
+
+  @media screen and (max-width: 860px) {
+    right: 5px;
+    width: 400px;
+  }
+
+  @media screen and (max-width: 769px) {
+    right: -35px;
+    width: 400px;
   }
 
   @media screen and (max-width: 540px) {
-    right: -120px;
+    right: -40px;
     width: 390px;
   }
-  @media screen and (max-width: 420px) {
-    right: -95px;
-    width: 350px;
+  @media screen and (max-width: 460px) {
+    right: -58px;
+    width: 360px;
   }
-  @media screen and (max-width: 390px) {
-    right: -81px;
-    width: 320px;
+  @media screen and (max-width: 430px) {
+    width: 340px;
   }
 
-  @media screen and (max-width: 350px) {
-    right: -65px;
-    width: 310px;
+  @media screen and (max-width: 380px) {
+    right: -75px;
+    width: 330px;
   }
 }
 

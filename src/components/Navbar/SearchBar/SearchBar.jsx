@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import s from "./SearchBar.module.scss";
 import { ReactComponent as Search } from "../../../assets/magnifying-glass.svg";
@@ -8,6 +8,7 @@ const SearchBar = () => {
   const [searchItems, setSearchItems] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [timerId, setTimerId] = useState(null);
 
   const products = [
     {
@@ -68,6 +69,32 @@ const SearchBar = () => {
     },
   ];
 
+  const wrapperShoppingCardRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickWindow = (e) => {
+      if (showResults === true) {
+        if (
+          wrapperShoppingCardRef.current &&
+          !wrapperShoppingCardRef.current.contains(e.target)
+        ) {
+          setIsFocused(false);
+          setShowResults(false);
+          setSearchQuery("");
+          setSearchItems([]);
+        }
+      }
+    };
+    if (showResults === true) {
+      window.addEventListener("click", handleClickWindow);
+    } else {
+      window.removeEventListener("click", handleClickWindow);
+    }
+    return () => {
+      window.removeEventListener("click", handleClickWindow);
+    };
+  }, [showResults]);
+
   //   async function fetchInfo() {
   //     try {
   //         const response = await axios.get("https://63d121b43f08e4a8ff913936.mockapi.io/user")
@@ -86,31 +113,30 @@ const SearchBar = () => {
   };
 
   const handleBlur = () => {
-    console.log('111');
+    if (showResults === false) {
+      setIsFocused(false);
+    }
+
+    const newTimerId = setTimeout(() => {
       setIsFocused(false);
       setShowResults(false);
       setSearchQuery("");
       setSearchItems([]);
-
-      setTimeout(() => {
-        setShowResults(false);
-        setSearchQuery("");
-        setSearchItems([]);
-        console.log('2222');
-      }, 10000);
-    
+    }, 10000);
+    setTimerId(newTimerId);
   };
 
-  const handleFocus = () => setIsFocused(true);
-
-  const handleOutsideClick = () => {
-    setShowResults(false);
-    setSearchQuery("");
-    setSearchItems([]);
+  const handleFocus = () => {
+    if (timerId) {
+      clearTimeout(timerId);
+      setTimerId(null);
+    }
+    setIsFocused(true);
   };
 
   const handleItemClick = (id) => {
     console.log(id);
+    setIsFocused(false);
     setShowResults(false);
     setSearchQuery("");
     setSearchItems([]);
@@ -124,52 +150,59 @@ const SearchBar = () => {
     );
   }, [searchQuery, searchItems]);
 
-  return (
-    <OutsideClickHandler onOutsideClick={handleOutsideClick}>
-      <div className={s.search_block}>
-        <Search className={`${s.search_img} ${isFocused ? s.hidden : ""}`} />
-        <input
-          className={`${s.input_block} ${isFocused ? s.input_block_wide : ""}`}
-          placeholder="Пошук..."
-          value={searchQuery}
-          onChange={handleSearch}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-        />
-        {showResults && (
-          <div className={s.search_results}>
-            {searchedFinalItems.length > 0 ? (
-              searchedFinalItems.map((item) => (
-                <div
-                  key={item.id}
-                  className={s.search_item}
-                  onClick={() => handleItemClick(item.id)}
-                >
-                  <div className={s.search_item_block}>
-                    <div className={s.search_item_image}>
-                      <img src={item.src} alt="img" />
-                    </div>
-                    <div>
-                      <p>{item.name}</p>
-                      <p>
-                        <span>{item.article}</span>
-                      </p>
-                    </div>
-                  </div>
+  // const handleOutsideClick = () => {
+  //   setShowResults(false);
+  //   setSearchQuery("");
+  //   setSearchItems([]);
+  // };
 
+  return (
+    // <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+    <div className={s.search_block} ref={wrapperShoppingCardRef}>
+      <Search className={`${s.search_img} ${isFocused ? s.hidden : ""}`} />
+      <input
+        className={`${s.input_block} ${isFocused ? s.input_block_wide : ""}`}
+        placeholder="Пошук..."
+        value={searchQuery}
+        onChange={handleSearch}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+      />
+      {showResults && (
+        <div className={s.search_results}>
+          {searchedFinalItems.length > 0 ? (
+            searchedFinalItems.map((item) => (
+              <div
+                key={item.id}
+                className={s.search_item}
+                onClick={() => handleItemClick(item.id)}
+              >
+                <div className={s.search_item_block}>
+                  <div className={s.search_item_image}>
+                    <img src={item.src} alt="img" />
+                  </div>
                   <div>
-                    <p>{item.priceUAH} UAH</p>
-                    <p>{item.priceUSD} USD</p>
+                    <p>{item.name}</p>
+                    <p>
+                      <span>{item.article}</span>
+                    </p>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className={s.search_item}>Не знайдено</div>
-            )}
-          </div>
-        )}
-      </div>
-    </OutsideClickHandler>
+
+                <div>
+                  <p>{item.priceUAH} UAH</p>
+                  <p>{item.priceUSD} USD</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className={s.search_item}>Не знайдено</div>
+          )}
+        </div>
+      )}
+    </div>
+
+    // </OutsideClickHandler>
   );
 };
 
