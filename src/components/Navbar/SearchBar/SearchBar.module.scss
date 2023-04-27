@@ -34,11 +34,11 @@
   .input_block {
     width: 157px;
     height: 40px;
-    padding: 0px 10px 0;
+    padding: 0px 10px 0px;
     margin-left: 15px;
     border-radius: 7px;
     outline: none;
-    border: 2px solid $ligthGrey;
+    border: 1px solid $ligthGrey;
     background-color: $lightWhite;
     font-size: 18px;
     &_wide {
