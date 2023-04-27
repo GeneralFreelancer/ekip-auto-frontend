@@ -3,7 +3,18 @@ import s from "./ScrollToTopButton.module.scss";
 import { ReactComponent as UpArrow } from "../../assets/svg/up-arrow.svg";
 
 const ScrollToTopButton = () => {
-  const [isVisible, setIsVisible] = useState(true); // Поменять на false!!!
+  const [isVisible, setIsVisible] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  let mobileV = viewportWidth > 540;
+
+  useEffect(() => {
+    function handleResize() {
+      setViewportWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,13 +29,17 @@ const ScrollToTopButton = () => {
   };
 
   return (
-    <div
-      className={s.topButton}
-      style={{ display: isVisible ? 'flex' : 'none' }}
-      onClick={handleClick}
-    >
-      <UpArrow />
-    </div>
+    <>
+      {mobileV && (
+        <div
+          className={s.topButton}
+          style={{ display: isVisible ? "flex" : "none" }}
+          onClick={handleClick}
+        >
+          <UpArrow />
+        </div>
+      )}
+    </>
   );
 };
 
