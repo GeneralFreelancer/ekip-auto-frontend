@@ -50,10 +50,10 @@
   }
 }
 
-  .single:active {
-    background-color: $lightWhite;
-    color: $hardGrey;
-  }
+.single:active {
+  background-color: $lightWhite;
+  color: $hardGrey;
+}
 
 .rc-accordion-toggle.active .rc-accordion-title {
   color: $hardGrey;
