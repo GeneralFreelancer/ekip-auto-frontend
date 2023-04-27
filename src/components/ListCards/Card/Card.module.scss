@@ -11,10 +11,21 @@
   border-right: 1px solid $ligthGrey;
   border-bottom: 1px solid $ligthGrey;
   margin: auto;
+  margin-top: 15px;
+  position: relative;
+  cursor: pointer;
   &:hover{
-    transform: scale(1.02);
+    background: $lightWhite;
+  }
+
+  .clickArea {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
   }
 }
+
 
 .lastCard {
   border-right: 0;
@@ -55,7 +66,7 @@
 }
 
 .inStockNo {
-  color: #f00;
+  color: $ligthGrey;
 }
 
 .wrapperPrice {

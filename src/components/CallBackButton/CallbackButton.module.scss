@@ -23,17 +23,18 @@
     width: 30px;
     height: 30px;
   }
+
+   @media screen and (min-width: 1840px) {
+    right: 45px;
+    bottom: 40px;
+  }
+ 
   @media screen and (max-width: 730px) {
     right: 20px;
     bottom: 78px;
   }
   @media screen and (max-width: 540px) {
-    right: 20px;
-    bottom: 123px;
-  }
-  @media screen and (min-width: 1920px) {
-    right: 20px;
-    bottom: 40px;
+    display: none;
   }
 }
 
@@ -83,7 +84,7 @@
   @media screen and (max-width: 380px) {
     width: 260px;
   }
-  @media screen and (min-width: 1920px) {
+  @media screen and (min-width: 1840px) {
     bottom: 80px;
     right: 100px;
   }

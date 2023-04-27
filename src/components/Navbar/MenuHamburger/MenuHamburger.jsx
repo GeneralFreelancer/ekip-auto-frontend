@@ -1,5 +1,5 @@
 import style from "./Hamburger.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg";
 import CategoryItem from "../../CategoryItem";
 import { useLocation } from "react-router-dom";
@@ -398,6 +398,32 @@ const MenuHamburgere = (props) => {
 
   let desktopV = viewportWidth > 1024;
 
+  const wrapperShoppingCardRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickWindow = (e) => {
+      if (isActive) {
+        if (
+          wrapperShoppingCardRef.current &&
+          !wrapperShoppingCardRef.current.contains(e.target)
+        ) {
+          setIsActive(false);
+        }
+      }
+    };
+
+    if (isActive === true) {
+      window.addEventListener("click", handleClickWindow);
+    } else {
+      window.removeEventListener("click", handleClickWindow);
+    }
+
+    // Повернути функцію очищення ефекту
+    return () => {
+      window.removeEventListener("click", handleClickWindow);
+    };
+  }, [isActive]);
+
   const handleClick = () => {
     if (desktopV) {
       if (scrollPosition.scrollY < 435 && location.pathname === "/") {
@@ -454,7 +480,7 @@ const MenuHamburgere = (props) => {
   useWindowScrollPositions();
 
   return (
-    <>
+    <div ref={wrapperShoppingCardRef}>
       <div className={style.menu__hamburger} onClick={handleClick}>
         <Humburger className={style.menu__icon} />
       </div>
@@ -467,7 +493,7 @@ const MenuHamburgere = (props) => {
             onClick={() => handleClick()}
           />
         ))}
-    </>
+    </div>
   );
 };
 export default MenuHamburgere;

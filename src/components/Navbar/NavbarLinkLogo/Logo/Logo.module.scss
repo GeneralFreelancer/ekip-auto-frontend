@@ -8,12 +8,13 @@
   }
 }
 .logo {
-  background-image: url("../../../../assets/logo.png");
+  background-image: url("../../../../assets/logo.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   width: 175px;
   height: 70px;
+  filter: drop-shadow(8px 8px 8px rgba(0, 0, 0, 0.5));
   @media screen and (max-width: 420px) {
     width: 140px;
   }
