@@ -1,8 +1,10 @@
 import s from "./Category.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Subcategoryitem from "./SubCategoryItem";
+import { useSelector } from "react-redux";
+import { selectedState } from "../../redux/features/subMenu";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
@@ -16,8 +18,9 @@ const CategoryItem = (props) => {
   const [categoryLink, setCategoryLink] = useState(false);
   const [catPosition, setCatPosition] = useState('');
   const [mouseDirection, setMouseDirection] = useState(false);
-  
   const [previousPosition, setPreviousPosition] = useState(null);
+  // const subMenuState = useSelector(selectedState);
+  
 
   const handleMouseMove = (event) => {
     const currentPosition = event.clientY;
@@ -36,11 +39,9 @@ const CategoryItem = (props) => {
       setCatPosition(elem.clientY - 73);
     }
   }
-  console.log(mouseDirection)
-
+  
   return (
-    <div className={props.styleItem ? `${s.menu__wrapper} ${s[`${props.styleItem}`]}`: s.menu__wrapper}
-    onClick={(e) =>{console.log(e.target)}}
+    <div className={props.styleItem ? `${s.menu__wrapper} ${s[`${props.styleItem}`]}`: s.menu__wrapper}  
     >
       <div 
         className={s.menu__content} onMouseMove={handleMouseMove}>
@@ -57,8 +58,7 @@ const CategoryItem = (props) => {
                   setCategoryLink(`${translit(title)}`); 
                 }
                 else {
-        
-                  if (id !== catId) {
+                  if ( id !== catId ) {
                     setIsSubCat(false);
                     setCategoryLink(false);
                   }
@@ -70,7 +70,7 @@ const CategoryItem = (props) => {
             </Link>
           ))}
       </div>
-          {isActive && props.data.map(({id, subCategory}) => (subCategory.length > 0 && id === catId ? <Subcategoryitem catPosition={catPosition} subCategory={subCategory} categoryLink={categoryLink}/> : '')) }
+          {isActive && props.data.map(({id, subCategory}) => (subCategory.length > 0 && id === catId ? <Subcategoryitem  catPosition={catPosition} subCategory={subCategory} categoryLink={categoryLink}/> : ''))}
     </div>
     
   );
