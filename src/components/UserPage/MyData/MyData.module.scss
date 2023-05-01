@@ -1,0 +1,96 @@
+@import "../../../style/variables.scss";
+
+.form_content {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  font-size: 18px;
+}
+
+.form_block {
+  display: flex;
+  gap: 95px;
+  margin-bottom: 70px;
+}
+
+.form_group {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  width: 315px;
+  label {
+    margin: 15px 0 0 10px;
+  }
+  textarea {
+    width: 725px;
+    height: 200px;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    padding: 10px 15px;
+    resize: none;
+    &::placeholder {
+      font-size: 16px;
+      font-family: 'Lato', sans-serif;
+      padding: 5px;
+    }
+  }
+}
+
+.form_input {
+  font-size: 18px;
+  height: 44px;
+  padding: 0 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid $ligthGrey;
+  background-color: $lightWhite;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+}
+
+
+.error_message {
+  margin-left: 10px;
+  color: red;
+}
+
+.input_error {
+  border: 1px solid red;
+}
+
+.form_submit_btn {
+  margin: 25px auto 0;
+  button {
+    height: 36px;
+    padding: 0 15px;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid $ligthGrey;
+    background-color: $lightWhite;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover {
+      scale: 1.1;
+    }
+  }
+}
+
+.form_change_btn {
+  margin-top: auto;
+  button {
+    height: 27px;
+    padding: 0 15px;
+    border-radius: 5px;
+    outline: none;
+    border: 2px solid $ligthGrey;
+    background-color: $lightWhite;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+    text-transform: uppercase;
+    cursor: pointer;
+    &:hover {
+      scale: 1.1;
+    }
+  }
+}
