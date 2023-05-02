@@ -13,7 +13,9 @@ import CyrillicToTranslit from "cyrillic-to-translit-js";
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
 const translit = (name) => {
-  return cyrillicToTranslit.transform(String(name).replace(',', ''), "-").toLowerCase();
+  return cyrillicToTranslit
+    .transform(String(name).replace(",", ""), "-")
+    .toLowerCase();
 };
 
 const images = [
@@ -123,6 +125,106 @@ let cardsData = [
     priseUSD: "500",
     inStock: true,
   },
+  {
+    id: 13,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title:
+      " Lampa is wery good lampaLampa is wery good lampaLampa is wery good",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 14,
+    imgUrl:
+      "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 15,
+    imgUrl:
+      "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: false,
+  },
+  {
+    id: 16,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: false,
+  },
+  {
+    id: 17,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: false,
+  },
+  {
+    id: 18,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 19,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 20,
+    imgUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 21,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 22,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 23,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 24,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
 ];
 
 const properties = {
@@ -130,7 +232,7 @@ const properties = {
   transitionDuration: 250,
 };
 
-const ListCards = ({ title = "Product", showAll = false, link }) => {
+const ListCards = ({ title, showAll = false, link }) => {
   const [cards] = useState(cardsData);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(6);
@@ -269,11 +371,7 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
       ) : (
         <>
           <div className="wrapperSlider sliderCard">
-            {title && (
-              <h2 className={style.titleCategory}>
-                 {title} :
-              </h2>
-            )}
+            {title && <h2 className={style.titleCategory}>{title} :</h2>}
             <Slide {...properties}>
               {cards.map(
                 ({ id, imgUrl, title, priceUAH, priseUSD, inStock }, index) => (

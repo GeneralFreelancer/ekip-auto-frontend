@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.scss";
 import HomePage from "./pages/HomePage";
+import Catalog from "./pages/Catalog";
 
 // import { Routes, Route } from "react-router-dom";
 
@@ -9,7 +10,7 @@ import HomePage from "./pages/HomePage";
 function App() {
   return (
     <main>
-      <HomePage />
+      <Catalog />
     </main>
   );
 
