@@ -25,6 +25,7 @@ const MyData = () => {
     deliveryPlace: "",
     deliveryAddress: "",
   });
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [changedPassword, setChangedPassword] = useState(false);
 
   const dispatch = useDispatch();
@@ -75,7 +76,18 @@ const MyData = () => {
       ...prevState,
       [event.target.name]: event.target.value,
     }));
+
     validateChangeForm(event.target.name, event.target.value);
+    if (
+      dataForm.name &&
+      dataForm.surname &&
+      dataForm.phone &&
+      dataForm.email &&
+      dataForm.deliveryPlace &&
+      dataForm.deliveryAddress
+    ) {
+      setIsButtonDisabled(false);
+    }
   };
 
   const submitChangeHandler = (e) => {
@@ -88,33 +100,35 @@ const MyData = () => {
       dataForm.deliveryPlace &&
       dataForm.deliveryAddress
     ) {
+      setIsButtonDisabled(false);
       console.log(dataForm);
       // setDataForm('')
 
       // dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
 
       // props.onSubmit(true);
-    } else if (!dataForm.name) {
-      validateChangeForm("name", null);
-    } else if (!dataForm.surname) {
-      validateChangeForm("surname", null);
-    } else if (!dataForm.phone) {
-      validateChangeForm("phone", null);
-    } else if (!dataForm.email) {
-      validateChangeForm("email", null);
-    } else if (!dataForm.deliveryPlace) {
-      validateChangeForm("deliveryPlace", null);
-    } else if (!dataForm.deliveryAddress) {
-      validateChangeForm("deliveryAddress", null);
+      // } else if (!dataForm.name) {
+      //   validateChangeForm("name", null);
+      // } else if (!dataForm.surname) {
+      //   validateChangeForm("surname", null);
+      // } else if (!dataForm.phone) {
+      //   validateChangeForm("phone", null);
+      // } else if (!dataForm.email) {
+      //   validateChangeForm("email", null);
+      // } else if (!dataForm.deliveryPlace) {
+      //   validateChangeForm("deliveryPlace", null);
+      // } else if (!dataForm.deliveryAddress) {
+      //   validateChangeForm("deliveryAddress", null);
+      // }
+
+      // try {
+      //   const data = await axios.post('/api/auth/changeData', { ...dataForm })
+      //   setDataForm({
+      //     email: '', password: ''
+      //   })
+      // } catch (e) {
+      //   console.log(e)
     }
-    // try {
-    //   const data = await axios.post('/api/auth/register', { ...registerForm })
-    //   setRegisterForm({
-    //     email: '', password: ''
-    //   })
-    // } catch (e) {
-    //   console.log(e)
-    // }
   };
 
   const changeOldPassword = (e) => {
@@ -162,9 +176,7 @@ const MyData = () => {
               <input
                 type="text"
                 name="fathername"
-                className={`${s.form_input} ${
-                  dataErrors.fathername ? s.input_error : ""
-                }`}
+                className={s.form_input}
                 value={dataForm.fathername}
                 onChange={changeDataHandler}
               />
@@ -182,15 +194,6 @@ const MyData = () => {
                 className={s.form_input}
                 onChange={changeDataHandler}
               />
-              {/* <input
-                type="tel"
-                name="phone"
-                className={`${s.form_input} ${
-                  dataErrors.phone ? s.input_error : ""
-                }`}
-                value={dataForm.phone}
-                onChange={changeDataHandler}
-              /> */}
               {dataErrors.phone && (
                 <div className={s.error_message}>{dataErrors.phone}</div>
               )}
@@ -256,9 +259,7 @@ const MyData = () => {
               <textarea
                 type="text"
                 name="extraInfo"
-                className={`${s.form_input} ${
-                  dataErrors.deliveryAddress ? s.input_error : ""
-                }`}
+                className={s.form_input}
                 value={dataForm.extraInfo}
                 onChange={changeDataHandler}
                 placeholder="Тут можна додати більш детальну інформацію про адресу доставки..."
@@ -299,7 +300,11 @@ const MyData = () => {
           </div>
 
           <div className={s.form_submit_btn}>
-            <button type="submit" onClick={submitChangeHandler}>
+            <button
+              type="submit"
+              onClick={submitChangeHandler}
+              disabled={isButtonDisabled}
+            >
               Зберегти
             </button>
           </div>

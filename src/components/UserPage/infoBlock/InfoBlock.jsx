@@ -4,8 +4,8 @@ import s from "./InfoBlock.module.scss";
 const InfoBlock = () => {
   return (
     <div className={s.infoBlock}>
-      <h1>Увага!</h1>
-      <h2>Щоб здійснити замовлення потрібно заповнити усі пункти с зірочками *</h2>
+      <div className={s.infoBlock_title}>Увага!</div>
+      <div className={s.infoBlock_text}>Щоб здійснити замовлення потрібно заповнити усі пункти с зірочками *</div>
     </div>
   );
 };
