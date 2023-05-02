@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "./redux/features/userSlice";
 import MyDataPage from "./pages/MyDataPage";
 
+
 function App() {
   const user = useSelector(selectedUser);
 
@@ -15,10 +16,10 @@ function App() {
       <Routes>
         <Route path="/" index element={<HomePage />} />
         <Route path="myprofile" element={<UserPage />}>
-          <Route
+         <Route
             path="mydata"
-            element={<MyDataPage />}
-            // element={user.isLoggedIn ? <MyDataPage /> : <Navigate to="/" />}
+            element={<MyDataPage/>}
+            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
         </Route>
       </Routes>

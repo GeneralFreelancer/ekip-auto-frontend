@@ -13,6 +13,9 @@ const MyData = () => {
     deliveryPlace: "",
     deliveryAddress: "",
     extraInfo: "",
+  });
+
+  const [passForm, setPassForm] = useState({
     newPassword: "",
     confirmPassword: "",
   });
@@ -24,9 +27,12 @@ const MyData = () => {
     email: "",
     deliveryPlace: "",
     deliveryAddress: "",
+    newPassword: "",
+    confirmPassword: "",
   });
+
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [changedPassword, setChangedPassword] = useState(false);
+  const [isBtnChangeDisabled, setIsBtnChangeDisabled] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -51,6 +57,12 @@ const MyData = () => {
       case "deliveryAddress":
         errors.deliveryAddress = isValidData(value);
         break;
+      case "newPassword":
+        errors.newPassword = isValidData(value);
+        break;
+      case "confirmPassword":
+        errors.confirmPassword = isValidConfirmPassword(value);
+        break;
       default:
         break;
     }
@@ -68,6 +80,12 @@ const MyData = () => {
   function isValidData(value) {
     if (!value) {
       return "Введіть дані";
+    }
+  }
+
+  function isValidConfirmPassword(value) {
+    if (passForm.newPassword !== value) {
+      return "Паролі не співпадають";
     }
   }
 
@@ -100,26 +118,20 @@ const MyData = () => {
       dataForm.deliveryPlace &&
       dataForm.deliveryAddress
     ) {
-      setIsButtonDisabled(false);
       console.log(dataForm);
-      // setDataForm('')
-
+      setIsButtonDisabled(false);
+      setDataForm({
+        name: "",
+        surname: "",
+        fathername: "",
+        phone: "",
+        email: "",
+        deliveryPlace: "",
+        deliveryAddress: "",
+        extraInfo: "",
+      });
+      setIsButtonDisabled(true);
       // dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
-
-      // props.onSubmit(true);
-      // } else if (!dataForm.name) {
-      //   validateChangeForm("name", null);
-      // } else if (!dataForm.surname) {
-      //   validateChangeForm("surname", null);
-      // } else if (!dataForm.phone) {
-      //   validateChangeForm("phone", null);
-      // } else if (!dataForm.email) {
-      //   validateChangeForm("email", null);
-      // } else if (!dataForm.deliveryPlace) {
-      //   validateChangeForm("deliveryPlace", null);
-      // } else if (!dataForm.deliveryAddress) {
-      //   validateChangeForm("deliveryAddress", null);
-      // }
 
       // try {
       //   const data = await axios.post('/api/auth/changeData', { ...dataForm })
@@ -129,17 +141,37 @@ const MyData = () => {
       // } catch (e) {
       //   console.log(e)
     }
+
   };
 
-  const changeOldPassword = (e) => {
+  const changePasswordHandler = (e) => {
+    setPassForm((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+    validateChangeForm(e.target.name, e.target.value);
+    if (passForm.newPassword && passForm.confirmPassword) {
+      setIsBtnChangeDisabled(false);
+    }
+  };
+
+  const submitPasswordHandler = (e) => {
     e.preventDefault();
-    // console.log(e.target.value);
+    if (passForm.newPassword === passForm.confirmPassword) {
+      console.log(passForm);
+      setIsBtnChangeDisabled(false);
+      setPassForm({
+        newPassword: "",
+        confirmPassword: "",
+      });
+      setIsBtnChangeDisabled(true);
+    }
   };
 
   return (
     <>
-      <form>
-        <div className={s.form_content}>
+      <div className={s.form_content}>
+        <form>
           <div className={s.form_block}>
             <div className={s.form_group}>
               <label>Ім'я: *</label>
@@ -189,6 +221,7 @@ const MyData = () => {
               <PatternFormat
                 name="phone"
                 format="+38 (0##) ### ## ##"
+                value={dataForm.phone}
                 allowEmptyFormatting
                 mask="_"
                 className={s.form_input}
@@ -266,19 +299,24 @@ const MyData = () => {
               />
             </div>
           </div>
+        </form>
 
+        <form>
           <div className={s.form_block}>
             <div className={s.form_group}>
               <label>Новий пароль:</label>
               <input
                 type="password"
-                name="password"
+                name="newPassword"
                 className={`${s.form_input} ${
-                  dataErrors.password ? s.input_error : ""
+                  dataErrors.newPassword ? s.input_error : ""
                 }`}
-                value={dataForm.password}
-                onChange={changeDataHandler}
+                value={passForm.newPassword}
+                onChange={changePasswordHandler}
               />
+              {dataErrors.newPassword && (
+                <div className={s.error_message}>{dataErrors.newPassword}</div>
+              )}
             </div>
             <div className={s.form_group}>
               <label>Підтвердити пароль:</label>
@@ -288,28 +326,37 @@ const MyData = () => {
                 className={`${s.form_input} ${
                   dataErrors.confirmPassword ? s.input_error : ""
                 }`}
-                value={dataForm.confirmPassword}
-                onChange={changeDataHandler}
+                value={passForm.confirmPassword}
+                onChange={changePasswordHandler}
               />
+              {dataErrors.confirmPassword && (
+                <div className={s.error_message}>
+                  {dataErrors.confirmPassword}
+                </div>
+              )}
             </div>
-            <div className={s.form_change_btn}>
-              <button type="submit" onClick={changeOldPassword}>
+            <div className={(dataErrors.confirmPassword || dataErrors.newPassword) ? s.form_change_btn_fl : s.form_change_btn}>
+              <button
+                type="submit"
+                onClick={submitPasswordHandler}
+                disabled={isBtnChangeDisabled}
+              >
                 Змінити
               </button>
             </div>
           </div>
+        </form>
 
-          <div className={s.form_submit_btn}>
-            <button
-              type="submit"
-              onClick={submitChangeHandler}
-              disabled={isButtonDisabled}
-            >
-              Зберегти
-            </button>
-          </div>
+        <div className={s.form_submit_btn}>
+          <button
+            type="submit"
+            onClick={submitChangeHandler}
+            disabled={isButtonDisabled}
+          >
+            Зберегти
+          </button>
         </div>
-      </form>
+      </div>
     </>
   );
 };

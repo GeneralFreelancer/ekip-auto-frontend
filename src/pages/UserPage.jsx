@@ -1,11 +1,11 @@
 import React from "react";
-import MyDataPage from "./MyDataPage";
 import MainContainer from "../components/MainContainer/MainContainer";
+import MyDataPage from "./MyDataPage";
 
 const UserPage = () => {
   return (
     <MainContainer>
-      <MyDataPage />
+      <MyDataPage/>
     </MainContainer>
   );
 };

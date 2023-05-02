@@ -1,13 +1,13 @@
 import React from "react";
-import MyData from "../components/UserPage/MyData/MyData";
-import PageMenu from "../components/UserPage/PageMenu/PageMenu";
-import InfoBlock from "../components/UserPage/infoBlock/InfoBlock";
+import UserPageComponent from "../components/UserPageComponent/UserPageComponent";
+import MyData from "../components/UserPageComponent/MyData/MyData";
+import TextBlock from "../components/UserPageComponent/TextBlock/TextBlock";
+import PageMenu from "../components/UserPageComponent/PageMenu/PageMenu";
 
 const MyDataPage = () => {
   return (
     <>
-      <PageMenu />
-      <InfoBlock/>
+      <TextBlock />
       <MyData />
     </>
   );
