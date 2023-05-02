@@ -30,14 +30,15 @@ const HomePage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-
-      <MainContainer>
-        <SideBarSlider />
-        <ListCards title={"Останні надходження"} />
-        <ListCards title={"Топ продажу"} />
-        <ListCards title={"Останні переглянуті"} />
-        <ListCards title={"Вас може зацікавити"} />
-      </MainContainer>
+      <section>
+        <MainContainer>
+          <SideBarSlider />
+          <ListCards title={"Останні надходження"} />
+          <ListCards title={"Топ продажу"} />
+          <ListCards title={"Останні переглянуті"} />
+          <ListCards title={"Вас може зацікавити"} />
+        </MainContainer>
+      </section>
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} /> 

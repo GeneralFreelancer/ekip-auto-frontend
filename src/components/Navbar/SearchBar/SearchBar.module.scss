@@ -39,7 +39,7 @@
     margin-left: 15px;
     border-radius: 7px;
     outline: none;
-    border: 1px solid $ligthGrey;
+    border: 1px solid $lightGrey;
     background-color: $lightWhite;
     font-size: 18px;
     &_wide {
@@ -90,7 +90,7 @@
   max-height: 332px;
   z-index: 1;
   background-color: $white;
-  border: 2px solid $ligthGrey;
+  border: 2px solid $lightGrey;
   border-radius: 3px;
   overflow-y: auto;
   margin: 0px;
@@ -101,7 +101,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 15px;
-    border-bottom: 1px solid $ligthGrey;
+    border-bottom: 1px solid $lightGrey;
     list-style: none;
     height: 55px;
     cursor: pointer;
@@ -123,7 +123,7 @@
       margin: 5px;
     }
     span {
-      background-color: $ligthGrey;
+      background-color: $lightGrey;
       padding: 1px 5px;
       border-radius: 2px;
     }

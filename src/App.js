@@ -1,22 +1,18 @@
-import React from "react";
 import "./index.scss";
-import HomePage from "./pages/HomePage";
-
+// import HomePage from "./pages/HomePage";
 // import { Routes, Route } from "react-router-dom";
-
 // import HomePage from './pages/HomePage'
+import UserPage from './pages/UserPage';
 
-function App() {
-  return (
+const App = () => {
+  return(
     <main>
-      <HomePage />
+      <UserPage />
     </main>
   );
-
 }
 
 export default App;
-
 /*
 // <Routes> 
             //   <Route path="/" element={<HomePage />} /> 
