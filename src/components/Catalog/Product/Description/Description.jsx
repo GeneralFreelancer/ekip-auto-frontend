@@ -9,12 +9,12 @@ const Description = () => {
       <section>
         <MainInfo />
       </section>
-      {/* <section>
+      <section>
         <Characteristic />
       </section>
       <section>
         <Pack />
-      </section> */}
+      </section>
     </>
   );
 };
