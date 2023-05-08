@@ -1,1 +1,1 @@
-export { default } from "./UserPageComponent";
+export { default } from './UserPageComponent'

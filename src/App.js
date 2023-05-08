@@ -1,4 +1,3 @@
-import React from "react";
 import "./index.scss";
 import HomePage from "./pages/HomePage";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -37,7 +36,6 @@ function App() {
 }
 
 export default App;
-
 /*
 // <Routes> 
             //   <Route path="/" element={<HomePage />} /> 

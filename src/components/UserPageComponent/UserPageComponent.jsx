@@ -1,14 +1,17 @@
-import React from "react";
-import PageMenu from "./PageMenu";
+import Cart from './Cart/Cart';
+import PageMenu from './PageMenu'
 
 const UserPageComponent = () => {
-  return (
+  return(
     <>
       <section>
-        <PageMenu />
+        <PageMenu />  
+      </section>
+      <section>
+        <Cart />
       </section>
     </>
-  );
-};
+  )
+}
 
 export default UserPageComponent;
