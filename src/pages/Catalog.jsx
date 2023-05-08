@@ -4,12 +4,10 @@ import Navbar from "../components/Navbar";
 import AuthModal from "../components/AuthModal/AuthModal";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
-import ListCards from "../components/ListCards/ListCards";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import MainContainer from "../components/MainContainer";
-import Filter from "../components/CatalogComponents/Filter";
-import InStock from "../components/CatalogComponents/InStock";
+import CatalogComponents from "../components/CatalogComponents/CatalogComponents";
 
 const Catalog = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -33,9 +31,7 @@ const Catalog = () => {
       <Navbar onShowModal={showModalHandler} />
 
       <MainContainer>
-        <Filter />
-        <InStock />
-        <ListCards showAll={true} />
+        <CatalogComponents />
       </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />

@@ -1,10 +1,14 @@
 import s from "./Filter.module.scss";
 
-const Filter = () => {
+const Filter = ({ onChangeParams }) => {
   return (
     <div className={s.wrapper}>
       <p className={s.title}>Спочатку:</p>
-      <select name="filter" className={s.select}>
+      <select
+        name="filter"
+        className={s.select}
+        onChange={(e) => onChangeParams(e.target.name, e.target.value)}
+      >
         <option value="new" className={s.option}>
           Нове
         </option>

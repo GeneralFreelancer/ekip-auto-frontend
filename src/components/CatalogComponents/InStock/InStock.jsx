@@ -1,19 +1,22 @@
 import s from "./InStock.module.scss";
 
-const InStock = () => {
+const InStock = ({ onChangeParams }) => {
   return (
-    <>
-      <p>
-        Тільки<span>в наявності</span>:
+    <div className={s.wrapper}>
+      <p className={s.text}>
+        Тільки <span className={s.span}>в наявності</span>:
       </p>
       <div className={s.form_group}>
-        <label className={s.custom_checkbox}>
-          <input type="checkbox" name="rememberMe" />
+        <label className={s.custom_checkbox} name="inStock">
+          <input
+            type="checkbox"
+            name="inStock"
+            onChange={(e) => onChangeParams(e.target.name, e.target.checked)}
+          />
           <span className={s.checkmark}></span>
-          <p>- Запам'ятати мене</p>
         </label>
       </div>
-    </>
+    </div>
   );
 };
 

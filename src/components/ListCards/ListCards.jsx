@@ -11,18 +11,11 @@ import Card from "./Card";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
-// rus to lat use this on backend for dynamic ulr
 const translit = (name) => {
   return cyrillicToTranslit
     .transform(String(name).replace(",", ""), "-")
     .toLowerCase();
 };
-
-const images = [
-  "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-  "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-  "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-];
 
 let cardsData = [
   {
@@ -232,8 +225,14 @@ const properties = {
   transitionDuration: 250,
 };
 
-const ListCards = ({ title, showAll = false, link }) => {
-  const [cards] = useState(cardsData);
+const ListCards = ({
+  title,
+  showAll = false,
+  link,
+  items,
+  need_A_Slider = true,
+}) => {
+  const [cards, setCards] = useState(items);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(6);
   const [lastPage, setLastPage] = useState(false);
@@ -255,7 +254,6 @@ const ListCards = ({ title, showAll = false, link }) => {
     if (width <= 825) {
       setCardsPerPage(2);
     }
-    // isLastPage();
   };
 
   useEffect(() => {
@@ -263,11 +261,12 @@ const ListCards = ({ title, showAll = false, link }) => {
       setViewportWidth(window.innerWidth);
     }
     window.addEventListener("resize", handleResize);
-    // handleResize();
-    // changeCardsQuantity(viewportWidth);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    setCards(items);
+  }, [items]);
 
   useEffect(() => {
     changeCardsQuantity(viewportWidth);
@@ -337,39 +336,41 @@ const ListCards = ({ title, showAll = false, link }) => {
       );
     }
   };
-
   return (
     <>
-      {viewportWidth > 578 ? (
-        <div className={style.container}>
-          <div className={style.cardGrid}>
-            {title && <h2 className={style.titleCategory}>{title} :</h2>}
+      {cards.length !== 0 ? (
+        viewportWidth > 578 ? (
+          <div className={style.container}>
+            <div className={style.cardGrid}>
+              {title && <h2 className={style.titleCategory}>{title} :</h2>}
 
-            {renderCards(showAll)}
+              {renderCards(showAll)}
 
-            {!showAll && (
-              <NavLink className={style.buttonMore} to={`/${translit(title)}`}>
-                Показати ще...
-              </NavLink>
-            )}
-
-            {/* {!showAll &&
-              (lastPage ? (
-                <button
+              {!showAll && (
+                <NavLink
                   className={style.buttonMore}
-                  onClick={handleCollapseClick}
+                  to={`/${translit(title)}`}
                 >
-                  Згорнути
-                </button>
-              ) : (
-                <button className={style.buttonMore} onClick={handlePageClick}>
                   Показати ще...
-                </button>
-              ))} */}
+                </NavLink>
+              )}
+
+              {/* {!showAll &&
+        (lastPage ? (
+          <button
+            className={style.buttonMore}
+            onClick={handleCollapseClick}
+          >
+            Згорнути
+          </button>
+        ) : (
+          <button className={style.buttonMore} onClick={handlePageClick}>
+            Показати ще...
+          </button>
+        ))} */}
+            </div>
           </div>
-        </div>
-      ) : (
-        <>
+        ) : need_A_Slider ? (
           <div className="wrapperSlider sliderCard">
             {title && <h2 className={style.titleCategory}>{title} :</h2>}
             <Slide {...properties}>
@@ -389,7 +390,11 @@ const ListCards = ({ title, showAll = false, link }) => {
               )}
             </Slide>
           </div>
-        </>
+        ) : (
+          renderCards(showAll)
+        )
+      ) : (
+        <p className={style.alert}>Товар у данній категорії відсутній</p>
       )}
     </>
   );
