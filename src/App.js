@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="myprofile" element={<UserPage />}>
-         <Route
+          <Route
             path="mydata"
             element={<MyData/>}
             index //не працює

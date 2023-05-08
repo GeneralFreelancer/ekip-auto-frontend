@@ -19,7 +19,7 @@
   @media screen and (max-width: 540px) {
     height: 400px;
   }
-  &:hover{
+  &:hover {
     background: $lightWhite;
   }
   .clickArea {
@@ -32,7 +32,6 @@
     z-index: 10;
   }
 }
-
 
 .lastCard {
   border-right: 0;
@@ -48,7 +47,7 @@
   overflow: hidden;
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   @media screen and (max-width: 540px) {
     height: 260px;
   }
@@ -63,10 +62,10 @@
 }
 
 .title {
-  margin-bottom: 8px;  
-    font-size: 16px;
-    height: 40px;
-    overflow: hidden;
+  margin-bottom: 8px;
+  font-size: 16px;
+  height: 40px;
+  overflow: hidden;
 }
 
 .inStock {
