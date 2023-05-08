@@ -25,7 +25,7 @@ function App() {
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
           <Route
-            path="cart"
+            path="basket"
             element={<Cart/>}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
