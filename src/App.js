@@ -1,12 +1,13 @@
 import "./index.scss";
 import HomePage from "./pages/HomePage";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
 import { useSelector } from "react-redux";
 import { selectedUser } from "./redux/features/userSlice";
-import MyDataPage from "./pages/MyDataPage";
-import ProductPage from "./pages/ProductPage";
 import CatalogPage from "./pages/CatalogPage";
+import Cart from "./components/UserPageComponent/Cart/Cart";
+import MyData from "./components/UserPageComponent/MyData/MyData";
+import Product from "./components/Catalog/Product/Product";
 
 
 function App() {
@@ -15,11 +16,17 @@ function App() {
   return (
     <main>
       <Routes>
-        <Route path="/" index element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="myprofile" element={<UserPage />}>
          <Route
             path="mydata"
-            element={<MyDataPage/>}
+            element={<MyData/>}
+            index //не працює
+            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
+          <Route
+            path="cart"
+            element={<Cart/>}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
         </Route>
@@ -27,7 +34,7 @@ function App() {
         <Route path="catalog" element={<CatalogPage />}>
          <Route
             path="category/subcategory/:id"
-            element={<ProductPage/>}
+            element={<Product/>}
           />
         </Route> 
       </Routes>

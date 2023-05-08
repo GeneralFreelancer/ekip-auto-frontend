@@ -3,7 +3,7 @@
 .characteristic_block {
   font-size: 16px;
   padding-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 12px;
   position: relative;
   @media screen and (max-width: 800px) {
     margin-bottom: 0px;
@@ -11,11 +11,32 @@
 }
 
 .characteristic_line {
-  margin-bottom: 25px;
+  position: relative;
+}
+
+.characteristic_line {
+  margin-bottom: 20px;
+  @media screen and (max-width: 700px) {
+ 
+  }
+}
+
+.characteristic_dotted {
+  letter-spacing: 2px;
+  @media screen and (max-width: 700px) {
+    letter-spacing: 1px;
+  }
+  @media screen and (max-width: 600px) {
+    letter-spacing: 0.5px;
+    font-size: 14px;
+  }
 }
 
 .characteristic_h {
   margin-left: 20px;
+  @media screen and (max-width: 510px) {
+    margin-left: 0px;
+  }
 }
 
 .characteristic_btn_edit {
@@ -32,6 +53,7 @@
   }
 }
 
+
 .characteristic_textarea {
   width: 95%;
   height: 210px;
@@ -40,7 +62,7 @@
   padding: 10px;
   resize: none;
   outline: none;
-  border: 2px solid $ligthGrey;
+  border: 2px solid $lightGrey;
   background-color: $lightWhite;
   border-radius: 7px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
@@ -71,7 +93,7 @@
   width: 33px;
   height: 33px;
   outline: none;
-  border: 2px solid $ligthGrey;
+  border: 2px solid $lightGrey;
   background-color: $lightWhite;
   border-radius: 7px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
@@ -110,7 +132,7 @@
   width: 33px;
   height: 33px;
   outline: none;
-  border: 2px solid $ligthGrey;
+  border: 2px solid $lightGrey;
   background-color: $lightWhite;
   border-radius: 7px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
@@ -126,6 +148,170 @@
     right: 10px;
   }
 }
+
+.characteristic_btn_add {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  bottom: -35px;
+  left: 290px;
+  width: 33px;
+  height: 33px;
+  outline: none;
+  border: 2px solid $lightGrey;
+  background-color: $lightWhite;
+  border-radius: 7px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+  svg {
+    width: 20px;
+    height: 25px;
+  }
+  @media screen and (max-width: 700px) {
+    left: 240px;
+  }
+  @media screen and (max-width: 600px) {
+    left: 205px;
+  }
+  @media screen and (max-width: 510px) {
+    left: 140px;
+  }
+}
+
+.character_btn_edit {
+  position: absolute;
+  border: none;
+  top: 30px;
+  left: 225px;
+  width: 27px;
+  height: 27px;
+  background-color: white;
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+  @media screen and (max-width: 510px) {
+    left: 205px;
+  }
+}
+
+.character_btn_editP {
+  position: absolute;
+  border: none;
+  top: 30px;
+  left: 353px;
+  width: 27px;
+  height: 27px;
+  background-color: white;
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+  @media screen and (max-width: 510px) {
+    left: 334px;
+  }
+}
+
+.character_btn_cancel {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  top: 80px;
+  left: 630px;
+  width: 33px;
+  height: 33px;
+  outline: none;
+  border: 2px solid $lightGrey;
+  background-color: $lightWhite;
+  border-radius: 7px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+  @media screen and (max-width: 700px) {
+    left: 540px;
+  }
+  @media screen and (max-width: 600px) {
+    left: 465px;
+  }
+  @media screen and (max-width: 510px) {
+    left: 315px;
+  }
+}
+
+.btn_cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border: 2px solid $hardGrey;
+  border-radius: 50%;
+  background-color: $lightWhite;
+  svg {
+    width: 9px;
+    height: 9px;
+  }
+}
+
+.character_btn_save {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  bottom: 0px;
+  left: 630px;
+  width: 33px;
+  height: 33px;
+  outline: none;
+  border: 2px solid $lightGrey;
+  background-color: $lightWhite;
+  border-radius: 7px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+  svg {
+    width: 20px;
+    height: 25px;
+  }
+  @media screen and (max-width: 700px) {
+    left: 540px;
+  }
+  @media screen and (max-width: 600px) {
+    left: 465px;
+  }
+  @media screen and (max-width: 510px) {
+    left: 315px;
+  }
+}
+
+.character_input {
+    max-width: 85px;
+    height: 32px;
+    font-size: 16px;
+    font-family: "Lato", sans-serif;
+    padding: 10px;
+    resize: none;
+    outline: none;
+    border: 2px solid $lightGrey;
+    background-color: $lightWhite;
+    border-radius: 7px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+    @media screen and (max-width: 510px) {
+      max-width: 75px;
+    }
+  }
 
 .characteristic_textRead {
   width: 100%;
