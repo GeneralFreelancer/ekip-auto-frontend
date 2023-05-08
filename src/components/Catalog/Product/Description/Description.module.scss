@@ -4,6 +4,10 @@
   font-size: 16px;
   padding-top: 10px;
   margin-bottom: 30px;
+  position: relative;
+  @media screen and (max-width: 800px) {
+    margin-bottom: 0px;
+  }
 }
 
 .characteristic_line {
@@ -14,19 +18,124 @@
   margin-left: 20px;
 }
 
+.characteristic_btn_edit {
+  position: absolute;
+  border: none;
+  top: 30px;
+  left: 292px;
+  width: 27px;
+  height: 27px;
+  background-color: white;
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+}
 
-textarea {
-  width: 100%;
-  height: 280px;
+.characteristic_textarea {
+  width: 95%;
+  height: 210px;
   font-size: 16px;
   font-family: "Lato", sans-serif;
-  padding: 10px 15px;
+  padding: 10px;
   resize: none;
   outline: none;
   border: 2px solid $ligthGrey;
   background-color: $lightWhite;
   border-radius: 7px;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  &::placeholder {
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    padding: 4px;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 93%;
+  }
+  @media screen and (max-width: 800px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 600px) {
+    width: 85%;
+  }
+}
+
+.characteristic_btn_cancel {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  top: 10px;
+  right: 20px;
+  width: 33px;
+  height: 33px;
+  outline: none;
+  border: 2px solid $ligthGrey;
+  background-color: $lightWhite;
+  border-radius: 7px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+  @media screen and (max-width: 600px) {
+    right: 10px;
+  }
+}
+
+.btn_cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border: 2px solid $hardGrey;
+  border-radius: 50%;
+  background-color: $lightWhite;
+  svg {
+    width: 9px;
+    height: 9px;
+  }
+}
+
+.characteristic_btn_save {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  bottom: 3px;
+  right: 20px;
+  width: 33px;
+  height: 33px;
+  outline: none;
+  border: 2px solid $ligthGrey;
+  background-color: $lightWhite;
+  border-radius: 7px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+  cursor: pointer;
+  &:hover {
+    scale: 1.1;
+  }
+  svg {
+    width: 20px;
+    height: 25px;
+  }
+  @media screen and (max-width: 600px) {
+    right: 10px;
+  }
+}
+
+.characteristic_textRead {
+  width: 100%;
+  height: 200px;
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  resize: none;
+  outline: none;
+  border: none;
+  overflow: scroll;
   &::placeholder {
     font-size: 18px;
     font-family: "Lato", sans-serif;

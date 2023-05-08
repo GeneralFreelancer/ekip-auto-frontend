@@ -30,7 +30,7 @@ function App() {
             path="category/subcategory/:id"
             element={<ProductPage/>}
           />
-        </Route>
+        </Route> 
       </Routes>
     </main>
   );
