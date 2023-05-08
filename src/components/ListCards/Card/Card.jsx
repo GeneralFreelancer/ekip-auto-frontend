@@ -18,7 +18,6 @@ const Card = ({
   inStock,
   styleCard,
 }) => {
-  // console.log(styleCard);
   return (
     <div
       className={

@@ -8,6 +8,7 @@ import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Product from "./components/Catalog/Product/Product";
 import Catalog from "./pages/Catalog";
+import Favorite from "./components/Favorite";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -33,7 +34,13 @@ function App() {
             element={<Cart />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
+          <Route
+            path="favorite"
+            element={<Favorite />}
+            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
         </Route>
+        <Route path="favorite" element={<Favorite />} />
       </Routes>
     </main>
   );
