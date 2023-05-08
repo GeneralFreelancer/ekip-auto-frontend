@@ -1,16 +1,13 @@
-import s from "./CatalogComponents.module.scss";
+import s from "./Favorite.module.scss";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import InStock from "./InStock";
-import Filter from "./Filter";
-import ListCards from "../ListCards";
-
 import Pagination from "https://cdn.skypack.dev/rc-pagination@3.1.15";
 import { ReactComponent as Arrow } from "../../assets/svg/up-arrow.svg";
 
-import "./Pagination/Pagination.scss";
+import "../CatalogComponents/Pagination/Pagination.scss";
+import FavoriteList from "./FavoriteList/FavoriteList";
 
 let cardsData = [
   {
@@ -281,13 +278,9 @@ let cardsData = [
   },
 ];
 
-const CatalogComponents = () => {
-  const [filter, setFilter] = useState("new");
-  const [inStock, setInStock] = useState(false);
+const Favorite = () => {
   const [items, setItems] = useState([]);
-  const [filteredArr, setFilteredArr] = useState([]);
-
-  const [perPage, setPerPage] = useState(10);
+  const [perPage, setPerPage] = useState(36);
   const [current, setCurrent] = useState(1);
 
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -306,10 +299,10 @@ const CatalogComponents = () => {
       setPerPage(18);
     }
     if (width <= 825) {
-      setPerPage(12);
+      setPerPage(18);
     }
     if (width <= 462) {
-      setPerPage(10);
+      setPerPage(18);
     }
   };
 
@@ -328,18 +321,14 @@ const CatalogComponents = () => {
   }, [viewportWidth]);
 
   useEffect(() => {
-    const pathArray = window.location.pathname.split("/");
-    const category = pathArray[1];
-    const subCategory = pathArray.length === 3 && pathArray[2];
-
     setItems(cardsData);
 
     // const fetchData = async () => {
     //   try {
     //     const response = await axios.get("https://example.com/api/products", {
     //       params: {
-    //         category: category,
-    //         subCategory: subCategory
+    //         favorite: true,
+    //
     //       }
     //     });
     //     setItems(response.data);
@@ -350,49 +339,9 @@ const CatalogComponents = () => {
     // fetchData();
   }, []);
 
-  useEffect(() => {
-    let filteredItems;
-    filteredItems = items.filter((item) =>
-      inStock ? item.inStock === inStock : item
-    );
-
-    switch (filter) {
-      case "new":
-        // filteredItems = [...filteredItems].sort(
-        //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        // );
-        break;
-      case "popular":
-        //    filteredItems = [...filteredItems].sort((a, b) => b.popular - a.popular);
-        break;
-      case "cheap":
-        filteredItems = [...filteredItems].sort(
-          (a, b) => a.priceUAH - b.priceUAH
-        );
-        break;
-      case "expensive":
-        filteredItems = [...filteredItems].sort(
-          (a, b) => b.priceUAH - a.priceUAH
-        );
-        break;
-      default:
-        break;
-    }
-    setCurrent(1);
-    setFilteredArr(filteredItems);
-  }, [filter, inStock, items]);
-
-  const onChangeParams = (name, value) => {
-    if (name === "filter") {
-      setFilter(value);
-    } else {
-      setInStock(value);
-    }
-  };
-
   const getData = (current, pageSize) => {
     // Normally you should get the data from the server
-    return filteredArr.slice((current - 1) * pageSize, current * pageSize);
+    return items.slice((current - 1) * pageSize, current * pageSize);
   };
 
   useEffect(() => {
@@ -417,42 +366,31 @@ const CatalogComponents = () => {
     return originalElement;
   };
 
+  const handelClick = (id) => {
+    setItems([...items].filter((item) => item.id !== id));
+  };
+
   return (
-    <section>
-      <div className={s.mainWrapper}>
-        <div className={s.wrapper}>
-          <Filter onChangeParams={onChangeParams} />
+    <>
+      <div className={s.wrapperListCards}>
+        <FavoriteList
+          items={getData(current, perPage)}
+          handelClick={handelClick}
+        />
+        {items.length > perPage && (
           <Pagination
             className="pagination-data"
             onChange={PaginationChange}
-            total={filteredArr.length}
+            total={items.length}
             current={current}
             pageSize={perPage}
             showSizeChanger={false}
             itemRender={PrevNextArrow}
           />
-          <InStock onChangeParams={onChangeParams} />
-        </div>
-        <div className={s.wrapperListCards}>
-          <ListCards
-            showAll={true}
-            items={getData(current, perPage)}
-            need_A_Slider={false}
-          />
-        </div>
-
-        <Pagination
-          className="pagination-data"
-          onChange={PaginationChange}
-          total={filteredArr.length}
-          current={current}
-          pageSize={perPage}
-          showSizeChanger={false}
-          itemRender={PrevNextArrow}
-        />
+        )}
       </div>
-    </section>
+    </>
   );
 };
 
-export default CatalogComponents;
+export default Favorite;

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "./redux/features/userSlice";
 import MyDataPage from "./pages/MyDataPage";
 import Catalog from "./pages/Catalog";
+import Favorite from "./components/Favorite";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -21,7 +22,13 @@ function App() {
             element={<MyDataPage />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
+          <Route
+            path="favorite"
+            element={<Favorite />}
+            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
         </Route>
+        <Route path="favorite" element={<Favorite />} />
       </Routes>
     </main>
   );
