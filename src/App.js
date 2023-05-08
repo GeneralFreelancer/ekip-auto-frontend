@@ -1,13 +1,27 @@
 import "./index.scss";
-// import HomePage from "./pages/HomePage";
-// import { Routes, Route } from "react-router-dom";
-// import HomePage from './pages/HomePage'
-import UserPage from './pages/UserPage';
+import HomePage from "./pages/HomePage";
+import { Routes, Route, Navigate } from "react-router-dom";
+import UserPage from "./pages/UserPage";
+import { useSelector } from "react-redux";
+import { selectedUser } from "./redux/features/userSlice";
+import MyDataPage from "./pages/MyDataPage";
 
-const App = () => {
-  return(
+
+function App() {
+  const user = useSelector(selectedUser);
+
+  return (
     <main>
-      <UserPage />
+      <Routes>
+        <Route path="/" index element={<HomePage />} />
+        <Route path="myprofile" element={<UserPage />}>
+         <Route
+            path="mydata"
+            element={<MyDataPage/>}
+            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
+        </Route>
+      </Routes>
     </main>
   );
 }
