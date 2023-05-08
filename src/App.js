@@ -5,7 +5,7 @@ import UserPage from "./pages/UserPage";
 import { useSelector } from "react-redux";
 import { selectedUser } from "./redux/features/userSlice";
 import MyDataPage from "./pages/MyDataPage";
-
+import Catalog from "./pages/Catalog";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -14,10 +14,11 @@ function App() {
     <main>
       <Routes>
         <Route path="/" index element={<HomePage />} />
+        <Route path="catalog" element={<Catalog />} />
         <Route path="myprofile" element={<UserPage />}>
-         <Route
+          <Route
             path="mydata"
-            element={<MyDataPage/>}
+            element={<MyDataPage />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
         </Route>

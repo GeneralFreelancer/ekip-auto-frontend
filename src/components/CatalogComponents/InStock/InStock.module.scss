@@ -1,0 +1,64 @@
+@import "../../../style/variables.scss";
+
+.wrapper {
+  display: flex;
+  @media screen and (max-width: 782px) {
+    margin-top: 10px;
+  }
+
+  .text {
+    font-weight: 600;
+  }
+  .span {
+    color: #56935f;
+  }
+
+  .form_group {
+    display: flex;
+    gap: 7px;
+    flex-direction: column;
+    max-width: 310px;
+    label {
+      margin: 0 0 0 10px;
+    }
+  }
+  .custom_checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Style the custom checkbox */
+  .custom_checkbox .checkmark {
+    position: relative;
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    border: 2px solid $hardGrey;
+    border-radius: 3px;
+    margin-right: 7px;
+  }
+
+  /* Style the checked state */
+  .custom_checkbox input[type="checkbox"]:checked + .checkmark:after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    border: solid $hardGrey;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  /* Style the label text */
+  .custom_checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+}
