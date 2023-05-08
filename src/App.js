@@ -4,11 +4,10 @@ import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
 import { useSelector } from "react-redux";
 import { selectedUser } from "./redux/features/userSlice";
-import CatalogPage from "./pages/CatalogPage";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Product from "./components/Catalog/Product/Product";
-
+import Catalog from "./pages/Catalog";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -17,26 +16,24 @@ function App() {
     <main>
       <Routes>
         <Route path="/" element={<HomePage />} />
+
+        <Route path="catalog" element={<Catalog />}>
+          <Route path="category/subcategory/:id" element={<Product />} />
+        </Route>
+
         <Route path="myprofile" element={<UserPage />}>
           <Route
             path="mydata"
-            element={<MyData/>}
+            element={<MyData />}
             index //не працює
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
           <Route
             path="basket"
-            element={<Cart/>}
+            element={<Cart />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
         </Route>
-
-        <Route path="catalog" element={<CatalogPage />}>
-         <Route
-            path="category/subcategory/:id"
-            element={<Product/>}
-          />
-        </Route> 
       </Routes>
     </main>
   );
