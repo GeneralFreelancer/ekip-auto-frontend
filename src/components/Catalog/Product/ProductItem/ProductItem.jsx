@@ -129,7 +129,7 @@ const ProductItem = (props) => {
               </NavLink>
             </div>
           ) : (
-            <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+            <div className={s.productItem_title_item}>
               <h1 className={s.productItem_h}>{title}</h1>
               {role && (
                 <button
@@ -152,26 +152,27 @@ const ProductItem = (props) => {
               // className={`${s.productItem_image} ${isZoomed ? s.zoomed : ""}`}
               // onClick={handleZoomClick}
             >
-              {viewportWidth < 620 ? (
+              {viewportWidth < 700 ? (
                 <Slide indicators={indicators} scale={1.4} {...properties}>
-                  {images.map((each, index) => (
+                  {images.map((image, index) => (
                     <div key={index} style={{ width: "100%" }}>
                       <img
                         // className={`${isZoomed ? s.zoomed : ""}`}
                         style={{
-                          objectFit: "contain",
+                          objectFit: "cover",
                           width: "100%",
-                          height: "340px",
+                          height: "auto",
+                          marginTop: "15px",
                         }}
                         alt="Slide img"
-                        src={each}
+                        src={image}
                       />
                     </div>
                   ))}
                 </Slide>
               ) : (
                 <Slide indicators={indicators} scale={1.4} {...properties}>
-                  {images.map((each, index) => (
+                  {images.map((image, index) => (
                     <div key={index} style={{ width: "100%" }}>
                       <img
                         className={`${isZoomed ? s.zoomed : ""}`}
@@ -179,9 +180,10 @@ const ProductItem = (props) => {
                           objectFit: "contain",
                           width: "100%",
                           height: "500px",
+                          marginTop: "10px",
                         }}
                         alt="Slide img"
-                        src={each}
+                        src={image}
                       />
                     </div>
                   ))}
@@ -207,9 +209,11 @@ const ProductItem = (props) => {
             </p>
             <div className={s.productItem_price}>
               <p>
-                <span>1500.99 ₴/шт</span>
+                <span>
+                  1500.99 <span>&#8372;/шт</span>
+                </span>
               </p>
-              <p>150.99 $/шт</p>
+              <p>150.99 &#65284;/шт</p>
             </div>
             <div>
               <p>Мінімальне замовлення від: 500 шт.</p>
@@ -242,12 +246,14 @@ const ProductItem = (props) => {
                 <div
                   style={{ display: "flex", alignItems: "center", gap: "5px" }}
                 >
-                  <div className={s.productItem_btn_sum}>150 000</div> ₴
+                  <div className={s.productItem_btn_sum}>150 000</div>{" "}
+                  <p>&#8372;</p>
                 </div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
+                  style={{ display: "flex", alignItems: "center", gap: "3px" }}
                 >
-                  <div className={s.productItem_btn_sum}>4 500</div> $
+                  <div className={s.productItem_btn_sum}>4 500</div>{" "}
+                  <p>&#65284;</p>
                 </div>
               </div>
             </div>
