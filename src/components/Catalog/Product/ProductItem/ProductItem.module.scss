@@ -1,0 +1,14 @@
+.productItem_block {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.productItem_image {
+  background-image: url('https://cdn.27.ua/799/9d/06/2596102_11.jpeg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 590px;
+  height: 500px;
+}

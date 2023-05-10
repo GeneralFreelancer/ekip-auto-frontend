@@ -42,14 +42,17 @@
 .characteristic_btn_edit {
   position: absolute;
   border: none;
-  top: 30px;
-  left: 292px;
+  top: 24px;
+  left: 232px;
   width: 27px;
   height: 27px;
   background-color: white;
   cursor: pointer;
   &:hover {
     scale: 1.1;
+  }
+  @media screen and (max-width: 510px) {
+    left: 210px;
   }
 }
 
@@ -186,8 +189,8 @@
 .character_btn_edit {
   position: absolute;
   border: none;
-  top: 30px;
-  left: 225px;
+  top: 24px;
+  left: 180px;
   width: 27px;
   height: 27px;
   background-color: white;
@@ -196,15 +199,15 @@
     scale: 1.1;
   }
   @media screen and (max-width: 510px) {
-    left: 205px;
+    left: 158px;
   }
 }
 
 .character_btn_editP {
   position: absolute;
   border: none;
-  top: 30px;
-  left: 353px;
+  top: 24px;
+  left: 281px;
   width: 27px;
   height: 27px;
   background-color: white;
@@ -213,7 +216,7 @@
     scale: 1.1;
   }
   @media screen and (max-width: 510px) {
-    left: 334px;
+    left: 259px;
   }
 }
 
@@ -223,8 +226,8 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  top: 80px;
-  left: 630px;
+  top: 70px;
+  left: 623px;
   width: 33px;
   height: 33px;
   outline: none;
@@ -269,7 +272,7 @@
   align-items: center;
   padding: 0;
   bottom: 0px;
-  left: 630px;
+  left: 623px;
   width: 33px;
   height: 33px;
   outline: none;

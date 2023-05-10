@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Product from "../components/Catalog/Product/Product";
+import MainContainer from "../components/MainContainer/MainContainer";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import AuthModal from "../components/AuthModal/AuthModal";
@@ -6,10 +8,8 @@ import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
-import MainContainer from "../components/MainContainer";
-import CatalogComponents from "../components/CatalogComponents/CatalogComponents";
 
-const Catalog = () => {
+const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
 
@@ -31,7 +31,7 @@ const Catalog = () => {
       <Navbar onShowModal={showModalHandler} />
       <section>
         <MainContainer>
-          <CatalogComponents /> 
+          <Product />
         </MainContainer>
       </section>
       <ScrollToTopButton />
@@ -41,4 +41,4 @@ const Catalog = () => {
   );
 };
 
-export default Catalog;
+export default ProductItemPage;

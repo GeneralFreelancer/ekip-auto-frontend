@@ -9,6 +9,7 @@ import MyData from "./components/UserPageComponent/MyData/MyData";
 import Product from "./components/Catalog/Product/Product";
 import Catalog from "./pages/Catalog";
 import Favorite from "./components/Favorite";
+import ProductItemPage from "./pages/ProductItemPage";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -18,9 +19,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
 
-        <Route path="catalog" element={<Catalog />}>
-          <Route path="category/subcategory/:id" element={<Product />} />
-        </Route>
+        <Route path="catalog" element={<Catalog />}/>
+      
+        {/* </Route> */}
+        <Route path="catalog/category/subcategory/:id" element={<ProductItemPage/>} />
 
         <Route path="myprofile" element={<UserPage />}>
           <Route
@@ -40,7 +42,6 @@ function App() {
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
         </Route>
-        <Route path="favorite" element={<Favorite />} />
       </Routes>
     </main>
   );

@@ -1,9 +1,15 @@
 import React from "react";
-import Description from "./Description/Description"
+import Description from "./Description/Description";
+import ProductItem from "./ProductItem/ProductItem";
 
 const Product = () => {
   return (
-    <Description/>
+    <>
+      <section>
+        <ProductItem />
+      </section>
+      <Description />
+    </>
   );
 };
 
