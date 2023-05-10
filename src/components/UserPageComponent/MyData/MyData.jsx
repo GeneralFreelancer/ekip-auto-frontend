@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import s from "./MyData.module.scss";
 import { useDispatch } from "react-redux";
 import { PatternFormat } from "react-number-format";
+import TextBlock from "../TextBlock/TextBlock";
+
 
 const MyData = () => {
   const [dataForm, setDataForm] = useState({
@@ -141,7 +143,6 @@ const MyData = () => {
       // } catch (e) {
       //   console.log(e)
     }
-
   };
 
   const changePasswordHandler = (e) => {
@@ -170,6 +171,7 @@ const MyData = () => {
 
   return (
     <>
+      <TextBlock/>
       <div className={s.form_content}>
         <form>
           <div className={s.form_block}>
@@ -335,7 +337,13 @@ const MyData = () => {
                 </div>
               )}
             </div>
-            <div className={(dataErrors.confirmPassword || dataErrors.newPassword) ? s.form_change_btn_fl : s.form_change_btn}>
+            <div
+              className={
+                dataErrors.confirmPassword || dataErrors.newPassword
+                  ? s.form_change_btn_fl
+                  : s.form_change_btn
+              }
+            >
               <button
                 type="submit"
                 onClick={submitPasswordHandler}

@@ -1,11 +1,15 @@
 import "./index.scss";
 import HomePage from "./pages/HomePage";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
 import { useSelector } from "react-redux";
 import { selectedUser } from "./redux/features/userSlice";
-import MyDataPage from "./pages/MyDataPage";
-
+import Cart from "./components/UserPageComponent/Cart/Cart";
+import MyData from "./components/UserPageComponent/MyData/MyData";
+import Product from "./components/Catalog/Product/Product";
+import Catalog from "./pages/Catalog";
+import Favorite from "./components/Favorite";
+import ProductItemPage from "./pages/ProductItemPage";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -13,11 +17,28 @@ function App() {
   return (
     <main>
       <Routes>
-        <Route path="/" index element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
+
+        <Route path="catalog" element={<Catalog />}/>
+      
+        {/* </Route> */}
+        <Route path="catalog/category/subcategory/:id" element={<ProductItemPage/>} />
+
         <Route path="myprofile" element={<UserPage />}>
-         <Route
+          <Route
             path="mydata"
-            element={<MyDataPage/>}
+            element={<MyData />}
+            index //не працює
+            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
+          <Route
+            path="basket"
+            element={<Cart />}
+            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
+          <Route
+            path="favorite"
+            element={<Favorite />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
         </Route>

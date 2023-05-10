@@ -11,16 +11,11 @@ import Card from "./Card";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
-// rus to lat use this on backend for dynamic ulr
 const translit = (name) => {
-  return cyrillicToTranslit.transform(String(name).replace(',', ''), "-").toLowerCase();
+  return cyrillicToTranslit
+    .transform(String(name).replace(",", ""), "-")
+    .toLowerCase();
 };
-
-const images = [
-  "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-  "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-  "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-];
 
 let cardsData = [
   {
@@ -123,6 +118,106 @@ let cardsData = [
     priseUSD: "500",
     inStock: true,
   },
+  {
+    id: 13,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title:
+      " Lampa is wery good lampaLampa is wery good lampaLampa is wery good",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 14,
+    imgUrl:
+      "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 15,
+    imgUrl:
+      "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: false,
+  },
+  {
+    id: 16,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: false,
+  },
+  {
+    id: 17,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: false,
+  },
+  {
+    id: 18,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 19,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 20,
+    imgUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 21,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 22,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 23,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
+  {
+    id: 24,
+    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+    title: "Lampa is wery good lampa",
+    priceUAH: "5000",
+    priseUSD: "500",
+    inStock: true,
+  },
 ];
 
 const properties = {
@@ -130,8 +225,14 @@ const properties = {
   transitionDuration: 250,
 };
 
-const ListCards = ({ title = "Product", showAll = false, link }) => {
-  const [cards] = useState(cardsData);
+const ListCards = ({
+  title,
+  showAll = false,
+  link,
+  items = cardsData,
+  need_A_Slider = true,
+}) => {
+  const [cards, setCards] = useState(items);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(6);
   const [lastPage, setLastPage] = useState(false);
@@ -153,7 +254,6 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
     if (width <= 825) {
       setCardsPerPage(2);
     }
-    // isLastPage();
   };
 
   useEffect(() => {
@@ -161,11 +261,12 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
       setViewportWidth(window.innerWidth);
     }
     window.addEventListener("resize", handleResize);
-    // handleResize();
-    // changeCardsQuantity(viewportWidth);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    setCards(items);
+  }, [items]);
 
   useEffect(() => {
     changeCardsQuantity(viewportWidth);
@@ -235,45 +336,43 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
       );
     }
   };
-
   return (
     <>
-      {viewportWidth > 578 ? (
-        <div className={style.container}>
-          <div className={style.cardGrid}>
-            {title && <h2 className={style.titleCategory}>{title} :</h2>}
+      {cards?.length !== 0 ? (
+        viewportWidth > 578 ? (
+          <div className={style.container}>
+            <div className={style.cardGrid}>
+              {title && <h2 className={style.titleCategory}>{title} :</h2>}
 
-            {renderCards(showAll)}
+              {renderCards(showAll)}
 
-            {!showAll && (
-              <NavLink className={style.buttonMore} to={`/${translit(title)}`}>
-                Показати ще...
-              </NavLink>
-            )}
-
-            {/* {!showAll &&
-              (lastPage ? (
-                <button
+              {!showAll && (
+                <NavLink
                   className={style.buttonMore}
-                  onClick={handleCollapseClick}
+                  to={`/${translit(title)}`}
                 >
-                  Згорнути
-                </button>
-              ) : (
-                <button className={style.buttonMore} onClick={handlePageClick}>
                   Показати ще...
-                </button>
-              ))} */}
+                </NavLink>
+              )}
+
+              {/* {!showAll &&
+        (lastPage ? (
+          <button
+            className={style.buttonMore}
+            onClick={handleCollapseClick}
+          >
+            Згорнути
+          </button>
+        ) : (
+          <button className={style.buttonMore} onClick={handlePageClick}>
+            Показати ще...
+          </button>
+        ))} */}
+            </div>
           </div>
-        </div>
-      ) : (
-        <>
+        ) : need_A_Slider ? (
           <div className="wrapperSlider sliderCard">
-            {title && (
-              <h2 className={style.titleCategory}>
-                 {title} :
-              </h2>
-            )}
+            {title && <h2 className={style.titleCategory}>{title} :</h2>}
             <Slide {...properties}>
               {cards.map(
                 ({ id, imgUrl, title, priceUAH, priseUSD, inStock }, index) => (
@@ -291,7 +390,11 @@ const ListCards = ({ title = "Product", showAll = false, link }) => {
               )}
             </Slide>
           </div>
-        </>
+        ) : (
+          renderCards(showAll)
+        )
+      ) : (
+        <p className={style.alert}>Товар у данній категорії відсутній</p>
       )}
     </>
   );

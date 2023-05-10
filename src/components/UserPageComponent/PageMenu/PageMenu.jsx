@@ -11,16 +11,16 @@ const PageMenu = () => {
           <h2>Моя сторінка</h2>
         </li>
         <li>
-          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/user-data">Мої данні</NavLink>
+          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/mydata">Мої данні</NavLink>
         </li>
         <li>
-          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/cart">Корзина</NavLink>
+          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/basket">Корзина</NavLink>
         </li>
         <li>
-          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/orders">Замовлення</NavLink>
+          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/orders">Замовлення</NavLink>
         </li>
         <li>
-          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/favorite">Обрані</NavLink>
+          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/favorite">Обрані</NavLink>
         </li>
         <li>
           <button className={style.logout}>Вийти</button>

@@ -1,4 +1,5 @@
-import Cart from './Cart';
+// import Cart from './Cart/Cart';
+import {Outlet} from 'react-router-dom';
 import PageMenu from './PageMenu'
 
 const UserPageComponent = () => {
@@ -7,9 +8,7 @@ const UserPageComponent = () => {
       <section>
         <PageMenu />  
       </section>
-      <section>
-        <Cart />
-      </section>
+      <Outlet/>
     </>
   )
 }

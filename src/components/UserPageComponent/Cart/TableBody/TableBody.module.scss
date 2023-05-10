@@ -1,0 +1,112 @@
+@import '../../../../style/variables.scss';
+td { 
+  border: 1px solid $tableBorder;
+  border-bottom: 2px solid $tableBorder;
+}
+.cart {
+  &__table{
+    &_number{
+      width: 70px;
+      text-align: center;
+    }
+    &_picture {
+      width: 188px;
+      text-align: center;
+    }
+    &_title { 
+      width: 584px;
+      padding: 0 18px;
+      &_row1 {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 7px;
+        margin-top: -2px;
+        h2 {
+          text-transform: capitalize;
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .favorite {
+          width:25px;
+          height: 25px;
+          background-color: black;
+          display: inline-block;
+        }
+      }
+      &_row2 {
+        display: flex;
+        justify-content: flex-end;
+        .product_sku {
+          background-color: $lightGrey;
+          border-radius: 2px;
+          color: black;
+          padding: 2px 5px;
+        }
+      }
+    }
+    &_price {
+      width: 143px;
+      height: 70px;
+      padding: 0;
+      text-align: center;
+      & > div:nth-child(1) {
+        border-bottom: 1px solid $lightGrey;
+      }
+      & > div {
+        height: 50%;
+      }
+      .nationalPrice {
+        height: 100%;
+        line-height: 1.45;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .internationalPrice {
+        height: 100%;
+        line-height: 2;
+      }
+    }
+    &_quantity{
+      width: 135px;
+      height:70px;
+      padding: 0;
+      text-align: center;
+      & > div:nth-child(1) {
+        border-bottom: 1px solid $lightGrey;
+      }
+      & > div {
+        height: 50%;
+      }
+      .minQuantity {
+        font-size: 12px;
+        font-weight: 900;
+        height: 100%;
+      }
+    }
+    &_summaryPrice {
+      width: 160px;
+      height: 70px;
+      padding: 0;
+      text-align: center;
+      & > div:nth-child(1) {
+        border-bottom: 1px solid $lightGrey;
+      }
+      & > div {
+        height: 50%;
+      }
+      .nationalSummary{
+        height: 100%;
+        line-height: 1.45;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .internationSummary {
+        height: 100%;
+        line-height: 2;
+      }
+    }
+    &_delete {
+      border: none;
+    }
+  }
+}
