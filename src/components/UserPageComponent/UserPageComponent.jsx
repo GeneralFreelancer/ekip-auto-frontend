@@ -1,4 +1,4 @@
-import Cart from './Cart/Cart';
+import Cart from './Cart';
 import PageMenu from './PageMenu'
 
 const UserPageComponent = () => {
