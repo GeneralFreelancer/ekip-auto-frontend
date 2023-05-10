@@ -3,17 +3,17 @@ import MainInfo from "./MainInfo";
 import Characteristic from "./Characteristic";
 import Pack from "./Pack";
 
-const Description = () => {
+const Description = (props) => {
   return (
     <>
-      <section>
-        <MainInfo />
+      <section id="mainInfo">
+        <MainInfo productId={props.productId}/>
       </section>
-      <section>
-        <Characteristic />
+      <section id="characteristic">
+        <Characteristic productId={props.productId}/>
       </section>
-      <section>
-        <Pack />
+      <section id="pack">
+        <Pack productId={props.productId}/>
       </section>
     </>
   );
