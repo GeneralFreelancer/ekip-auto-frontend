@@ -14,8 +14,8 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quis numquam.
 Склад: вологі серветки 100 шт.
 Розмір: 12 x 12см.`;
 
-const MainInfo = ({productId}) => {
-  const [role] = useState(true);
+const MainInfo = (props) => {
+  const {productId, role} = props
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(initialText);
 
@@ -35,14 +35,6 @@ const MainInfo = ({productId}) => {
   //   };
   //   fetchDescription();
   // }, [productId]);
-
-  useEffect(() => {
-    if (role) {
-      localStorage.setItem("role", "admin");
-    } else {
-      localStorage.setItem("role", "user");
-    }
-  }, [role]);
 
   const handleEditClick = () => {
     setIsEditMode(true);

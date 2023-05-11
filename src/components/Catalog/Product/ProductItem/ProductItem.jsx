@@ -19,45 +19,38 @@ const images = [
   "https://zhzh.info/_pu/126/47073814.jpg",
   "https://files.foxtrot.com.ua/PhotoNew/img_0_977_4158_1.jpg",
 ];
-const indicators = (index) => <div className="indicator">{index + 1}</div>;
-
-const properties = {
-  // duration: 5000,
-  transitionDuration: 500,
-  infinite: false,
-  indicators: true,
-  arrows: false,
-  autoplay: false,
-};
 
 const ProductItem = (props) => {
-  const [role] = useState(true);
+  const [role, setRole] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [title, setTitle] = useState(initialTitle);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(500);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [zoomed, setZoomed] = useState(false);
+
   useEffect(() => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
     }
+    if (viewportWidth < 1024) {
+      setIsZoomed(false);
+    }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [viewportWidth]);
 
   const handleZoomClick = () => {
     setIsZoomed(!isZoomed);
   };
 
+  const localStor = sessionStorage.getItem("role");
+
   useEffect(() => {
-    if (role) {
-      localStorage.setItem("role", "admin");
-    } else {
-      localStorage.setItem("role", "user");
+    if (sessionStorage.getItem("role") === "admin") {
+      setRole(true);
     }
-  }, [role]);
+  }, [localStor]);
 
   const handleEditClick = () => {
     setIsEditMode(true);
@@ -91,12 +84,30 @@ const ProductItem = (props) => {
     //   }
     // }
   };
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  const zoomLevel = isZoomed ? 1.5 : 1;
+  const handleSlideChange = (previousIndex, nextIndex) => {
+    setCurrentSlideIndex(nextIndex);
+  };
+
+  const properties = {
+    // duration: 5000,
+    transitionDuration: 500,
+    infinite: false,
+    indicators: true,
+    arrows: false,
+    autoplay: false,
+    // canSwipe: false,
+    onChange: handleSlideChange,
+  };
+
+  const indicators = (index) => {
+    console.log(index);
+    return <div className="indicator">{index + 1}</div>;
+  };
 
   return (
     <>
-      <div>Хлібні крихти</div>
       <div className={s.productItem_menu}>
         <a href="#mainInfo"> Основна інформація</a>
         <a href="#characteristic"> Характеристики</a>
@@ -150,21 +161,16 @@ const ProductItem = (props) => {
           )}
 
           <div className={s.productItem_imgBlock}>
-            <div
-              className={s.productItem_image}
-              // className={`${s.productItem_image} ${isZoomed ? s.zoomed : ""}`}
-              // onClick={handleZoomClick}
-            >
+            <div className={s.productItem_image}>
               {viewportWidth < 700 ? (
                 <Slide indicators={indicators} scale={1.4} {...properties}>
                   {images.map((image, index) => (
                     <div key={index} style={{ width: "100%", height: "100%" }}>
                       <img
-                        // className={`${isZoomed ? s.zoomed : ""}`}
                         style={{
                           objectFit: "contain",
                           width: "100%",
-                          height: "100%",
+                          height: "103%",
                         }}
                         alt="Slide img"
                         src={image}
@@ -196,19 +202,17 @@ const ProductItem = (props) => {
                   ))}
                 </Slide>
               )}
-              {/* {isZoomed && (
+              {isZoomed && (
                 <div
                   style={{
+                    height: "100vh",
                     position: "absolute",
                     top: 0,
                     right: -130,
-                    // right: 0,
-                    // bottom: 0,
+                    bottom: 0,
+                    left: 0,
                     zIndex: 1,
-                    // background: "rgba(0, 0, 0, 0.5)",
                     display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
                   }}
                 >
                   <img
@@ -216,12 +220,14 @@ const ProductItem = (props) => {
                       maxWidth: "120%",
                       maxHeight: "120%",
                       objectFit: "contain",
+                      // marginTop: "5px",
+                      paddingBottom: "125px",
                     }}
                     alt="Zoomed img"
-                    src={images[0]}
+                    src={images[currentSlideIndex]}
                   />
                 </div>
-              )} */}
+              )}
             </div>
             <button
               className={s.productItem_btn_zoom}

@@ -1,14 +1,18 @@
 import React from "react";
-import Description from "./Description/Description";
-import ProductItem from "./ProductItem/ProductItem";
+import Description from "./Description";
+import ProductItem from "./ProductItem";
+import Breadcrumbs from "../Breadcrumps";
 
-const Product = ({productId}) => {
+const Product = ({ productId }) => {
   return (
     <>
       <section>
-        <ProductItem productId={productId}/>
+        <Breadcrumbs />
       </section>
-      <Description productId={productId}/>
+      <section>
+        <ProductItem productId={productId} />
+      </section>
+      <Description productId={productId} />
     </>
   );
 };

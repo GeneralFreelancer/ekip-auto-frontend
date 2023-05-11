@@ -1,6 +1,6 @@
 import style from "./Card.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr

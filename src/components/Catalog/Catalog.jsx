@@ -2,7 +2,11 @@ import React from "react";
 import Product from "./Product";
 
 const Catalog = () => {
-  return <Product />;
+  return (
+    <>
+    <Product/>
+    </>
+  );
 };
 
 export default Catalog;

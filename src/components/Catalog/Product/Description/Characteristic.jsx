@@ -11,8 +11,8 @@ const initialData = [
   { name: "Глибина", value: "40 см" },
 ];
 
-const Characteristic = () => {
-  const [role] = useState(true);
+const Characteristic = (props) => {
+  const {productId, role} = props
   const [isEditMode, setIsEditMode] = useState(false);
   const [charactData, setCharactData] = useState(initialData);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -26,14 +26,6 @@ const Characteristic = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    if (role) {
-      localStorage.setItem("role", "admin");
-    } else {
-      localStorage.setItem("role", "user");
-    }
-  }, [role]);
 
   const handleEditClick = () => {
     setIsEditMode(true);

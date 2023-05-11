@@ -9,6 +9,7 @@ import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import { Outlet } from "react-router-dom";
+import ListCards from "../components/ListCards/ListCards";
 
 const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -35,6 +36,13 @@ const ProductItemPage = () => {
           {/* <Outlet/> */}
           <Product />
         </MainContainer>
+      </section>
+      <section>
+        <div style={{ marginTop: "30px"}}>
+          <MainContainer>
+            <ListCards title={"Вас може зацікавити"} />
+          </MainContainer>
+        </div>
       </section>
       <ScrollToTopButton />
       <CallBackButton />

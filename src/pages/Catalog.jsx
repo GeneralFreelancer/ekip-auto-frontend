@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import MainContainer from "../components/MainContainer";
 import CatalogComponents from "../components/CatalogComponents/CatalogComponents";
-import { Outlet } from "react-router-dom";
 
 const Catalog = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
