@@ -1,0 +1,129 @@
+@import "../../../../style/variables.scss";
+
+.notBorder {
+  border-left: 0 !important;
+}
+
+.card {
+  width: 260px;
+  height: 290px;
+  padding: 10px 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border-left: 1px solid $solidBlack;
+  border-bottom: 1px solid $solidBlack;
+
+  .wrapperFirst {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 5px;
+
+    .number {
+      text-decoration: underline;
+    }
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .wrapperIcon {
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    outline: none;
+    border: 2px solid $lightGrey;
+    background-color: $lightWhite;
+    border-radius: 7px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+
+    cursor: pointer;
+    &:hover {
+      box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.721);
+    }
+  }
+
+  .img {
+    height: 85px;
+    width: 250px;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    &:hover,
+    &:focus {
+      cursor: zoom-in;
+    }
+  }
+
+  .wrapperSecond {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 8px;
+
+    .button {
+      margin: 0;
+      padding: 0;
+      background-color: inherit;
+      border: 0;
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+
+      &:disabled .arrow {
+        fill: $lightGrey;
+      }
+      .arrow {
+        width: 25px;
+        height: 25px;
+      }
+
+      .arrowLeft {
+        margin-right: 5px;
+        transform: rotate(270deg);
+      }
+
+      .arrowRight {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 102;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// .fullScreen::before {
+//   content: "";
+//   display: block;
+//   padding-top: 56.25%; /* For maintaining aspect ratio (16:9) */
+// }
+
+.fullScreen img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}

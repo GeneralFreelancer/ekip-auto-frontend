@@ -1,0 +1,56 @@
+.size {
+  text-align: center;
+  margin-bottom: 50px;
+
+  font-size: 16px;
+
+  @media screen and (max-width: 530px) {
+    margin-bottom: 3px;
+  }
+}
+
+.wrapperList {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+  @media screen and (min-width: 1616px) {
+    & > div:nth-child(7),
+    & > div:nth-child(6n + 7) {
+      border-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 1615px) and (min-width: 1351px) {
+    & > div:nth-child(6),
+    & > div:nth-child(5n + 6) {
+      border-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 1350px) and (min-width: 1101px) {
+    & > div:nth-child(5),
+    & > div:nth-child(4n + 5) {
+      border-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 1100px) and (min-width: 815px) {
+    & > div:nth-child(4),
+    & > div:nth-child(3n + 4) {
+      border-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 816px) and (min-width: 530px) {
+    & > div:nth-child(2n + 1) {
+      border-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 529px) {
+    & > div:nth-child(n) {
+      border-left: 0;
+    }
+  }
+}

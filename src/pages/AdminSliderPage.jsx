@@ -7,7 +7,7 @@ import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import MainContainer from "../components/MainContainer";
-import CatalogComponents from "../components/CatalogComponents/CatalogComponents";
+import AdminComponentsSlider from "../components/AdminPageComponents/AdminComponentsSlider";
 
 const Catalog = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -31,7 +31,7 @@ const Catalog = () => {
       <Navbar onShowModal={showModalHandler} />
       <section>
         <MainContainer>
-          <CatalogComponents />
+          <AdminComponentsSlider />
         </MainContainer>
       </section>
       <ScrollToTopButton />
