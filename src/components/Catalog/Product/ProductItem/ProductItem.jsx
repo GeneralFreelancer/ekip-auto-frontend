@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import s from "./ProductItem.module.scss";
+import "./ProductSlider.scss";
 import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
 import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
 import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
@@ -15,18 +16,18 @@ const initialTitle = `ASUS 100500 G Arial- Black (G170-48) `;
 
 const images = [
   "https://cdn.27.ua/799/9d/06/2596102_11.jpeg",
-  "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-  "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-  "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+  "https://zhzh.info/_pu/126/47073814.jpg",
+  "https://files.foxtrot.com.ua/PhotoNew/img_0_977_4158_1.jpg",
 ];
 const indicators = (index) => <div className="indicator">{index + 1}</div>;
 
 const properties = {
-  duration: 5000,
+  // duration: 5000,
   transitionDuration: 500,
-  infinite: true,
+  infinite: false,
   indicators: true,
-  arrows: true,
+  arrows: false,
+  autoplay: false,
 };
 
 const ProductItem = (props) => {
@@ -37,7 +38,7 @@ const ProductItem = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(500);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-
+  const [zoomed, setZoomed] = useState(false);
   useEffect(() => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
@@ -90,6 +91,8 @@ const ProductItem = (props) => {
     //   }
     // }
   };
+
+  const zoomLevel = isZoomed ? 1.5 : 1;
 
   return (
     <>
@@ -155,14 +158,13 @@ const ProductItem = (props) => {
               {viewportWidth < 700 ? (
                 <Slide indicators={indicators} scale={1.4} {...properties}>
                   {images.map((image, index) => (
-                    <div key={index} style={{ width: "100%" }}>
+                    <div key={index} style={{ width: "100%", height: "100%" }}>
                       <img
                         // className={`${isZoomed ? s.zoomed : ""}`}
                         style={{
-                          objectFit: "cover",
+                          objectFit: "contain",
                           width: "100%",
-                          height: "auto",
-                          marginTop: "15px",
+                          height: "100%",
                         }}
                         alt="Slide img"
                         src={image}
@@ -173,13 +175,18 @@ const ProductItem = (props) => {
               ) : (
                 <Slide indicators={indicators} scale={1.4} {...properties}>
                   {images.map((image, index) => (
-                    <div key={index} style={{ width: "100%" }}>
+                    <div
+                      key={index}
+                      style={{
+                        width: "100%",
+                        height: "500px",
+                      }}
+                    >
                       <img
-                        className={`${isZoomed ? s.zoomed : ""}`}
                         style={{
                           objectFit: "contain",
                           width: "100%",
-                          height: "500px",
+                          height: "95%",
                           marginTop: "10px",
                         }}
                         alt="Slide img"
@@ -189,8 +196,32 @@ const ProductItem = (props) => {
                   ))}
                 </Slide>
               )}
-
-              {/* <div className={s.bg_image}></div> */}
+              {/* {isZoomed && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: -130,
+                    // right: 0,
+                    // bottom: 0,
+                    zIndex: 1,
+                    // background: "rgba(0, 0, 0, 0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <img
+                    style={{
+                      maxWidth: "120%",
+                      maxHeight: "120%",
+                      objectFit: "contain",
+                    }}
+                    alt="Zoomed img"
+                    src={images[0]}
+                  />
+                </div>
+              )} */}
             </div>
             <button
               className={s.productItem_btn_zoom}
@@ -198,7 +229,6 @@ const ProductItem = (props) => {
             >
               <Zoom />
             </button>
-            <div></div>
           </div>
         </div>
 
@@ -232,9 +262,9 @@ const ProductItem = (props) => {
                   onClick={handleMinusClick}
                 ></div>
                 <div className={s.productItem_quantity_info}>{quantity}</div>
-                <div class={s.plus} onClick={handlePlusClick}>
-                  <div class={s.plus__vertical}></div>
-                  <div class={s.plus__horizontal}></div>
+                <div className={s.plus} onClick={handlePlusClick}>
+                  <div className={s.plus__vertical}></div>
+                  <div className={s.plus__horizontal}></div>
                 </div>
               </div>
             </div>
