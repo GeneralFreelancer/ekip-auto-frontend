@@ -5,17 +5,17 @@ import { ReactComponent as Tick } from "../../assets/svg/Tick.svg";
 import { ReactComponent as Setting } from "../../assets/svg/setting.svg";
 
 const Footer = (props) => {
-  const [role] = useState(true);
+  const [role, setRole] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(props.currentRate);
 
+  const localStor = sessionStorage.getItem("role");
+
   useEffect(() => {
-    if (role) {
-      localStorage.setItem("role", "admin");
-    } else {
-      localStorage.setItem("role", "user");
+    if (sessionStorage.getItem("role") === "admin") {
+      setRole(true);
     }
-  }, [role]);
+  }, [localStor]);
 
   const handleEditClick = () => {
     setIsEditMode(true);
