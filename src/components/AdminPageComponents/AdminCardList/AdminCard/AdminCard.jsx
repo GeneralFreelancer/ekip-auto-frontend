@@ -15,7 +15,7 @@ const AdminCard = ({
   onChangePosition,
   styleName,
 }) => {
-  console.log(styleName);
+
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isFirstCard = index === 0;
   const isLastCard = index === total;
