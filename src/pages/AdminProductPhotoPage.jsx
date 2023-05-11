@@ -7,9 +7,9 @@ import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import MainContainer from "../components/MainContainer";
-import AdminComponentsSlider from "../components/AdminPageComponents/AdminComponentsSlider";
+import AdminComponentsProductPhoto from "../components/AdminPageComponents/AdminComponentsProductPhoto";
 
-const AdminSliderPage = () => {
+const AdminProductPhotoPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
 
@@ -31,7 +31,7 @@ const AdminSliderPage = () => {
       <Navbar onShowModal={showModalHandler} />
       <section>
         <MainContainer>
-          <AdminComponentsSlider />
+          <AdminComponentsProductPhoto />
         </MainContainer>
       </section>
       <ScrollToTopButton />
@@ -41,4 +41,4 @@ const AdminSliderPage = () => {
   );
 };
 
-export default AdminSliderPage;
+export default AdminProductPhotoPage;

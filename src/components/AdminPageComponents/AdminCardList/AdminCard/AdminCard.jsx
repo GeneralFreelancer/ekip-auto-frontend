@@ -13,7 +13,9 @@ const AdminCard = ({
   onDelete,
   onHandleImageUpload,
   onChangePosition,
+  styleName,
 }) => {
+  console.log(styleName);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isFirstCard = index === 0;
   const isLastCard = index === total;
@@ -36,7 +38,7 @@ const AdminCard = ({
           </div>
         </div>
         <div
-          className={s.img}
+          className={styleName ? ` ${s[`${styleName}`]} ${s.img}` : s.img}
           style={{ backgroundImage: `url(${url})` }}
           onClick={toggleFullScreen}
         ></div>
@@ -76,12 +78,6 @@ const AdminCard = ({
             </button>
           </div>
           <div className={s.wrapperIcon}>
-            {/* <input
-              type="file"
-              accept="image/*"
-              onChange={onHandleImageUpload}
-              className={s.uploadInput}
-            /> */}
             <Upload className={`${s.upload} ${s.icon}`} />
           </div>
         </div>

@@ -11,6 +11,7 @@ import Catalog from "./pages/Catalog";
 import Favorite from "./components/Favorite";
 import ProductItemPage from "./pages/ProductItemPage";
 import AdminSliderPage from "./pages/AdminSliderPage";
+import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="admin_slider" element={<AdminSliderPage />} />
+        <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
 
         <Route path="catalog" element={<Catalog />} />
 
