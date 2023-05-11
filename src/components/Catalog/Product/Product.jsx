@@ -2,13 +2,13 @@ import React from "react";
 import Description from "./Description/Description";
 import ProductItem from "./ProductItem/ProductItem";
 
-const Product = () => {
+const Product = ({productId}) => {
   return (
     <>
       <section>
-        <ProductItem />
+        <ProductItem productId={productId}/>
       </section>
-      <Description />
+      <Description productId={productId}/>
     </>
   );
 };

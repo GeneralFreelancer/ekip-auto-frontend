@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
-import Product from "./components/Catalog/Product/Product";
 import Catalog from "./pages/Catalog";
 import Favorite from "./components/Favorite";
 import ProductItemPage from "./pages/ProductItemPage";
@@ -24,8 +23,8 @@ function App() {
         <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
 
         <Route path="catalog" element={<Catalog />} />
-
-        {/* </Route> */}
+        {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} />
+        </Route> */}
         <Route
           path="catalog/category/subcategory/:id"
           element={<ProductItemPage />}
