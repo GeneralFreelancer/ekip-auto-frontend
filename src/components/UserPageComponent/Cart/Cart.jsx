@@ -26,7 +26,7 @@ const mockItems = [
     options: [],
     deliveryOptions: [],
     SKU: 'number12sdsd',
-    favorite: false,
+    favorite: true,
     price: [15000, 120],
     minQuantity: 100,
     stock: true,
@@ -77,40 +77,47 @@ const Cart = () => {
       </div>
       <table className={style.cart__table}>
         <tbody>
-          <TableBody />
+          <TableBody data={mockItems}/>
         </tbody>
+        <tfoot>
+          <tr>
+            <td className={style.borderNone}></td>
+            <td className={style.borderNone}></td>
+            <td className={style.borderNone}></td>
+            <td className={style.borderNone}></td>
+            <td className={style.cart__table_summaryTitle}>
+              <p className={style.summaryTitle}>загальна сума:</p>
+            </td>
+            <td className={style.cart__table_summaryWrapper}>
+              <div>
+                <p className={style.nationalSummary}>10000000.6 &#8372;</p>
+              </div>
+              <div>
+                <p className={style.internationalSummary}>4900.4 &#65284;</p>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
-      <div className={style.cart__grid_footer}>
-        <div className={style.cart__grid_footer_col1Title}>
-          <p className={style.summaryTitle}>загальна сума:</p>
-        </div>
-        <div className={style.cart__grid_footer_col2Summary}>
-          <div className={style.cart__grid_footer_row1Summary}>
-            <p className={style.nationalSummary}>10000 $</p>
-          </div>
-          <div className={style.cart__grid_footer_row2Summary}>
-            <p className={style.internationSummary}>1000 $</p>
-          </div>
-        </div>
-      </div>
-
       <div className={style.cart__downloadOrder}>
         <div className={style.cart__downloadOrder_wrapper}>
-          <button>скачать Excel</button>
-          <p>*для більш детального розрахунку звавантажте excel</p>
+          <button>Cкачать Excel <span className={style.downloadIcon}></span></button>
+          <p>*Для більш детального розрахунку звавантажте Excel.</p>
         </div>
       </div>
       <div className={style.cart__commentToOrder}>
-        <div className={style.cart__commentToOrder_wrapper}>
           <form name={"comment"}>
-            <textarea name={"comment"} id={"dsfsdf"} cols="30" rows="10"></textarea>
-            <button type="submit">додати коментар до замовлення</button>
+            <div className={style.cart__commentToOrder_wrapper}>
+              <textarea name={"comment"} id={"dsfsdf"} cols="30" rows="10"></textarea>
+              <button type="submit">додати коментар до замовлення</button>
+            </div>
           </form>
-        </div>
       </div>
       <div className={style.cart__orderBtn}>
-        <button type="submit">замовити</button>
-        <p>*наш менеджер зв'яжеться з вами після замовлення для підтвердження деталей замовлення</p>
+        <div>
+          <button type="submit">замовити</button>
+          <p>*Наш менеджер зв'яжеться з вами після замовлення для підтвердження деталей замовлення.</p>
+        </div>
       </div>
     </div>
   )   
