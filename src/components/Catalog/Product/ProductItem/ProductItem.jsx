@@ -136,7 +136,7 @@ const ProductItem = (props) => {
               >
                 <Tick />
               </button>
-              <NavLink to="/admin">
+              <NavLink to="/admin_product_photo">
                 <button className={s.productItem_btn_setting}>
                   <Setting />
                 </button>

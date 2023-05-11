@@ -1,0 +1,49 @@
+@import "../../../style/variables.scss";
+
+.wrapper_button {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 8px;
+
+  @media screen and (max-width: 1710px) {
+    margin-right: 170px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    justify-content: center;
+    margin-right: 0;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .wrapperIcon {
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    outline: none;
+    border: 2px solid $lightGrey;
+    background-color: $lightWhite;
+    border-radius: 7px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.721);
+    }
+
+    .tick {
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  .wrapper1 {
+    margin-right: 10px;
+  }
+}
