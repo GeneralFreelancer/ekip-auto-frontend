@@ -5,17 +5,19 @@ import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
 import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
 import axios from "axios";
 
-const initialText = `Серветки ColorWay для чищення екранів, моніторів, ноутбуків, телевізорів, смартфонів, комп'ютерів, периферії та іншої офісної та домашньої електроніки. Призначені для вологого чищення сильних забруднень, плям, що в'їдаються, потертостей, пилу та інших плям різного ступеня забруднення.
+const initialText = `Серветки ColorWay для чищення екранів, моніторів, ноутбуків, телевізорів, смартфонів, комп'ютерів, периферії та іншої офісної та домашньої електроніки. Призначені для вологого чищення сильних забруднень, плям, що в'їдаються, потертостей, пилу та інших плям різного ступеня забруднення. 
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quis numquam ratione veniam! Impedit tempora voluptatibus quia unde inventore voluptatum, autem, illo vel, similique ad eius architecto facilis officia hic. Autem, illo vel, similique ad eius architecto facilis officia hic.
+Lorem ipsum dolor sit amet consectetur adipisicing elit.
+Fugiat quis numquam ratione veniam! Impedit tempora voluptatibus quia unde inventore voluptatum, autem, illo vel, similique ad eius architecto facilis officia hic. 
+Autem, illo vel, similique ad eius architecto facilis officia hic.Lorem ipsum dolor sit amet consectetur adipisicing elit. 
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quis numquam.
+Fugiat quis numquam. 
+Склад: вологі серветки 100 шт. 
 
-Склад: вологі серветки 100 шт.
 Розмір: 12 x 12см.`;
 
 const MainInfo = (props) => {
-  const {productId, role} = props
+  const { productId, role } = props;
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(initialText);
 
@@ -35,6 +37,8 @@ const MainInfo = (props) => {
   //   };
   //   fetchDescription();
   // }, [productId]);
+
+  const textParts = initialText.split(". ");
 
   const handleEditClick = () => {
     setIsEditMode(true);
@@ -85,9 +89,12 @@ const MainInfo = (props) => {
         <>
           <h1 className={s.characteristic_h}>Основана інформація:</h1>
           <div className={s.characteristic_block}>
-            <textarea value={text} className={s.characteristic_textRead} readOnly>
-              {text}
-            </textarea>
+            {textParts.map((paragraph, index) => (
+              <React.Fragment key={index}>
+                <p>{paragraph}.</p>
+                {(index + 1) % 2 === 0 && <br />}
+              </React.Fragment>
+            ))}
           </div>
         </>
       )}

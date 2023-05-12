@@ -8,6 +8,8 @@ import { ReactComponent as Setting } from "../../../../assets/svg/setting.svg";
 import { ReactComponent as Zoom } from "../../../../assets/svg/zoom-in.svg";
 import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
 import { ReactComponent as Blackheart } from "../../../../assets/svg/black_heart.svg";
+import Plus from "../../../../assets/plus.png";
+import Minus from "../../../../assets/minus.png";
 import { NavLink } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
 // import axios from "axios";
@@ -49,6 +51,8 @@ const ProductItem = (props) => {
   useEffect(() => {
     if (sessionStorage.getItem("role") === "admin") {
       setRole(true);
+    } else {
+      setRole(false);
     }
   }, [localStor]);
 
@@ -263,14 +267,12 @@ const ProductItem = (props) => {
             <div>
               <p>Оберіть кількість товару:</p>
               <div className={s.productItem_quantity}>
-                <div
-                  className={s.productItem_quantity_minus}
-                  onClick={handleMinusClick}
-                ></div>
+                <div className={s.minus} onClick={handleMinusClick}>
+                  <img src={Minus} alt="minus" />
+                </div>
                 <div className={s.productItem_quantity_info}>{quantity}</div>
                 <div className={s.plus} onClick={handlePlusClick}>
-                  <div className={s.plus__vertical}></div>
-                  <div className={s.plus__horizontal}></div>
+                  <img src={Plus} alt="plus" />
                 </div>
               </div>
             </div>

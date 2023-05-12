@@ -12,7 +12,7 @@ const initialData = [
 ];
 
 const Characteristic = (props) => {
-  const {productId, role} = props
+  const { productId, role } = props;
   const [isEditMode, setIsEditMode] = useState(false);
   const [charactData, setCharactData] = useState(initialData);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -114,7 +114,7 @@ const Characteristic = (props) => {
           <h1 className={s.characteristic_h}>Характеристики:</h1>
           {charactData.map((char, index) => (
             <div key={index} className={s.characteristic_line}>
-              {char.name}
+              <p>{char.name}</p>
               {mobileV ? (
                 <span className={s.characteristic_dotted}>
                   ...............................................
@@ -124,8 +124,7 @@ const Characteristic = (props) => {
                   .................................................................................
                 </span>
               )}
-
-              {char.value}
+              <p> {char.value}</p>
             </div>
           ))}
         </>

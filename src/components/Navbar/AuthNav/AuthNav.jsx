@@ -42,10 +42,6 @@ const AuthNav = (props) => {
     if (user.isLoggedIn || user.isRegistered) {
       setShowModal((prevState) => !prevState);
     }
-    // console.log("click");
-    // setShowModal((prevState) => {
-    //   setShowModal(!prevState);
-    // });
   };
 
   const handleLogout = (e) => {
@@ -53,6 +49,8 @@ const AuthNav = (props) => {
     dispatch(logout());
     dispatch(registerOut());
     setShowModal(false);
+    // Test
+    sessionStorage.removeItem("role");
   };
 
   return (
@@ -67,7 +65,7 @@ const AuthNav = (props) => {
         />
         {showModal && (
           <ul className={style.list}>
-            <Link className={style.item} to={'/myprofile'}>
+            <Link className={style.item} to={"/myprofile"}>
               <li>Моя сторінка</li>
             </Link>
             <Link className={style.item} to={"#"}>

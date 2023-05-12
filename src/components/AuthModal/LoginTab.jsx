@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/userSlice";
@@ -14,12 +14,12 @@ const LoginTab = (props) => {
   const dispatch = useDispatch();
 
   // Test
-  
   useEffect(() => {
-    if (loginForm.email === 'admin@gmail.com' && loginForm.password === '12345') {
+    if (
+      loginForm.email === "admin@gmail.com" &&
+      loginForm.password === "12345"
+    ) {
       sessionStorage.setItem("role", "admin");
-    } else {
-      sessionStorage.setItem("role", "user");
     }
   }, [loginForm.email, loginForm.password]);
   // Test end
@@ -67,7 +67,13 @@ const LoginTab = (props) => {
     if (loginForm.email && loginForm.password) {
       console.log(loginForm);
 
-      dispatch(login({ email: loginForm.email, password: loginForm.password, rememberMe: loginForm.rememberMe}));
+      dispatch(
+        login({
+          email: loginForm.email,
+          password: loginForm.password,
+          rememberMe: loginForm.rememberMe,
+        })
+      );
 
       props.onSubmit(true);
     } else if (!loginForm.email) {

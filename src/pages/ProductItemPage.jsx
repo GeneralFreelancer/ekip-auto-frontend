@@ -38,7 +38,7 @@ const ProductItemPage = () => {
         </MainContainer>
       </section>
       <section>
-        <div style={{ marginTop: "30px"}}>
+        <div>
           <MainContainer>
             <ListCards title={"Вас може зацікавити"} />
           </MainContainer>

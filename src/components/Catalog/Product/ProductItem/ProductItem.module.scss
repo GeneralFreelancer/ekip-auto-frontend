@@ -172,54 +172,38 @@
       align-items: center;
       padding-bottom: 1px;
       width: 68px;
-      height: 33px;
+      height: 31px;
       outline: none;
       border: 1px solid $hardGrey;
       background-color: $lightWhite;
       border-radius: 3px;
       text-transform: uppercase;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5)
     }
-    &_minus {
-      width: 20px;
-      height: 7px;
-      // border: 1px solid $hardGrey;
-      background-color: $lightGrey;
-      border-radius: 3px;
+    .minus {
+      width: 22px;
+      height: 22px;
       cursor: pointer;
+      img {
+        width: 22px;
+        height: 6px;
+      }
       &:active {
         scale: 1.1;
       }
     }
-  }
-
-  .plus {
-    position: relative;
-    width: 25px;
-    height: 30px;
-    cursor: pointer;
-    &:active {
-      scale: 1.1;
+    .plus {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      img {
+        width: 22px;
+        height: 22px;
+      }
+      &:active {
+        scale: 1.1;
+      }
     }
-  }
-
-  .plus__vertical,
-  .plus__horizontal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: $lightGrey;
-    border-radius: 3px;
-  }
-
-  .plus__vertical {
-    width: 7px;
-    height: 20px;
-  }
-
-  .plus__horizontal {
-    width: 20px;
-    height: 7px;
   }
 
   .productItem_btn_ask {
@@ -264,6 +248,7 @@
     background-color: $lightWhite;
     border-radius: 3px;
     text-transform: uppercase;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5)
   }
 }
 
@@ -283,8 +268,7 @@
 }
 
 .productItem_block_image {
-  padding-right: 100px;
-  border-right: 1px solid $hardGrey;
+  padding-right: 90px;
   margin-top: 12px;
   flex: 50%;
   position: relative;
@@ -427,6 +411,9 @@
 .productItem_basket_btn {
   @media screen and (max-width: 1024px) {
     text-align: center;
+  }
+  p {
+    color: $lightGrey;
   }
 }
 
