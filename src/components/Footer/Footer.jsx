@@ -14,7 +14,7 @@ const Footer = (props) => {
   useEffect(() => {
     if (sessionStorage.getItem("role") === "admin") {
       setRole(true);
-    } else {
+    }else {
       setRole(false);
     }
   }, [localStor]);
@@ -53,10 +53,11 @@ const Footer = (props) => {
                     </button>
                   </>
                 ) : (
-                  <p className={s.textSmall}>
+                  <p className={s.textRead}>
                     Курс доллара:
                     {/* <span className={s.textRate}>{props.currentRate}</span>UAH = 1$ */}
-                    <input className={s.textRate} value={text} />
+                    <span>{text}</span>
+                    {/* <input className={s.textRate} value={text} /> */}
                   </p>
                 )}
                 {!isEditMode && (
