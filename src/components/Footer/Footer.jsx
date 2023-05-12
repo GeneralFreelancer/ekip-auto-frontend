@@ -14,6 +14,8 @@ const Footer = (props) => {
   useEffect(() => {
     if (sessionStorage.getItem("role") === "admin") {
       setRole(true);
+    } else {
+      setRole(false);
     }
   }, [localStor]);
 
