@@ -347,10 +347,7 @@ const ListCards = ({
               {renderCards(showAll)}
 
               {!showAll && (
-                <NavLink
-                  className={style.buttonMore}
-                  to={`/${translit(title)}`}
-                >
+                <NavLink className={style.buttonMore} to={`/catalog`}>
                   Показати ще...
                 </NavLink>
               )}
