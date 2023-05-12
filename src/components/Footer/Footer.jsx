@@ -31,34 +31,38 @@ const Footer = (props) => {
         <p className={s.text}>Ekip-Auto. All rights reserved.</p>
         <div className={s.exchageContainer}>
           <div className={s.course}>
-            {isEditMode ? (
+            {role && (
               <>
-                <p className={s.textSmall}>
-                  Курс доллара:
-                  <input
-                    className={s.input}
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                  />
-                </p>
-                <button
-                  className={`${s.icon} ${s.save}`}
-                  onClick={handleSaveClick}
-                >
-                  <Tick />
-                </button>
+                {isEditMode ? (
+                  <>
+                    <p className={s.textSmall}>
+                      Курс доллара:
+                      <input
+                        className={s.input}
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                      />
+                    </p>
+                    <button
+                      className={`${s.icon} ${s.save}`}
+                      onClick={handleSaveClick}
+                    >
+                      <Tick />
+                    </button>
+                  </>
+                ) : (
+                  <p className={s.textSmall}>
+                    Курс доллара:
+                    {/* <span className={s.textRate}>{props.currentRate}</span>UAH = 1$ */}
+                    <input className={s.textRate} value={text} />
+                  </p>
+                )}
+                {!isEditMode && (
+                  <button className={s.icon} onClick={handleEditClick}>
+                    <Setting />
+                  </button>
+                )}
               </>
-            ) : (
-              <p className={s.textSmall}>
-                Курс доллара:
-                {/* <span className={s.textRate}>{props.currentRate}</span>UAH = 1$ */}
-                <input className={s.textRate} value={text} />
-              </p>
-            )}
-            {role && !isEditMode && (
-              <button className={s.icon} onClick={handleEditClick}>
-                <Setting />
-              </button>
             )}
           </div>
           <p className={s.text}>2001-2023</p>
