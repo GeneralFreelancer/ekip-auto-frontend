@@ -169,7 +169,7 @@ const AdminComponentsSlider = () => {
           onChangePosition={onChangePosition}
           onDelete={onDelete}
           arr={temporalDesktop}
-          size={"1135px × 375px"}
+          size={"1920px × 508px"}
           addNewCard={addNewCard}
         />
         <AdminCardList
@@ -177,7 +177,7 @@ const AdminComponentsSlider = () => {
           onChangePosition={onChangePosition}
           onDelete={onDelete}
           arr={temporalTablet}
-          size={"800px × 375px"}
+          size={"1024px × 465px"}
           addNewCard={addNewCard}
         />
         <AdminCardList
@@ -185,7 +185,7 @@ const AdminComponentsSlider = () => {
           onChangePosition={onChangePosition}
           onDelete={onDelete}
           arr={temporalMobile}
-          size={"400px × 375px"}
+          size={"540px × 453px"}
           addNewCard={addNewCard}
         />
       </div>
