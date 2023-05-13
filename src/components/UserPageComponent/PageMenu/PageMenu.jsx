@@ -17,7 +17,7 @@ const PageMenu = () => {
           <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/basket">Корзина</NavLink>
         </li>
         <li>
-          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/orders">Замовлення</NavLink>
+          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/order-history">Замовлення</NavLink>
         </li>
         <li>
           <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/favorite">Обрані</NavLink>

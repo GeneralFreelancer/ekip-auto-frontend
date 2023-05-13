@@ -10,6 +10,8 @@ import Product from "./components/Catalog/Product/Product";
 import Catalog from "./pages/Catalog";
 import Favorite from "./components/Favorite";
 import ProductItemPage from "./pages/ProductItemPage";
+import OrderList from "./components/UserPageComponent/Order/OrderList";
+import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDiatils";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -35,6 +37,14 @@ function App() {
             path="basket"
             element={<Cart />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
+          <Route
+            path="order-history"
+            element={<OrderList />}
+          />
+          <Route
+            path='order-history-details'
+            element={<OrderDetails />}
           />
           <Route
             path="favorite"
