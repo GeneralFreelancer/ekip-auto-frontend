@@ -1,11 +1,19 @@
 import style from './Cart.module.scss';
+import { useMediaPredicate } from "react-media-hook";
+import TableHead from './TableHead/TableHead';
+import TableHeadMiddle from './TableHead/TableHeadMiddle';
 import TableBody from './TableBody/TableBody';
+import TableBodyMiddle from './TableBody/TableBodyMiddle';
+import TableFooter from './TableFooter/TableFooter';
+import TableFooterMiddle from './TableFooter/TableFooterMiddle'; 
+import TableBodyMobile from './TableBody/TableBodyMobile';
+import TableFooterMobile from './TableFooter/TableFooterMobile';
 
 const mockItems = [
   {
     id: "1",
     category: 'category',
-    title: "Назва товару",
+    title: "Назва товаруНазва товаруНазва товару",
     description: 'lorem',
     options: [],
     deliveryOptions: [],
@@ -53,50 +61,26 @@ const mockItems = [
 ]
 
 const Cart = () => {
+  const desktop = useMediaPredicate("(min-width: 1024px)");
+  const middle = useMediaPredicate("(min-width: 540px) and (max-width: 1023px)");
+  const mobile = useMediaPredicate("(max-width: 540px)");
+  console.log(middle);
   return(
     <div className={style.cart__wrapper}>
-      <div className={style.cart__grid_header}>
-        <div className={style.cart__grid_header_col1}>
-          <p className={style.cart__grid_colName}>№</p>   
-        </div>
-        <div className={style.cart__grid_header_col2}>
-          <p className={style.cart__grid_colName}>зображення</p>   
-        </div>
-        <div className={style.cart__grid_header_col3}>
-          <p className={style.cart__grid_colName}>назва/ артикул</p>   
-        </div>
-        <div className={style.cart__grid_header_col4}>
-          <p className={style.cart__grid_colName}>ціна за шт.</p>   
-        </div>
-        <div className={style.cart__grid_header_col5}>
-          <p className={style.cart__grid_colName}>кількість</p>   
-        </div>
-        <div className={style.cart__grid_header_col6}>
-          <p className={style.cart__grid_colName}>загальна ціна</p>   
-        </div>
-      </div>
+      {desktop && <TableHead />}
       <table className={style.cart__table}>
+        <thead>
+          {middle && <TableHeadMiddle />}
+        </thead>
         <tbody>
-          <TableBody data={mockItems}/>
+          {desktop && <TableBody data={mockItems}/>}
+          {middle && <TableBodyMiddle data={mockItems}/>}
+          {mobile && <TableBodyMobile data={mockItems}/>}
         </tbody>
         <tfoot>
-          <tr>
-            <td className={style.borderNone}></td>
-            <td className={style.borderNone}></td>
-            <td className={style.borderNone}></td>
-            <td className={style.borderNone}></td>
-            <td className={style.cart__table_summaryTitle}>
-              <p className={style.summaryTitle}>загальна сума:</p>
-            </td>
-            <td className={style.cart__table_summaryWrapper}>
-              <div>
-                <p className={style.nationalSummary}>10000000.6 &#8372;</p>
-              </div>
-              <div>
-                <p className={style.internationalSummary}>4900.4 &#65284;</p>
-              </div>
-            </td>
-          </tr>
+          {desktop && <TableFooter />}
+          {middle && <TableFooterMiddle />}
+          {mobile && <TableFooterMobile />}
         </tfoot>
       </table>
       <div className={style.cart__downloadOrder}>

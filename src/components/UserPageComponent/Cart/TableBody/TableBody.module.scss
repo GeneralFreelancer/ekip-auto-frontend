@@ -1,8 +1,30 @@
 @import '../../../../style/variables.scss';
+
 td { 
-  border: 1px solid $tableBorder;
-  border-bottom: 2px solid $tableBorder;
+  @media screen and (min-width: 1024px) {
+    border: 1px solid $tableBorder;
+    border-bottom: 2px solid $tableBorder;
+  }
+  @media screen and (max-width: 1023px) {
+    border: 1px solid $tableBorder;
+    border-bottom: 2px solid $tableBorder;
+  }
 }
+
+th {
+  border-top: 2px solid $tableBorder;
+  border-bottom: 1px solid $tableBorder;
+  border-right: 1px solid $tableBorder;
+  background-color: $lightGrey;
+}
+th:first-of-type {
+  border-left: 2px solid $tableBorder;
+  border-right: 1px solid $tableBorder;
+}
+th:last-of-type {
+  border-right: 2px solid $tableBorder;
+}
+
 
 .cart {
   &__table{
@@ -11,21 +33,60 @@ td {
       text-align: center;
       font-size: 20px;
       font-weight: 600;
+      @media screen and (max-width: 1310px) {
+        width: 40px;
+      }
+      @media screen and (max-width: 1023px) {
+        width: 10%;
+        border-left: 2px solid $tableBorder;
+      }
+      @media screen and (max-width: 540px) {
+        height: 40px;
+        border-left: 2px solid $tableBorder;
+        border-right: 2px solid $tableBorder;
+      }
     }
     &_picture {
       width: 188px;
       text-align: center;
       height: 70px;
+      @media screen and (max-width: 1310px) {
+        width: 120px;
+      }
+      @media screen and (max-width: 1023px) {
+        width: 25%;
+      }
+      @media screen and (max-width: 540px) {
+        height: 120px;
+        border-left: 2px solid $tableBorder;
+        border-right: 2px solid $tableBorder;
+      }
       & > div {
         background-size: contain;
         height: 65px;
         background-repeat: no-repeat;
         background-position: center;
+        min-width: 118px;
+        @media screen and (max-width: 540px) {
+          height: 120px;
+        }
       }
     }
     &_title { 
-      width: 584px;
+      width: auto;
       padding: 0 18px;
+      min-width: 171px;
+      @media screen and (max-width: 1310px) {
+        width: 296px;
+      }
+      @media screen and (max-width: 1023px) {
+        width: 55%;
+      }
+      @media screen and (max-width: 540px) {
+        height: 70px;
+        border-left: 2px solid $tableBorder;
+        border-right: 2px solid $tableBorder;
+      }
       &_row1 {
         display: flex;
         justify-content: space-between;
@@ -35,6 +96,12 @@ td {
           text-transform: capitalize;
           font-size: 20px;
           font-weight: bold;
+          @media screen and (max-width: 1310px) {
+            max-width: 195px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
         }
         .favorite {
           width:25px;
@@ -63,6 +130,11 @@ td {
       height: 70px;
       padding: 0;
       text-align: center;
+      @media screen and (max-width: 540px) {
+        height: 70px;
+        border-left: 2px solid $tableBorder;
+        width: 50%;
+      }
       & > div:nth-child(1) {
         border-bottom: 1px solid $lightGrey;
       }
@@ -85,6 +157,11 @@ td {
       height:70px;
       padding: 0;
       text-align: center;
+      @media screen and (max-width: 540px) {
+        height: 70px;
+        border-right: 2px solid $tableBorder;
+        width: 50%;
+      }
       & > div:nth-child(1) {
         border-bottom: 1px solid $lightGrey;
       }
@@ -122,6 +199,11 @@ td {
       height: 70px;
       padding: 0;
       text-align: center;
+      @media screen and (max-width: 540px) {
+        height: 70px;
+        border-left: 2px solid $tableBorder;
+        border-right: 2px solid $tableBorder;
+      }
       & > div:nth-child(1) {
         border-bottom: 1px solid $lightGrey;
       }
@@ -141,53 +223,85 @@ td {
       }
     }
     &_delete {
-      border: none;
-      width: 70px;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      &:before {
-        content: '';
-        position: absolute;
-        height: 1px;
-        width: 40px;
-        top: -0.5px;
-        left: 0;
-        background-color: $tableBorder;
-      }
-      &:after {
-        content: '';
-        position: absolute;
-        height: 2px;
-        width: 40px;
-        bottom: -1px;
-        left: 0;
-        background-color: $tableBorder;
-      }
-      .icon {
-        position: absolute;
-        display: block;
+      @media screen and (min-width: 1023px) {
+        border: none;
         width: 70px;
         height: 70px;
-        z-index: 2;
-        background-image: url('../../../../assets/svg/basket/garbage.svg');
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: 25px 25px;
-        cursor: pointer;
-        &:hover {
-          background-image: url('../../../../assets/svg/basket/garbage_active.svg');
-          background-position: center;
-          background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          height: 1px;
+          width: 40px;
+          top: -0.5px;
+          left: 0;
+          background-color: $tableBorder;
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          height: 2px;
+          width: 40px;
+          bottom: -1px;
+          left: 0;
+          background-color: $tableBorder;
+        }
+        .icon {
+          position: absolute;
+          display: block;
           width: 70px;
           height: 70px;
-          background-color: #f2f2f2;
-          background-size: 35px 35px;
+          z-index: 2;
+          background-image: url('../../../../assets/svg/basket/garbage.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 25px 25px;
+          cursor: pointer;
+          &:hover {
+            background-image: url('../../../../assets/svg/basket/garbage_active.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 70px;
+            height: 70px;
+            background-color: #f2f2f2;
+            background-size: 35px 35px;
+          }
         }
-        
       }
-    }
+      &_middle {
+        position: relative;
+        width: 10%;
+        border-right: 2px solid $tableBorder;
+        @media screen and (max-width: 540px) {
+          height: 70px;
+          border: 2px solid $tableBorder;
+          border-top: 1px solid $tableBorder;
+        }
+        .icon {
+          position: absolute;
+          display: block;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+          background-image: url('../../../../assets/svg/basket/garbage.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 25px 25px;
+          cursor: pointer;
+          top: 0;
+          &:hover {
+            background-image: url('../../../../assets/svg/basket/garbage_active.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f2f2f2;
+            background-size: 35px 35px;
+          }
+      }
+    }   
   }
 }
+}
+    

@@ -48,7 +48,7 @@ const TableBody = (props) => {
             </p>
           </div>
           <div >
-            <input type="text" />
+            <input type="number" />
             <p>шт.</p>
           </div>
         </td>
