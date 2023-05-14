@@ -5,16 +5,14 @@ import TableHead from './TableHead/TableHead';
 import TableHeadMiddle from './TableHead/TableHeadMiddle';
 import TableBody from './TableBody/TableBody';
 import TableBodyMiddle from './TableBody/TableBodyMiddle';
-import TableFooter from './TableFooter/TableFooter';
-import TableFooterMiddle from './TableFooter/TableFooterMiddle'; 
 import TableBodyMobile from './TableBody/TableBodyMobile';
-import TableFooterMobile from './TableFooter/TableFooterMobile';
+
 
 
 const OrderItem = (props) => {
   // console.log('OrderItem ',props)
-  const desktop = useMediaPredicate("(min-width: 1024px)");
-  const middle = useMediaPredicate("(min-width: 540px) and (max-width: 1023px)");
+  const desktop = useMediaPredicate("(min-width: 1071px)");
+  const middle = useMediaPredicate("(min-width: 540px) and (max-width: 1070px)");
   const mobile = useMediaPredicate("(max-width: 540px)");
   return(
     <React.Fragment key={props.id}>
@@ -28,13 +26,8 @@ const OrderItem = (props) => {
         <tbody>
           {desktop && <TableBody data={props.data}/>}
           {middle && <TableBodyMiddle data={props.data}/>}
-          {/* {mobile && <TableBodyMobile data={mockOrder}/>} */}
+          {mobile && <TableBodyMobile data={props.data}/>}
         </tbody>
-        {/* <tfoot>
-          {desktop && <TableFooter />}
-          {middle && <TableFooterMiddle />}
-          {mobile && <TableFooterMobile />}
-        </tfoot> */}
       </table>
       </div>
     </React.Fragment>

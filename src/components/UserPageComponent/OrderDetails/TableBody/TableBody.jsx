@@ -16,24 +16,24 @@ const TableBody = (props) => {
   return (
     props.data.map(({id, title, favorite, SKU, price, minQuantity, image}, i) => (
       <tr key={i + 1}>
-        <td className={style.cart__table_number}>
+        <td className={style.orderDetails__table_number}>
           {i + 1}
         </td>
-        <td className={style.cart__table_picture}>
-          <div className={style.cart__table_picture_item} style={{backgroundImage: `url(${image[0]})`} }></div>
+        <td className={style.orderDetails__table_picture}>
+          <div className={style.orderDetails__table_picture_item} style={{backgroundImage: `url(${image[0]})`} }></div>
         </td>
-        <td className={style.cart__table_title}>
-          <div className={style.cart__table_title_row1}>
+        <td className={style.orderDetails__table_title}>
+          <div className={style.orderDetails__table_title_row1}>
             <h2>{title}</h2>
             <span id={id} className={style.favorite}>
               {favorite ? <BalckHeart onClick={() => {checkFavorite(id)}}/> : <Heart onClick={() => {checkFavorite(id)}}/>}
             </span>
           </div>
-          <div className={style.cart__table_title_row2}>
+          <div className={style.orderDetails__table_title_row2}>
               <p className={style.product_sku}>Art: <span>{SKU}</span></p>
           </div>
         </td>
-        <td className={style.cart__table_price}>
+        <td className={style.orderDetails__table_price}>
           <div>
             <p className={style.nationalPrice}>{price[0]} &#8372;</p>
           </div>
@@ -41,7 +41,7 @@ const TableBody = (props) => {
             <p className={style.internationalPrice}>{price[1]} &#65284;</p>
           </div>
         </td>
-        <td className={style.cart__table_quantity}>
+        <td className={style.orderDetails__table_quantity}>
           <div>
             <p className={style.minQuantity}>
               Введіть кратно: <br /> {minQuantity}
@@ -52,7 +52,7 @@ const TableBody = (props) => {
             <p>шт.</p>
           </div>
         </td>
-        <td className={style.cart__table_summaryPrice}>
+        <td className={style.orderDetails__table_summaryPrice}>
           <div>
             <p className={style.nationalSummary}>10000 &#8372;</p>
           </div>
@@ -60,7 +60,7 @@ const TableBody = (props) => {
             <p className={style.internationSummary}>1000 &#65284;</p>
           </div>
         </td>
-        <td className={style.cart__table_delete}>
+        <td className={style.orderDetails__table_basket}>
           <span id={id} onClick={() => {remove(id)}} className={style.icon}></span>
         </td>
     </tr>

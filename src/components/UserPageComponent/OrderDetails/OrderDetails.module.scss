@@ -1,13 +1,13 @@
 @import '../../../style/variables.scss';
 tbody > tr:last-of-type > td {
   border-bottom: 1px solid $tableBorder;
-  @media screen and (max-width: 1070px) {
-    border-bottom: 1px solid $tableBorder;
+  @media screen and (max-width: 1024px) {
+    border-bottom: 2px solid $tableBorder;
   }
 }
  
 tbody > tr:last-of-type > td:last-of-type {
-  @media screen and (min-width: 1070px) {
+  @media screen and (min-width: 1024px) {
     border-bottom: none;
     &:after {
       content: '';
@@ -19,32 +19,16 @@ tbody > tr:last-of-type > td:last-of-type {
       background-color: $tableBorder;
     }
   }
-  @media screen and (max-width: 1070px) {
-    border-bottom: 1px solid $tableBorder;
-  }
 }
 button {
   cursor: pointer;
 }
-.order {
+.orderDetails {
   &__wrapper{
     width: 100%;
-    outline: 1px solid #d7000067;
+    // outline: 1px solid #d7000067;
     overflow: hidden;
-  }
-  &__lastDate {
-    width: 1350px;
-    margin: 25px auto;
-    font-size: 16px;
-    text-decoration: underline;
-    font-weight: 600;
-    text-transform: uppercase;
-    &:first-of-type {
-      margin-top: 0;
-    }
-    &:last-of-type {
-      margin-bottom: 0;
-    }
+    
   }
   &__table{
     width: 1350px;
@@ -57,7 +41,7 @@ button {
     @media screen and (max-width: 1310px) {
       width: 1024px;
     }
-    @media screen and (max-width: 1070px) {
+    @media screen and (max-width: 1023px) {
       width: 100%;
     }
 

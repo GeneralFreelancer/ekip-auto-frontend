@@ -18,24 +18,24 @@ const TableBodyMiddle = (props) => {
     props.data.map(({id, title, favorite, SKU, price, minQuantity, image}, i) => (
       <React.Fragment key={i + 1}>
           <tr>
-            <td rowSpan='3' className={style.cart__table_number}>
+            <td rowSpan='3' className={style.orderDetails__table_number}>
               {i + 1}
             </td>
-            <td className={style.cart__table_picture}>
-              <div className={style.cart__table_picture_item} style={{backgroundImage: `url(${image[0]})`} }></div>
+            <td className={style.orderDetails__table_picture}>
+              <div className={style.orderDetails__table_picture_item} style={{backgroundImage: `url(${image[0]})`} }></div>
             </td>
-            <td colSpan='2' className={style.cart__table_title}>
-              <div className={style.cart__table_title_row1}>
+            <td colSpan='2' className={style.orderDetails__table_title}>
+              <div className={style.orderDetails__table_title_row1}>
                 <h2>{title}</h2>
                 <span id={id} className={style.favorite}>
                   {favorite ? <BalckHeart onClick={() => {checkFavorite(id)}}/> : <Heart onClick={() => {checkFavorite(id)}}/>}
                 </span>
               </div>
-              <div className={style.cart__table_title_row2}>
+              <div className={style.orderDetails__table_title_row2}>
                   <p className={style.product_sku}>Art: <span>{SKU}</span></p>
               </div>
             </td>
-            <td rowSpan="3" className={style.cart__table_delete_middle}>
+            <td rowSpan="3" className={style.orderDetails__table_basket_middle}>
               <span id={id} onClick={() => {remove(id)}} className={style.icon}></span>
             </td>
         </tr>
@@ -45,7 +45,7 @@ const TableBodyMiddle = (props) => {
           <th>загальна ціна</th>
         </tr>
         <tr>
-            <td className={style.cart__table_price}>
+            <td className={style.orderDetails__table_price}>
               <div>
                 <p className={style.nationalPrice}>{price[0]} &#8372;</p>
               </div>
@@ -53,7 +53,7 @@ const TableBodyMiddle = (props) => {
                 <p className={style.internationalPrice}>{price[1]} &#65284;</p>
               </div>
             </td>
-            <td className={style.cart__table_quantity}>
+            <td className={style.orderDetails__table_quantity}>
               <div>
                 <p className={style.minQuantity}>
                   Введіть кратно: <br /> {minQuantity}
@@ -64,7 +64,7 @@ const TableBodyMiddle = (props) => {
                 <p>шт.</p>
               </div>
             </td>
-            <td className={style.cart__table_summaryPrice}>
+            <td className={style.orderDetails__table_summaryPrice}>
               <div>
                 <p className={style.nationalSummary}>10000 &#8372;</p>
               </div>

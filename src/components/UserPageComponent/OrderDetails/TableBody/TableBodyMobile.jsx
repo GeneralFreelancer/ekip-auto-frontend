@@ -21,7 +21,7 @@ const TableBodyMobile = (props) => {
             <th colSpan={2} className={style.th_head}>№</th>
           </tr>
           <tr>
-            <td colSpan={2} className={style.cart__table_number}>
+            <td colSpan={2} className={style.orderDetails__table_number}>
               {i + 1}
             </td>
           </tr>
@@ -29,22 +29,22 @@ const TableBodyMobile = (props) => {
               <th colSpan={2} className={style.th_head}>зображення</th>
           </tr>
           <tr>
-            <td colSpan={2} className={style.cart__table_picture}>
-              <div className={style.cart__table_picture_item} style={{backgroundImage: `url(${image[0]})`} }></div>
+            <td colSpan={2} className={style.orderDetails__table_picture}>
+              <div className={style.orderDetails__table_picture_item} style={{backgroundImage: `url(${image[0]})`} }></div>
             </td>
           </tr>
           <tr>
             <th colSpan={2} className={style.th_head}>назва/ артикул</th>
           </tr> 
           <tr>
-            <td colSpan={2} className={style.cart__table_title}>
-              <div className={style.cart__table_title_row1}>
+            <td colSpan={2} className={style.orderDetails__table_title}>
+              <div className={style.orderDetails__table_title_row1}>
                 <h2>{title}</h2>
                 <span id={id} className={style.favorite}>
                   {favorite ? <BalckHeart onClick={() => {checkFavorite(id)}}/> : <Heart onClick={() => {checkFavorite(id)}}/>}
                 </span>
               </div>
-              <div className={style.cart__table_title_row2}>
+              <div className={style.orderDetails__table_title_row2}>
                   <p className={style.product_sku}>Art: <span>{SKU}</span></p>
               </div>
             </td>
@@ -55,7 +55,7 @@ const TableBodyMobile = (props) => {
             <th>кількість</th>
           </tr>
           <tr>
-            <td className={style.cart__table_price}>
+            <td className={style.orderDetails__table_price}>
               <div>
                 <p className={style.nationalPrice}>{price[0]} &#8372;</p>
               </div>
@@ -63,7 +63,7 @@ const TableBodyMobile = (props) => {
                 <p className={style.internationalPrice}>{price[1]} &#65284;</p>
               </div>
             </td>
-            <td className={style.cart__table_quantity}>
+            <td className={style.orderDetails__table_quantity}>
               <div>
                 <p className={style.minQuantity}>
                   Введіть кратно: <br /> {minQuantity}
@@ -79,7 +79,7 @@ const TableBodyMobile = (props) => {
             <th colSpan={2}> загальна ціна</th>
           </tr>
           <tr>
-            <td colSpan={2} className={style.cart__table_summaryPrice}>
+            <td colSpan={2} className={style.orderDetails__table_summaryPrice}>
               <div>
                 <p className={style.nationalSummary}>10000 &#8372;</p>
               </div>
@@ -89,7 +89,7 @@ const TableBodyMobile = (props) => {
             </td>
           </tr>
           <tr>
-            <td colSpan={2} className={style.cart__table_delete_middle}>
+            <td colSpan={2} className={style.orderDetails__table_basket_middle}>
               <span id={id} onClick={() => {remove(id)}} className={style.icon}></span>
             </td>
           </tr>

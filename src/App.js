@@ -11,7 +11,7 @@ import Catalog from "./pages/Catalog";
 import Favorite from "./components/Favorite";
 import ProductItemPage from "./pages/ProductItemPage";
 import OrderList from "./components/UserPageComponent/Order/OrderList";
-import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDiatils";
+import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetails";
 
 function App() {
   const user = useSelector(selectedUser);

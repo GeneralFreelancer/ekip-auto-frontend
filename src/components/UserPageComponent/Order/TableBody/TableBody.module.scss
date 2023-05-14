@@ -1,30 +1,13 @@
 @import '../../../../style/variables.scss';
 
 td { 
-  @media screen and (min-width: 1024px) {
     border: 1px solid $tableBorder;
-    border-bottom: 2px solid $tableBorder;
-  }
-  @media screen and (max-width: 1023px) {
-    border: 1px solid $tableBorder;
-    border-bottom: 2px solid $tableBorder;
-  }
 }
 
 th {
-  border-top: 2px solid $tableBorder;
-  border-bottom: 1px solid $tableBorder;
-  border-right: 1px solid $tableBorder;
+  border: 1px solid $tableBorder;
   background-color: $lightGrey;
 }
-th:first-of-type {
-  border-left: 2px solid $tableBorder;
-  border-right: 1px solid $tableBorder;
-}
-th:last-of-type {
-  border-right: 2px solid $tableBorder;
-}
-
 
 .order {
   &__table{
@@ -36,9 +19,8 @@ th:last-of-type {
       @media screen and (max-width: 1310px) {
         width: 90px;
       }
-      @media screen and (max-width: 1023px) {
+      @media screen and (max-width: 1070px) {
         width: 10%;
-        border-left: 2px solid $tableBorder;
       }
       @media screen and (max-width: 540px) {
         height: 40px;
@@ -53,13 +35,12 @@ th:last-of-type {
       @media screen and (max-width: 1310px) {
         width: 120px;
       }
-      @media screen and (max-width: 1023px) {
+      @media screen and (max-width: 1070px) {
         width: 25%;
       }
       @media screen and (max-width: 540px) {
         height: 120px;
-        border-left: 2px solid $tableBorder;
-        border-right: 2px solid $tableBorder;
+        width: 100%;
       }
       & > div {
         background-size: contain;
@@ -67,8 +48,10 @@ th:last-of-type {
         background-repeat: no-repeat;
         background-position: center;
         min-width: 118px;
+        margin: auto;
         @media screen and (max-width: 540px) {
           height: 120px;
+          width: 100%;
         }
       }
     }
@@ -82,7 +65,7 @@ th:last-of-type {
       @media screen and (max-width: 1200px) {
         width: 234px;
       } 
-      @media screen and (max-width: 1023px) {
+      @media screen and (max-width: 1070px) {
         width: 55%;
       }
       @media screen and (max-width: 540px) {
@@ -97,12 +80,12 @@ th:last-of-type {
           text-transform: capitalize;
           font-size: 20px;
           font-weight: bold;
-          @media screen and (max-width: 1310px) {
-            max-width: 195px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
+          // @media screen and (max-width: 1310px) {
+          //   max-width: 195px;
+          //   overflow: hidden;
+          //   white-space: nowrap;
+          //   text-overflow: ellipsis;
+          // }
         }
       }
     }
@@ -155,6 +138,9 @@ th:last-of-type {
       height:70px;
       padding: 0;
       position: relative;
+      @media screen and (max-width: 1200px) {
+        width: 121px;
+      }
       @media screen and (max-width: 540px) {
         height: 70px;
         border-right: 2px solid $tableBorder;
@@ -183,8 +169,14 @@ th:last-of-type {
         background-size: 40px;
       }
     }
+    
     &_riderect {
-      @media screen and (min-width: 1023px) {
+      a {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      @media screen and (min-width: 1070px) {
         border: none;
         width: 70px;
         height: 70px;

@@ -3,7 +3,7 @@
   &__grid {
     &_header {
       display: grid;
-      grid-template-columns: 100px 193px 472px 206px 148px 134px;
+      grid-template-columns: 100px 193px 472px 206px 159px 134px;
       grid-template-rows: 1fr;
       grid-column-gap: 0px;
       grid-row-gap: 0px;
@@ -90,6 +90,9 @@
         width: 134px;
       }
       @media screen and (max-width: 1310px) {
+        width: 121px;
+      }
+      @media screen and (max-width: 1200px) {
         width: 121px;
       }
     }

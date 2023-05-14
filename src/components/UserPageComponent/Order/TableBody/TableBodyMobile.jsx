@@ -1,100 +1,84 @@
 import style from "./TableBody.module.scss";
 import React from "react";
-import {ReactComponent as Heart} from '../../../../assets/svg/heart.svg';
-import {ReactComponent as BalckHeart} from '../../../../assets/svg/black_heart.svg';
+import { NavLink } from "react-router-dom";
 
 const TableBodyMobile = (props) => {
-  
-  const remove = (id) => {
-    console.log(id)
-  }
-  
-  const checkFavorite = (id) => {
-    props.data.find(item => (
-      item.id === id ? console.log(id) : '' // edit this for send request to db on change state
-    ))
-  }
+  const redirect = (id) => {
+    console.log(id);
+  };
+
+  const { id, title, goods, totalPrice, deliveryWeight, paidStatus } =
+    props.data;
+
   return (
-    props.data.map(({id, title, favorite, SKU, price, minQuantity, image}, i) => (
-      <React.Fragment key={i + 1}>
+    <React.Fragment key={id}>
           <tr>
-            <th colSpan={2} className={style.th_head}>№</th>
+            <th colSpan={2} className={style.th_head}>позицій</th>
           </tr>
           <tr>
-            <td colSpan={2} className={style.cart__table_number}>
-              {i + 1}
+            <td colSpan={2} className={style.order__table_number}>
+              {goods.length}
             </td>
           </tr>
           <tr>
               <th colSpan={2} className={style.th_head}>зображення</th>
           </tr>
           <tr>
-            <td colSpan={2} className={style.cart__table_picture}>
-              <div className={style.cart__table_picture_item} style={{backgroundImage: `url(${image[0]})`} }></div>
+            <td colSpan={2} className={style.order__table_picture}>
+            <div
+            className={style.order__table_picture}
+            style={{ backgroundImage: `url(${goods[0].image[0]})` }}
+          ></div>
             </td>
           </tr>
           <tr>
-            <th colSpan={2} className={style.th_head}>назва/ артикул</th>
+            <th colSpan={2} className={style.th_head}>назва замовлення</th>
           </tr> 
           <tr>
-            <td colSpan={2} className={style.cart__table_title}>
-              <div className={style.cart__table_title_row1}>
-                <h2>{title}</h2>
-                <span id={id} className={style.favorite}>
-                  {favorite ? <BalckHeart onClick={() => {checkFavorite(id)}}/> : <Heart onClick={() => {checkFavorite(id)}}/>}
-                </span>
-              </div>
-              <div className={style.cart__table_title_row2}>
-                  <p className={style.product_sku}>Art: <span>{SKU}</span></p>
+            <td colSpan={2} className={style.order__table_title}>
+              <div className={style.order__table_title_row1}>
+                <h2>{title} &#65284;</h2>
               </div>
             </td>
 
           </tr>
           <tr>
-            <th>ціна за шт.</th>
-            <th>кількість</th>
+            <th>вага замовлення</th>
+            <th>сплачено</th>
           </tr>
           <tr>
-            <td className={style.cart__table_price}>
+            <td className={style.order__table_weight}>
               <div>
-                <p className={style.nationalPrice}>{price[0]} &#8372;</p>
-              </div>
-              <div>
-                <p className={style.internationalPrice}>{price[1]} &#65284;</p>
+               <p className={style.weight}>{deliveryWeight} кг.</p>
               </div>
             </td>
-            <td className={style.cart__table_quantity}>
-              <div>
-                <p className={style.minQuantity}>
-                  Введіть кратно: <br /> {minQuantity}
-                </p>
-              </div>
-              <div >
-                <input type="number" />
-                <p>шт.</p>
-              </div>
+            <td className={style.order__table_paid}>
+            <div
+            className={paidStatus ? style.paidIconTrue : style.paidIconFalse}
+          ></div>
             </td>
           </tr>
           <tr>
             <th colSpan={2}> загальна ціна</th>
           </tr>
           <tr>
-            <td colSpan={2} className={style.cart__table_summaryPrice}>
-              <div>
-                <p className={style.nationalSummary}>10000 &#8372;</p>
+            <td colSpan={2} className={style.order__table_summaryPrice}>
+                <div>
+                <p className={style.nationalSummary}>{totalPrice[0]} &#8372;</p>
               </div>
-              <div >
-                <p className={style.internationSummary}>1000 &#65284;</p>
+              <div>
+                <p className={style.internationSummary}>{totalPrice[1]} &#65284;</p>
               </div>
             </td>
           </tr>
           <tr>
-            <td colSpan={2} className={style.cart__table_delete_middle}>
-              <span id={id} onClick={() => {remove(id)}} className={style.icon}></span>
+            <td colSpan={2} className={style.order__table_riderect_middle}>
+              <NavLink to='/myprofile/order-history-details' >
+                <span id={id} className={style.iconRiderect} onClick={() => { redirect(id) }} ></span>
+              </NavLink>
             </td>
           </tr>
       </React.Fragment>
-    ))
   );
 };
 

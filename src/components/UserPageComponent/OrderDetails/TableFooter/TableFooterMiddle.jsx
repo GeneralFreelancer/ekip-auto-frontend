@@ -6,10 +6,10 @@ const TableFooterMiddle = () => {
       <tr>
         <td className={style.borderNone}></td>
         <td className={style.borderNone}></td>
-        <td className={style.cart__table_summaryTitle}>
+        <td className={style.orderDetails__table_summaryTitle}>
           <p className={style.summaryTitle}>загальна сума:</p>
         </td>
-        <td className={style.cart__table_summaryWrapper}>
+        <td className={style.orderDetails__table_summaryWrapper}>
           <div>
             <p className={style.nationalSummary}>10000000.6 &#8372;</p>
           </div>

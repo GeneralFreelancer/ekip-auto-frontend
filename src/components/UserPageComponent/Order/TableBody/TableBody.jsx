@@ -1,8 +1,9 @@
+import { NavLink } from "react-router-dom";
 import style from "./TableBody.module.scss";
 import React from "react";
 
 const TableBody = (props) => {
-  const riderect = (id) => {
+  const redirect = (id) => {
     console.log(id)
   }
     
@@ -18,7 +19,7 @@ const {id, title, goods, totalPrice, deliveryWeight, paidStatus} = props.data;
             </td>
             <td className={style.order__table_title}>
               <div className={style.order__table_title_row1}>
-                <h2>{title}</h2>
+                <h2>{title} &#65284;</h2>
               </div>
             </td>
             <td className={style.order__table_weight}>
@@ -39,7 +40,9 @@ const {id, title, goods, totalPrice, deliveryWeight, paidStatus} = props.data;
               <div className={paidStatus ? style.paidIconTrue : style.paidIconFalse}></div>
             </td>
             <td className={style.order__table_riderect}>
-              <span id={id} onClick={() => {riderect(id)}} className={style.iconRiderect}></span>
+            <NavLink to='/myprofile/order-history-details' >
+              <span id={id} className={style.iconRiderect} onClick={() => { redirect(id) }} ></span>
+            </NavLink>
             </td>
         </tr>
   );

@@ -1,6 +1,13 @@
-import style from './Order.module.scss';
-import React from 'react';
-import OrderItem from './OrderItem';
+import style from './OrderDetails.module.scss';
+import { useMediaPredicate } from "react-media-hook";
+import TableHead from './TableHead/TableHead';
+import TableHeadMiddle from './TableHead/TableHeadMiddle';
+import TableBody from './TableBody/TableBody';
+import TableBodyMiddle from './TableBody/TableBodyMiddle';
+import TableFooter from './TableFooter/TableFooter';
+import TableFooterMiddle from './TableFooter/TableFooterMiddle'; 
+import TableBodyMobile from './TableBody/TableBodyMobile';
+import TableFooterMobile from './TableFooter/TableFooterMobile';
 
 const mockOrder = [
   {
@@ -14,10 +21,10 @@ const mockOrder = [
       options: [],
       deliveryOptions: [],
       SKU: 'number12sdsd',
-      favorite: true,
+      favorite: false,
       price: [15000, 120],
       minQuantity: 100,
-      stock: true,
+      stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
       url: 'http://#',   
     },
@@ -48,7 +55,7 @@ const mockOrder = [
       favorite: true,
       price: [15000, 120],
       minQuantity: 100,
-      stock: true,
+      stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
       url: 'http://#',
       
@@ -105,7 +112,7 @@ const mockOrder = [
       favorite: true,
       price: [15000, 120],
       minQuantity: 100,
-      stock: true,
+      stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
       url: 'http://#',
       
@@ -130,7 +137,7 @@ const mockOrder = [
       favorite: true,
       price: [15000, 120],
       minQuantity: 100,
-      stock: true,
+      stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
       url: 'http://#',   
     },
@@ -161,7 +168,7 @@ const mockOrder = [
       favorite: true,
       price: [15000, 120],
       minQuantity: 100,
-      stock: true,
+      stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
       url: 'http://#',
       
@@ -175,38 +182,53 @@ const mockOrder = [
   },
 ]
 
-
-const OrderList = () => {
-  //const timestapm & const.log for test and convert date
-  // const timestamp = Date.now(); // This would be the timestamp you want to format for test
-  // console.log(new Intl.DateTimeFormat('UKR', {year: 'numeric', month: 'long',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp));
+const OrderDetails = () => {
   
-  const orderDateHuman = (orderDate) => {
-    return new Intl.DateTimeFormat('UKR', {year: 'numeric', month: 'long',day: '2-digit'}).format(orderDate); 
-  }
-
-  const itemblock = (data) => {
-     
-    //sort date at newest to oldest date    
-    data.sort((a, b) => {
-      return a.date - b.date
-    }).reverse();
-    
-    return data.map(item => (
-       <React.Fragment key={item.id}>
-         <div className={style.order__lastDate}>{orderDateHuman(item.date).slice(0,-3)}</div>
-         <OrderItem data={item} />
-       </React.Fragment>
-    ))
-  }
-  
+  const {goods} = mockOrder[0];
+  console.log(goods);
+  const desktop = useMediaPredicate("(min-width: 1024px)");
+  const middle = useMediaPredicate("(min-width: 540px) and (max-width: 1023px)");
+  const mobile = useMediaPredicate("(max-width: 540px)");
   return(
-    <>
-      <div className={style.order__wrapper}>
-        {itemblock(mockOrder)}
+    <div className={style.orderDetails__wrapper}>
+      {desktop && <TableHead />}
+      <table className={style.orderDetails__table}>
+        <thead>
+          {middle && <TableHeadMiddle />}
+        </thead>
+        <tbody>
+          {desktop && <TableBody data={goods}/>}
+          {middle && <TableBodyMiddle data={goods}/>}
+          {mobile && <TableBodyMobile data={goods}/>}
+        </tbody>
+        <tfoot>
+          {desktop && <TableFooter />}
+          {middle && <TableFooterMiddle />}
+          {mobile && <TableFooterMobile />}
+        </tfoot>
+      </table>
+      <div className={style.orderDetails__downloadOrder}>
+        <div className={style.orderDetails__downloadOrder_wrapper}>
+          <button>Cкачать Excel <span className={style.downloadIcon}></span></button>
+          <p>*Для більш детального розрахунку звавантажте Excel.</p>
+        </div>
       </div>
-    </>
-  )
+      <div className={style.orderDetails__commentToOrder}>
+          <form name={"comment"}>
+            <div className={style.orderDetails__commentToOrder_wrapper}>
+              <textarea name={"comment"} id={"dsfsdf"} cols="30" rows="10"></textarea>
+              <button type="submit">додати коментар до замовлення</button>
+            </div>
+          </form>
+      </div>
+      <div className={style.orderDetails__orderBtn}>
+        <div>
+          <button type="submit">замовити</button>
+          <p>*Наш менеджер зв'яжеться з вами після замовлення для підтвердження деталей замовлення.</p>
+        </div>
+      </div>
+    </div>
+  )   
 }
 
-export default OrderList;
+export default OrderDetails;

@@ -3,13 +3,14 @@ const TableHeadMiddle = () => {
   return (
     <>
     <tr>
-      <th>№</th>
+      <th>позицій</th>
       <th>зображення</th>
-      <th colSpan='2'>назва/ артикул</th>
-      <th>видалити</th>
+      <th colSpan='2'>назва замовлення</th>
+      <th>деталі</th>
     </tr>
     </>
   );
 }
 
 export default TableHeadMiddle;
+
