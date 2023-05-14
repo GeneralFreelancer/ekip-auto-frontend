@@ -112,7 +112,7 @@ const mockOrder = [
     }, ],
     deliveryWeight: 105.6,
     totalPrice: [100000, 20000],
-    paidStatus: true,
+    paidStatus: false,
     url: '/myprofile/order-history-details',
     date: 1673795133000
     
@@ -168,7 +168,7 @@ const mockOrder = [
     }, ],
     deliveryWeight: 105.6,
     totalPrice: [100000, 20000],
-    paidStatus: true,
+    paidStatus: false,
     url: '/myprofile/order-history-details',
     date: 1677078333000
     

@@ -1,80 +1,47 @@
 import style from "./TableBody.module.scss";
 import React from "react";
-import {ReactComponent as Heart} from '../../../../assets/svg/heart.svg';
-import {ReactComponent as BalckHeart} from '../../../../assets/svg/black_heart.svg';
 
 const TableBodyMiddle = (props) => {
-  
-  const remove = (id) => {
+  const riderect = (id) => {
     console.log(id)
   }
+    
+const {id, title, goods, totalPrice, deliveryWeight, paidStatus} = props.data;
   
-  const checkFavorite = (id) => {
-    props.data.find(item => (
-      item.id === id ? console.log(id) : '' // edit this for send request to db on change state
-    ))
-  }
   return (
-    props.data.map(({id, title, favorite, SKU, price, minQuantity, image}, i) => (
-      <React.Fragment key={i + 1}>
-          <tr>
-            <td rowSpan='3' className={style.cart__table_number}>
-              {i + 1}
+          <tr >
+            <td className={style.order__table_number}>
+              {goods.length}
             </td>
-            <td className={style.cart__table_picture}>
-              <div className={style.cart__table_picture_item} style={{backgroundImage: `url(${image[0]})`} }></div>
+            <td className={style.order__table_picture}>
+              <div className={style.order__table_picture} style={{backgroundImage: `url(${goods[0].image[0]})`} }></div>
             </td>
-            <td colSpan='2' className={style.cart__table_title}>
-              <div className={style.cart__table_title_row1}>
+            <td className={style.order__table_title}>
+              <div className={style.order__table_title_row1}>
                 <h2>{title}</h2>
-                <span id={id} className={style.favorite}>
-                  {favorite ? <BalckHeart onClick={() => {checkFavorite(id)}}/> : <Heart onClick={() => {checkFavorite(id)}}/>}
-                </span>
-              </div>
-              <div className={style.cart__table_title_row2}>
-                  <p className={style.product_sku}>Art: <span>{SKU}</span></p>
               </div>
             </td>
-            <td rowSpan="3" className={style.cart__table_delete_middle}>
-              <span id={id} onClick={() => {remove(id)}} className={style.icon}></span>
-            </td>
-        </tr>
-        <tr>
-          <th>ціна за шт.</th>
-          <th>кількість</th>
-          <th>загальна ціна</th>
-        </tr>
-        <tr>
-            <td className={style.cart__table_price}>
+            <td className={style.order__table_weight}>
               <div>
-                <p className={style.nationalPrice}>{price[0]} &#8372;</p>
-              </div>
-              <div>
-                <p className={style.internationalPrice}>{price[1]} &#65284;</p>
+                <p className={style.weight}>{deliveryWeight} кг.</p>
               </div>
             </td>
-            <td className={style.cart__table_quantity}>
+          
+            <td className={style.order__table_summaryPrice}>
               <div>
-                <p className={style.minQuantity}>
-                  Введіть кратно: <br /> {minQuantity}
-                </p>
+                <p className={style.nationalSummary}>{totalPrice[0]} &#8372;</p>
               </div>
               <div >
-                <input type="number" />
-                <p>шт.</p>
+                <p className={style.internationSummary}>{totalPrice[1]} &#65284;</p>
               </div>
             </td>
-            <td className={style.cart__table_summaryPrice}>
-              <div>
-                <p className={style.nationalSummary}>10000 &#8372;</p>
-              </div>
-              <div >
-                <p className={style.internationSummary}>1000 &#65284;</p>
-              </div>
+            <td className={style.order__table_paid}>
+              <div className={paidStatus ? style.paidIconTrue : style.paidIconFalse}></div>
+            </td>
+            <td className={style.order__table_riderect}>
+              <span id={id} onClick={() => {riderect(id)}} className={style.iconRiderect}></span>
             </td>
         </tr>
-      </React.Fragment>
-    ))
   );
 };
 

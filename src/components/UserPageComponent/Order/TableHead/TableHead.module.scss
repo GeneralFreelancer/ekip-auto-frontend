@@ -1,9 +1,9 @@
-.cart {
+.order {
   
   &__grid {
     &_header {
       display: grid;
-      grid-template-columns: 70px 188px 566px 206px 135px 160px;
+      grid-template-columns: 100px 193px 472px 206px 148px 134px;
       grid-template-rows: 1fr;
       grid-column-gap: 0px;
       grid-row-gap: 0px;
@@ -13,21 +13,29 @@
       margin-bottom: 25px;
       font-weight: 600;
       @media screen and (max-width: 1415px) {
-        grid-template-columns: 70px 188px 475px 143px 135px 160px;
+        grid-template-columns: 100px 193px 382px 206px 159px 134px;
         width: 1245px;
       }
       @media screen and (max-width: 1310px) {
-        grid-template-columns: 40px 120px 296px 143px 135px 160px;
+        grid-template-columns: 90px 120px 281px 191px 151px 121px;
         width: 1024px;
       }
+      @media screen and (max-width: 1200px) {
+        grid-template-columns: 90px 120px 234px 206px 159px 134px;
+      } 
     }
     &_header_col1 { 
       grid-area: 1 / 1 / 2 / 2;
-      max-width: 70px;
+      width: 100px;
       display: flex;
       justify-content: center;
       @media screen and (max-width: 1310px) {
         grid-area: 1 / 1 / 2 / 2;
+        width: 90px;
+      } 
+      @media screen and (max-width: 1200px) {
+        grid-area: 1 / 1 / 2 / 2;
+        width: 90px;
       } 
     }
     &_header_col2 { 
@@ -38,33 +46,52 @@
     }
     &_header_col3 { 
       grid-area: 1 / 3 / 2 / 4;
-      max-width: 584px;
+      max-width: 472px;
       display: flex;
       justify-content: center;
       @media screen and (max-width: 1415px) {
-        width: 475px;
+        width: 382px;
       }
       @media screen and (max-width: 1310px) {
-        width: 296px;
+        width: 281px;
+      }
+      @media screen and (max-width: 1200px) {
+        width: 234px;
       } 
     }
     &_header_col4 { 
       grid-area: 1 / 4 / 2 / 5;
-      max-width: 165px;
+      width: 206px;
       display: flex;
       justify-content: center;
+      @media screen and (max-width: 1310px) {
+        width: 191px;
+      }
+      @media screen and (max-width: 1200px) {
+        width: 206px;
+      }
+
     }
     &_header_col5 { 
       grid-area: 1 / 5 / 2 / 6;
-      max-width: 135px;
+      width: 159px;
       display: flex;
       justify-content: center;
+      @media screen and (max-width: 1310px) {
+        width: 159px;
+      }
     }
     &_header_col6 { 
       grid-area: 1 / 6 / 2 / 7;
-      max-width: 160px;
+      width: 134px;
       display: flex;
       justify-content: center;
+      @media screen and (max-width: 1415px) {
+        width: 134px;
+      }
+      @media screen and (max-width: 1310px) {
+        width: 121px;
+      }
     }
     
     &_colName {

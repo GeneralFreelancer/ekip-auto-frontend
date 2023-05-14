@@ -21,14 +21,14 @@ const OrderItem = (props) => {
       <div className={style.order__wrappr}>
         <div className={style.order__date}></div>
         {desktop && <TableHead />}
-      <table className={style.cart__table}>
+      <table className={style.order__table}>
         <thead>
           {middle && <TableHeadMiddle />}
         </thead>
         <tbody>
           {desktop && <TableBody data={props.data}/>}
-          {/* {middle && <TableBodyMiddle data={mockOrder}/>}
-          {mobile && <TableBodyMobile data={mockOrder}/>} */}
+          {middle && <TableBodyMiddle data={props.data}/>}
+          {/* {mobile && <TableBodyMobile data={mockOrder}/>} */}
         </tbody>
         {/* <tfoot>
           {desktop && <TableFooter />}
