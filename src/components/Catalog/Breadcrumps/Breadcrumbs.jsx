@@ -26,7 +26,7 @@ const Breadcrumbs = () => {
       )}
       {parts.map((part, index) => (
         <React.Fragment key={part}>
-          <div className={s.breadcrumbs_item}>
+          <div className={`${s.breadcrumbs_item} ${index === parts.length - 1 ? s.last_crumb : ''}`}>
             <Link to={`/${parts.slice(0, index + 1).join("/")}`}>
               {BREADCRUMB_TEXTS[part]}
             </Link>
