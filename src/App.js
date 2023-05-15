@@ -34,7 +34,7 @@ function App() {
           <Route
             path="mydata"
             element={<MyData />}
-            index //не працює
+            default //не працює
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
           <Route

@@ -54,7 +54,11 @@
     }
   }
 
-  @media screen and (max-width: 529px) {
+  @media screen and (max-width: 530px) and (min-width: 100px) {
+    width: 260px;
+  }
+
+  @media screen and (max-width: 529px) and (min-width: 100px) {
     & > div:nth-child(n) {
       border-left: 0;
     }
