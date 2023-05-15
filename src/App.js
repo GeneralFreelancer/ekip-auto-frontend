@@ -13,6 +13,7 @@ import OrderList from "./components/UserPageComponent/Order/OrderList";
 import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetails";
 import AdminSliderPage from "./pages/AdminSliderPage";
 import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
+import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -56,6 +57,10 @@ function App() {
             path="favorite"
             element={<Favorite />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
+          <Route
+            path='share-stocks'
+            element={<AdminShareStocksPage />}
           />
         </Route>
       </Routes>
