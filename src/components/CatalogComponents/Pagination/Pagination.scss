@@ -84,7 +84,7 @@
 .rc-pagination-next button,
 .rc-pagination-total-text a,
 .rc-pagination-total-text button {
-  font-size: 23px;
+  font-size: 18px;
   color: $solidBlack !important;
   padding: 6px 8px;
   height: auto;
@@ -105,7 +105,7 @@
 
 .wrapperPaginationInBottom {
   .rc-pagination-item a {
-    font-size: 30px;
+    font-size: 25px;
   }
 }
 .rc-pagination-item.rc-pagination-item-active a,
@@ -116,14 +116,14 @@
 .rc-pagination-next.rc-pagination-item-active a:hover,
 .rc-pagination-total-text.rc-pagination-item-active a,
 .rc-pagination-total-text.rc-pagination-item-active a:hover {
-  font-size: 29px;
+  font-size: 23px;
   text-decoration: underline;
   color: $solidBlack !important;
 }
 
 .wrapperPaginationInBottom {
   .rc-pagination-item.rc-pagination-item-active a {
-    font-size: 45px;
+    font-size: 35px;
   }
 }
 
@@ -140,13 +140,13 @@
 }
 
 .arrow {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 
 .wrapperPaginationInBottom {
   .arrow {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
   }
 }
