@@ -7,14 +7,14 @@ import { ReactComponent as Setting } from "../../assets/svg/setting.svg";
 const Footer = (props) => {
   const [role, setRole] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [text, setText] = useState(props.currentRate);
+  const [text, setText] = useState(38.5);
 
   const localStor = sessionStorage.getItem("role");
 
   useEffect(() => {
     if (sessionStorage.getItem("role") === "admin") {
       setRole(true);
-    }else {
+    } else {
       setRole(false);
     }
   }, [localStor]);
