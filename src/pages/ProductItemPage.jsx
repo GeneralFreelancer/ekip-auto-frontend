@@ -35,14 +35,10 @@ const ProductItemPage = () => {
         <MainContainer>
           {/* <Outlet/> */}
           <Product />
-        </MainContainer>
-      </section>
-      <section>
-        <div>
-          <MainContainer>
+          <div style={{paddingTop: '30px'}}>
             <ListCards title={"Вас може зацікавити"} />
-          </MainContainer>
-        </div>
+          </div>
+        </MainContainer>
       </section>
       <ScrollToTopButton />
       <CallBackButton />

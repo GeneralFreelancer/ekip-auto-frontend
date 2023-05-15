@@ -11,25 +11,36 @@
     height: 25px;
     padding: 1px 7px;
     border-radius: 5px;
-    @media screen and (max-width: 520px) {
+    @media screen and (max-width: 640px) {
       padding: 2px 7px;
     }
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 500px) {
       padding: 3px 7px;
     }
-  }
-  a {
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
-  @media screen and (max-width: 520px) {
+
+  .last_crumb a:hover {
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 640px) {
     gap: 5px;
     font-size: 16px;
   }
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 500px) {
     gap: 3px;
     font-size: 14px;
   }
+
+  @media screen and (max-width: 500px) {
+    overflow-x: scroll;
+  }
 }
+
+

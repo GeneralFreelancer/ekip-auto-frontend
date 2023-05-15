@@ -8,12 +8,12 @@ import axios from "axios";
 const initialText = `Серветки ColorWay для чищення екранів, моніторів, ноутбуків, телевізорів, смартфонів, комп'ютерів, периферії та іншої офісної та домашньої електроніки. Призначені для вологого чищення сильних забруднень, плям, що в'їдаються, потертостей, пилу та інших плям різного ступеня забруднення. 
 
 Lorem ipsum dolor sit amet consectetur adipisicing elit.
-Fugiat quis numquam ratione veniam! Impedit tempora voluptatibus quia unde inventore voluptatum, autem, illo vel, similique ad eius architecto facilis officia hic. 
-Autem, illo vel, similique ad eius architecto facilis officia hic.Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+Fugiat quis numquam ratione veniam! Impedit tempora voluptatibus quia unde inventore voluptatum, autem, illo vel, similique ad eius architecto facilis officia hic.
 
+Autem, illo vel, similique ad eius architecto facilis officia hic.Lorem ipsum dolor sit amet consectetur adipisicing elit.
 Fugiat quis numquam. 
-Склад: вологі серветки 100 шт. 
 
+Склад: вологі серветки 100 шт.
 Розмір: 12 x 12см.`;
 
 const MainInfo = (props) => {
@@ -38,13 +38,13 @@ const MainInfo = (props) => {
   //   fetchDescription();
   // }, [productId]);
 
-  const textParts = initialText.split(". ");
+  const textParts = text.split(/(?<=\.)\s+/);
 
   const handleEditClick = () => {
     setIsEditMode(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = (e) => {
     setIsEditMode(false);
   };
 
@@ -91,7 +91,7 @@ const MainInfo = (props) => {
           <div className={s.characteristic_block}>
             {textParts.map((paragraph, index) => (
               <React.Fragment key={index}>
-                <p>{paragraph}.</p>
+                <p>{paragraph}</p>
                 {(index + 1) % 2 === 0 && <br />}
               </React.Fragment>
             ))}

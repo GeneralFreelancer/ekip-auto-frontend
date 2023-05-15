@@ -1,73 +1,72 @@
-@import '../../../style/variables.scss';
+@import "../../../style/variables.scss";
 
-  .menu {
-    &__wrapper {
-      padding: 25px 88px 0 15px;
+.menu {
+  &__wrapper {
+    padding: 25px 88px 0 15px;
+    @media screen and (max-width: 1024px) {
+      padding: 15px;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 46px;
+      width: 100%;
+      justify-content: space-between;
+      color: $hardGrey;
       @media screen and (max-width: 1024px) {
-        padding: 15px;
+        flex-direction: column;
+        height: auto;
       }
-      ul {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        height: 46px;
-        width: 100%;
-        justify-content: space-between;
-        color: $hardGrey;
+      li {
+        align-self: flex-end;
         @media screen and (max-width: 1024px) {
-          flex-direction: column;
-          height: auto;
+          align-self: center;
+          margin-bottom: 10px;
+          order: 3;
         }
-        li {
-          align-self: flex-end;
+        &:nth-of-type(1) {
+          align-self: flex-start;
           @media screen and (max-width: 1024px) {
-            align-self: center;
-            margin-bottom: 10px;
-            order: 3
-            
-          }
-          &:nth-of-type(1) {
             align-self: flex-start;
-            @media screen and (max-width: 1024px) {
-              align-self: flex-start;
-              order: 1
-              
-            }
+            order: 1;
           }
-          h2{
-            margin: 0;
-            padding: 0;
-            font-size: $h2;
-            font-weight: 400;
-          }
-          a{
-            font-size: $p20;
-            text-decoration: none;
-            text-transform: uppercase;
-          }
-          .active {
-            border-bottom: 2px solid $hardGrey;
-            padding-bottom: 2px;
-          }
-          .logout {
-            text-transform: uppercase;
-            padding: 7px 24px;
-            border-radius: 2px;
-            border: 2px solid $lightGrey;
-            background-color: $lightWhite;
-            font-weight: bold;
-            color: $hardGrey;
-          }
-          &:last-of-type {
-            align-self: flex-start;
-            @media  screen and (max-width: 1024px) {
-              align-self: flex-end;
-              order: 2;
-              margin-top: -40px;
-            }
-              
-            }
+        }
+        h2 {
+          margin: 0;
+          padding: 0;
+          font-size: $h2;
+          font-weight: 400;
+        }
+        a {
+          font-size: $p20;
+          text-decoration: none;
+          text-transform: uppercase;
+        }
+        .active {
+          border-bottom: 2px solid $hardGrey;
+          padding-bottom: 2px;
+        }
+        .logout {
+          text-transform: uppercase;
+          padding: 7px 24px;
+          border-radius: 3px;
+          border: 2px solid $lightGrey;
+          background-color: $lightWhite;
+          font-weight: bold;
+          color: $hardGrey;
+          box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+          cursor: pointer;
+        }
+        &:last-of-type {
+          align-self: flex-start;
+          @media screen and (max-width: 1024px) {
+            align-self: flex-end;
+            order: 2;
+            margin-top: -40px;
           }
         }
       }
     }
+  }
+}

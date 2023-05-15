@@ -47,7 +47,7 @@ const AuthNav = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
-    dispatch(registerOut());
+    dispatch(registerOut()); //
     setShowModal(false);
     // Test
     sessionStorage.removeItem("role");
