@@ -11,8 +11,8 @@ const initialData = [
   { name: "Розмір коробки", value: "40x50x50 см." },
 ];
 
-const Pack = () => {
-  const [role] = useState(true);
+const Pack = (props) => {
+  const { productId, role } = props;
   const [isEditMode, setIsEditMode] = useState(false);
   const [charactData, setCharactData] = useState(initialData);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -26,14 +26,6 @@ const Pack = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    if (role) {
-      localStorage.setItem("role", "admin");
-    } else {
-      localStorage.setItem("role", "user");
-    }
-  }, [role]);
 
   const handleEditClick = () => {
     setIsEditMode(true);
@@ -121,7 +113,7 @@ const Pack = () => {
           <h1 className={s.characteristic_h}>Характеристики пакування:</h1>
           {charactData.map((char, index) => (
             <div key={index} className={s.characteristic_line}>
-              {char.name}
+              <p>{char.name}</p>
               {mobileV ? (
                 <span className={s.characteristic_dotted}>
                   ............................................
@@ -131,8 +123,7 @@ const Pack = () => {
                   ......................................................................
                 </span>
               )}
-
-              {char.value}
+              <p>{char.value}</p>
             </div>
           ))}
         </>

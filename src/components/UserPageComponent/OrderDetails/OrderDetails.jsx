@@ -1,5 +1,6 @@
 import style from './OrderDetails.module.scss';
 import { useMediaPredicate } from "react-media-hook";
+import { useState } from 'react';
 import TableHead from './TableHead/TableHead';
 import TableHeadMiddle from './TableHead/TableHeadMiddle';
 import TableBody from './TableBody/TableBody';
@@ -26,7 +27,8 @@ const mockOrder = [
       minQuantity: 100,
       stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',   
+      quantity: 500,
+         
     },
     {
       id: "2",
@@ -41,7 +43,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     },
     {
@@ -57,7 +59,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     }, ],
     deliveryWeight: 105.6,
@@ -83,7 +85,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',   
+      quantity: 500,   
     },
     {
       id: "2",
@@ -98,7 +100,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     },
     {
@@ -114,7 +116,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     }, ],
     deliveryWeight: 105.6,
@@ -139,7 +141,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',   
+      quantity: 500,   
     },
     {
       id: "2",
@@ -154,7 +156,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     },
     {
@@ -170,7 +172,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: false,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     }, ],
     deliveryWeight: 105.6,
@@ -189,6 +191,34 @@ const OrderDetails = () => {
   const desktop = useMediaPredicate("(min-width: 1024px)");
   const middle = useMediaPredicate("(min-width: 540px) and (max-width: 1023px)");
   const mobile = useMediaPredicate("(max-width: 540px)");
+  // const [dataMockOrder, setdataMockOrder] = useState(mockOrder);// temp comment
+  const [isActive, setIsActive] = useState(false);
+
+  //remover function delete items
+  const remove = (id) => {
+    console.log(id);
+    // let templateArr = dataMockOrder;
+
+    // templateArr = [...templateArr].filter(item => item.id !== id);
+    // console.log(templateArr);
+    // setdataMockOrder(templateArr);
+  };
+  // change favorite state in DB
+  const checkfavorite = (id) => {
+    console.log(id);
+    // let templateArr = dataMockOrder;
+
+    // templateArr = [...templateArr].filter(item => (
+    //   item.id === id ? !item.favorite : !item.favorite
+    //   ));
+    // setdataMockOrder(templateArr);
+  }
+
+
+  const leftComment = (event) => {
+    event.preventDefault();
+    !isActive ? setIsActive(true) : setIsActive(false)
+  }
   return(
     <div className={style.orderDetails__wrapper}>
       {desktop && <TableHead />}
@@ -197,9 +227,9 @@ const OrderDetails = () => {
           {middle && <TableHeadMiddle />}
         </thead>
         <tbody>
-          {desktop && <TableBody data={goods}/>}
-          {middle && <TableBodyMiddle data={goods}/>}
-          {mobile && <TableBodyMobile data={goods}/>}
+          {desktop && <TableBody checkFavorire={checkfavorite} delete={remove} data={goods}/>}
+          {middle && <TableBodyMiddle checkFavorire={checkfavorite} delete={remove} data={goods}/>}
+          {mobile && <TableBodyMobile checkFavorire={checkfavorite} delete={remove} data={goods}/>}
         </tbody>
         <tfoot>
           {desktop && <TableFooter />}
@@ -216,8 +246,8 @@ const OrderDetails = () => {
       <div className={style.orderDetails__commentToOrder}>
           <form name={"comment"}>
             <div className={style.orderDetails__commentToOrder_wrapper}>
-              <textarea name={"comment"} id={"dsfsdf"} cols="30" rows="10"></textarea>
-              <button type="submit">додати коментар до замовлення</button>
+            {isActive && <textarea name={"comment"} id={"dsfsdf"} cols="30" rows="10"></textarea>}
+              <button onClick={(e) => {leftComment(e)}} className={isActive ? style.active : ''} type="submit">додати коментар до замовлення</button>
             </div>
           </form>
       </div>

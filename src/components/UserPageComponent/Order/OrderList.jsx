@@ -5,7 +5,7 @@ import OrderItem from './OrderItem';
 const mockOrder = [
   {
     id: "1",
-    title: "Замовлення від 22 березня на 4500",
+    title: "Замовлення від 22 березня на 4500 $",
     goods: [{
       id: "1",
       category: 'category',
@@ -19,7 +19,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',   
+      quantity: 500,   
     },
     {
       id: "2",
@@ -34,7 +34,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     },
     {
@@ -50,7 +50,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     }, ],
     deliveryWeight: 105.6,
@@ -62,7 +62,7 @@ const mockOrder = [
   },
   {
     id: "2",
-    title: "Замовлення від 15 січьня на 4500",
+    title: "Замовлення від 15 січьня на 4500 $",
     goods: [{
       id: "1",
       category: 'category',
@@ -76,7 +76,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',   
+      quantity: 500,   
     },
     {
       id: "2",
@@ -91,7 +91,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     },
     {
@@ -107,7 +107,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     }, ],
     deliveryWeight: 105.6,
@@ -118,7 +118,7 @@ const mockOrder = [
     
   },  {
     id: "3",
-    title: "Замовлення від 22 лютого на 4500",
+    title: "Замовлення від 22 лютого на 4500 $",
     goods: [{
       id: "1",
       category: 'category',
@@ -132,7 +132,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',   
+      quantity: 500,   
     },
     {
       id: "2",
@@ -147,7 +147,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     },
     {
@@ -163,7 +163,7 @@ const mockOrder = [
       minQuantity: 100,
       stock: true,
       image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-      url: 'http://#',
+      quantity: 500,
       
     }, ],
     deliveryWeight: 105.6,

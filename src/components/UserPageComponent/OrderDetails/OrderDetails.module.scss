@@ -1,4 +1,9 @@
 @import '../../../style/variables.scss';
+
+textarea {
+  outline: none;
+}
+
 tbody > tr:last-of-type > td {
   border-bottom: 1px solid $tableBorder;
   @media screen and (max-width: 1024px) {

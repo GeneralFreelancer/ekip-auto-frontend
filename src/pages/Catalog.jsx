@@ -31,7 +31,7 @@ const Catalog = () => {
       <Navbar onShowModal={showModalHandler} />
       <section>
         <MainContainer>
-          <CatalogComponents /> 
+          <CatalogComponents />
         </MainContainer>
       </section>
       <ScrollToTopButton />

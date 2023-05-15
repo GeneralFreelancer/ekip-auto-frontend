@@ -1,4 +1,8 @@
 @import '../../../style/variables.scss';
+
+textarea {
+  outline: none;
+}
 tbody > tr:last-of-type > td {
   border-bottom: 1px solid $tableBorder;
   @media screen and (max-width: 1024px) {
@@ -23,6 +27,7 @@ tbody > tr:last-of-type > td:last-of-type {
 button {
   cursor: pointer;
 }
+
 .cart {
   &__wrapper{
     width: 100%;
@@ -30,6 +35,7 @@ button {
     overflow: hidden;
     
   }
+  
   &__table{
     width: 1350px;
     margin: auto;
@@ -173,6 +179,7 @@ button {
         padding: 4px 17px;
         text-transform: uppercase;
         margin-top: 15px;
+        outline: none;
         &:hover {
           color: black;
           background-color: $lightWhite;
@@ -211,4 +218,16 @@ button {
       }
     }
   }
+}
+.active {
+  border-radius: 5px!important;
+  border: 2px solid $lightGrey!important;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56)!important;
+  font-weight: 600!important;
+  font-size: 12px!important;
+  padding: 4px 17px!important;
+  text-transform: uppercase!important;
+  margin-top: 15px!important;
+  color: black!important;
+  background-color: $lightWhite!important;
 }

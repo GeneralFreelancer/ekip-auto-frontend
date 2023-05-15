@@ -1,14 +1,37 @@
 import { NavLink } from "react-router-dom";
 import style from "./TableBody.module.scss";
+import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
+import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
+import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
 import React from "react";
+import { useState } from "react";
 
 const TableBody = (props) => {
+  const [isEdite, setEdite] = useState(false);
+  // const [newTitle, setNewTitle] = useState(title);
+  // const [quantity, setQuantity] = useState(500);
+  
+
+  const handleSaveClick = () => {
+    setEdite(false);
+    // setNewTitle()
+  };
+
+  const handleCancelClick = () => {
+    setEdite(false);
+  };
+  
+  
   const redirect = (id) => {
     console.log(id)
   }
-    
-const {id, title, goods, totalPrice, deliveryWeight, paidStatus} = props.data;
+  const editableInputTypes = (id) => {
+    console.log(id)
+    !isEdite ? setEdite(true) : setEdite(false)
+  }  
   
+  const {id, title, goods, totalPrice, deliveryWeight, paidStatus} = props.data;
+
   return (
           <tr >
             <td className={style.order__table_number}>
@@ -19,7 +42,30 @@ const {id, title, goods, totalPrice, deliveryWeight, paidStatus} = props.data;
             </td>
             <td className={style.order__table_title}>
               <div className={style.order__table_title_row1}>
-                <h2>{title} &#65284;</h2>
+                {!isEdite ? (
+                  <>
+                    <h2>{title}</h2>
+                    <Pen onClick={() => {editableInputTypes(id)}}/>
+                  </>
+                  ) 
+                  : 
+                  (
+                  <>
+                    <input type="text" defaultValue={title}/>
+                    <button
+                      className={style.productItem_btn}
+                      onClick={handleCancelClick}
+                    >
+                        <Cross />
+                    </button>
+                    <button
+                      className={style.productItem_btn}
+                      onClick={handleSaveClick}
+                    >
+                      <Tick />
+                    </button>
+                  </>
+                  )}
               </div>
             </td>
             <td className={style.order__table_weight}>

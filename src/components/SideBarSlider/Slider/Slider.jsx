@@ -2,6 +2,8 @@ import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import "./Slider.scss";
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { ReactComponent as Setting } from "../../../assets/svg/setting.svg";
 
 const images = [
   "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
@@ -21,6 +23,15 @@ const properties = {
 
 const Slider = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [role, setRole] = useState(false);
+
+  const localStor = sessionStorage.getItem("role");
+
+  useEffect(() => {
+    if (sessionStorage.getItem("role") === "admin") {
+      setRole(true);
+    }
+  }, [localStor]);
 
   useEffect(() => {
     function handleResize() {
@@ -32,6 +43,13 @@ const Slider = () => {
 
   return (
     <div className="wrapperSlider">
+      {role && (
+        <NavLink to="/admin_slider">
+          <button className='slider_setting'>
+            <Setting />
+          </button>
+        </NavLink>
+      )}
       {viewportWidth < 825 ? (
         <Slide indicators={indicators} scale={1.4} {...properties}>
           {images.map((each, index) => (

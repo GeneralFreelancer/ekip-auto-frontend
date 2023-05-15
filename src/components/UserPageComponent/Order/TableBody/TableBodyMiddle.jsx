@@ -1,12 +1,33 @@
 import style from "./TableBody.module.scss";
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
+import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
+import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
+import { useState } from "react";
 const TableBodyMiddle = (props) => {
-  const redirect = (id) => {
-    console.log(id);
+  const [isEdite, setEdite] = useState(false);
+  // const [newTitle, setNewTitle] = useState(title);
+  // const [quantity, setQuantity] = useState(500);
+  
+
+  const handleSaveClick = () => {
+    setEdite(false);
+    // setNewTitle()
   };
 
+  const handleCancelClick = () => {
+    setEdite(false);
+  };
+  
+  
+  const redirect = (id) => {
+    console.log(id)
+  }
+  const editableInputTypes = (id) => {
+    console.log(id)
+    !isEdite ? setEdite(true) : setEdite(false)
+  }  
   const { id, title, goods, totalPrice, deliveryWeight, paidStatus } =
     props.data;
 
@@ -22,7 +43,30 @@ const TableBodyMiddle = (props) => {
         </td>
         <td colSpan="2" className={style.order__table_title}>
           <div className={style.order__table_title_row1}>
-            <h2>{title} &#65284;</h2>
+          {!isEdite ? (
+                  <>
+                    <h2>{title}</h2>
+                    <Pen onClick={() => {editableInputTypes(id)}}/>
+                  </>
+                  ) 
+                  : 
+                  (
+                  <>
+                    <input type="text" defaultValue={title}/>
+                    <button
+                      className={style.productItem_btn}
+                      onClick={handleCancelClick}
+                    >
+                        <Cross />
+                    </button>
+                    <button
+                      className={style.productItem_btn}
+                      onClick={handleSaveClick}
+                    >
+                      <Tick />
+                    </button>
+                  </>
+                  )}
           </div>
         </td>
         <td rowSpan="3" className={style.order__table_riderect_middle}>

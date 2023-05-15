@@ -1,0 +1,45 @@
+@import "../../../../style/variables.scss";
+
+.card {
+  position: relative;
+  width: 260px;
+  height: 290px;
+  padding: 10px 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-left: 1px solid $solidBlack;
+  border-bottom: 1px solid $solidBlack;
+
+  .number {
+    position: absolute;
+    top: 19px;
+    left: 15px;
+    text-decoration: underline;
+  }
+
+  .wrapperIcon {
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    outline: none;
+    border: 2px solid $lightGrey;
+    background-color: $lightWhite;
+    border-radius: 7px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+
+    cursor: pointer;
+    &:hover {
+      box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.721);
+    }
+
+    .icon {
+      width: 50px;
+    }
+  }
+}

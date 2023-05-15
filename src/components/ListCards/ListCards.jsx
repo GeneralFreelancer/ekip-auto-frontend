@@ -228,7 +228,7 @@ const properties = {
 const ListCards = ({
   title,
   showAll = false,
-  link,
+  link, // temp variable for backend
   items = cardsData,
   need_A_Slider = true,
 }) => {
@@ -347,10 +347,7 @@ const ListCards = ({
               {renderCards(showAll)}
 
               {!showAll && (
-                <NavLink
-                  className={style.buttonMore}
-                  to={`/${translit(title)}`}
-                >
+                <NavLink className={style.buttonMore} to={`/catalog`}>
                   Показати ще...
                 </NavLink>
               )}

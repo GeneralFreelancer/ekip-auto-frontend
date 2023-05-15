@@ -1,5 +1,6 @@
 import style from './Cart.module.scss';
 import { useMediaPredicate } from "react-media-hook";
+import { useState } from 'react';
 import TableHead from './TableHead/TableHead';
 import TableHeadMiddle from './TableHead/TableHeadMiddle';
 import TableBody from './TableBody/TableBody';
@@ -23,7 +24,7 @@ const mockItems = [
     minQuantity: 100,
     stock: true,
     image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-    url: 'http://#',
+    quantity: 500,
     
   },
   {
@@ -39,7 +40,7 @@ const mockItems = [
     minQuantity: 100,
     stock: true,
     image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-    url: 'http://#',
+    quantity: 500,
     
   },
   {
@@ -55,7 +56,7 @@ const mockItems = [
     minQuantity: 100,
     stock: true,
     image: ['https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9'],
-    url: 'http://#',
+    quantity: 500,
     
   },
 ]
@@ -64,7 +65,32 @@ const Cart = () => {
   const desktop = useMediaPredicate("(min-width: 1024px)");
   const middle = useMediaPredicate("(min-width: 540px) and (max-width: 1023px)");
   const mobile = useMediaPredicate("(max-width: 540px)");
-  console.log(middle);
+  const [dataMockItems, setDataMockItems] = useState(mockItems);
+  const [isActive, setIsActive] = useState(false);
+  //remover function delete items
+  const remove = (id) => {
+    console.log(id);
+    // let templateArr = dataMockItems;
+
+    // templateArr = [...templateArr].filter(item => item.id !== id);
+    // console.log(templateArr);
+    // setDataMockItems(templateArr);
+  };
+  // change favorite state in DB
+  const checkfavorite = (id) => {
+    console.log(id);
+    // let templateArr = dataMockItems;
+
+    // templateArr = [...templateArr].filter(item => (
+    //   item.id === id ? !item.favorite : !item.favorite
+    //   ));
+    // setDataMockItems(templateArr);
+  }
+
+  const leftComment = (event) => {
+    event.preventDefault();
+    !isActive ? setIsActive(true) : setIsActive(false)
+  }
   return(
     <div className={style.cart__wrapper}>
       {desktop && <TableHead />}
@@ -73,9 +99,9 @@ const Cart = () => {
           {middle && <TableHeadMiddle />}
         </thead>
         <tbody>
-          {desktop && <TableBody data={mockItems}/>}
-          {middle && <TableBodyMiddle data={mockItems}/>}
-          {mobile && <TableBodyMobile data={mockItems}/>}
+          {desktop && <TableBody checkFavorire={checkfavorite} delete={remove} data={dataMockItems}/>}
+          {middle && <TableBodyMiddle checkFavorire={checkfavorite} delete={remove} data={dataMockItems}/>}
+          {mobile && <TableBodyMobile checkFavorire={checkfavorite} delete={remove} data={dataMockItems}/>}
         </tbody>
         <tfoot>
           {desktop && <TableFooter />}
@@ -92,8 +118,8 @@ const Cart = () => {
       <div className={style.cart__commentToOrder}>
           <form name={"comment"}>
             <div className={style.cart__commentToOrder_wrapper}>
-              <textarea name={"comment"} id={"dsfsdf"} cols="30" rows="10"></textarea>
-              <button type="submit">додати коментар до замовлення</button>
+              {isActive && <textarea name={"comment"} id={"dsfsdf"} cols="30" rows="10"></textarea>}
+              <button onClick={(e) => {leftComment(e)}} className={isActive ? style.active : ''} type="submit">додати коментар до замовлення</button>
             </div>
           </form>
       </div>

@@ -5,17 +5,9 @@ import {ReactComponent as BalckHeart} from '../../../../assets/svg/black_heart.s
 
 const TableBodyMobile = (props) => {
   
-  const remove = (id) => {
-    console.log(id)
-  }
   
-  const checkFavorite = (id) => {
-    props.data.find(item => (
-      item.id === id ? console.log(id) : '' // edit this for send request to db on change state
-    ))
-  }
   return (
-    props.data.map(({id, title, favorite, SKU, price, minQuantity, image}, i) => (
+    props.data.map(({id, title, favorite, SKU, price, minQuantity, image, quantity}, i) => (
       <React.Fragment key={i + 1}>
           <tr>
             <th colSpan={2} className={style.th_head}>№</th>
@@ -41,7 +33,7 @@ const TableBodyMobile = (props) => {
               <div className={style.orderDetails__table_title_row1}>
                 <h2>{title}</h2>
                 <span id={id} className={style.favorite}>
-                  {favorite ? <BalckHeart onClick={() => {checkFavorite(id)}}/> : <Heart onClick={() => {checkFavorite(id)}}/>}
+                  {favorite ? <BalckHeart onClick={() => {props.checkFavorite(id)}}/> : <Heart onClick={() => {props.checkFavorite(id)}}/>}
                 </span>
               </div>
               <div className={style.orderDetails__table_title_row2}>
@@ -70,7 +62,7 @@ const TableBodyMobile = (props) => {
                 </p>
               </div>
               <div >
-                <input type="number" />
+                <input min={0} type="number" value />
                 <p>шт.</p>
               </div>
             </td>
@@ -90,7 +82,7 @@ const TableBodyMobile = (props) => {
           </tr>
           <tr>
             <td colSpan={2} className={style.orderDetails__table_basket_middle}>
-              <span id={id} onClick={() => {remove(id)}} className={style.icon}></span>
+              <span id={id} onClick={() => {props.delete(id)}} className={style.icon}></span>
             </td>
           </tr>
       </React.Fragment>

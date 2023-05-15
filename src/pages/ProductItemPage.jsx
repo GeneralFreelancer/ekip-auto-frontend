@@ -8,6 +8,8 @@ import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
+import { Outlet } from "react-router-dom";
+import ListCards from "../components/ListCards/ListCards";
 
 const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -31,8 +33,16 @@ const ProductItemPage = () => {
       <Navbar onShowModal={showModalHandler} />
       <section>
         <MainContainer>
+          {/* <Outlet/> */}
           <Product />
         </MainContainer>
+      </section>
+      <section>
+        <div>
+          <MainContainer>
+            <ListCards title={"Вас може зацікавити"} />
+          </MainContainer>
+        </div>
       </section>
       <ScrollToTopButton />
       <CallBackButton />

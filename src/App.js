@@ -6,12 +6,13 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
-import Product from "./components/Catalog/Product/Product";
 import Catalog from "./pages/Catalog";
 import Favorite from "./components/Favorite";
 import ProductItemPage from "./pages/ProductItemPage";
 import OrderList from "./components/UserPageComponent/Order/OrderList";
 import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetails";
+import AdminSliderPage from "./pages/AdminSliderPage";
+import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
 
 function App() {
   const user = useSelector(selectedUser);
@@ -20,11 +21,16 @@ function App() {
     <main>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="admin_slider" element={<AdminSliderPage />} />
+        <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
 
-        <Route path="catalog" element={<Catalog />}/>
-      
-        {/* </Route> */}
-        <Route path="catalog/category/subcategory/:id" element={<ProductItemPage/>} />
+        <Route path="/catalog" element={<Catalog />} />
+        {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} />
+        </Route> */}
+        <Route
+          path="/catalog/category/subcategory/:id"
+          element={<ProductItemPage />}
+        />
 
         <Route path="myprofile" element={<UserPage />}>
           <Route

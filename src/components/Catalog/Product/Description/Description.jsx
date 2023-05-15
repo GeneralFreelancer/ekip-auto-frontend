@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MainInfo from "./MainInfo";
 import Characteristic from "./Characteristic";
 import Pack from "./Pack";
+import s from "./Description.module.scss";
 
-const Description = () => {
+const Description = (props) => {
+  const [role, setRole] = useState(false);
+  const localStor = sessionStorage.getItem("role");
+
+  useEffect(() => {
+    if (sessionStorage.getItem("role") === "admin") {
+      setRole(true);
+    } else {
+      setRole(false);
+    }
+  }, [localStor]);
+
   return (
     <>
       <section>
-        <MainInfo />
+        <a id="mainInfo" className={s.anchor}></a>
+        <MainInfo productId={props.productId} role={role} />
       </section>
       <section>
-        <Characteristic />
+        <a id="characteristic" className={s.anchor}></a>
+        <Characteristic productId={props.productId} role={role} />
       </section>
       <section>
-        <Pack />
+        <a id="pack" className={s.anchor}></a>
+        <Pack productId={props.productId} role={role} />
       </section>
     </>
   );
