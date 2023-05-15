@@ -441,15 +441,17 @@ const CatalogComponents = () => {
           />
         </div>
 
-        <Pagination
-          className="pagination-data"
-          onChange={PaginationChange}
-          total={filteredArr.length}
-          current={current}
-          pageSize={perPage}
-          showSizeChanger={false}
-          itemRender={PrevNextArrow}
-        />
+        <div className="wrapperPaginationInBottom">
+          <Pagination
+            className="pagination-data"
+            onChange={PaginationChange}
+            total={filteredArr.length}
+            current={current}
+            pageSize={perPage}
+            showSizeChanger={false}
+            itemRender={PrevNextArrow}
+          />
+        </div>
       </div>
     </section>
   );
