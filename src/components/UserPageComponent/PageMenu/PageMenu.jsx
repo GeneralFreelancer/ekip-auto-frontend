@@ -6,16 +6,19 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { useDispatch } from "react-redux";
 import { logout, registerOut } from "../../../redux/features/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const PageMenu = () => {
   const user = useSelector(selectedUser);
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
     dispatch(registerOut()); //
+    navigate("/");
+
   };
 
   return (
@@ -41,7 +44,12 @@ const PageMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink className={({ isActive }) => (isActive ? style.active : '')} to="/myprofile/order-history">Замовлення</NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? style.active : "")}
+            to="/myprofile/order-history"
+          >
+            Замовлення
+          </NavLink>
         </li>
         <li>
           <NavLink

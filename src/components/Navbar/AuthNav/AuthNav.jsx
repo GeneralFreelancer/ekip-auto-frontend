@@ -68,7 +68,7 @@ const AuthNav = (props) => {
             <Link className={style.item} to={"/myprofile/mydata"}>
               <li>Моя сторінка</li>
             </Link>
-            <Link className={style.item} to={"#"}>
+            <Link className={style.item} to={"/myprofile/order-history"}>
               <li>Замовлення</li>
             </Link>
             <Link className={style.item} to={"#"}>

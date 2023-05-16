@@ -108,9 +108,9 @@ const ProductItem = (props) => {
     transitionDuration: 500,
     infinite: false,
     indicators: true,
-    arrows: false,
+    arrows: true,
     autoplay: false,
-    // canSwipe: false,
+    canSwipe: true,
     onChange: handleSlideChange,
   };
 
