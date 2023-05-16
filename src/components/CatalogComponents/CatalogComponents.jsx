@@ -7,7 +7,8 @@ import InStock from "./InStock";
 import Filter from "./Filter";
 import ListCards from "../ListCards";
 
-import Pagination from "https://cdn.skypack.dev/rc-pagination@3.1.15";
+// import Pagination from "https://cdn.skypack.dev/rc-pagination@3.1.15";
+import Pagination from "rc-pagination";
 import { ReactComponent as Arrow } from "../../assets/svg/up-arrow.svg";
 
 import "./Pagination/Pagination.scss";

@@ -2,8 +2,8 @@ import "./index.scss";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
-import { useSelector } from "react-redux";
-import { selectedUser } from "./redux/features/userSlice";
+// import { useSelector } from "react-redux";
+// import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Catalog from "./pages/Catalog";
@@ -16,7 +16,7 @@ import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
 import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
 
 function App() {
-  const user = useSelector(selectedUser);
+  // const user = useSelector(selectedUser);
 
   return (
     <main>
