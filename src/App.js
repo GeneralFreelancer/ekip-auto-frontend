@@ -7,7 +7,7 @@ import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Catalog from "./pages/Catalog";
-import Favorite from "./components/Favorite";
+import Favorite from "./components/Favorite/Favorite";
 import ProductItemPage from "./pages/ProductItemPage";
 import OrderList from "./components/UserPageComponent/Order/OrderList";
 import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetails";
