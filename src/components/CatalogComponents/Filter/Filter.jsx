@@ -1,5 +1,7 @@
 import s from "./Filter.module.scss";
 
+import React from "react";
+
 const Filter = ({ onChangeParams }) => {
   return (
     <div className={s.wrapper}>
