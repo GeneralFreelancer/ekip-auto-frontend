@@ -1,3 +1,5 @@
+@import "../../../../style/variables.scss";
+
 // Slider
 
 .each-slide-effect > div {
@@ -57,7 +59,6 @@
     > svg {
       fill: #ffffffa3;
     }
-
   }
 
   @media screen and (max-width: 1024px) {
@@ -113,3 +114,41 @@
   justify-content: flex-end;
 }
 
+// slider ImageGallery
+
+.fullScreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 100  !important;;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 55%;
+    height: 80%;
+  }
+}
+
+.image-gallery-left-nav .image-gallery-svg,
+.image-gallery-right-nav .image-gallery-svg {
+  height: 60px !important;
+  width: 30px !important;
+  polyline {
+    color: $lightGrey !important;
+  }
+ 
+}
+
+.image-gallery-bullets .image-gallery-bullet {
+  background-color: $lightGrey !important;
+  border: none !important;
+}
+
+.image-gallery.fullscreen-modal {
+  z-index: 100 !important;
+}

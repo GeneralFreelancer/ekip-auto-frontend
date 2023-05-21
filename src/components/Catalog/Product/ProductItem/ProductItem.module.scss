@@ -364,7 +364,7 @@
 .productItem_btn_setting {
   position: absolute;
   top: 72px;
-  right: 3px;
+  right: 13px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -389,7 +389,7 @@
 .productItem_btn_zoom {
   position: absolute;
   top: -38px;
-  right: -41px;
+  right: -77px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -408,6 +408,9 @@
     fill: $lightGrey;
     width: 30px;
     height: 30px;
+  }
+  @media screen and (max-width: 1280px) {
+    right: -40px;
   }
   @media screen and (max-width: 1024px) {
     display: none;
@@ -475,4 +478,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  img {
+    width: 55%;
+    height: 80%;
+  }
 }

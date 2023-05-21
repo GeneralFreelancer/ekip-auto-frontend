@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import s from "./ProductItem.module.scss";
 import "./ProductSlider.scss";
 import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
@@ -11,8 +11,11 @@ import { ReactComponent as Blackheart } from "../../../../assets/svg/black_heart
 import Plus from "../../../../assets/plus.png";
 import Minus from "../../../../assets/minus.png";
 import { NavLink, Link } from "react-router-dom";
-import { Slide } from "react-slideshow-image";
+// import { Slide } from "react-slideshow-image";
 // import axios from "axios";
+import ImageGallery from "react-image-gallery";
+import FullImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 const initialTitle = `ASUS 100500 G Arial- Black (G170-48) `;
 
@@ -84,6 +87,7 @@ const ProductItem = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(mockItems[2].minQuantity);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   useEffect(() => {
     function handleResize() {
@@ -96,9 +100,9 @@ const ProductItem = (props) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [viewportWidth]);
 
-  const handleZoomClick = () => {
-    setIsZoomed(!isZoomed);
-  };
+  // const handleZoomClick = (index) => {
+  //   setIsZoomed(!isZoomed);
+  // };
 
   const localStor = sessionStorage.getItem("role");
 
@@ -162,7 +166,6 @@ const ProductItem = (props) => {
     //   }
     // }
   };
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const handleSlideChange = (previousIndex, nextIndex) => {
     setCurrentSlideIndex(nextIndex);
@@ -193,6 +196,15 @@ const ProductItem = (props) => {
       });
     }
   }
+
+  const galleryExitRef = useRef(null);
+
+  const [imageSize, setImageSize] = useState(500);
+
+  const handleFullscreenClick = () => {
+    setIsZoomed(true);
+    setImageSize(700);
+  };
 
   return (
     <>
@@ -256,7 +268,7 @@ const ProductItem = (props) => {
 
           <div className={s.productItem_imgBlock}>
             <div className={s.productItem_image}>
-              {viewportWidth < 700 ? (
+              {/* {viewportWidth < 700 ? (
                 <Slide indicators={indicators} scale={1.4} {...properties}>
                   {images.map((image, index) => (
                     <div key={index} style={{ width: "100%", height: "100%" }}>
@@ -281,6 +293,7 @@ const ProductItem = (props) => {
                         width: "100%",
                         height: "500px",
                       }}
+                      onClick={handleZoomClick}
                     >
                       <img
                         style={{
@@ -295,19 +308,95 @@ const ProductItem = (props) => {
                     </div>
                   ))}
                 </Slide>
+              )} */}
+
+              {viewportWidth < 650 ? (
+                <ImageGallery
+                  showNav={false}
+                  showPlayButton={false}
+                  showFullscreenButton={false}
+                  showBullets={true}
+                  useBrowserFullscreen={false}
+                  items={images}
+                  renderItem={(image, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    >
+                      <img
+                        style={{
+                          objectFit: "contain",
+                          width: "100%",
+                          height: "100%",
+                          marginTop: "10px",
+                        }}
+                        alt="Slide img"
+                        src={image}
+                      />
+                    </div>
+                  )}
+                />
+              ) : (
+                <ImageGallery
+                  ref={galleryExitRef}
+                  showNav={true}
+                  showPlayButton={false}
+                  // showFullscreenButton={true}
+                  showBullets={true}
+                  useBrowserFullscreen={false}
+                  items={images}
+                  renderFullscreenButton={(onClick) => (
+                    <button
+                      className={s.productItem_btn_zoom}
+                      onClick={handleFullscreenClick}
+                    >
+                      <Zoom onClick={onClick} />
+                    </button>
+                  )}
+                  renderItem={(image, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        width: "100%",
+                        height: `${imageSize}px`,
+                      }}
+                    >
+                      <img
+                        onClick={() => {
+                          if (galleryExitRef.current) {
+                            galleryExitRef.current.exitFullScreen();
+                            setImageSize(500);
+                          }
+                        }}
+                        style={{
+                          objectFit: "contain",
+                          width: "100%",
+                          height: "95%",
+                          marginTop: "10px",
+                        }}
+                        alt="Slide img"
+                        src={image}
+                      />
+                    </div>
+                  )}
+                />
               )}
-              {isZoomed && (
+
+              {/* {isZoomed && (
                 <div className={s.fullScreen} onClick={handleZoomClick}>
                   <img alt="Zoomed img" src={images[currentSlideIndex]} />
                 </div>
-              )}
+              )} */}
             </div>
-            <button
+            {/* <button
               className={s.productItem_btn_zoom}
               onClick={handleZoomClick}
             >
               <Zoom />
-            </button>
+            </button> */}
           </div>
         </div>
 
