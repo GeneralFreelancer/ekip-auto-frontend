@@ -4,15 +4,15 @@
   display: flex;
   justify-content: space-between;
   gap: 50px;
-  height: 508px;
+  height: 435px;
   align-items: flex-end;
 
   @media screen and (max-width: 1024px) {
     justify-content: center;
-    height: 465px;
+    height: 392px;
   }
 
   @media screen and (max-width: 540px) {
-    height: 453px;
+    height: 380px;
   }
 }

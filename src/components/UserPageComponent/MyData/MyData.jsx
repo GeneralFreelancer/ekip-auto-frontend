@@ -3,7 +3,7 @@ import s from "./MyData.module.scss";
 import { useDispatch } from "react-redux";
 import { PatternFormat } from "react-number-format";
 import TextBlock from "../TextBlock/TextBlock";
-
+import { setUserData } from "../../../redux/features/userSlice";
 
 const MyData = () => {
   const [dataForm, setDataForm] = useState({
@@ -133,7 +133,18 @@ const MyData = () => {
         extraInfo: "",
       });
       setIsButtonDisabled(true);
-      // dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
+      dispatch(
+        setUserData({
+          name: dataForm.email,
+          surname: dataForm.surname,
+          fathername: dataForm.fathername,
+          phone: dataForm.phone,
+          email: dataForm.email,
+          deliveryPlace: dataForm.deliveryPlace,
+          deliveryAddress: dataForm.deliveryAddress,
+          extraInfo: dataForm.extraInfo,
+        })
+      );
 
       // try {
       //   const data = await axios.post('/api/auth/changeData', { ...dataForm })
@@ -153,6 +164,11 @@ const MyData = () => {
     validateChangeForm(e.target.name, e.target.value);
     if (passForm.newPassword && passForm.confirmPassword) {
       setIsBtnChangeDisabled(false);
+      dispatch(
+        setUserData({
+          newPassword: passForm.newPassword,
+        })
+      );
     }
   };
 
@@ -171,7 +187,7 @@ const MyData = () => {
 
   return (
     <>
-      <TextBlock/>
+      <TextBlock />
       <div className={s.form_content}>
         <form>
           <div className={s.form_block}>

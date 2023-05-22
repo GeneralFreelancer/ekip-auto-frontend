@@ -1,4 +1,5 @@
 import s from "./Filter.module.scss";
+import {ReactComponent as Arrow} from '../../../assets/svg/up-arrow.svg';
 
 import React from "react";
 
@@ -24,6 +25,7 @@ const Filter = ({ onChangeParams }) => {
             Дорожчі
           </option>
         </select>
+        <Arrow/>
       </div>
     </div>
   );

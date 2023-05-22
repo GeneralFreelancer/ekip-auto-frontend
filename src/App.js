@@ -2,18 +2,21 @@ import "./index.scss";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
-import { useSelector } from "react-redux";
-import { selectedUser } from "./redux/features/userSlice";
+// import { useSelector } from "react-redux";
+// import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Catalog from "./pages/Catalog";
-import Favorite from "./components/Favorite";
+import Favorite from "./components/Favorite/Favorite";
 import ProductItemPage from "./pages/ProductItemPage";
+import OrderList from "./components/UserPageComponent/Order/OrderList";
+import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetails";
 import AdminSliderPage from "./pages/AdminSliderPage";
 import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
+import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
 
 function App() {
-  const user = useSelector(selectedUser);
+  // const user = useSelector(selectedUser);
 
   return (
     <main>
@@ -43,9 +46,21 @@ function App() {
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
           <Route
+            path="order-history"
+            element={<OrderList />}
+          />
+          <Route
+            path='order-history-details'
+            element={<OrderDetails />}
+          />
+          <Route
             path="favorite"
             element={<Favorite />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
+          />
+          <Route
+            path='share-stocks'
+            element={<AdminShareStocksPage />}
           />
         </Route>
       </Routes>

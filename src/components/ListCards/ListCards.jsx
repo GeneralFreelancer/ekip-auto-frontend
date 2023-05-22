@@ -228,7 +228,7 @@ const properties = {
 const ListCards = ({
   title,
   showAll = false,
-  link,
+  link, // temp variable for backend
   items = cardsData,
   need_A_Slider = true,
 }) => {

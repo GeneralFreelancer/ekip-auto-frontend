@@ -1,0 +1,290 @@
+@import '../../../../style/variables.scss';
+
+td { 
+    border: 1px solid $tableBorder;
+}
+
+th {
+  border: 1px solid $tableBorder;
+  background-color: $lightGrey;
+}
+
+.order {
+  &__table{
+    &_number{
+      width: 100px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      @media screen and (max-width: 1310px) {
+        width: 90px;
+      }
+      @media screen and (max-width: 1070px) {
+        width: 10%;
+      }
+      @media screen and (max-width: 540px) {
+        height: 40px;
+        border-left: 2px solid $tableBorder;
+        border-right: 2px solid $tableBorder;
+      }
+    }
+    &_picture {
+      width: 188px;
+      text-align: center;
+      height: 70px;
+      @media screen and (max-width: 1310px) {
+        width: 120px;
+      }
+      @media screen and (max-width: 1070px) {
+        width: 25%;
+      }
+      @media screen and (max-width: 540px) {
+        height: 120px;
+        width: 100%;
+      }
+      & > div {
+        background-size: contain;
+        height: 65px;
+        background-repeat: no-repeat;
+        background-position: center;
+        min-width: 118px;
+        margin: auto;
+        @media screen and (max-width: 540px) {
+          height: 120px;
+          width: 100%;
+        }
+      }
+    }
+    &_title { 
+      width: 477px;
+      padding: 0 18px;
+      min-width: 171px;
+      height: 70px;
+      @media screen and (max-width: 1310px) {
+        width: 287px;
+      }
+      @media screen and (max-width: 1200px) {
+        width: 234px;
+      } 
+      @media screen and (max-width: 1070px) {
+        width: 55%;
+      }
+      @media screen and (max-width: 540px) {
+        height: 70px;
+        border-left: 2px solid $tableBorder;
+        border-right: 2px solid $tableBorder;
+      }
+      &_row1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+          text-transform: capitalize;
+          font-size: 20px;
+          font-weight: bold;
+          // @media screen and (max-width: 1310px) {
+          //   max-width: 195px;
+          //   overflow: hidden;
+          //   white-space: nowrap;
+          //   text-overflow: ellipsis;
+          // }
+        }
+        & > svg {
+          min-width: 15px;
+          height: 15px;
+          cursor: pointer;
+        }
+        .productItem_btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 3px;
+          margin-left: 5px;
+          width: 35px;
+          height: 35px;
+          outline: none;
+          border: 2px solid #bcbab5;
+          background-color: #f8f7f0;
+          border-radius: 7px;
+          box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+          cursor: pointer;
+          &:first-of-type > svg {
+            border: 2px solid;
+            border-radius: 50%;
+            padding: 2.5px;
+          }
+        }
+        
+        input {
+          width: 100%;
+          height: 20px;
+          font-size: 20px;
+          font-family: "Lato", sans-serif;
+          padding: 16px;
+          outline: none;
+          border: 2px solid #bcbab5;
+          background-color: #f8f7f0;
+          border-radius: 7px;
+          box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
+        }
+      }
+    }
+    &_weight {
+      width: 206px;
+      height: 70px;
+      padding: 0;
+      text-align: center;
+      @media screen and (max-width: 540px) {
+        height: 70px;
+        border-left: 2px solid $tableBorder;
+        width: 50%;
+      }
+      .weight {
+        height: 100%;
+        font-size: 22px;
+        font-weight: bold;
+      }
+    }
+    &_summaryPrice {
+      width: 160px;
+      height: 70px;
+      padding: 0;
+      text-align: center;
+      @media screen and (max-width: 540px) {
+        height: 70px;
+        border-left: 2px solid $tableBorder;
+        border-right: 2px solid $tableBorder;
+      }
+      & > div:nth-child(1) {
+        border-bottom: 1px solid $lightGrey;
+      }
+      & > div {
+        height: 50%;
+        background-color: #f2f2f2;
+      }
+      .nationalSummary{
+        height: 100%;
+        line-height: 1.45;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      .internationSummary {
+        height: 100%;
+        line-height: 2;
+      }
+    }
+    &_paid{
+      width: 135px;
+      height:70px;
+      padding: 0;
+      position: relative;
+      @media screen and (max-width: 1200px) {
+        width: 121px;
+      }
+      @media screen and (max-width: 540px) {
+        height: 70px;
+        border-right: 2px solid $tableBorder;
+        width: 50%;
+      }
+      .paidIconTrue {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background-image: url('../../../../assets/svg/Tick.svg');
+        background-color: #f2f2f2;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 50px;
+      }
+      .paidIconFalse {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background-image: url('../../../../assets/svg/cross.svg');
+        background-color: #f2f2f2;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 40px;
+      }
+    }
+    
+    &_riderect {
+      a {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      @media screen and (min-width: 1070px) {
+        border: none;
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          height: 1px;
+          width: 40px;
+          top: -0.5px;
+          left: 0;
+          background-color: $tableBorder;
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          height: 2px;
+          width: 40px;
+          bottom: -1px;
+          left: 0;
+          background-color: $tableBorder;
+        }
+        .iconRiderect {
+          position: absolute;
+          display: block;
+          width: 70px;
+          height: 70px;
+          z-index: 2;
+          background-image: url('../../../../assets/svg/share.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 25px 25px;
+          cursor: pointer;
+          &:hover {
+            background-color: #f2f2f2;
+          }
+        }
+      }
+      &_middle {
+        position: relative;
+        width: 10%;
+        border-right: 2px solid $tableBorder;
+        @media screen and (max-width: 540px) {
+          height: 70px;
+          border: 2px solid $tableBorder;
+          border-top: 1px solid $tableBorder;
+        }
+        .iconRiderect {
+          position: absolute;
+          display: block;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+          background-image: url('../../../../assets/svg/share.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 25px 25px;
+          cursor: pointer;
+          top: 0;
+          &:hover {
+            background-color: #f2f2f2;
+          }
+      }
+    }   
+  }
+}
+}
+    

@@ -10,7 +10,7 @@ import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
 import { ReactComponent as Blackheart } from "../../../../assets/svg/black_heart.svg";
 import Plus from "../../../../assets/plus.png";
 import Minus from "../../../../assets/minus.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
 // import axios from "axios";
 
@@ -28,7 +28,7 @@ const ProductItem = (props) => {
   const [title, setTitle] = useState(initialTitle);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [quantity, setQuantity] = useState(500);
+  const [quantity, setQuantity] = useState(1);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -70,11 +70,20 @@ const ProductItem = (props) => {
   };
 
   const handleMinusClick = () => {
-    setQuantity(quantity - 1);
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
   };
 
   const handlePlusClick = () => {
-    setQuantity(quantity + 1);
+    if (quantity >= 1) {
+      setQuantity((prevQuantity) => Number(prevQuantity) + Number(1));
+    }
+  };
+
+  const handleChangeQuantity = (e) => {
+    const cleanedValue = e.target.value.replace(/\D/g, "");
+    setQuantity(cleanedValue);
   };
 
   const handleFavouriteClick = async () => {
@@ -99,9 +108,9 @@ const ProductItem = (props) => {
     transitionDuration: 500,
     infinite: false,
     indicators: true,
-    arrows: false,
+    arrows: true,
     autoplay: false,
-    // canSwipe: false,
+    canSwipe: true,
     onChange: handleSlideChange,
   };
 
@@ -110,12 +119,30 @@ const ProductItem = (props) => {
     return <div className="indicator">{index + 1}</div>;
   };
 
+  function scrollToAnchor(anchorId) {
+    const element = document.getElementById(anchorId);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop,
+        behavior: "smooth",
+      });
+    }
+  }
+
   return (
     <>
       <div className={s.productItem_menu}>
-        <a href="#mainInfo"> Основна інформація</a>
-        <a href="#characteristic"> Характеристики</a>
-        <a href="#pack"> Характеристики пакування</a>
+        <Link to="#" onClick={() => scrollToAnchor("mainInfo")}>
+          Основна інформація
+        </Link>
+        <Link to="#" onClick={() => scrollToAnchor("characteristic")}>
+          {" "}
+          Характеристики
+        </Link>
+        <Link to="#" onClick={() => scrollToAnchor("pack")}>
+          {" "}
+          Характеристики пакування
+        </Link>
       </div>
       <div className={s.productItem_block}>
         <div className={s.productItem_block_image}>
@@ -174,7 +201,7 @@ const ProductItem = (props) => {
                         style={{
                           objectFit: "contain",
                           width: "100%",
-                          height: "103%",
+                          height: "100%",
                         }}
                         alt="Slide img"
                         src={image}
@@ -207,29 +234,8 @@ const ProductItem = (props) => {
                 </Slide>
               )}
               {isZoomed && (
-                <div
-                  style={{
-                    height: "100vh",
-                    position: "absolute",
-                    top: 0,
-                    right: -130,
-                    bottom: 0,
-                    left: 0,
-                    zIndex: 1,
-                    display: "flex",
-                  }}
-                >
-                  <img
-                    style={{
-                      maxWidth: "120%",
-                      maxHeight: "120%",
-                      objectFit: "contain",
-                      // marginTop: "5px",
-                      paddingBottom: "125px",
-                    }}
-                    alt="Zoomed img"
-                    src={images[currentSlideIndex]}
-                  />
+                <div className={s.fullScreen} onClick={handleZoomClick}>
+                  <img alt="Zoomed img" src={images[currentSlideIndex]} />
                 </div>
               )}
             </div>
@@ -270,7 +276,11 @@ const ProductItem = (props) => {
                 <div className={s.minus} onClick={handleMinusClick}>
                   <img src={Minus} alt="minus" />
                 </div>
-                <div className={s.productItem_quantity_info}>{quantity}</div>
+                <input
+                  onChange={handleChangeQuantity}
+                  className={s.productItem_quantity_info}
+                  value={quantity}
+                />
                 <div className={s.plus} onClick={handlePlusClick}>
                   <img src={Plus} alt="plus" />
                 </div>

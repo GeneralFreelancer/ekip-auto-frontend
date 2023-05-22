@@ -46,7 +46,7 @@ const CategoryItem = (props) => {
         className={s.menu__content} onMouseMove={handleMouseMove}>
           {props.data.map(({ id, title, subCategory}, i) => ( 
             <Link
-              key={`${title}_${id}`}
+              key={id}
               id={id}
               className={isActive && id === catId ? `${s.menu__content__link} ${s.activeCategory}` : s.menu__content__link}
               to={`/${translit(title)}`}
