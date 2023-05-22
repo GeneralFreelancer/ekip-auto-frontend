@@ -472,7 +472,7 @@ const CatalogComponents = ({ title }) => {
             need_A_Slider={false}
           />
         </div>
-        <div>
+        <div className="bottom">
           <Pagination
             className="pagination-data"
             onChange={PaginationChange}
