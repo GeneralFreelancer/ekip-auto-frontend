@@ -7,7 +7,7 @@ import UserPage from "./pages/UserPage";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Catalog from "./pages/Catalog";
-import Favorite from "./components/Favorite/Favorite";
+import Favorite from "./components/Favorite";
 import ProductItemPage from "./pages/ProductItemPage";
 import OrderList from "./components/UserPageComponent/Order/OrderList";
 import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetails";
@@ -24,14 +24,20 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="admin_slider" element={<AdminSliderPage />} />
         <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
+        <Route path="ostannі-nadkhodzhennya" element={<Catalog />} />
+        <Route path="ostannі-pereglyanutі" element={<Catalog />} />
+        <Route path="top-prodazhu" element={<Catalog />} />
+        <Route path="vas-mozhe-zatsіkaviti" element={<Catalog />} />
 
-        <Route path="/catalog" element={<Catalog />} />
-        {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} />
-        </Route> */}
+        {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} /> */}
+        
         <Route
-          path="/catalog/category/subcategory/:id"
+          path="ostannі-nadkhodzhennya/:id"
           element={<ProductItemPage />}
         />
+        <Route path="ostannі-pereglyanutі/:id" element={<ProductItemPage />} />
+        <Route path="vas-mozhe-zatsіkaviti/:id" element={<ProductItemPage />} />
+        <Route path="top-prodazhu/:id" element={<ProductItemPage />} />
 
         <Route path="myprofile" element={<UserPage />}>
           <Route
@@ -45,23 +51,14 @@ function App() {
             element={<Cart />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
-          <Route
-            path="order-history"
-            element={<OrderList />}
-          />
-          <Route
-            path='order-history-details'
-            element={<OrderDetails />}
-          />
+          <Route path="order-history" element={<OrderList />} />
+          <Route path="order-history-details" element={<OrderDetails />} />
           <Route
             path="favorite"
             element={<Favorite />}
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
-          <Route
-            path='share-stocks'
-            element={<AdminShareStocksPage />}
-          />
+          <Route path="share-stocks" element={<AdminShareStocksPage />} />
         </Route>
       </Routes>
     </>

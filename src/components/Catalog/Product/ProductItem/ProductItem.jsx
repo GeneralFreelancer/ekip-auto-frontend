@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import s from "./ProductItem.module.scss";
 import "./ProductSlider.scss";
 import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
@@ -11,8 +11,10 @@ import { ReactComponent as Blackheart } from "../../../../assets/svg/black_heart
 import Plus from "../../../../assets/plus.png";
 import Minus from "../../../../assets/minus.png";
 import { NavLink, Link } from "react-router-dom";
-import { Slide } from "react-slideshow-image";
+// import { Slide } from "react-slideshow-image";
 // import axios from "axios";
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 const initialTitle = `ASUS 100500 G Arial- Black (G170-48) `;
 
@@ -22,14 +24,69 @@ const images = [
   "https://files.foxtrot.com.ua/PhotoNew/img_0_977_4158_1.jpg",
 ];
 
+const mockItems = [
+  {
+    id: "1",
+    category: "category",
+    title: "Назва товаруНазва товаруНазва товару",
+    description: "lorem",
+    options: [],
+    deliveryOptions: [],
+    SKU: "number1212sdsd",
+    favorite: false,
+    price: [1000, 100],
+    minQuantity: 100,
+    stock: true,
+    image: [
+      "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
+    ],
+    quantity: 500,
+  },
+  {
+    id: "2",
+    category: "category",
+    title: "Назва товару",
+    description: "lorem",
+    options: [],
+    deliveryOptions: [],
+    SKU: "number12sdsd",
+    favorite: true,
+    price: [15000, 120],
+    minQuantity: 100,
+    stock: true,
+    image: [
+      "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
+    ],
+    quantity: 600,
+  },
+  {
+    id: "3",
+    category: "category",
+    title: "Назва товару",
+    description: "lorem",
+    options: [],
+    deliveryOptions: [],
+    SKU: "number11sdsd",
+    favorite: false,
+    price: [10000, 160],
+    minQuantity: 50,
+    stock: true,
+    image: [
+      "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
+    ],
+    quantity: 200,
+  },
+];
+
 const ProductItem = (props) => {
   const [role, setRole] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [title, setTitle] = useState(initialTitle);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(mockItems[2].minQuantity);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  // const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   useEffect(() => {
     function handleResize() {
@@ -42,9 +99,9 @@ const ProductItem = (props) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [viewportWidth]);
 
-  const handleZoomClick = () => {
-    setIsZoomed(!isZoomed);
-  };
+  // const handleZoomClick = (index) => {
+  //   setIsZoomed(!isZoomed);
+  // };
 
   const localStor = sessionStorage.getItem("role");
 
@@ -70,21 +127,29 @@ const ProductItem = (props) => {
   };
 
   const handleMinusClick = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
+    if (quantity > mockItems[2].minQuantity) {
+      setQuantity((prevQuantity) =>
+        Math.max(prevQuantity - mockItems[2].minQuantity, 50)
+      );
     }
   };
 
   const handlePlusClick = () => {
-    if (quantity >= 1) {
-      setQuantity((prevQuantity) => Number(prevQuantity) + Number(1));
+    if (quantity >= mockItems[2].minQuantity) {
+      setQuantity(
+        (prevQuantity) =>
+          Number(prevQuantity) + Number(mockItems[2].minQuantity)
+      );
     }
   };
 
-  const handleChangeQuantity = (e) => {
-    const cleanedValue = e.target.value.replace(/\D/g, "");
-    setQuantity(cleanedValue);
-  };
+  // const handleChangeQuantity = (e) => {
+  //   const cleanedValue = e.target.value.replace(/\D/g, "");
+  //   if (cleanedValue < mockItems[2].minQuantity) {
+  //     console.log("Мінімальна кількість товару: " + mockItems[2].minQuantity);
+  //   }
+  //   setQuantity(cleanedValue);
+  // };
 
   const handleFavouriteClick = async () => {
     setIsFavorite(!isFavorite);
@@ -97,27 +162,26 @@ const ProductItem = (props) => {
     //   }
     // }
   };
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
-  const handleSlideChange = (previousIndex, nextIndex) => {
-    setCurrentSlideIndex(nextIndex);
-  };
+  // const handleSlideChange = (previousIndex, nextIndex) => {
+  //   setCurrentSlideIndex(nextIndex);
+  // };
 
-  const properties = {
-    // duration: 5000,
-    transitionDuration: 500,
-    infinite: false,
-    indicators: true,
-    arrows: true,
-    autoplay: false,
-    canSwipe: true,
-    onChange: handleSlideChange,
-  };
+  // const properties = {
+  //   // duration: 5000,
+  //   transitionDuration: 500,
+  //   infinite: false,
+  //   indicators: true,
+  //   arrows: true,
+  //   autoplay: false,
+  //   canSwipe: true,
+  //   onChange: handleSlideChange,
+  // };
 
-  const indicators = (index) => {
-    console.log(index);
-    return <div className="indicator">{index + 1}</div>;
-  };
+  // const indicators = (index) => {
+  //   console.log(index);
+  //   return <div className="indicator">{index + 1}</div>;
+  // };
 
   function scrollToAnchor(anchorId) {
     const element = document.getElementById(anchorId);
@@ -129,6 +193,15 @@ const ProductItem = (props) => {
     }
   }
 
+  const galleryExitRef = useRef(null);
+
+  const [imageSize, setImageSize] = useState("500px");
+
+  const handleFullscreenClick = () => {
+    setIsZoomed(true);
+    setImageSize("100vh");
+  };
+
   return (
     <>
       <div className={s.productItem_menu}>
@@ -136,11 +209,9 @@ const ProductItem = (props) => {
           Основна інформація
         </Link>
         <Link to="#" onClick={() => scrollToAnchor("characteristic")}>
-          {" "}
           Характеристики
         </Link>
         <Link to="#" onClick={() => scrollToAnchor("pack")}>
-          {" "}
           Характеристики пакування
         </Link>
       </div>
@@ -193,33 +264,89 @@ const ProductItem = (props) => {
 
           <div className={s.productItem_imgBlock}>
             <div className={s.productItem_image}>
-              {viewportWidth < 700 ? (
-                <Slide indicators={indicators} scale={1.4} {...properties}>
-                  {images.map((image, index) => (
-                    <div key={index} style={{ width: "100%", height: "100%" }}>
+              {viewportWidth < 650 ? (
+                <ImageGallery
+                  showNav={false}
+                  showPlayButton={false}
+                  showFullscreenButton={false}
+                  showBullets={true}
+                  useBrowserFullscreen={false}
+                  items={images}
+                  renderItem={(image, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        width: "100%",
+                        height: "300px",
+                        // height: "100%",
+                      }}
+                    >
                       <img
                         style={{
                           objectFit: "contain",
                           width: "100%",
                           height: "100%",
+                          marginTop: "10px",
                         }}
                         alt="Slide img"
                         src={image}
                       />
                     </div>
-                  ))}
-                </Slide>
+                  )}
+                />
               ) : (
-                <Slide indicators={indicators} scale={1.4} {...properties}>
-                  {images.map((image, index) => (
+                <ImageGallery
+                  ref={galleryExitRef}
+                  showNav={true}
+                  showPlayButton={false}
+                  // showFullscreenButton={true}
+                  showBullets={true}
+                  useBrowserFullscreen={false}
+                  items={images}
+                  renderFullscreenButton={(onClick) => (
+                    <button
+                      className={s.productItem_btn_zoom}
+                      onClick={handleFullscreenClick}
+                    >
+                      <Zoom onClick={onClick} />
+                    </button>
+                  )}
+                  renderItem={(image, index) => (
                     <div
                       key={index}
                       style={{
                         width: "100%",
-                        height: "500px",
+                        height: `${imageSize}`,
+                        position: "relative",
                       }}
                     >
+                      {isZoomed ? null : (
+                        <span
+                          style={{
+                            width: "100%",
+                            height: "90%",
+                            position: "absolute",
+                            top: "0px",
+                            left: "0px",
+                          }}
+                          onClick={() => {
+                            if (galleryExitRef.current) {
+                              galleryExitRef.current.fullScreen();
+                              setImageSize("100vh");
+                              setIsZoomed(true);
+                            }
+                          }}
+                        ></span>
+                      )}
+
                       <img
+                        onClick={() => {
+                          if (galleryExitRef.current) {
+                            galleryExitRef.current.exitFullScreen();
+                            setImageSize("500px");
+                            setIsZoomed(false);
+                          }
+                        }}
                         style={{
                           objectFit: "contain",
                           width: "100%",
@@ -230,21 +357,10 @@ const ProductItem = (props) => {
                         src={image}
                       />
                     </div>
-                  ))}
-                </Slide>
-              )}
-              {isZoomed && (
-                <div className={s.fullScreen} onClick={handleZoomClick}>
-                  <img alt="Zoomed img" src={images[currentSlideIndex]} />
-                </div>
+                  )}
+                />
               )}
             </div>
-            <button
-              className={s.productItem_btn_zoom}
-              onClick={handleZoomClick}
-            >
-              <Zoom />
-            </button>
           </div>
         </div>
 
@@ -262,7 +378,7 @@ const ProductItem = (props) => {
               <p>150.99 &#65284;/шт</p>
             </div>
             <div>
-              <p>Мінімальне замовлення від: 500 шт.</p>
+              <p>Мінімальне замовлення від: {mockItems[2].minQuantity} шт.</p>
               <div className={s.productItem_info}>
                 <p>Залишок на складі:</p>
                 <button className={s.productItem_btn_ask}>
@@ -276,11 +392,12 @@ const ProductItem = (props) => {
                 <div className={s.minus} onClick={handleMinusClick}>
                   <img src={Minus} alt="minus" />
                 </div>
-                <input
-                  onChange={handleChangeQuantity}
+                <span
+                  // onChange={handleChangeQuantity}
                   className={s.productItem_quantity_info}
-                  value={quantity}
-                />
+                >
+                  {quantity}
+                </span>
                 <div className={s.plus} onClick={handlePlusClick}>
                   <img src={Plus} alt="plus" />
                 </div>
