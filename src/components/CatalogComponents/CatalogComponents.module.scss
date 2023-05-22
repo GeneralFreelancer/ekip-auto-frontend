@@ -24,6 +24,11 @@
     margin-bottom: 50px;
 
     margin-left: 40px;
+    @media screen and (max-width: 782px) {
+      margin-bottom: 30px;
+
+      margin-left: 0;
+    }
   }
 
   .wrapperListCards {
