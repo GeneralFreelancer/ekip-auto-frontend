@@ -141,6 +141,10 @@ const TableBodyMobile = (props) => {
             ></span>
           </td>
         </tr>
+        <br />
+        <br />
+        <br />
+        <br />
       </React.Fragment>
     )
   );

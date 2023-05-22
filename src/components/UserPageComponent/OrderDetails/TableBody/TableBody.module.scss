@@ -1,32 +1,33 @@
 @import '../../../../style/variables.scss';
 
-td { 
-  @media screen and (min-width: 1024px) {
-    border: 1px solid $tableBorder;
-    border-bottom: 2px solid $tableBorder;
-  }
-  @media screen and (max-width: 1023px) {
-    border: 1px solid $tableBorder;
-    border-bottom: 2px solid $tableBorder;
-  }
-}
 
-th {
-  border-top: 2px solid $tableBorder;
-  border-bottom: 1px solid $tableBorder;
-  border-right: 1px solid $tableBorder;
-  background-color: $lightGrey;
-}
-th:first-of-type {
-  border-left: 2px solid $tableBorder;
-  border-right: 1px solid $tableBorder;
-}
-th:last-of-type {
-  border-right: 2px solid $tableBorder;
-}
 
 
 .orderDetails {
+  td { 
+    @media screen and (min-width: 1024px) {
+      border: 1px solid $tableBorder;
+      border-bottom: 2px solid $tableBorder;
+    }
+    @media screen and (max-width: 1023px) {
+      border: 1px solid $tableBorder;
+      border-bottom: 2px solid $tableBorder;
+    }
+  }
+  
+  th {
+    border-top: 2px solid $tableBorder;
+    border-bottom: 1px solid $tableBorder;
+    border-right: 1px solid $tableBorder;
+    background-color: $lightGrey;
+  }
+  th:first-of-type {
+    border-left: 2px solid $tableBorder;
+    border-right: 1px solid $tableBorder;
+  }
+  th:last-of-type {
+    border-right: 2px solid $tableBorder;
+  }
   &__table{
     &_number{
       width: 70px;
