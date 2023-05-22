@@ -221,7 +221,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 3px;
+    padding: 0 4px;
     height: 25px;
     outline: none;
     border: 2px solid $lightGrey;
@@ -230,6 +230,13 @@
     text-transform: uppercase;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
     cursor: pointer;
+ 
+    &:hover {
+      background-color: $hardGrey;
+      color: $lightWhite;
+      border: none;
+      box-shadow: none;
+    }
   }
   @media screen and (max-width: 1024px) {
     align-items: center;
