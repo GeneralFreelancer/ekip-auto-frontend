@@ -18,7 +18,7 @@ const MobileMenu = (props) => {
 
   const onClickNavigate = () => {
     if (user.isLoggedIn || user.isRegistered) {
-      navigate("/myprofile");
+      navigate("/myprofile/favorite");
     }
   };
 

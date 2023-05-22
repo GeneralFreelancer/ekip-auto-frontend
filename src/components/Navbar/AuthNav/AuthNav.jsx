@@ -65,7 +65,7 @@ const AuthNav = (props) => {
         />
         {showModal && (
           <ul className={style.list}>
-            <Link className={style.item} to={"/myprofile/favorite"}>
+            <Link className={style.item} to={"/myprofile/mydata"}>
               <li>Моя сторінка</li>
             </Link>
             <Link className={style.item} to={"/myprofile/order-history"}>
