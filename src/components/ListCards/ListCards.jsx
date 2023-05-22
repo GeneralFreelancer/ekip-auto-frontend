@@ -376,7 +376,11 @@ const ListCards = ({
           </div>
         ) : need_A_Slider ? (
           <div className="wrapperSlider sliderCard">
-            {title && <h2 className={style.titleCategory}>{title} :</h2>}
+            {title && (
+              <NavLink to={`${translit(title)}`}>
+                <h2 className={style.titleCategory}>{title} :</h2>
+              </NavLink>
+            )}
             <Slide {...properties}>
               {cards.map(
                 ({ id, imgUrl, title, priceUAH, priseUSD, inStock }, index) => (
