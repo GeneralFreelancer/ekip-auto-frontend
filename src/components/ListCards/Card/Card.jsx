@@ -30,7 +30,8 @@ const Card = ({
         className={style.clickArea}
         id={id}
         onClick={(e) => {
-          navigate("category/subcategory/:id");
+          navigate("subcategory/:id");
+          window.scrollTo(0, 0);
           console.log(e.target.id); /**add riderect link */
         }}
       ></span>

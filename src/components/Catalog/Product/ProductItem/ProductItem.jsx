@@ -14,7 +14,6 @@ import { NavLink, Link } from "react-router-dom";
 // import { Slide } from "react-slideshow-image";
 // import axios from "axios";
 import ImageGallery from "react-image-gallery";
-import FullImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 
 const initialTitle = `ASUS 100500 G Arial- Black (G170-48) `;
@@ -87,7 +86,7 @@ const ProductItem = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(mockItems[2].minQuantity);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  // const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   useEffect(() => {
     function handleResize() {
@@ -144,16 +143,13 @@ const ProductItem = (props) => {
     }
   };
 
-  const handleChangeQuantity = (e) => {
-    const cleanedValue = e.target.value.replace(/\D/g, "");
-
-    if (cleanedValue < mockItems[2].minQuantity) {
-      console.log("Мінімальна кількість товару: " + mockItems[2].minQuantity);
-      // return; // Зупинити оновлення стану, якщо введена кількість менша за мінімальну
-    }
-
-    setQuantity(cleanedValue);
-  };
+  // const handleChangeQuantity = (e) => {
+  //   const cleanedValue = e.target.value.replace(/\D/g, "");
+  //   if (cleanedValue < mockItems[2].minQuantity) {
+  //     console.log("Мінімальна кількість товару: " + mockItems[2].minQuantity);
+  //   }
+  //   setQuantity(cleanedValue);
+  // };
 
   const handleFavouriteClick = async () => {
     setIsFavorite(!isFavorite);
@@ -167,25 +163,25 @@ const ProductItem = (props) => {
     // }
   };
 
-  const handleSlideChange = (previousIndex, nextIndex) => {
-    setCurrentSlideIndex(nextIndex);
-  };
+  // const handleSlideChange = (previousIndex, nextIndex) => {
+  //   setCurrentSlideIndex(nextIndex);
+  // };
 
-  const properties = {
-    // duration: 5000,
-    transitionDuration: 500,
-    infinite: false,
-    indicators: true,
-    arrows: true,
-    autoplay: false,
-    canSwipe: true,
-    onChange: handleSlideChange,
-  };
+  // const properties = {
+  //   // duration: 5000,
+  //   transitionDuration: 500,
+  //   infinite: false,
+  //   indicators: true,
+  //   arrows: true,
+  //   autoplay: false,
+  //   canSwipe: true,
+  //   onChange: handleSlideChange,
+  // };
 
-  const indicators = (index) => {
-    console.log(index);
-    return <div className="indicator">{index + 1}</div>;
-  };
+  // const indicators = (index) => {
+  //   console.log(index);
+  //   return <div className="indicator">{index + 1}</div>;
+  // };
 
   function scrollToAnchor(anchorId) {
     const element = document.getElementById(anchorId);
@@ -199,11 +195,11 @@ const ProductItem = (props) => {
 
   const galleryExitRef = useRef(null);
 
-  const [imageSize, setImageSize] = useState(500);
+  const [imageSize, setImageSize] = useState("500px");
 
   const handleFullscreenClick = () => {
     setIsZoomed(true);
-    setImageSize(700);
+    setImageSize("100vh");
   };
 
   return (
@@ -268,48 +264,6 @@ const ProductItem = (props) => {
 
           <div className={s.productItem_imgBlock}>
             <div className={s.productItem_image}>
-              {/* {viewportWidth < 700 ? (
-                <Slide indicators={indicators} scale={1.4} {...properties}>
-                  {images.map((image, index) => (
-                    <div key={index} style={{ width: "100%", height: "100%" }}>
-                      <img
-                        style={{
-                          objectFit: "contain",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                        alt="Slide img"
-                        src={image}
-                      />
-                    </div>
-                  ))}
-                </Slide>
-              ) : (
-                <Slide indicators={indicators} scale={1.4} {...properties}>
-                  {images.map((image, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        width: "100%",
-                        height: "500px",
-                      }}
-                      onClick={handleZoomClick}
-                    >
-                      <img
-                        style={{
-                          objectFit: "contain",
-                          width: "100%",
-                          height: "95%",
-                          marginTop: "10px",
-                        }}
-                        alt="Slide img"
-                        src={image}
-                      />
-                    </div>
-                  ))}
-                </Slide>
-              )} */}
-
               {viewportWidth < 650 ? (
                 <ImageGallery
                   showNav={false}
@@ -323,7 +277,8 @@ const ProductItem = (props) => {
                       key={index}
                       style={{
                         width: "100%",
-                        height: "100%",
+                        height: "300px",
+                        // height: "100%",
                       }}
                     >
                       <img
@@ -361,14 +316,35 @@ const ProductItem = (props) => {
                       key={index}
                       style={{
                         width: "100%",
-                        height: `${imageSize}px`,
+                        height: `${imageSize}`,
+                        position: "relative",
                       }}
                     >
+                      {isZoomed ? null : (
+                        <span
+                          style={{
+                            width: "100%",
+                            height: "90%",
+                            position: "absolute",
+                            top: "0px",
+                            left: "0px",
+                          }}
+                          onClick={() => {
+                            if (galleryExitRef.current) {
+                              galleryExitRef.current.fullScreen();
+                              setImageSize("100vh");
+                              setIsZoomed(true);
+                            }
+                          }}
+                        ></span>
+                      )}
+
                       <img
                         onClick={() => {
                           if (galleryExitRef.current) {
                             galleryExitRef.current.exitFullScreen();
-                            setImageSize(500);
+                            setImageSize("500px");
+                            setIsZoomed(false);
                           }
                         }}
                         style={{
@@ -384,19 +360,7 @@ const ProductItem = (props) => {
                   )}
                 />
               )}
-
-              {/* {isZoomed && (
-                <div className={s.fullScreen} onClick={handleZoomClick}>
-                  <img alt="Zoomed img" src={images[currentSlideIndex]} />
-                </div>
-              )} */}
             </div>
-            {/* <button
-              className={s.productItem_btn_zoom}
-              onClick={handleZoomClick}
-            >
-              <Zoom />
-            </button> */}
           </div>
         </div>
 
@@ -428,11 +392,12 @@ const ProductItem = (props) => {
                 <div className={s.minus} onClick={handleMinusClick}>
                   <img src={Minus} alt="minus" />
                 </div>
-                <input
-                  onChange={handleChangeQuantity}
+                <span
+                  // onChange={handleChangeQuantity}
                   className={s.productItem_quantity_info}
-                  value={quantity}
-                />
+                >
+                  {quantity}
+                </span>
                 <div className={s.plus} onClick={handlePlusClick}>
                   <img src={Plus} alt="plus" />
                 </div>

@@ -25,11 +25,9 @@ function App() {
         <Route path="admin_slider" element={<AdminSliderPage />} />
         <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
 
-        <Route path="catalog" element={<Catalog />} />
-        {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} />
-        </Route> */}
+        <Route path="category" element={<Catalog />} />
         <Route
-          path="catalog/category/subcategory/:id"
+          path="category/subcategory/:id"
           element={<ProductItemPage />}
         />
 

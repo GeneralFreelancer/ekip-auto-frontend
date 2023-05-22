@@ -174,8 +174,10 @@
     align-items: center;
     gap: 12px;
     &_info {
-      text-align: center;
-      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
       margin-top: 5px;
       width: 68px;
       height: 31px;
@@ -436,7 +438,7 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  @media screen and (min-width:  562px) and (max-width: 1024px) {
+  @media screen and (min-width: 562px) and (max-width: 1024px) {
     position: absolute;
     right: 15px;
   }
