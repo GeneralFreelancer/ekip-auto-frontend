@@ -3,7 +3,6 @@ import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
 import { ReactComponent as BalckHeart } from "../../../../assets/svg/black_heart.svg";
 
 const TableBody = (props) => {
-  
   return props.data.map(
     ({ id, title, favorite, SKU, price, minQuantity, image, quantity }, i) => (
       <tr key={i + 1}>
@@ -54,7 +53,28 @@ const TableBody = (props) => {
             </p>
           </div>
           <div>
-            <input min={0} type="number" defaultValue={quantity} />
+            <span className={style.inputDisable}>
+              <span className={style.navigationWrapper}>
+                <span
+                  onClick={(e) => {
+                    const id = e.target.dataset.id,
+                      btnType = e.target.dataset.name;
+                    props.changeQuantity(id, btnType);
+                  }}
+                  className={style.itemUp}
+                  data-name={"up"}
+                  data-id={id}
+                ></span>
+                <span className={style.itemDown} data-name={"down"}></span>
+              </span>
+            </span>
+            <input
+              id={id}
+              min={minQuantity}
+              type="number"
+              value={quantity}
+              readOnly={true}
+            />
             <p>шт.</p>
           </div>
         </td>

@@ -28,7 +28,7 @@ const Footer = (props) => {
   };
 
   return (
-    <footer>
+    <>
       <div className={s.container__footer}>
         <p className={s.text}>Ekip-Auto. All rights reserved.</p>
         <div className={s.exchageContainer}>
@@ -71,7 +71,7 @@ const Footer = (props) => {
           <p className={s.text}>2001-2023</p>
         </div>
       </div>
-    </footer>
+    </>
   );
 };
 export default Footer;

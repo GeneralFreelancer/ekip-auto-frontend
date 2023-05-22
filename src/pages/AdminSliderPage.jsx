@@ -29,11 +29,9 @@ const AdminSliderPage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <section>
-        <MainContainer>
-          <AdminComponentsSlider />
-        </MainContainer>
-      </section>
+      <MainContainer>
+        <AdminComponentsSlider />
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} />

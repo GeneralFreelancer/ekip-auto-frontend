@@ -29,11 +29,9 @@ const AdminProductPhotoPage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <section>
-        <MainContainer>
-          <AdminComponentsProductPhoto />
-        </MainContainer>
-      </section>
+      <MainContainer>
+        <AdminComponentsProductPhoto />
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} />

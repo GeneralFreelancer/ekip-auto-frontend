@@ -31,15 +31,13 @@ const ProductItemPage = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <section>
-        <MainContainer>
-          {/* <Outlet/> */}
-          <Product />
-          <div style={{paddingTop: '30px'}}>
-            <ListCards title={"Вас може зацікавити"} />
-          </div>
-        </MainContainer>
-      </section>
+      <MainContainer>
+        {/* <Outlet/> */}
+        <Product />
+        <div style={{paddingTop: '30px'}}>
+          <ListCards title={"Вас може зацікавити"} />
+        </div>
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} />

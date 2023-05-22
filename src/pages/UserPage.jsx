@@ -30,11 +30,9 @@ export default function UserPage() {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <section>
-        <MainContainer>
-          <UserPageComponent />
-        </MainContainer>
-      </section>
+      <MainContainer>
+        <UserPageComponent />
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
       <Footer />

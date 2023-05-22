@@ -60,25 +60,3 @@
     display: block;
     top: 0;
   }
-
-  /* width */
-::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 6px
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}

@@ -51,7 +51,7 @@ const TableBody = (props) => {
                   : 
                   (
                   <>
-                    <input type="text" defaultValue={title}/>
+                    <input type="text" defaultValue={title} step={100}/>
                     <button
                       className={style.productItem_btn}
                       onClick={handleCancelClick}

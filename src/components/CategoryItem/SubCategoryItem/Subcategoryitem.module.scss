@@ -30,7 +30,7 @@
     &__subContent {
     position: absolute;
     width: 330px;
-    height: 445px;
+    max-height: 445px;
     background: $hardGrey;
     right: -330px;
     border: 1px solid $lightWhite;

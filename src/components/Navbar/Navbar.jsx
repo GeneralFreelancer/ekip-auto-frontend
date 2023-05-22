@@ -22,7 +22,7 @@ const Navbar = (props) => {
   }, []);
 
   return (
-    <section>
+    <>
       <div className={style.wrapper}>
         <div className={style.container}>
           <MenuHamburger onShowModal={props.onShowModal} />
@@ -33,7 +33,7 @@ const Navbar = (props) => {
           {desktopV && <AuthNav onShowModal={props.onShowModal} />}
         </div>
       </div>
-    </section>
+    </>
   );
 };
 export default Navbar;

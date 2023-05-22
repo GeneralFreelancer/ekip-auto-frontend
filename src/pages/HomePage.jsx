@@ -25,20 +25,18 @@ const HomePage = () => {
   const hideModalHandler = () => {
     setModalIsVisible(false);
   };
-
+  
   return (
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <section>
         <MainContainer>
           <SideBarSlider />
           <ListCards title={"Останні надходження"} />
           <ListCards title={"Топ продажу"} />
           <ListCards title={"Останні переглянуті"} />
           <ListCards title={"Вас може зацікавити"} />
-        </MainContainer>
-      </section>
+        </MainContainer> 
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} /> 

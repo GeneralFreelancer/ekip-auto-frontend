@@ -29,11 +29,9 @@ const Catalog = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-      <section>
-        <MainContainer>
-          <CatalogComponents />
-        </MainContainer>
-      </section>
+      <MainContainer>
+        <CatalogComponents />
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
       <Footer currentRate={"38.9"} />

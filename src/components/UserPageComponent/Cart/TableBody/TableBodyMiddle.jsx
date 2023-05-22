@@ -74,7 +74,21 @@ const TableBodyMiddle = (props) => {
               </p>
             </div>
             <div>
-              <input min={0} type="number" defaultValue={quantity} />
+              <span className={style.inputDisable}>
+                <span className={style.navigationWrapper}>
+                  <span onClick={(e) => {
+                      const id = e.target.dataset.id,
+                            btnType = e.target.dataset.name;
+                      props.changeQuantity(id, btnType)}
+                    } 
+                    className={style.itemUp} 
+                    data-name={"up"}
+                    data-id={id}
+                    ></span>
+                  <span className={style.itemDown} data-name={"down"}></span>
+                </span>
+              </span>
+              <input id={id} min={minQuantity} type="number" value={quantity} readOnly={true}/>
               <p>шт.</p>
             </div>
           </td>

@@ -19,7 +19,7 @@ function App() {
   // const user = useSelector(selectedUser);
 
   return (
-    <main>
+    <>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="admin_slider" element={<AdminSliderPage />} />
@@ -64,7 +64,7 @@ function App() {
           />
         </Route>
       </Routes>
-    </main>
+    </>
   );
 }
 
