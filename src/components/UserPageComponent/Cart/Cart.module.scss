@@ -1,40 +1,43 @@
 @import '../../../style/variables.scss';
 
-textarea {
-  outline: none;
-}
-tbody > tr:last-of-type > td {
-  border-bottom: 1px solid $tableBorder;
-  @media screen and (max-width: 1024px) {
-    border-bottom: 2px solid $tableBorder;
-  }
-}
- 
-tbody > tr:last-of-type > td:last-of-type {
-  @media screen and (min-width: 1024px) {
-    border-bottom: none;
-    &:after {
-      content: '';
-      position: absolute;
-      height: 1px;
-      width: 40px;
-      bottom: -0.5px;
-      left: 0;
-      background-color: $tableBorder;
-    }
-  }
-}
-button {
-  cursor: pointer;
-}
+
 
 .cart {
+  textarea {
+    outline: none;
+  }
+  tbody > tr:last-of-type > td {
+    border-bottom: 1px solid $tableBorder;
+    @media screen and (max-width: 1024px) {
+      border-bottom: 2px solid $tableBorder;
+    }
+    @media screen and (max-width: 540px) {
+      border-bottom: 2px solid $tableBorder;
+    }
+  }
+   
+  tbody > tr:last-of-type > td:last-of-type {
+    @media screen and (min-width: 1024px) {
+      border-bottom: none;
+      &:after {
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: 40px;
+        bottom: -0.5px;
+        left: 0;
+        background-color: $tableBorder;
+      }
+    }
+  }
+  button {
+    cursor: pointer;
+  }
   &__wrapper{
     width: 100%;
     // outline: 1px solid #d7000067;
     overflow: hidden;
     margin-top: 50px;
-    
   }
   
   &__table{
@@ -122,6 +125,7 @@ button {
     @media screen and (max-width: 1310px) {
       width: 100%;
       justify-content: center;
+      margin-top: 30px;
     }
     &_wrapper {
       display: flex;

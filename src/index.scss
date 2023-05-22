@@ -12,9 +12,7 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-section {
-  width: 100%;
-}
+
 
 li {
   list-style-type: none;
@@ -37,11 +35,12 @@ h2 {
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
+  height: 0px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.0);
+  background: rgba(219, 7, 7, 0);
 }
 
 /* Handle */
