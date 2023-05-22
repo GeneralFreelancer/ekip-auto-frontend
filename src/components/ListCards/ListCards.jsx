@@ -10,13 +10,6 @@ import Card from "./Card";
 
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 
-const cyrillicToTranslit = new CyrillicToTranslit();
-const translit = (name) => {
-  return cyrillicToTranslit
-    .transform(String(name).replace(",", ""), "-")
-    .toLowerCase();
-};
-
 let cardsData = [
   {
     id: 1,
@@ -225,6 +218,14 @@ const properties = {
   transitionDuration: 250,
 };
 
+const cyrillicToTranslit = new CyrillicToTranslit();
+// rus to lat use this on backend for dynamic ulr
+const translit = (name) => {
+  return cyrillicToTranslit
+    .transform(String(name).replace(",", ""), "-")
+    .toLowerCase();
+};
+
 const ListCards = ({
   title,
   showAll = false,
@@ -347,7 +348,7 @@ const ListCards = ({
               {renderCards(showAll)}
 
               {!showAll && (
-                <NavLink className={style.buttonMore} to={`/catalog`}>
+                <NavLink className={style.buttonMore} to={`${translit(title)}`}>
                   Показати ще...
                 </NavLink>
               )}

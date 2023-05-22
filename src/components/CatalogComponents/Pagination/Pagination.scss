@@ -8,12 +8,6 @@
   list-style: none;
 }
 
-.wrapperPaginationInBottom {
-  .pagination-data li {
-    list-style: none;
-    padding: 0 10px;
-  }
-}
 .rc-pagination {
   display: flex;
   align-items: center;
@@ -103,11 +97,6 @@
   -o-transition: 0.3s;
 }
 
-.wrapperPaginationInBottom {
-  .rc-pagination-item a {
-    font-size: 25px;
-  }
-}
 .rc-pagination-item.rc-pagination-item-active a,
 .rc-pagination-item.rc-pagination-item-active a:hover,
 .rc-pagination-prev.rc-pagination-item-active a,
@@ -119,12 +108,6 @@
   font-size: 23px;
   text-decoration: underline;
   color: $solidBlack !important;
-}
-
-.wrapperPaginationInBottom {
-  .rc-pagination-item.rc-pagination-item-active a {
-    font-size: 35px;
-  }
 }
 
 .rc-pagination-item a:hover,
@@ -142,11 +125,4 @@
 .arrow {
   width: 20px;
   height: 20px;
-}
-
-.wrapperPaginationInBottom {
-  .arrow {
-    width: 40px;
-    height: 40px;
-  }
 }
