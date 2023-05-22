@@ -5,13 +5,14 @@ import s from "./Breadcrumbs.module.scss";
 
 const Breadcrumbs = () => {
   const { pathname } = useLocation();
-  const parts = pathname.split("/").filter(Boolean);
+  // const parts = pathname.split("/").filter(Boolean);
+
+  const parts = ["category", "subcategory", "id"]; // mocked
 
   const BREADCRUMB_TEXTS = {
-    catalog: "Kаталог",
     category: "Категорія",
     subcategory: "Підкатегорія",
-    ":id": "0000000",
+    id: "0000000",
   };
 
   return (
@@ -26,7 +27,11 @@ const Breadcrumbs = () => {
       )}
       {parts.map((part, index) => (
         <React.Fragment key={part}>
-          <div className={`${s.breadcrumbs_item} ${index === parts.length - 1 ? s.last_crumb : ''}`}>
+          <div
+            className={`${s.breadcrumbs_item} ${
+              index === parts.length - 1 ? s.last_crumb : ""
+            }`}
+          >
             <Link to={`/${parts.slice(0, index + 1).join("/")}`}>
               {BREADCRUMB_TEXTS[part]}
             </Link>

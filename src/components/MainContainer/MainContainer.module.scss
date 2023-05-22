@@ -1,6 +1,7 @@
 @import "../../style/variables.scss";
 
 .container {
+  min-height: 96vh;
   position: relative;
   padding: 73px 30px 50px 30px;
   margin: auto;

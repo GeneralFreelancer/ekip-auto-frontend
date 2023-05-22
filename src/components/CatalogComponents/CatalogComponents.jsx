@@ -7,10 +7,16 @@ import InStock from "./InStock";
 import Filter from "./Filter";
 import ListCards from "../ListCards";
 
-import Pagination from "https://cdn.skypack.dev/rc-pagination@3.1.15";
+// import Pagination from "https://cdn.skypack.dev/rc-pagination@3.1.15";
+import Pagination from "rc-pagination";
 import { ReactComponent as Arrow } from "../../assets/svg/up-arrow.svg";
 
 import "./Pagination/Pagination.scss";
+
+// transition text
+// import { transliterate, slugify } from "transliteration";
+
+// const convert = require("translit-english-ukrainian");
 
 let cardsData = [
   {
@@ -281,7 +287,29 @@ let cardsData = [
   },
 ];
 
-const CatalogComponents = () => {
+//text translations text
+
+// const translit = (text) => {
+//   const decodedText = decodeURIComponent(text);
+//   const ukrainianText = transliterate(decodedText).replace(/-/g, " ");
+
+//   const words = ukrainianText.split(" ");
+//   const capitalizedWords = words.map((word, index) => {
+//     if (index === 0) {
+//       return word.charAt(0).toUpperCase() + word.slice(1);
+//     } else {
+//       return word;
+//     }
+//   });
+
+//   const formattedText = capitalizedWords.join(" ");
+
+//   let result = convert(formattedText);
+//   console.log(result);
+//   return result;
+// };
+
+const CatalogComponents = ({ title }) => {
   const [filter, setFilter] = useState("new");
   const [inStock, setInStock] = useState(false);
   const [items, setItems] = useState([]);
@@ -289,6 +317,8 @@ const CatalogComponents = () => {
 
   const [perPage, setPerPage] = useState(10);
   const [current, setCurrent] = useState(1);
+
+  // const [translitText, setTranslitText] = useState(""); //test translit text
 
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
@@ -420,6 +450,8 @@ const CatalogComponents = () => {
   return (
     <section>
       <div className={s.mainWrapper}>
+        <div className={s.title}>Заголовок</div>
+        {/* Заголовок з беку */}
         <div className={s.wrapper}>
           <Filter onChangeParams={onChangeParams} />
           <Pagination
@@ -440,8 +472,7 @@ const CatalogComponents = () => {
             need_A_Slider={false}
           />
         </div>
-
-        <div className="wrapperPaginationInBottom">
+        <div>
           <Pagination
             className="pagination-data"
             onChange={PaginationChange}

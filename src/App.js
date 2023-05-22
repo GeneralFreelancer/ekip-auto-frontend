@@ -2,8 +2,8 @@ import "./index.scss";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
-import { useSelector } from "react-redux";
-import { selectedUser } from "./redux/features/userSlice";
+// import { useSelector } from "react-redux";
+// import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Catalog from "./pages/Catalog";
@@ -16,7 +16,7 @@ import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
 import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
 
 function App() {
-  const user = useSelector(selectedUser);
+  // const user = useSelector(selectedUser);
 
   return (
     <main>
@@ -24,12 +24,20 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="admin_slider" element={<AdminSliderPage />} />
         <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
+        <Route path="ostannі-nadkhodzhennya" element={<Catalog />} />
+        <Route path="ostannі-pereglyanutі" element={<Catalog />} />
+        <Route path="top-prodazhu" element={<Catalog />} />
+        <Route path="vas-mozhe-zatsіkaviti" element={<Catalog />} />
 
-        <Route path="category" element={<Catalog />} />
+        {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} /> */}
+        
         <Route
-          path="category/subcategory/:id"
+          path="ostannі-nadkhodzhennya/:id"
           element={<ProductItemPage />}
         />
+        <Route path="ostannі-pereglyanutі/:id" element={<ProductItemPage />} />
+        <Route path="vas-mozhe-zatsіkaviti/:id" element={<ProductItemPage />} />
+        <Route path="top-prodazhu/:id" element={<ProductItemPage />} />
 
         <Route path="myprofile" element={<UserPage />}>
           <Route
