@@ -23,6 +23,8 @@
     "react-scripts": "5.0.1",
     "react-slideshow-image": "^4.2.1",
     "sass": "^1.61.0",
+    "translit-english-ukrainian": "^1.0.1",
+    "transliteration": "^2.3.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
