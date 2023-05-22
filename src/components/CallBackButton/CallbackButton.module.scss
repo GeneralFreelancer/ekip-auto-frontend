@@ -45,7 +45,7 @@
   border: 2px solid $hardGrey;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
   position: fixed;
-  bottom: 110px;
+  bottom: 60px;
   right: 115px;
   z-index: 10;
   border-radius: 7px;
@@ -75,7 +75,7 @@
     right: 95px;
   }
   @media screen and (max-width: 540px) {
-    bottom: 155px;
+    bottom: 78px;
   }
   @media screen and (max-width: 450px) {
     width: 280px;
@@ -85,8 +85,8 @@
     width: 260px;
   }
   @media screen and (min-width: 1840px) {
-    bottom: 80px;
-    right: 100px;
+    bottom: 62px;
+    right: 115px;
   }
 }
 

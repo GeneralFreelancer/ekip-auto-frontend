@@ -408,17 +408,13 @@ const ProductItem = (props) => {
                 <span>Сумма</span>:
               </p>
               <div>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "5px" }}
-                >
-                  <div className={s.productItem_btn_sum}>150 000</div>{" "}
-                  <p>&#8372;</p>
+                <div style={{ position: "relative" }}>
+                  <div className={s.productItem_btn_sum}>150 000</div>
+                  <p style={{ position: "absolute", top: '8px', right: '-15px' }}>&#8372;</p>
                 </div>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "3px" }}
-                >
-                  <div className={s.productItem_btn_sum}>4 500</div>{" "}
-                  <p>&#65284;</p>
+                <div style={{ position: "relative" }}>
+                  <div className={s.productItem_btn_sum}>4 500</div>
+                  <p style={{ position: "absolute", top: '6px', right: '-19px' }}>&#65284;</p>
                 </div>
               </div>
             </div>
