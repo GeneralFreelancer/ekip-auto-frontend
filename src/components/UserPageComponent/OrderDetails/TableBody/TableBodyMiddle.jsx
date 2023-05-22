@@ -85,7 +85,16 @@ const TableBodyMiddle = (props) => {
                     data-name={"up"}
                     data-id={id}
                   ></span>
-                  <span className={style.itemDown} data-name={"down"}></span>
+                  <span
+                    onClick={(e) => {
+                      const id = e.target.dataset.id,
+                        btnType = e.target.dataset.name;
+                      props.changeQuantity(id, btnType);
+                    }}
+                    className={style.itemDown}
+                    data-name={"down"}
+                    data-id={id}
+                  ></span>
                 </span>
               </span>
               <input

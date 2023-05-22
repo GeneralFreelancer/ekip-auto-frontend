@@ -9,8 +9,8 @@ const TableBodyMobile = (props) => {
   };
 
   const checkFavorite = (id) => {
-    props.data.find((item) =>
-      item.id === id ? console.log(id) : "" // edit this for send request to db on change state
+    props.data.find(
+      (item) => (item.id === id ? console.log(id) : "") // edit this for send request to db on change state
     );
   };
   return props.data.map(
@@ -52,14 +52,14 @@ const TableBodyMobile = (props) => {
                 {favorite ? (
                   <BalckHeart
                     onClick={() => {
-                    props.checkFavorire(id);
-                  }}
+                      props.checkFavorire(id);
+                    }}
                   />
                 ) : (
                   <Heart
                     onClick={() => {
-                    props.checkFavorire(id);
-                  }}
+                      props.checkFavorire(id);
+                    }}
                   />
                 )}
               </span>
@@ -93,19 +93,35 @@ const TableBodyMobile = (props) => {
             <div>
               <span className={style.inputDisable}>
                 <span className={style.navigationWrapper}>
-                  <span onClick={(e) => {
+                  <span
+                    onClick={(e) => {
                       const id = e.target.dataset.id,
-                            btnType = e.target.dataset.name;
-                      props.changeQuantity(id, btnType)}
-                    } 
-                    className={style.itemUp} 
+                        btnType = e.target.dataset.name;
+                      props.changeQuantity(id, btnType);
+                    }}
+                    className={style.itemUp}
                     data-name={"up"}
                     data-id={id}
-                    ></span>
-                  <span className={style.itemDown} data-name={"down"}></span>
+                  ></span>
+                  <span
+                    onClick={(e) => {
+                      const id = e.target.dataset.id,
+                        btnType = e.target.dataset.name;
+                      props.changeQuantity(id, btnType);
+                    }}
+                    className={style.itemDown}
+                    data-name={"down"}
+                    data-id={id}
+                  ></span>
                 </span>
               </span>
-              <input id={id} min={minQuantity} type="number" value={quantity} readOnly={true}/>
+              <input
+                id={id}
+                min={minQuantity}
+                type="number"
+                value={quantity}
+                readOnly={true}
+              />
               <p>шт.</p>
             </div>
           </td>
@@ -128,8 +144,8 @@ const TableBodyMobile = (props) => {
             <span
               id={id}
               onClick={() => {
-              props.delete(id);
-            }}
+                props.delete(id);
+              }}
               className={style.icon}
             ></span>
           </td>

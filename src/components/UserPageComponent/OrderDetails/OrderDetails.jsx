@@ -239,6 +239,13 @@ const OrderDetails = () => {
         )
       );
     }
+    if (btnType === "down") {
+      setdataMockOrder(
+        dataMockOrder.filter((item) =>
+          item.id === id && item.quantity > item.minQuantity ? item.quantity -= item.minQuantity : item.quantity
+        )
+      );
+    } 
   };
 
   const leftComment = (event) => {

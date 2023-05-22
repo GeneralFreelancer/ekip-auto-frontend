@@ -97,13 +97,21 @@ const Cart = () => {
   };
 
   const changeQuantity = (id, btnType) => {
+    console.log(btnType);
     if (btnType === "up") {
       setDataMockItems(
         dataMockItems.filter((item) =>
-          item.id === id ? (item.quantity += item.minQuantity) : item.quantity
+          item.id === id ? item.quantity += item.minQuantity : item.quantity
         )
       );
-    }
+    } 
+    if (btnType === "down") {
+      setDataMockItems(
+        dataMockItems.filter((item) =>
+          item.id === id && item.quantity > item.minQuantity ? item.quantity -= item.minQuantity : item.quantity
+        )
+      );
+    } 
   };
 
   const leftComment = (event) => {
