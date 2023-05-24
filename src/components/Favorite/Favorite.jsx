@@ -3,7 +3,6 @@ import s from "./Favorite.module.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// import Pagination from "https://cdn.skypack.dev/rc-pagination@3.1.15";
 import Pagination from "rc-pagination";
 import { ReactComponent as Arrow } from "../../assets/svg/up-arrow.svg";
 

@@ -1,7 +1,5 @@
 import style from "./TableBody.module.scss";
 import React from "react";
-import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
-import { ReactComponent as BalckHeart } from "../../../../assets/svg/black_heart.svg";
 
 const TableBodyMiddle = (props) => {
   return props.data.map(
@@ -22,18 +20,17 @@ const TableBodyMiddle = (props) => {
               <h2>{title}</h2>
               <span id={id} className={style.favorite}>
                 {favorite ? (
-                  <BalckHeart
-                    onClick={() => {
-                      props.checkFavorire(id);
-                    }}
-                  />
-                ) : (
-                  <Heart
-                    onClick={() => {
-                      props.checkFavorire(id);
-                    }}
-                  />
-                )}
+                    <span 
+                      className={style.activeFavorite} onClick={() => {
+                      props.checkFavorire(id)
+                    }}></span>
+                  ) : (
+                      <span 
+                        className={style.hoverFavorite} onClick={() => {
+                          props.checkFavorire(id)
+                        }}
+                      ></span>
+                  )}
               </span>
             </div>
             <div className={style.cart__table_title_row2}>

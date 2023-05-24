@@ -24,7 +24,8 @@ const FavoriteCard = ({
 }) => {
   return (
     <div className={styleCard ? `${s[`${styleCard}`]} ${s.card}` : s.card}>
-      <Heart id={id} className={s.heart} onClick={() => handelClick(id)} />
+      <spna id={id} className={s.heart} onClick={() => handelClick(id)}></spna>
+      {/* <Heart id={id} className={s.heart} onClick={() => handelClick(id)} /> */}
       <span
         className={s.clickArea}
         id={id}

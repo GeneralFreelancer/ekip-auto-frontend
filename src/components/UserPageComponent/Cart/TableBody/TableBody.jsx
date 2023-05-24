@@ -1,9 +1,7 @@
 import style from "./TableBody.module.scss";
-import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
-import { ReactComponent as BalckHeart } from "../../../../assets/svg/black_heart.svg";
 
 const TableBody = (props) => {
-  console.log(props);
+ 
   return props.data.map(
     ({ id, title, favorite, SKU, price, minQuantity, image, quantity }, i) => (
       <tr key={i + 1}>
@@ -19,17 +17,16 @@ const TableBody = (props) => {
             <h2>{title}</h2>
             <span id={id} className={style.favorite}>
               {favorite ? (
-                <BalckHeart
-                  onClick={() => {
-                    props.checkFavorire(id);
-                  }}
-                />
+                <span 
+                  className={style.activeFavorite} onClick={() => {
+                  props.checkFavorire(id)
+                }}></span>
               ) : (
-                <Heart
-                  onClick={() => {
-                    props.checkFavorire(id);
-                  }}
-                />
+                  <span 
+                    className={style.hoverFavorite} onClick={() => {
+                      props.checkFavorire(id)
+                    }}
+                  ></span>
               )}
             </span>
           </div>

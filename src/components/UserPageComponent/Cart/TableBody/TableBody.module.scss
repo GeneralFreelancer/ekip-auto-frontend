@@ -109,6 +109,28 @@ th:last-of-type {
           height: auto;
           display: inline-block;
           cursor: pointer;
+          .activeFavorite {
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            cursor: pointer;
+            background-image: url('../../../../assets/svg/black_heart.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            }
+            .hoverFavorite {
+              width:25px;
+              height: 25px;
+              display: inline-block;
+              cursor: pointer;
+              background-image: url('../../../../assets/svg/heart.svg');
+              background-position: center;
+              background-repeat: no-repeat;
+              &:hover {
+                background-image: url('../../../../assets/svg/black_heart.svg');
+                opacity: 0.8;
+              }
+            }
         }
       }
       &_row2 {

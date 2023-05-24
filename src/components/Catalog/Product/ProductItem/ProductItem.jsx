@@ -86,8 +86,9 @@ const ProductItem = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [quantity, setQuantity] = useState(mockItems[2].minQuantity);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [mouseEnter, setMouseEnter] = useState(false);
   // const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
+  
   useEffect(() => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
@@ -142,7 +143,12 @@ const ProductItem = (props) => {
       );
     }
   };
-
+  const hadleMouseEnter = () => {
+    setMouseEnter(true)
+  }
+  const hadleMouseLeave = () => {
+    setMouseEnter(false)
+  }
   // const handleChangeQuantity = (e) => {
   //   const cleanedValue = e.target.value.replace(/\D/g, "");
   //   if (cleanedValue < mockItems[2].minQuantity) {
@@ -436,7 +442,13 @@ const ProductItem = (props) => {
                   onClick={handleFavouriteClick}
                 />
               ) : (
-                <Heart className={s.heart} onClick={handleFavouriteClick} />
+                <>
+                  {!mouseEnter ? <Heart className={s.heart} onMouseEnter={hadleMouseEnter}  onClick={handleFavouriteClick} /> : <Blackheart
+                    className={s.heartHover}
+                    onMouseLeave={hadleMouseLeave}
+                    onClick={handleFavouriteClick}
+                  />}
+                </>
               )}
 
               <p>*Додати до обраного</p>
