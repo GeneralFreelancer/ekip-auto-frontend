@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/userSlice";
+import axios from "axios";
 
 const LoginTab = (props) => {
   const [loginForm, setLoginForm] = useState({
@@ -10,16 +11,13 @@ const LoginTab = (props) => {
     rememberMe: true,
   });
   const [loginErrors, setloginErrors] = useState({ email: "", password: "" });
-
+  // const [token, setToken] = useState(null);
   const dispatch = useDispatch();
 
   // Test
   useEffect(() => {
-    if (
-      loginForm.email === "admin@gmail.com" &&
-      loginForm.password === "12345"
-    ) {
-      sessionStorage.setItem("role", "admin");
+    if (loginForm.email === 'admin@gmail.com' && loginForm.password === '333555') {
+      localStorage.setItem("role", "admin");
     }
   }, [loginForm.email, loginForm.password]);
   // Test end
@@ -50,8 +48,8 @@ const LoginTab = (props) => {
   function isValidPassword(value) {
     if (!value) {
       return "Введіть пароль";
-    } else if (value.length < 5) {
-      return "Пароль повинен містити не менше 5 символів";
+    } else if (value.length < 6) {
+      return "Пароль повинен містити не менше 6 символів";
     }
   }
 
@@ -62,29 +60,46 @@ const LoginTab = (props) => {
     validateLoginForm(name, fieldValue);
   };
 
-  const submitLoginHandler = (e) => {
+  const submitLoginHandler = async (e) => {
     e.preventDefault();
     if (loginForm.email && loginForm.password) {
-      console.log(loginForm);
-
       dispatch(
         login({
           email: loginForm.email,
           password: loginForm.password,
           rememberMe: loginForm.rememberMe,
+          role: localStorage.getItem('role'),
         })
       );
-
       props.onSubmit(true);
     } else if (!loginForm.email) {
       validateLoginForm("email", null);
     } else if (!loginForm.password) {
       validateLoginForm("password", null);
     }
-    // try {
-    //   const data = await axios.post("/api/auth/login", { ...loginForm });
-    //   auth.login(data.token, data.userId);
-    // } catch (e) {}
+    try {
+      const response = await axios.post("http://localhost:3001/auth/login", {
+        ...loginForm,
+      });
+      console.log("User login:", response.data);
+      if (response.data.user.email === "admin@gmail.com") {
+        localStorage.setItem("token", response.data.token);
+        // localStorage.setItem("role", "admin");
+      } else {
+        localStorage.setItem("token", response.data.token);
+        // localStorage.setItem("role", "user");
+      }
+      // setToken(response.data.token);
+    } catch (error) {
+      if (error.response) {
+        console.log("Error status:", error.response.status);
+        console.log("Error message:", error.response.data.message);
+      } else if (error.request) {
+        console.log("No response received");
+      } else {
+        console.log("Error:", error.message);
+      }
+    }
   };
 
   return (

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/features/userSlice";
+import axios from "axios";
 
 const RegisterTab = (props) => {
   const [registerForm, setRegisterForm] = useState({
@@ -47,8 +48,8 @@ const RegisterTab = (props) => {
   function isValidPassword(value) {
     if (!value) {
       return "Введіть пароль";
-    } else if (value.length < 5) {
-      return "Пароль повинен містити не менше 5 символів";
+    } else if (value.length < 6) {
+      return "Пароль повинен містити не менше 6 символів";
     }
   }
 
@@ -68,17 +69,13 @@ const RegisterTab = (props) => {
     validateRegisterForm(event.target.name, event.target.value);
   };
 
-  const submitRegisterHandler = (e) => {
+  const submitRegisterHandler = async(e) => {
     e.preventDefault();
     if (
       registerForm.email &&
       registerForm.password &&
       registerForm.confirmPassword
     ) {
-      console.log(registerForm);
-
-      dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
-
       props.onSubmit(true);
     } else if (!registerForm.email) {
       validateRegisterForm("email", null);
@@ -87,14 +84,16 @@ const RegisterTab = (props) => {
     } else if (!registerForm.confirmPassword) {
       validateRegisterForm("confirmPassword", null);
     }
-    // try {
-    //   const data = await axios.post('/api/auth/register', { ...registerForm })
-    //   setRegisterForm({
-    //     email: '', password: ''
-    //   })
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    try {
+      const response = await axios.post('http://localhost:3001/auth/register', { ...registerForm })
+      setRegisterForm({
+        email: '', password: ''
+      })
+      dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
+      console.log('User created:', response.data);
+    } catch (e) {
+      console.log(e)
+    }
   };
 
   const handleShowPasswordChange = (e) => setShowPassword(e.target.checked);

@@ -2,6 +2,7 @@ import "./index.scss";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
+import React, { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 // import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";

@@ -9,10 +9,10 @@ const Footer = (props) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(38.5);
 
-  const localStor = sessionStorage.getItem("role");
+  const localStor = localStorage.getItem("role");
 
   useEffect(() => {
-    if (sessionStorage.getItem("role") === "admin") {
+    if (localStorage.getItem("role") === "admin") {
       setRole(true);
     } else {
       setRole(false);

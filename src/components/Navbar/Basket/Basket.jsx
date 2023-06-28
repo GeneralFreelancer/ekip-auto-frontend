@@ -121,7 +121,7 @@ const Basket = () => {
     const handleClickWindow = (e) => {
       
       if (showModal === true) {
-        console.dir(e.target.tagName);
+        // console.dir(e.target.tagName);
         if (
           wrapperShoppingCardRef.current &&
           !wrapperShoppingCardRef.current.contains(e.target) && e.target.tagName !== 'SPAN'

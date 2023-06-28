@@ -6,12 +6,14 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { useDispatch } from "react-redux";
 import { logout, registerOut } from "../../../redux/features/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
   const user = useSelector(selectedUser);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const wrapperAuthRef = useRef(null);
 
@@ -49,8 +51,9 @@ const AuthNav = (props) => {
     dispatch(logout());
     dispatch(registerOut()); //
     setShowModal(false);
+    navigate("/");
     // Test
-    sessionStorage.removeItem("role");
+    localStorage.removeItem("role");
   };
 
   return (
@@ -71,7 +74,7 @@ const AuthNav = (props) => {
             <Link className={style.item} to={"/myprofile/order-history"}>
               <li>Замовлення</li>
             </Link>
-            <Link className={style.item} to={"#"}>
+            <Link className={style.item}>
               <li onClick={handleLogout}>Вийти</li>
             </Link>
           </ul>
@@ -79,7 +82,7 @@ const AuthNav = (props) => {
       </div>
       {user.isLoggedIn && <p className={style.userLog}>Тимур</p>}
       {user.isRegistered && (
-        <Link className={style.userRegister} to={"#"}>
+        <Link className={style.userRegister} to={"/myprofile/mydata"}>
           Завершити <br></br> реестрацію
         </Link>
       )}

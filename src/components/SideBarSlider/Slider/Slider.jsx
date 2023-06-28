@@ -25,10 +25,10 @@ const Slider = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [role, setRole] = useState(false);
 
-  const localStor = sessionStorage.getItem("role");
+  const localStor = localStorage.getItem("role");
 
   useEffect(() => {
-    if (sessionStorage.getItem("role") === "admin") {
+    if (localStorage.getItem("role") === "admin") {
       setRole(true);
     }
   }, [localStor]);

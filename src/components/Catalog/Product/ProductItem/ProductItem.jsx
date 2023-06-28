@@ -104,10 +104,10 @@ const ProductItem = (props) => {
   //   setIsZoomed(!isZoomed);
   // };
 
-  const localStor = sessionStorage.getItem("role");
+  const localStor = localStorage.getItem("role");
 
   useEffect(() => {
-    if (sessionStorage.getItem("role") === "admin") {
+    if (localStorage.getItem("role") === "admin") {
       setRole(true);
     } else {
       setRole(false);
