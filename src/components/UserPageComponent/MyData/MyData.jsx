@@ -3,7 +3,7 @@ import s from "./MyData.module.scss";
 import { useDispatch } from "react-redux";
 import { PatternFormat } from "react-number-format";
 import TextBlock from "../TextBlock/TextBlock";
-import { setUserData } from "../../../redux/features/userSlice";
+import { fullUserRegistered } from "../../../redux/features/userSlice";
 
 const MyData = () => {
   const [dataForm, setDataForm] = useState({
@@ -134,7 +134,7 @@ const MyData = () => {
       });
       setIsButtonDisabled(true);
       dispatch(
-        setUserData({
+        fullUserRegistered({
           name: dataForm.email,
           surname: dataForm.surname,
           fathername: dataForm.fathername,
@@ -165,7 +165,7 @@ const MyData = () => {
     if (passForm.newPassword && passForm.confirmPassword) {
       setIsBtnChangeDisabled(false);
       dispatch(
-        setUserData({
+        fullUserRegistered({
           newPassword: passForm.newPassword,
         })
       );

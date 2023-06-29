@@ -2,9 +2,6 @@ import "./index.scss";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
-import React, { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
-// import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Catalog from "./pages/Catalog";
@@ -15,6 +12,7 @@ import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetai
 import AdminSliderPage from "./pages/AdminSliderPage";
 import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
 import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
+import PartnerPage from "./pages/PartnerPage";
 
 function App() {
   // const user = useSelector(selectedUser);
@@ -23,6 +21,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/partners" element={<PartnerPage />} />
         <Route path="admin_slider" element={<AdminSliderPage />} />
         <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
         <Route path="ostannі-nadkhodzhennya" element={<Catalog />} />

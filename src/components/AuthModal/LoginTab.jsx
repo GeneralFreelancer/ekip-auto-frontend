@@ -18,6 +18,8 @@ const LoginTab = (props) => {
   useEffect(() => {
     if (loginForm.email === 'admin@gmail.com' && loginForm.password === '333555') {
       localStorage.setItem("role", "admin");
+    } else {
+      localStorage.setItem("role", "user");
     }
   }, [loginForm.email, loginForm.password]);
   // Test end
@@ -84,10 +86,8 @@ const LoginTab = (props) => {
       console.log("User login:", response.data);
       if (response.data.user.email === "admin@gmail.com") {
         localStorage.setItem("token", response.data.token);
-        // localStorage.setItem("role", "admin");
       } else {
         localStorage.setItem("token", response.data.token);
-        // localStorage.setItem("role", "user");
       }
       // setToken(response.data.token);
     } catch (error) {

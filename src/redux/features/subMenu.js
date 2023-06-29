@@ -1,19 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+// import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  isActive: false,
-};
+// const initialState = {
+//   isActive: false,
+// };
 
-const subMenu = createSlice({
-  name: "menu",
-  initialState,
-  reducers: {
-    changeSumMenuState: (state, action) => {
-      state.isActive = action.payload;
-    }
-  },
-});
+// const subMenu = createSlice({
+//   name: "menu",
+//   initialState,
+//   reducers: {
+//     changeSumMenuState: (state, action) => {
+//       state.isActive = action.payload;
+//     }
+//   },
+// });
 
-export const { changeSumMenuState } = subMenu.actions;
-export default subMenu.reducer;
-export const selectedState = (state) => state.menu;
+// export const { changeSumMenuState } = subMenu.actions;
+// export default subMenu.reducer;
+// export const selectedState = (state) => state.menu;
