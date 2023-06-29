@@ -14,6 +14,7 @@ import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetai
 import AdminSliderPage from "./pages/AdminSliderPage";
 import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
 import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   // const user = useSelector(selectedUser);
@@ -22,6 +23,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="about" element={<AboutUs />} />
+
         <Route path="admin_slider" element={<AdminSliderPage />} />
         <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
         <Route path="ostannі-nadkhodzhennya" element={<Catalog />} />
@@ -30,7 +33,7 @@ function App() {
         <Route path="vas-mozhe-zatsіkaviti" element={<Catalog />} />
 
         {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} /> */}
-        
+
         <Route
           path="ostannі-nadkhodzhennya/:id"
           element={<ProductItemPage />}
