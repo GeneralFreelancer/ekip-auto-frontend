@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import MainContainer from "../components/MainContainer";
 import Partners from "../components/Partners/Partners";
+import s from "../components/Partners/Partners.module.scss";
 
 const PartnerPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -24,17 +25,18 @@ const PartnerPage = () => {
   const hideModalHandler = () => {
     setModalIsVisible(false);
   };
-  
+
   return (
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-        <MainContainer>
-         <Partners/>
-        </MainContainer> 
+      <div className={s.partners_bg}></div>
+      <MainContainer>
+        <Partners />
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
-      <Footer currentRate={"38.9"} /> 
+      <Footer currentRate={"38.9"} />
     </>
   );
 };
