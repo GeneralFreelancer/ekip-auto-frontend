@@ -27,6 +27,7 @@ const Partners = () => {
         <div className={s.partners_arrow}></div>
         <div className={s.partners_title}></div>
         <div className={s.partners_button}></div>
+        
         <div className={s.partners_content}>
           <p className={s.title}>
             Наша компанія завжди відкрита для нових пропозицій<br></br> і ми
