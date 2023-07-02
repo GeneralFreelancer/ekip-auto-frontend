@@ -22,7 +22,7 @@ const userSlice = createSlice({
     },
     register: (state, action) => {
       state.isRegistered = true;
-      state.isRegisteredConfirmed = true;  //
+      state.isRegisteredConfirmed = false;  //
       state.userdata = action.payload;
       state.isDataFullFilled = false;
     },
