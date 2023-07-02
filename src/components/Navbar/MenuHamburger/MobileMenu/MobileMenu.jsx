@@ -17,7 +17,7 @@ const MobileMenu = (props) => {
   const navigate = useNavigate();
 
   const onClickNavigate = () => {
-    if (user.isLoggedIn || user.isRegistered) {
+    if (user.isLoggedIn || user.isRegisteredConfirmed) {
       navigate("/myprofile/favorite");
     }
   };
@@ -26,14 +26,14 @@ const MobileMenu = (props) => {
     <div className={s.mobile_modal}>
       <div className={s.mobile_modal_header}>
         <div
-          className={(user.isLoggedIn || user.isRegistered) && s.mobile_cross}
+          className={(user.isLoggedIn || user.isRegisteredConfirmed) && s.mobile_cross}
         >
           <Cross className={s.cross} onClick={props.onClick} />
         </div>
         <Logo styleItem={"modal__center"} />
         <div className={s.userMob_block}>
           {/* {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>} */}
-          {user.isRegistered ? (
+          {user.isRegisteredConfirmed ? (
             <Link to={"#"}>
               <UserMob className={s.userMob_red} />
             </Link>

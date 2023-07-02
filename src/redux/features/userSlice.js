@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoggedIn: false,
-  currentUser: null,
-  fullUserData: null,
+  userdata: null,
   // token: '',
   // role: ''
 };
@@ -14,26 +13,23 @@ const userSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.isLoggedIn = true;
-      state.currentUser = action.payload;
     },
     logout: (state) => {
       state.isLoggedIn = false;
-      state.currentUser = null;
+      state.userdata = null;
       // state.token = null
       // localStorage.removeItem('token')
     },
     register: (state, action) => {
       state.isRegistered = true;
-      state.isRegisteredConfirmed = false;
-      state.currentUser = action.payload;
-    },
-    registerOut: (state) => {
-      state.isRegistered = false;
-      state.currentUser = null;
+      state.isRegisteredConfirmed = true;  //
+      state.userdata = action.payload;
+      state.isDataFullFilled = false;
     },
     fullUserRegistered: (state, action) => {
-      state.isRegistereConfirmed = true;
-      state.fullUserData = action.payload;
+      // state.isRegistereConfirmed = true; приходит после линки
+      state.isDataFullFilled = true;
+      state.userdata = action.payload;
     }
   },
 });

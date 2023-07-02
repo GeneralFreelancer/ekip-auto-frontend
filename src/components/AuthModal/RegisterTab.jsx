@@ -69,13 +69,16 @@ const RegisterTab = (props) => {
     validateRegisterForm(event.target.name, event.target.value);
   };
 
-  const submitRegisterHandler = async(e) => {
+  const submitRegisterHandler = async (e) => {
     e.preventDefault();
     if (
       registerForm.email &&
       registerForm.password &&
-      registerForm.confirmPassword
+      registerForm.password === registerForm.confirmPassword
     ) {
+      dispatch(
+        register({ email: registerForm.email, password: registerForm.password })
+      );
       props.onSubmit(true);
     } else if (!registerForm.email) {
       validateRegisterForm("email", null);
@@ -85,14 +88,17 @@ const RegisterTab = (props) => {
       validateRegisterForm("confirmPassword", null);
     }
     try {
-      const response = await axios.post('http://localhost:3001/auth/register', { ...registerForm })
+      const response = await axios.post("http://localhost:3001/auth/register", {
+        ...registerForm,
+      });
       setRegisterForm({
-        email: '', password: ''
-      })
-      dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
-      console.log('User created:', response.data);
+        email: "",
+        password: "",
+      });
+   
+      console.log("User created:", response.data);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   };
 

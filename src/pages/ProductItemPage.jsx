@@ -8,7 +8,6 @@ import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
-import { Outlet } from "react-router-dom";
 import ListCards from "../components/ListCards/ListCards";
 
 const ProductItemPage = () => {
@@ -16,13 +15,13 @@ const ProductItemPage = () => {
   const user = useSelector(selectedUser);
 
   const showModalHandler = () => {
-    if (user.isLoggedIn || user.isRegistered) {
+    if (user.isLoggedIn) {
       setModalIsVisible(false);
-    } else {
+    } else if (user.isRegistered || !user.isLoggedIn) {
       setModalIsVisible(true);
     }
   };
-
+  
   const hideModalHandler = () => {
     setModalIsVisible(false);
   };
@@ -32,7 +31,6 @@ const ProductItemPage = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        {/* <Outlet/> */}
         <Product />
         <div style={{paddingTop: '30px'}}>
           <ListCards title={"Вас може зацікавити"} />

@@ -135,7 +135,7 @@ const MyData = () => {
       setIsButtonDisabled(true);
       dispatch(
         fullUserRegistered({
-          name: dataForm.email,
+          name: dataForm.name,
           surname: dataForm.surname,
           fathername: dataForm.fathername,
           phone: dataForm.phone,

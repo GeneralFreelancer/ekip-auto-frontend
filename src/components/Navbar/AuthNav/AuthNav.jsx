@@ -41,7 +41,7 @@ const AuthNav = (props) => {
   }, [showModal]);
 
   const onClick = () => {
-    if (user.isLoggedIn || user.isRegistered) {
+    if (user.isLoggedIn) {
       setShowModal((prevState) => !prevState);
     }
   };
@@ -49,7 +49,6 @@ const AuthNav = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
-    dispatch(registerOut()); //
     setShowModal(false);
     navigate("/");
     // Test
@@ -80,10 +79,10 @@ const AuthNav = (props) => {
           </ul>
         )}
       </div>
-      {user.isLoggedIn && <p className={style.userLog}>Тимур</p>}
-      {user.isRegistered && (
+      {(user.isLoggedIn && user.isDataFullFilled) && <p className={style.userLog}>{user.userdata.name}</p>}
+      {(user.isRegisteredConfirmed && !user.isDataFullFilled) && (
         <Link className={style.userRegister} to={"/myprofile/mydata"}>
-          Завершити <br></br> реестрацію
+          Заповнити <br></br> дані
         </Link>
       )}
     </div>

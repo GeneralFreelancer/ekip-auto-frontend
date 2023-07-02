@@ -3,6 +3,8 @@ import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/userSlice";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../redux/features/userSlice";
 
 const LoginTab = (props) => {
   const [loginForm, setLoginForm] = useState({
@@ -13,10 +15,14 @@ const LoginTab = (props) => {
   const [loginErrors, setloginErrors] = useState({ email: "", password: "" });
   // const [token, setToken] = useState(null);
   const dispatch = useDispatch();
+  const user = useSelector(selectedUser);
 
   // Test
   useEffect(() => {
-    if (loginForm.email === 'admin@gmail.com' && loginForm.password === '333555') {
+    if (
+      loginForm.email === "admin@gmail.com" &&
+      loginForm.password === "333555"
+    ) {
       localStorage.setItem("role", "admin");
     } else {
       localStorage.setItem("role", "user");
@@ -65,15 +71,10 @@ const LoginTab = (props) => {
   const submitLoginHandler = async (e) => {
     e.preventDefault();
     if (loginForm.email && loginForm.password) {
-      dispatch(
-        login({
-          email: loginForm.email,
-          password: loginForm.password,
-          rememberMe: loginForm.rememberMe,
-          role: localStorage.getItem('role'),
-        })
-      );
-      props.onSubmit(true);
+      // 
+      if (user.isDataFullFilled) {
+        props.onSubmit(true);
+      }
     } else if (!loginForm.email) {
       validateLoginForm("email", null);
     } else if (!loginForm.password) {
@@ -83,6 +84,14 @@ const LoginTab = (props) => {
       const response = await axios.post("http://localhost:3001/auth/login", {
         ...loginForm,
       });
+      dispatch(
+        login({
+          email: loginForm.email,
+          password: loginForm.password,
+          rememberMe: loginForm.rememberMe,
+          role: localStorage.getItem("role"),
+        })
+      );
       console.log("User login:", response.data);
       if (response.data.user.email === "admin@gmail.com") {
         localStorage.setItem("token", response.data.token);

@@ -4,10 +4,13 @@ import LoginTab from "./LoginTab";
 import RegisterTab from "./RegisterTab";
 import s from "./AuthModal.module.scss";
 import StartTimer from "./StartTimer";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../redux/features/userSlice";
 
 const AuthModal = (props) => {
   const [activeTab, setActiveTab] = useState("login");
   const [registrationSuccess, setRegistrationSuccess ] = useState(false);
+  const user = useSelector(selectedUser);
 
   const handleFormSubmit = (isSubmitted) => {
     setRegistrationSuccess(isSubmitted);
@@ -45,7 +48,7 @@ const AuthModal = (props) => {
   return (
     <>
       <ModalWindow onHideModal={props.onHideModal}>
-        {registrationSuccess ? (
+        {(registrationSuccess || (user.isRegistered && !user.isRegisteredConfirmed)) ? (
           renderRegistrationSuccess()
         ) : (
           <div>
