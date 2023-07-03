@@ -13,9 +13,9 @@ import ListCards from "../components/ListCards/ListCards";
 const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
-
+  
   const showModalHandler = () => {
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn || user.isRegisteredConfirmed) {
       setModalIsVisible(false);
     } else if (user.isRegistered || !user.isLoggedIn) {
       setModalIsVisible(true);

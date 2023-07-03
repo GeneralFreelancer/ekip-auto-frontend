@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/features/userSlice";
@@ -16,8 +16,16 @@ const RegisterTab = (props) => {
     password: "",
     confirmPassword: "",
   });
+  const [errorRegisterMessage, setErrorRegisterMessage] = useState(null);
 
   const dispatch = useDispatch();
+
+    useEffect(() => {
+    if (errorRegisterMessage === "") {
+      props.onSubmit(true);
+    }
+  }, [errorRegisterMessage, props]);
+
 
   const validateRegisterForm = (name, value) => {
     let errors = { ...regiserErrors };
@@ -69,17 +77,35 @@ const RegisterTab = (props) => {
     validateRegisterForm(event.target.name, event.target.value);
   };
 
+
   const submitRegisterHandler = async (e) => {
     e.preventDefault();
     if (
       registerForm.email &&
       registerForm.password &&
-      registerForm.password === registerForm.confirmPassword
+      (registerForm.password.trim() === registerForm.confirmPassword.trim()) 
     ) {
-      dispatch(
-        register({ email: registerForm.email, password: registerForm.password })
-      );
-      props.onSubmit(true);
+      try {
+        const response = await axios.post("http://localhost:5502/auth/register", {
+          ...registerForm,
+        });
+        setRegisterForm({
+          email: "",
+          password: "",
+        });
+        dispatch(
+          register({
+            email: response.data.user.email,
+            password: registerForm.password,
+          })
+        );
+      } catch (error) {
+        if (error.response && error.response.status === 409) {
+          setErrorRegisterMessage(error.response.data.message)
+        } else {
+          console.log("Error:", error.message);
+        }
+      }
     } else if (!registerForm.email) {
       validateRegisterForm("email", null);
     } else if (!registerForm.password) {
@@ -87,22 +113,11 @@ const RegisterTab = (props) => {
     } else if (!registerForm.confirmPassword) {
       validateRegisterForm("confirmPassword", null);
     }
-    try {
-      const response = await axios.post("http://localhost:3001/auth/register", {
-        ...registerForm,
-      });
-      setRegisterForm({
-        email: "",
-        password: "",
-      });
-   
-      console.log("User created:", response.data);
-    } catch (e) {
-      console.log(e);
-    }
+    
   };
 
   const handleShowPasswordChange = (e) => setShowPassword(e.target.checked);
+
 
   return (
     <>
@@ -174,6 +189,7 @@ const RegisterTab = (props) => {
             <button type="submit" onClick={submitRegisterHandler}>
               Зареєструватися
             </button>
+            {errorRegisterMessage ? (<p className={s.error_message}>{errorRegisterMessage}</p>) : ('')}
           </div>
         </div>
       </form>

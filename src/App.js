@@ -14,6 +14,9 @@ import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
 import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
 import PartnerPage from "./pages/PartnerPage";
 import AboutUs from "./pages/AboutUs";
+import RedirectPage from "./pages/RedirectPage";
+import { PivateRouter } from "./components/AuthModal/PrivateRouter";
+import { ProtectedRoute } from "./components/AuthModal/protectedRoute";
 
 function App() {
   // const user = useSelector(selectedUser);
@@ -25,8 +28,26 @@ function App() {
         <Route path="partners" element={<PartnerPage />} />
         <Route path="about" element={<AboutUs />} />
 
-        <Route path="admin_slider" element={<AdminSliderPage />} />
-        <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
+        <Route path="/confirm-email/:code" element={<RedirectPage />} />
+
+        <Route
+          path="admin_slider"
+          element={
+            <PivateRouter>
+              <AdminSliderPage />{" "}
+            </PivateRouter>
+          }
+        />
+
+        <Route
+          path="admin_product_photo"
+          element={
+            <PivateRouter>
+              <AdminProductPhotoPage />
+            </PivateRouter>
+          }
+        />
+
         <Route path="ostannі-nadkhodzhennya" element={<Catalog />} />
         <Route path="ostannі-pereglyanutі" element={<Catalog />} />
         <Route path="top-prodazhu" element={<Catalog />} />
@@ -45,22 +66,43 @@ function App() {
         <Route path="myprofile" element={<UserPage />}>
           <Route
             path="mydata"
-            element={<MyData />}
+            element={
+              <ProtectedRoute>
+                <MyData />
+              </ProtectedRoute>
+            }
             default //не працює
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
           <Route
             path="basket"
-            element={<Cart />}
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
-          <Route path="order-history" element={<OrderList />} />
+          <Route
+            path="order-history"
+            element={
+              <ProtectedRoute>
+                <OrderList />
+              </ProtectedRoute>
+            }
+          />
           <Route path="order-history-details" element={<OrderDetails />} />
           <Route
             path="favorite"
-            element={<Favorite />}
+            element={
+              <ProtectedRoute>
+                <Favorite />
+              </ProtectedRoute>
+            }
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
+
+          {/* ??? */}
           <Route path="share-stocks" element={<AdminShareStocksPage />} />
         </Route>
       </Routes>
@@ -69,36 +111,6 @@ function App() {
 }
 
 export default App;
-/*
-// <Routes> 
-            //   <Route path="/" element={<HomePage />} /> 
-            //     <Route path="/" element={<SharedLayout />}> 
-            //         <Route path="/" element={<Home />} /> 
-            //         <Route path="catalog" element={<Catalog />} /> 
-            //         <Route path="about" element={<About />} />
-            //         <Route path="partners" element={<Partners />} />
-            //         <Route path="delivery" element={<Delivery />} />
-                  
-            //         <Route path='/catalog' element={<CatalogPage />}/>
-            //         <Route path='/catalog/:sorted' element={<CatalogPage />}/>
-            //         <Route path='/catalog/subcategory' element={<CatalogPage />}/>
-            //         <Route path='category/subcategory/:id' element={<ProductPage />} />
-                           
-            //     // privare routes
-            //         <Route path='/myprofile' element={loggedIn ? <Navigate to='/myprofile/basket' /> : <Redirect to='/' />}>
-            //             <Route path='/mydata' element={loggedIn ? <MyDataPage /> : <Redirect to='/' />} />
-            //             <Route path='/basket' element={loggedIn ? <BasketPage /> : <Redirect to='/' />} />
-            //             <Route path='/orders' element={loggedIn ? <OrdersPage /> : <Redirect to='/' />} />
-            //             <Route path='/selected' element={loggedIn ? <SelectedPage /> : <Redirect to='/' />} />
-            //         </Route>
-        
-                        <Route path="*" element={<NotFound />} />
-            //         </Route>
-            // </Routes>
-        </div>
-    );
-};
-
 
 
 // import { useSelector } from "react-redux";

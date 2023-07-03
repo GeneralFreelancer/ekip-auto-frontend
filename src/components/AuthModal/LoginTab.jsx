@@ -13,22 +13,38 @@ const LoginTab = (props) => {
     rememberMe: true,
   });
   const [loginErrors, setloginErrors] = useState({ email: "", password: "" });
-  // const [token, setToken] = useState(null);
+  const [errorLoginMessage, setErrorLoginMessage] = useState(null);
+
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
 
-  // Test
   useEffect(() => {
-    if (
-      loginForm.email === "admin@gmail.com" &&
-      loginForm.password === "333555"
-    ) {
+    if (errorLoginMessage === "") {
+      props.onSubmit(true);
+    }
+  }, [errorLoginMessage, props]);
+
+  // Admin
+  useEffect(() => {
+    if (user.roles.includes("ADMIN")) {
       localStorage.setItem("role", "admin");
-    } else {
+    } else if (user.roles.includes("USER")) {
       localStorage.setItem("role", "user");
     }
-  }, [loginForm.email, loginForm.password]);
-  // Test end
+  }, [user.roles]);
+  // Admin end
+
+
+  const resendVerificationEmail = async () => {
+    try {
+      await axios.post("http://localhost:5502/user/verification-email", {
+        email: user.userdata.email,
+      });
+      console.log("Verification email sent successfully");
+    } catch (error) {
+      console.log("Error resending verification email:", error.message);
+    }
+  };
 
   const validateLoginForm = (name, value) => {
     let errors = { ...loginErrors };
@@ -70,44 +86,31 @@ const LoginTab = (props) => {
 
   const submitLoginHandler = async (e) => {
     e.preventDefault();
+
     if (loginForm.email && loginForm.password) {
-      // 
-      if (user.isDataFullFilled) {
-        props.onSubmit(true);
+      try {
+        const response = await axios.post("http://localhost:5502/auth/login", {
+          ...loginForm,
+        });
+
+        dispatch(
+          login({
+            ...response.data,
+            rememberMe: loginForm.rememberMe,
+          })
+        );
+        setErrorLoginMessage("");
+      } catch (error) {
+        if (error.response) {
+          setErrorLoginMessage(error.response.data.message);
+        } else {
+          console.log("Error:", error.message);
+        }
       }
     } else if (!loginForm.email) {
       validateLoginForm("email", null);
     } else if (!loginForm.password) {
       validateLoginForm("password", null);
-    }
-    try {
-      const response = await axios.post("http://localhost:3001/auth/login", {
-        ...loginForm,
-      });
-      dispatch(
-        login({
-          email: loginForm.email,
-          password: loginForm.password,
-          rememberMe: loginForm.rememberMe,
-          role: localStorage.getItem("role"),
-        })
-      );
-      console.log("User login:", response.data);
-      if (response.data.user.email === "admin@gmail.com") {
-        localStorage.setItem("token", response.data.token);
-      } else {
-        localStorage.setItem("token", response.data.token);
-      }
-      // setToken(response.data.token);
-    } catch (error) {
-      if (error.response) {
-        console.log("Error status:", error.response.status);
-        console.log("Error message:", error.response.data.message);
-      } else if (error.request) {
-        console.log("No response received");
-      } else {
-        console.log("Error:", error.message);
-      }
     }
   };
 
@@ -163,6 +166,11 @@ const LoginTab = (props) => {
             <button type="submit" onClick={submitLoginHandler}>
               Увійти
             </button>
+            {errorLoginMessage ? (
+              <p className={s.error_message}>{errorLoginMessage}</p>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </form>

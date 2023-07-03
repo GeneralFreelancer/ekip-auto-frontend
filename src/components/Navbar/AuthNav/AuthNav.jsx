@@ -41,7 +41,7 @@ const AuthNav = (props) => {
   }, [showModal]);
 
   const onClick = () => {
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn || user.isRegisteredConfirmed) {
       setShowModal((prevState) => !prevState);
     }
   };
@@ -79,7 +79,7 @@ const AuthNav = (props) => {
           </ul>
         )}
       </div>
-      {(user.isLoggedIn && user.isDataFullFilled) && <p className={style.userLog}>{user.userdata.name}</p>}
+      {(user.isLoggedIn || user.isDataFullFilled) && <p className={style.userLog}>{user?.userdata?.firstName}</p>}
       {(user.isRegisteredConfirmed && !user.isDataFullFilled) && (
         <Link className={style.userRegister} to={"/myprofile/mydata"}>
           Заповнити <br></br> дані

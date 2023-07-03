@@ -169,8 +169,12 @@
 }
 
 .form_submit_btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 25px auto 0;
   button {
+    margin-bottom: 5px;
     height: 25px;
     padding: 0 15px;
     border-radius: 7px;

@@ -6,19 +6,34 @@ import s from "./AuthModal.module.scss";
 import StartTimer from "./StartTimer";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../redux/features/userSlice";
+import axios from "axios";
 
 const AuthModal = (props) => {
   const [activeTab, setActiveTab] = useState("login");
-  const [registrationSuccess, setRegistrationSuccess ] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const user = useSelector(selectedUser);
 
   const handleFormSubmit = (isSubmitted) => {
     setRegistrationSuccess(isSubmitted);
-  }
+  };
+
+  const resendVerificationEmail = async () => {
+    try {
+      await axios.post("http://localhost:5502/user/verification-email", {
+        email: user.userdata.email,
+      });
+      console.log("Verification email sent successfully");
+    } catch (error) {
+      console.log("Error resending verification email:", error.message);
+    }
+  };
 
   const handleTabChange = (tab) => setActiveTab(tab);
 
   const renderRegistrationSuccess = () => {
+    if (!user.isRegisteredConfirmed) {
+      resendVerificationEmail();
+    }
     return (
       <div className={s.modalRegistSuccess}>
         <h1>Дякуємо за реєстрацію!</h1>
@@ -30,10 +45,10 @@ const AuthModal = (props) => {
           </p>
           <p>
             Якщо лист не прийшов протягом хвилини, <br></br>то натисніть на
-            відпривити знову: <StartTimer/>
+            відпривити знову: <StartTimer />
           </p>
           <div className={s.modalRegistSuccess_send}>
-            <button>Відправити знову</button>
+            <button onClick={resendVerificationEmail}>Відправити знову</button>
           </div>
         </div>
 
@@ -44,11 +59,11 @@ const AuthModal = (props) => {
     );
   };
 
-
   return (
     <>
       <ModalWindow onHideModal={props.onHideModal}>
-        {(registrationSuccess || (user.isRegistered && !user.isRegisteredConfirmed)) ? (
+        {registrationSuccess ||
+        (user.isRegistered && !user.isRegisteredConfirmed) ? (
           renderRegistrationSuccess()
         ) : (
           <div>
@@ -72,7 +87,7 @@ const AuthModal = (props) => {
             </div>
 
             {activeTab === "login" ? (
-              <LoginTab onSubmit={props.onHideModal}/>
+              <LoginTab onSubmit={props.onHideModal} />
             ) : (
               <RegisterTab onSubmit={handleFormSubmit} />
             )}

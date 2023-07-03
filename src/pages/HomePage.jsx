@@ -15,7 +15,7 @@ const HomePage = () => {
   const user = useSelector(selectedUser);
 
   const showModalHandler = () => {
-    if (user.isLoggedIn) {
+    if (user.isLoggedIn || user.isRegisteredConfirmed) {
       setModalIsVisible(false);
     } else if (user.isRegistered || !user.isLoggedIn) {
       setModalIsVisible(true);
