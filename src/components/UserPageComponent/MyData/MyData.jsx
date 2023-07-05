@@ -147,7 +147,6 @@ const MyData = () => {
             },
           }
         );
-        console.log(response);
         dispatch(fullUserRegistered({ ...response.data }));
 
         setDataForm({

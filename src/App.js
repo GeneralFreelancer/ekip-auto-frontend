@@ -18,9 +18,11 @@ import RedirectPage from "./pages/RedirectPage";
 import { PivateRouter } from "./components/AuthModal/PrivateRouter";
 import { ProtectedRoute } from "./components/AuthModal/protectedRoute";
 
-function App() {
-  // const user = useSelector(selectedUser);
 
+function App() {
+
+  // const user = useSelector(selectedUser);
+  
   return (
     <>
       <Routes>
@@ -48,12 +50,13 @@ function App() {
           }
         />
 
-        <Route path="ostannі-nadkhodzhennya" element={<Catalog />} />
+        <Route path="ostannі-nadkhodzhennya" element={<Catalog/>} />
         <Route path="ostannі-pereglyanutі" element={<Catalog />} />
         <Route path="top-prodazhu" element={<Catalog />} />
         <Route path="vas-mozhe-zatsіkaviti" element={<Catalog />} />
 
-        {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} /> */}
+        {/* <Route path=":category/:subcategory/" element={<Catalog />} /> */}
+        {/* передавать на бек категорію чи підкатегорію */}
 
         <Route
           path="ostannі-nadkhodzhennya/:id"
@@ -102,7 +105,7 @@ function App() {
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
 
-          {/* ??? */}
+          {/* http://localhost:3000/myprofile/share-stocks */}
           <Route path="share-stocks" element={<AdminShareStocksPage />} />
         </Route>
       </Routes>

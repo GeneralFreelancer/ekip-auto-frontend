@@ -13,10 +13,10 @@ const translit = (name) => {
 const Card = ({
   id,
   imgUrl,
-  title,
+  name,
   priceUAH,
-  priseUSD,
-  inStock,
+  priceUSD,
+  stock,
   styleCard,
 }) => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const Card = ({
         className={style.clickArea}
         id={id}
         onClick={(e) => {
-          navigate("id");
+          navigate(id);
           window.scrollTo(0, 0);
           console.log(e.target.id); /**add riderect link */
         }}
@@ -39,9 +39,9 @@ const Card = ({
         className={style.wrapperImg}
         style={{ backgroundImage: `url(${imgUrl})` }}
       ></div>
-      <h3 className={style.title}>{title}</h3>
+      <h3 className={style.title}>{name}</h3>
       <div className={style.wrapperText}>
-        {inStock ? (
+        {stock ? (
           <p className={`${style.inStock} ${style.inStockYes}`}>В наявності</p>
         ) : (
           <p className={`${style.inStock} ${style.inStockNo}`}>
@@ -49,7 +49,7 @@ const Card = ({
           </p>
         )}
         <div className={style.wrapperPrice}>
-          <p className={style.priceUSD}>{priseUSD} $</p>
+          <p className={style.priceUSD}>{priceUSD} $</p>
           <p className={style.priceUAH}>{priceUAH} ₴</p>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./features/userSlice";
-// import subMenuReducer from "./features/subMenu";
+import cartReducer from "./features/cartSlice";
+import productsReducer from "./features/productsSlice";
+
 import {
   persistStore,
   persistReducer,
@@ -20,12 +22,13 @@ const persistConfig = {
 };
 
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
-// const persistedSubMenuReducer = persistReducer(persistConfig, subMenuReducer);
+// const persistedCartReducer = persistReducer(persistConfig, cartReducer);
 
 export const store = configureStore({
   reducer: {
     user: persistedUserReducer,
-    // menu: persistedSubMenuReducer,
+    cart: cartReducer,
+    products: productsReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

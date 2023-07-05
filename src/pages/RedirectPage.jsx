@@ -15,7 +15,7 @@ const RedirectPage = () => {
       try {
         const response = await axios.post(
           "http://localhost:5502/auth/register/confirm",
-          {code: "916117"}
+          {code: "818243"}
         );
         dispatch(registerConfirmed(response.data));
         navigate("/");
@@ -29,14 +29,14 @@ const RedirectPage = () => {
   }, [code, dispatch, navigate]);
 
   if (error) {
-    return <p>Спробуйте, будь ласка, знову.</p>;
+    return <p style={{ textAlign: 'center', marginTop: '50px'}}>Спробуйте, будь ласка, знову.</p>;
   }
 
 
   return (
     <>
-      <div>
-        <p>Loading...</p>
+      <div className='loader'>
+      
       </div>
     </>
   );

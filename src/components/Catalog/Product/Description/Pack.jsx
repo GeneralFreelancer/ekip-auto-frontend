@@ -12,7 +12,8 @@ const initialData = [
 ];
 
 const Pack = (props) => {
-  const { productId, role } = props;
+  const { deliveryOptions, role } = props;
+
   const [isEditMode, setIsEditMode] = useState(false);
   const [charactData, setCharactData] = useState(initialData);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);

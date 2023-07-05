@@ -12,7 +12,8 @@ const initialData = [
 ];
 
 const Characteristic = (props) => {
-  const { productId, role } = props;
+  const { options, role } = props;
+
   const [isEditMode, setIsEditMode] = useState(false);
   const [charactData, setCharactData] = useState(initialData);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);

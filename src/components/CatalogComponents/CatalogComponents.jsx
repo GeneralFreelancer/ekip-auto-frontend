@@ -2,290 +2,293 @@ import s from "./CatalogComponents.module.scss";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import InStock from "./InStock";
 import Filter from "./Filter";
 import ListCards from "../ListCards";
-
-// import Pagination from "https://cdn.skypack.dev/rc-pagination@3.1.15";
 import Pagination from "rc-pagination";
 import { ReactComponent as Arrow } from "../../assets/svg/up-arrow.svg";
-
 import "./Pagination/Pagination.scss";
+import { useSelector } from "react-redux";
+import {
+  selectDateProducts,
+  selectTopProducts,
+  selectLastSeenProducts,
+  selectInterestProducts,
+} from "../../redux/features/productsSlice";
 
 // transition text
 // import { transliterate, slugify } from "transliteration";
 
 // const convert = require("translit-english-ukrainian");
 
-let cardsData = [
-  {
-    id: 1,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: " Table is very goodTable is very goodLampa is wery good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 2,
-    imgUrl:
-      "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 3,
-    imgUrl:
-      "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 4,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 5,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 6,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 7,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 8,
-    imgUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 9,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 10,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 11,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 12,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 13,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: " Table is very goodTable is very goodLampa is wery good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 14,
-    imgUrl:
-      "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 15,
-    imgUrl:
-      "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 16,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 17,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 18,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 19,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 20,
-    imgUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
-    title: "Table is very good",
-    priceUAH: "5",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 21,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "10000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 22,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
+// let cardsData = [
+//   {
+//     id: 1,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: " Table is very goodTable is very goodLampa is wery good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 2,
+//     imgUrl:
+//       "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 3,
+//     imgUrl:
+//       "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 4,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 5,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 6,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 7,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 8,
+//     imgUrl:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 9,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 10,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 11,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 12,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 13,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: " Table is very goodTable is very goodLampa is wery good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 14,
+//     imgUrl:
+//       "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 15,
+//     imgUrl:
+//       "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 16,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 17,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 18,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 19,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 20,
+//     imgUrl:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
+//     title: "Table is very good",
+//     priceUAH: "5",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 21,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "10000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 22,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
 
-  {
-    id: 23,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: " Table is very goodTable is very goodLampa is wery good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 24,
-    imgUrl:
-      "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 25,
-    imgUrl:
-      "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 26,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 27,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 28,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 29,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 30,
-    imgUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
-    title: "Table is very good",
-    priceUAH: "5",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 31,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "10000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 32,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Table is very good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-];
+//   {
+//     id: 23,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: " Table is very goodTable is very goodLampa is wery good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 24,
+//     imgUrl:
+//       "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 25,
+//     imgUrl:
+//       "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 26,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 27,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 28,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 29,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 30,
+//     imgUrl:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
+//     title: "Table is very good",
+//     priceUAH: "5",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 31,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "10000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 32,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Table is very good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+// ];
 
 //text translations text
 
@@ -318,6 +321,9 @@ const CatalogComponents = ({ title }) => {
   const [perPage, setPerPage] = useState(10);
   const [current, setCurrent] = useState(1);
 
+  const dateProducts = useSelector(selectDateProducts);
+
+  // якщо нема масиву або пустий, то запрос до бази і в редакс
   // const [translitText, setTranslitText] = useState(""); //test translit text
 
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -362,7 +368,7 @@ const CatalogComponents = ({ title }) => {
     const category = pathArray[1];
     const subCategory = pathArray.length === 3 && pathArray[2];
 
-    setItems(cardsData);
+    setItems(dateProducts);
 
     // const fetchData = async () => {
     //   try {
@@ -383,7 +389,7 @@ const CatalogComponents = ({ title }) => {
   useEffect(() => {
     let filteredItems;
     filteredItems = items.filter((item) =>
-      inStock ? item.inStock === inStock : item
+      inStock ? item.stock === inStock : item
     );
 
     switch (filter) {

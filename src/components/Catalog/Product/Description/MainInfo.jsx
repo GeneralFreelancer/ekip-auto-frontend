@@ -17,26 +17,10 @@ Fugiat quis numquam.
 Розмір: 12 x 12см.`;
 
 const MainInfo = (props) => {
-  const { productId, role } = props;
+  const { description, role } = props;
+
   const [isEditMode, setIsEditMode] = useState(false);
-  const [text, setText] = useState(initialText);
-
-  // const fetchProductDescription = async (productId) => {
-  //   try {
-  //     const response = await axios.get(`/api/products/${productId}`);
-  //     return response.data.description;
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const fetchDescription = async () => {
-  //     const newDescription = await fetchProductDescription(productId);
-  //     setText(newDescription);
-  //   };
-  //   fetchDescription();
-  // }, [productId]);
+  const [text, setText] = useState(description);
 
   const textParts = text.split(/(?<=\.)\s+/);
 

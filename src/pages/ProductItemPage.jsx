@@ -9,11 +9,16 @@ import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import ListCards from "../components/ListCards/ListCards";
+import { selectInterestProducts } from "../redux/features/productsSlice";
+import { useParams } from 'react-router-dom';
 
 const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
-  
+  const interestProducts = useSelector(selectInterestProducts);
+
+  const { id } = useParams();
+
   const showModalHandler = () => {
     if (user.isLoggedIn || user.isRegisteredConfirmed) {
       setModalIsVisible(false);
@@ -21,7 +26,7 @@ const ProductItemPage = () => {
       setModalIsVisible(true);
     }
   };
-  
+
   const hideModalHandler = () => {
     setModalIsVisible(false);
   };
@@ -31,9 +36,9 @@ const ProductItemPage = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        <Product />
-        <div style={{paddingTop: '30px'}}>
-          <ListCards title={"Вас може зацікавити"} />
+        <Product productId={id}/>
+        <div style={{ paddingTop: "30px" }}>
+          <ListCards title={"Вас може зацікавити"} items={interestProducts}/>
         </div>
       </MainContainer>
       <ScrollToTopButton />

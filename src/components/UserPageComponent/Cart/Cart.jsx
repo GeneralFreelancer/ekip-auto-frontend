@@ -1,6 +1,6 @@
 import style from "./Cart.module.scss";
 import { useMediaPredicate } from "react-media-hook";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableHead from "./TableHead/TableHead";
 import TableHeadMiddle from "./TableHead/TableHeadMiddle";
 import TableBody from "./TableBody/TableBody";
@@ -9,6 +9,11 @@ import TableFooter from "./TableFooter/TableFooter";
 import TableFooterMiddle from "./TableFooter/TableFooterMiddle";
 import TableBodyMobile from "./TableBody/TableBodyMobile";
 import TableFooterMobile from "./TableFooter/TableFooterMobile";
+import { setProductsInCart } from "../../../redux/features/cartSlice";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const mockItems = [
   {
@@ -75,43 +80,86 @@ const Cart = () => {
   const mobile = useMediaPredicate("(max-width: 540px)");
   const [dataMockItems, setDataMockItems] = useState(mockItems);
   const [isActive, setIsActive] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProductsFromCart = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/basket`);
+        console.log(response);
+        setDataMockItems(response.data.products);
+        dispatch(setProductsInCart(response.data.products));
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+    getProductsFromCart();
+  }, []);
 
   //remover function delete items
-  const remove = (id) => {
-    console.log(id);
-    // let templateArr = dataMockItems;
-
-    // templateArr = [...templateArr].filter(item => item.id !== id);
-    // console.log(templateArr);
-    // setDataMockItems(templateArr);
+  const remove = async (id) => {
+    const arrayWithoutDeletedProduct = dataMockItems.filter(
+      (item) => item.id !== id
+    );
+    // token
+    try {
+      const response = await axios.post(
+        `${baseUrl}/basket`,
+        arrayWithoutDeletedProduct
+      ); 
+      setDataMockItems(response.data.products);
+      dispatch(setProductsInCart(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
+
   // change favorite state in DB
-  const checkfavorite = (id) => {
-    console.log(id);
-    // let templateArr = dataMockItems;
-
-    // templateArr = [...templateArr].filter(item => (
-    //   item.id === id ? !item.favorite : !item.favorite
-    //   ));
-    // setDataMockItems(templateArr);
+  const checkfavorite = async(id) => {
+    try {
+      setIsFavorite(!isFavorite);
+      const response = await axios.patch("/user/favorite", { productId: id });
+      // token
+      // response = user.favoriteProducts;
+      // dispatch(user);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const changeQuantity = (id, btnType) => {
+  const changeQuantity = async (id, btnType) => {
     console.log(btnType);
     if (btnType === "up") {
       setDataMockItems(
         dataMockItems.filter((item) =>
-          item.id === id ? item.quantity += item.minQuantity : item.quantity
+          item.id === id ? (item.quantity += item.minQuantity) : item.quantity
         )
       );
-    } 
+    }
     if (btnType === "down") {
       setDataMockItems(
         dataMockItems.filter((item) =>
-          item.id === id && item.quantity > item.minQuantity ? item.quantity -= item.minQuantity : item.quantity
+          item.id === id && item.quantity > item.minQuantity
+            ? (item.quantity -= item.minQuantity)
+            : item.quantity
         )
       );
-    } 
+    }
+    // token
+    try {
+      const response = await axios.put(`${baseUrl}/basket`, {
+        product: id,
+        // number: quantity,??
+      });
+      setDataMockItems(response.data.products);
+      dispatch(setProductsInCart(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+ 
+    // dispatch(updateQuantity({ id, quantity }));
   };
 
   const leftComment = (event) => {

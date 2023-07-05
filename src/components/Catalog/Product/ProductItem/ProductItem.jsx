@@ -11,12 +11,17 @@ import { ReactComponent as Blackheart } from "../../../../assets/svg/black_heart
 import Plus from "../../../../assets/plus.png";
 import Minus from "../../../../assets/minus.png";
 import { NavLink, Link } from "react-router-dom";
-// import { Slide } from "react-slideshow-image";
-// import axios from "axios";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { setProductsInCart } from "../../../../redux/features/cartSlice";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../../../redux/features/userSlice";
 
-const initialTitle = `ASUS 100500 G Arial- Black (G170-48) `;
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
+// const initialTitle = `ASUS 100500 G Arial- Black (G170-48) `;
 
 const images = [
   "https://cdn.27.ua/799/9d/06/2596102_11.jpeg",
@@ -24,71 +29,75 @@ const images = [
   "https://files.foxtrot.com.ua/PhotoNew/img_0_977_4158_1.jpg",
 ];
 
-const mockItems = [
-  {
-    id: "1",
-    category: "category",
-    title: "Назва товаруНазва товаруНазва товару",
-    description: "lorem",
-    options: [],
-    deliveryOptions: [],
-    SKU: "number1212sdsd",
-    favorite: false,
-    price: [1000, 100],
-    minQuantity: 100,
-    stock: true,
-    image: [
-      "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
-    ],
-    quantity: 500,
-  },
-  {
-    id: "2",
-    category: "category",
-    title: "Назва товару",
-    description: "lorem",
-    options: [],
-    deliveryOptions: [],
-    SKU: "number12sdsd",
-    favorite: true,
-    price: [15000, 120],
-    minQuantity: 100,
-    stock: true,
-    image: [
-      "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
-    ],
-    quantity: 600,
-  },
-  {
-    id: "3",
-    category: "category",
-    title: "Назва товару",
-    description: "lorem",
-    options: [],
-    deliveryOptions: [],
-    SKU: "number11sdsd",
-    favorite: false,
-    price: [10000, 160],
-    minQuantity: 50,
-    stock: true,
-    image: [
-      "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
-    ],
-    quantity: 200,
-  },
-];
+// const mockItems = [
+//   {
+//     id: "1",
+//     category: "category",
+//     title: "Назва товаруНазва товаруНазва товару",
+//     description: "lorem",
+//     options: [],
+//     deliveryOptions: [],
+//     SKU: "number1212sdsd",
+//     favorite: false,
+//     price: [1000, 100],
+//     minQuantity: 100,
+//     stock: true,
+//     image: [
+//       "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
+//     ],
+//     quantity: 500,
+//   },
+//   {
+//     id: "2",
+//     category: "category",
+//     title: "Назва товару",
+//     description: "lorem",
+//     options: [],
+//     deliveryOptions: [],
+//     SKU: "number12sdsd",
+//     favorite: true,
+//     price: [15000, 120],
+//     minQuantity: 100,
+//     stock: true,
+//     image: [
+//       "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
+//     ],
+//     quantity: 600,
+//   },
+//   {
+//     id: "3",
+//     category: "category",
+//     title: "Назва товару",
+//     description: "lorem",
+//     options: [],
+//     deliveryOptions: [],
+//     SKU: "number11sdsd",
+//     favorite: false,
+//     price: [10000, 160],
+//     minQuantity: 50,
+//     stock: true,
+//     image: [
+//       "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
+//     ],
+//     quantity: 200,
+//   },
+// ];
 
-const ProductItem = (props) => {
+const ProductItem = ({ selectedProduct }) => {
+  const { id, name, quantity, minQuantity, priceUAH, priceUSD, sku, stock } =
+    selectedProduct;
+
   const [role, setRole] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [title, setTitle] = useState(initialTitle);
+  const [title, setTitle] = useState(name);
   const [isZoomed, setIsZoomed] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [quantity, setQuantity] = useState(mockItems[2].minQuantity);
+  const [productQuantity, setProductQuantity] = useState(minQuantity);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [mouseEnter, setMouseEnter] = useState(false);
-  // const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  
+
+  const dispatch = useDispatch();
+  const user = useSelector(selectedUser);
   useEffect(() => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
@@ -99,10 +108,6 @@ const ProductItem = (props) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [viewportWidth]);
-
-  // const handleZoomClick = (index) => {
-  //   setIsZoomed(!isZoomed);
-  // };
 
   const localStor = localStorage.getItem("role");
 
@@ -124,70 +129,65 @@ const ProductItem = (props) => {
 
   const handleCancelClick = () => {
     setIsEditMode(false);
-    setTitle(initialTitle);
+    setTitle(name);
   };
 
   const handleMinusClick = () => {
-    if (quantity > mockItems[2].minQuantity) {
-      setQuantity((prevQuantity) =>
-        Math.max(prevQuantity - mockItems[2].minQuantity, 50)
+    if (productQuantity > minQuantity) {
+      setProductQuantity((prevQuantity) =>
+        Math.max(prevQuantity - minQuantity, minQuantity)
       );
     }
   };
 
   const handlePlusClick = () => {
-    if (quantity >= mockItems[2].minQuantity) {
-      setQuantity(
-        (prevQuantity) =>
-          Number(prevQuantity) + Number(mockItems[2].minQuantity)
+    if (productQuantity >= minQuantity) {
+      setProductQuantity((prevQuantity) =>
+        Number(prevQuantity) + Number(minQuantity) <= quantity
+          ? Number(prevQuantity) + Number(minQuantity)
+          : quantity
       );
     }
   };
   const hadleMouseEnter = () => {
-    setMouseEnter(true)
-  }
+    setMouseEnter(true);
+  };
   const hadleMouseLeave = () => {
-    setMouseEnter(false)
-  }
-  // const handleChangeQuantity = (e) => {
-  //   const cleanedValue = e.target.value.replace(/\D/g, "");
-  //   if (cleanedValue < mockItems[2].minQuantity) {
-  //     console.log("Мінімальна кількість товару: " + mockItems[2].minQuantity);
-  //   }
-  //   setQuantity(cleanedValue);
-  // };
-
-  const handleFavouriteClick = async () => {
-    setIsFavorite(!isFavorite);
-    // if (!isFavorite) {
-    //   try {
-    //     await axios.post("/myprofile/favorite", props.productId);
-    //     console.log("Product added to favorites");
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
+    setMouseEnter(false);
   };
 
-  // const handleSlideChange = (previousIndex, nextIndex) => {
-  //   setCurrentSlideIndex(nextIndex);
-  // };
+  const handleFavouriteClick = async () => {
+    try {
+      setIsFavorite(!isFavorite);
+      const response = await axios.patch("/user/favorite", { productId: id });
+      // response = user.favoriteProducts;
+      // dispatch(user);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  // const properties = {
-  //   // duration: 5000,
-  //   transitionDuration: 500,
-  //   infinite: false,
-  //   indicators: true,
-  //   arrows: true,
-  //   autoplay: false,
-  //   canSwipe: true,
-  //   onChange: handleSlideChange,
-  // };
-
-  // const indicators = (index) => {
-  //   console.log(index);
-  //   return <div className="indicator">{index + 1}</div>;
-  // };
+  const handleAddToCart = async () => {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/basket`,
+        {
+          product: id,
+          number: quantity,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      console.log(response);
+      dispatch(setProductsInCart(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
 
   function scrollToAnchor(anchorId) {
     const element = document.getElementById(anchorId);
@@ -198,6 +198,10 @@ const ProductItem = (props) => {
       });
     }
   }
+
+  const exchangeRate = priceUAH / priceUSD;
+  const totalAmountUAH = priceUAH * productQuantity;
+  const totalAmountUSD = priceUSD * productQuantity;
 
   const galleryExitRef = useRef(null);
 
@@ -373,18 +377,20 @@ const ProductItem = (props) => {
         <div className={s.productItem_content_main}>
           <div className={s.productItem_content}>
             <p>
-              <span className={s.productItem_is}>В наявності</span>
+              <span className={s.productItem_is}>
+                {stock ? "В наявності" : "Нема в наявності"}
+              </span>
             </p>
             <div className={s.productItem_price}>
               <p>
                 <span>
-                  1500.99 <span>&#8372;/шт</span>
+                  {priceUAH} <span>&#8372;/шт</span>
                 </span>
               </p>
-              <p>150.99 &#65284;/шт</p>
+              <p>{priceUSD} &#65284;/шт</p>
             </div>
             <div>
-              <p>Мінімальне замовлення від: {mockItems[2].minQuantity} шт.</p>
+              <p>Мінімальне замовлення від: {minQuantity} шт.</p>
               <div className={s.productItem_info}>
                 <p>Залишок на складі:</p>
                 <button className={s.productItem_btn_ask}>
@@ -402,7 +408,7 @@ const ProductItem = (props) => {
                   // onChange={handleChangeQuantity}
                   className={s.productItem_quantity_info}
                 >
-                  {quantity}
+                  {productQuantity}
                 </span>
                 <div className={s.plus} onClick={handlePlusClick}>
                   <img src={Plus} alt="plus" />
@@ -415,17 +421,27 @@ const ProductItem = (props) => {
               </p>
               <div>
                 <div style={{ position: "relative" }}>
-                  <div className={s.productItem_btn_sum}>150 000</div>
-                  <p style={{ position: "absolute", top: '8px', right: '-15px' }}>&#8372;</p>
+                  <div className={s.productItem_btn_sum}>{totalAmountUAH}</div>
+                  <p
+                    style={{ position: "absolute", top: "8px", right: "-15px" }}
+                  >
+                    &#8372;
+                  </p>
                 </div>
                 <div style={{ position: "relative" }}>
-                  <div className={s.productItem_btn_sum}>4 500</div>
-                  <p style={{ position: "absolute", top: '6px', right: '-19px' }}>&#65284;</p>
+                  <div className={s.productItem_btn_sum}>{totalAmountUSD}</div>
+                  <p
+                    style={{ position: "absolute", top: "6px", right: "-19px" }}
+                  >
+                    &#65284;
+                  </p>
                 </div>
               </div>
             </div>
             <div className={s.productItem_basket_btn}>
-              <button className={s.productItem_addTo}>Додати до кошика</button>
+              <button onClick={handleAddToCart} className={s.productItem_addTo}>
+                Додати до кошика
+              </button>
               <p>
                 *Кількість товару ви зможете відредагувати при підтвердженні
                 замовлення!
@@ -434,7 +450,7 @@ const ProductItem = (props) => {
           </div>
 
           <div className={s.productItem_favourite}>
-            <div className={s.productItem_sku}>Art: SU 845-64</div>
+            <div className={s.productItem_sku}>Art: {sku}</div>
             <div className={s.productItem_heart}>
               {isFavorite ? (
                 <Blackheart
@@ -443,11 +459,19 @@ const ProductItem = (props) => {
                 />
               ) : (
                 <>
-                  {!mouseEnter ? <Heart className={s.heart} onMouseEnter={hadleMouseEnter}  onClick={handleFavouriteClick} /> : <Blackheart
-                    className={s.heartHover}
-                    onMouseLeave={hadleMouseLeave}
-                    onClick={handleFavouriteClick}
-                  />}
+                  {!mouseEnter ? (
+                    <Heart
+                      className={s.heart}
+                      onMouseEnter={hadleMouseEnter}
+                      onClick={handleFavouriteClick}
+                    />
+                  ) : (
+                    <Blackheart
+                      className={s.heartHover}
+                      onMouseLeave={hadleMouseLeave}
+                      onClick={handleFavouriteClick}
+                    />
+                  )}
                 </>
               )}
 

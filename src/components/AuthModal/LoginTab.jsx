@@ -35,16 +35,16 @@ const LoginTab = (props) => {
   // Admin end
 
 
-  const resendVerificationEmail = async () => {
-    try {
-      await axios.post("http://localhost:5502/user/verification-email", {
-        email: user.userdata.email,
-      });
-      console.log("Verification email sent successfully");
-    } catch (error) {
-      console.log("Error resending verification email:", error.message);
-    }
-  };
+  // const resendVerificationEmail = async () => {
+  //   try {
+  //     await axios.post("http://localhost:5502/user/verification-email", {
+  //       email: user.userdata.email,
+  //     });
+  //     console.log("Verification email sent successfully");
+  //   } catch (error) {
+  //     console.log("Error resending verification email:", error.message);
+  //   }
+  // };
 
   const validateLoginForm = (name, value) => {
     let errors = { ...loginErrors };

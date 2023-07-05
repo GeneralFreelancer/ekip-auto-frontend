@@ -352,6 +352,11 @@ const Favorite = () => {
     setCurrent(page);
   };
 
+  useEffect(() => {
+    // запрос get /favorite;
+    // response = products.array
+  }, []);
+
   const PrevNextArrow = (current, type, originalElement) => {
     if (type === "prev") {
       return (
@@ -367,8 +372,13 @@ const Favorite = () => {
   };
 
   const handelClick = (id) => {
-    setItems([...items].filter((item) => item.id !== id));
+    // setItems([...items].filter((item) => item.id !== id));
+
+    // запрос patch /favorite;
+    // body = id
+    // response = products.array
   };
+
 
   return (
     <>

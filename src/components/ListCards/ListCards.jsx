@@ -1,217 +1,214 @@
 import "react-slideshow-image/dist/styles.css";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-
 import { Slide } from "react-slideshow-image";
 import "../SideBarSlider/Slider/Slider.scss";
-
 import style from "./ListCards.module.scss";
 import Card from "./Card";
-
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 
-let cardsData = [
-  {
-    id: 1,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title:
-      " Lampa is wery good lampaLampa is wery good lampaLampa is wery good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 2,
-    imgUrl:
-      "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 3,
-    imgUrl:
-      "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 4,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 5,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 6,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 7,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 8,
-    imgUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 9,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 10,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 11,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 12,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 13,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title:
-      " Lampa is wery good lampaLampa is wery good lampaLampa is wery good",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 14,
-    imgUrl:
-      "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 15,
-    imgUrl:
-      "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 16,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 17,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: false,
-  },
-  {
-    id: 18,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 19,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 20,
-    imgUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 21,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 22,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 23,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-  {
-    id: 24,
-    imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-    title: "Lampa is wery good lampa",
-    priceUAH: "5000",
-    priseUSD: "500",
-    inStock: true,
-  },
-];
+// let cardsData = [
+//   {
+//     id: 1,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title:
+//       " Lampa is wery good lampaLampa is wery good lampaLampa is wery good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 2,
+//     imgUrl:
+//       "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 3,
+//     imgUrl:
+//       "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 4,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 5,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 6,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 7,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 8,
+//     imgUrl:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 9,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 10,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 11,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 12,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 13,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title:
+//       " Lampa is wery good lampaLampa is wery good lampaLampa is wery good",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 14,
+//     imgUrl:
+//       "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 15,
+//     imgUrl:
+//       "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 16,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 17,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: false,
+//   },
+//   {
+//     id: 18,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 19,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 20,
+//     imgUrl:
+//       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 21,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 22,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 23,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+//   {
+//     id: 24,
+//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
+//     title: "Lampa is wery good lampa",
+//     priceUAH: "5000",
+//     priseUSD: "500",
+//     inStock: true,
+//   },
+// ];
 
 const properties = {
   autoplay: false,
@@ -230,7 +227,7 @@ const ListCards = ({
   title,
   showAll = false,
   link, // temp variable for backend
-  items = cardsData,
+  items,
   need_A_Slider = true,
 }) => {
   const [cards, setCards] = useState(items);
@@ -303,34 +300,34 @@ const ListCards = ({
 
   const renderCards = (showAll) => {
     const indexOfLastCard = currentPage * cardsPerPage;
-    const cardsToShow = cards.slice(0, indexOfLastCard);
+    const cardsToShow = cards?.slice(0, indexOfLastCard);
 
     if (!showAll) {
-      return cardsToShow.map(
-        ({ id, imgUrl, title, priceUAH, priseUSD, inStock }, index) => (
+      return cardsToShow?.map(
+        ({ id, pictures, name, priceUAH, priceUSD, stock }, index) => (
           <Card
             key={id}
             id={id}
-            imgUrl={imgUrl}
-            title={title}
+            imgUrl={'https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg'}
+            name={name}
             priceUAH={priceUAH}
-            priseUSD={priseUSD}
-            inStock={inStock}
+            priceUSD={priceUSD}
+            stock={stock}
             styleCard={(index + 1) % cardsPerPage === 0 && "lastCard"}
           />
         )
       );
     } else {
       return cards.map(
-        ({ id, imgUrl, title, priceUAH, priseUSD, inStock }, index) => (
+        ({ id, pictures, name, priceUAH, priceUSD, stock }, index) => (
           <Card
             key={id}
             id={id}
-            imgUrl={imgUrl}
-            title={title}
+            imgUrl={pictures[0]}
+            name={name}
             priceUAH={priceUAH}
-            priseUSD={priseUSD}
-            inStock={inStock}
+            priceUSD={priceUSD}
+            stock={stock}
             styleCard={(index + 1) % cardsPerPage === 0 ? "lastCard" : "card"}
           />
         )
@@ -383,15 +380,17 @@ const ListCards = ({
             )}
             <Slide {...properties}>
               {cards.map(
-                ({ id, imgUrl, title, priceUAH, priseUSD, inStock }, index) => (
+                ({ id, pictures, name, priceUAH, priceUSD, stock }, index) => (
                   <Card
                     key={id}
                     id={id}
-                    imgUrl={imgUrl}
-                    title={title}
+                    imgUrl={
+                      "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg"
+                    }
+                    name={name}
                     priceUAH={priceUAH}
-                    priseUSD={priseUSD}
-                    inStock={inStock}
+                    priceUSD={priceUSD}
+                    stock={stock}
                     styleCard={"lastCard"}
                   />
                 )

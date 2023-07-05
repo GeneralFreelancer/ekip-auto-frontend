@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import AuthModal from "../components/AuthModal/AuthModal";
@@ -9,10 +9,94 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import SideBarSlider from "../components/SideBarSlider/";
 import MainContainer from "../components/MainContainer";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import {
+  setAllProducts,
+  setDateProducts,
+  setTopProducts,
+  setLastSeenProducts,
+  setInterestProducts,
+} from "../redux/features/productsSlice";
+import {
+  selectDateProducts,
+  selectTopProducts,
+  selectLastSeenProducts,
+  selectInterestProducts,
+} from "../redux/features/productsSlice";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
+
+  const dispatch = useDispatch();
+  const dateProducts = useSelector(selectDateProducts);
+  const topProducts = useSelector(selectTopProducts);
+  const LastSeenProducts = useSelector(selectLastSeenProducts);
+  const interestProducts = useSelector(selectInterestProducts);
+
+  const getProductsAll = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product`);
+      dispatch(setAllProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsWithDateFilter = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/?filter=date`);
+      dispatch(setDateProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsWithTopFilter = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/?filter=top`);
+      dispatch(setTopProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsWithLast_seenFilter = async () => {
+    try {
+      let response;
+      if (user.isLoggedIn) {
+        response = await axios.get(
+          `${baseUrl}/product/?filter=last_seen&userId=${user.userdata.id}` 
+        );
+      } else {
+        response = await axios.get(`${baseUrl}/product/?filter=last_seen`);
+      }
+      dispatch(setLastSeenProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsWithInterestFilter = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/?filter=interest`);
+      dispatch(setInterestProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getProductsAll();
+    getProductsWithDateFilter();
+    getProductsWithTopFilter();
+    getProductsWithLast_seenFilter();
+    getProductsWithInterestFilter();
+  }, []);
+
 
   const showModalHandler = () => {
     if (user.isLoggedIn || user.isRegisteredConfirmed) {
@@ -25,21 +109,21 @@ const HomePage = () => {
   const hideModalHandler = () => {
     setModalIsVisible(false);
   };
-  
+
   return (
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
-        <MainContainer>
-          <SideBarSlider />
-          <ListCards title={"Останні надходження"} />
-          <ListCards title={"Топ продажу"} />
-          <ListCards title={"Останні переглянуті"} />
-          <ListCards title={"Вас може зацікавити"} />
-        </MainContainer> 
+      <MainContainer>
+        <SideBarSlider />
+        <ListCards title={"Останні надходження"} items={dateProducts} />
+        <ListCards title={"Топ продажу"} items={topProducts} />
+        <ListCards title={"Останні переглянуті"} items={LastSeenProducts} />
+        <ListCards title={"Вас може зацікавити"} items={interestProducts} />
+      </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />
-      <Footer currentRate={"38.9"} /> 
+      <Footer currentRate={"38.9"} />
     </>
   );
 };

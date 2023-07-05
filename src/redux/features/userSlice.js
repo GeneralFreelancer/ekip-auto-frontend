@@ -16,6 +16,7 @@ const userSlice = createSlice({
       state.roles = action.payload.user.roles;
       state.token = action.payload.token;
       state.userdata = action.payload.user;
+      state.isRegistered = true;
       state.isRegisteredConfirmed = action.payload.user.isEmailConfirmed;
       state.isDataFullFilled = action.payload.user.livingAddress ? true : false;
     },
@@ -24,6 +25,7 @@ const userSlice = createSlice({
       state.userdata = null;
       state.token = null;
       state.roles = [];
+      state.isRegistered = null;
       state.isRegisteredConfirmed = null;
       state.isDataFullFilled = null;
       localStorage.removeItem("role");
