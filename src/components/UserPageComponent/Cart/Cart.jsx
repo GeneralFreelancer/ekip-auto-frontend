@@ -131,8 +131,8 @@ const Cart = () => {
         }
       );
       console.log(response);
-      // setDataMockItems(response.data.products);
-      // dispatch(setProductsInCart(response.data.products));
+      // setDataMockItems(response.data.basket.products);
+      // dispatch(setProductsInCart(response.data.basket.products));
     } catch (error) {
       console.error("Error:", error.message);
     }

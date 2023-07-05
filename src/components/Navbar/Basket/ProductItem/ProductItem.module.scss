@@ -1,48 +1,47 @@
-@import '../../../../style/variables.scss';
+@import "../../../../style/variables.scss";
 
-.image{
-    width: 45px;
-    height: 60px;
-    object-fit: cover;
-    margin-right: 15px;
+.image {
+  width: 45px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
-.item{
-    display: flex;
-    justify-content:space-evenly;
-    align-items: center;
-    border-bottom: 1px solid black;
-    &:hover {
-        background-color: $lightWhite;
-    }
+.item {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 1px solid black;
+  &:hover {
+    background-color: $lightWhite;
+  }
 }
 
-.wrapper{
-    display: flex;
-    padding: 15px;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
+.wrapper {
+  flex-basis: 77%;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 
-.wrapperFirst{
-    margin-right: 110px;
+.wrapperFirst {
+  margin-right: 110px;
 }
 
-.garbage{
-    background-image: url('../../../../assets/svg/basket/garbage.svg');
-    background-repeat: no-repeat;
-    background-position: center center;
+.garbage {
+  background-image: url("../../../../assets/svg/basket/garbage.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20px;
+  width: 43px;
+  height: 67px;
+  cursor: pointer;
+  &:hover {
+    background-image: url("../../../../assets/svg/basket/garbage_active.svg");
     background-size: 20px;
     width: 43px;
     height: 67px;
-    cursor: pointer;
-    &:hover {
-        background-image: url('../../../../assets/svg/basket/garbage_active.svg');
-        background-size: 20px;
-        width: 43px;
-        height: 67px;
-    }
+  }
 }
-
-
-
