@@ -220,8 +220,15 @@
         width: 300px;
         height: 45px;
         margin-bottom: 6px;
+        &:active {
+          scale: 1.01;
+        }
       }
     }
+  }
+  &__succesOrder {
+    text-align: center;
+    margin-bottom: 20px;
   }
 }
 .active {

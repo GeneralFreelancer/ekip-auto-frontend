@@ -6,6 +6,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../redux/features/userSlice";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const LoginTab = (props) => {
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -34,17 +36,6 @@ const LoginTab = (props) => {
   }, [user.roles]);
   // Admin end
 
-
-  // const resendVerificationEmail = async () => {
-  //   try {
-  //     await axios.post("http://localhost:5502/user/verification-email", {
-  //       email: user.userdata.email,
-  //     });
-  //     console.log("Verification email sent successfully");
-  //   } catch (error) {
-  //     console.log("Error resending verification email:", error.message);
-  //   }
-  // };
 
   const validateLoginForm = (name, value) => {
     let errors = { ...loginErrors };
@@ -89,7 +80,7 @@ const LoginTab = (props) => {
 
     if (loginForm.email && loginForm.password) {
       try {
-        const response = await axios.post("http://localhost:5502/auth/login", {
+        const response = await axios.post(`${baseUrl}/auth/login`, {
           ...loginForm,
         });
 

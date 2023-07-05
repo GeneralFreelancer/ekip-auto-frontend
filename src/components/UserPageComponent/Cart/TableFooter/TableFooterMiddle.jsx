@@ -1,6 +1,7 @@
 import style from './TableFootet.module.scss';
 
-const TableFooterMiddle = () => {
+const TableFooterMiddle = (props) => {
+  const { sumUAH, sumUSD } = props;
   return (
     <>
       <tr>
@@ -11,10 +12,10 @@ const TableFooterMiddle = () => {
         </td>
         <td className={style.cart__table_summaryWrapper}>
           <div>
-            <p className={style.nationalSummary}>10000000.6 &#8372;</p>
+            <p className={style.nationalSummary}>{sumUAH} &#8372;</p>
           </div>
           <div>
-            <p className={style.internationalSummary}>4900.4 &#65284;</p>
+            <p className={style.internationalSummary}>{sumUSD}&#&#65284;</p>
           </div>
         </td>
       </tr>

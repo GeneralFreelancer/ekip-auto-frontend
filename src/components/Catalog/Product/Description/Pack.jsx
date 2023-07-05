@@ -5,17 +5,17 @@ import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
 import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
 import { ReactComponent as Plus } from "../../../../assets/svg/plus.svg";
 
-const initialData = [
-  { name: "Кількість в коробці", value: "500 шт." },
-  { name: "Кількість в упаковці", value: "50 см" },
-  { name: "Розмір коробки", value: "40x50x50 см." },
-];
+// const initialData = [
+//   { name: "Кількість в коробці", value: "500 шт." },
+//   { name: "Кількість в упаковці", value: "50 см" },
+//   { name: "Розмір коробки", value: "40x50x50 см." },
+// ];
 
 const Pack = (props) => {
   const { deliveryOptions, role } = props;
 
   const [isEditMode, setIsEditMode] = useState(false);
-  const [charactData, setCharactData] = useState(initialData);
+  const [charactData, setCharactData] = useState(deliveryOptions);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
   let mobileV = viewportWidth < 510;
@@ -38,7 +38,7 @@ const Pack = (props) => {
 
   const handleCancelClick = () => {
     setIsEditMode(false);
-    setCharactData(initialData);
+    setCharactData(deliveryOptions);
   };
 
   const handleAddCharactClick = () => {
@@ -87,7 +87,7 @@ const Pack = (props) => {
                 className={s.character_input}
                 value={charact.value}
                 onChange={(e) => handleCharactValueChange(index, e)}
-              />
+              />шт
             </div>
           ))}
           <button
@@ -124,7 +124,7 @@ const Pack = (props) => {
                   ......................................................................
                 </span>
               )}
-              <p>{char.value}</p>
+              <p>{char.value}шт</p>
             </div>
           ))}
         </>

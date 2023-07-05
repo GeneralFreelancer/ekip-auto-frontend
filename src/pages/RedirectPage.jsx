@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { registerConfirmed } from "../redux/features/userSlice";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const RedirectPage = () => {
   const navigate = useNavigate();
   const { code } = useParams();
@@ -14,7 +16,7 @@ const RedirectPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:5502/auth/register/confirm",
+          `${baseUrl}/auth/register/confirm`,
           {code: "818243"}
         );
         dispatch(registerConfirmed(response.data));

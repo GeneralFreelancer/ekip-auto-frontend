@@ -9,7 +9,8 @@ import { selectedUser } from "../redux/features/userSlice";
 import MainContainer from "../components/MainContainer";
 import CatalogComponents from "../components/CatalogComponents/CatalogComponents";
 
-const Catalog = () => {
+const Catalog = ({products, title}) => {
+
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
 
@@ -30,7 +31,7 @@ const Catalog = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        <CatalogComponents />
+        <CatalogComponents products={products} title={title} />
       </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />

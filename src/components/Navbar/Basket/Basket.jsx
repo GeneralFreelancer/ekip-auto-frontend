@@ -119,12 +119,12 @@ const Basket = () => {
   const wrapperShoppingCardRef = useRef(null);
   useEffect(() => {
     const handleClickWindow = (e) => {
-      
       if (showModal === true) {
         // console.dir(e.target.tagName);
         if (
           wrapperShoppingCardRef.current &&
-          !wrapperShoppingCardRef.current.contains(e.target) && e.target.tagName !== 'SPAN'
+          !wrapperShoppingCardRef.current.contains(e.target) &&
+          e.target.tagName !== "SPAN"
         ) {
           setShowModal(false);
         }
@@ -136,7 +136,6 @@ const Basket = () => {
     } else {
       window.removeEventListener("click", handleClickWindow);
     }
-
     // Повернути функцію очищення ефекту
     return () => {
       window.removeEventListener("click", handleClickWindow);
@@ -153,7 +152,6 @@ const Basket = () => {
     );
   };
 
-  // console.log(showModal);
   return (
     <div ref={wrapperShoppingCardRef}>
       <div

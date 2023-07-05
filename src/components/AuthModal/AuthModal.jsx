@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../../redux/features/userSlice";
 import axios from "axios";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const AuthModal = (props) => {
   const [activeTab, setActiveTab] = useState("login");
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
@@ -19,7 +21,7 @@ const AuthModal = (props) => {
 
   const resendVerificationEmail = async () => {
     try {
-      await axios.post("http://localhost:5502/user/verification-email", {
+      await axios.post(`${baseUrl}/user/verification-email`, {
         email: user.userdata.email,
       });
       console.log("Verification email sent successfully");

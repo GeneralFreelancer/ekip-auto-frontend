@@ -8,19 +8,19 @@ import { selectAllProducts } from "../../../redux/features/productsSlice";
 const Product = ({ productId }) => {
   const allProducts = useSelector(selectAllProducts);
 
-  const selectedProduct = allProducts.find(
+  const selectedProduct = allProducts?.find(
     (product) => product.id === productId
   );
 
   return (
     <>
       <section>
-        <Breadcrumbs selectedProduct={selectedProduct}/>
+        <Breadcrumbs selectedProduct={selectedProduct} />
       </section>
       <section>
-        <ProductItem selectedProduct={selectedProduct}/>
+        <ProductItem selectedProduct={selectedProduct} />
       </section>
-      <Description selectedProduct={selectedProduct}/>
+      <Description selectedProduct={selectedProduct} />
     </>
   );
 };

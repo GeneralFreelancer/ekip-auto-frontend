@@ -29,60 +29,6 @@ const images = [
   "https://files.foxtrot.com.ua/PhotoNew/img_0_977_4158_1.jpg",
 ];
 
-// const mockItems = [
-//   {
-//     id: "1",
-//     category: "category",
-//     title: "Назва товаруНазва товаруНазва товару",
-//     description: "lorem",
-//     options: [],
-//     deliveryOptions: [],
-//     SKU: "number1212sdsd",
-//     favorite: false,
-//     price: [1000, 100],
-//     minQuantity: 100,
-//     stock: true,
-//     image: [
-//       "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
-//     ],
-//     quantity: 500,
-//   },
-//   {
-//     id: "2",
-//     category: "category",
-//     title: "Назва товару",
-//     description: "lorem",
-//     options: [],
-//     deliveryOptions: [],
-//     SKU: "number12sdsd",
-//     favorite: true,
-//     price: [15000, 120],
-//     minQuantity: 100,
-//     stock: true,
-//     image: [
-//       "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
-//     ],
-//     quantity: 600,
-//   },
-//   {
-//     id: "3",
-//     category: "category",
-//     title: "Назва товару",
-//     description: "lorem",
-//     options: [],
-//     deliveryOptions: [],
-//     SKU: "number11sdsd",
-//     favorite: false,
-//     price: [10000, 160],
-//     minQuantity: 50,
-//     stock: true,
-//     image: [
-//       "https://imagedelivery.net/4_JwVYxosZqzJ7gIDJgTLA/ab4d8dc6-f0ca-439d-eda2-79b95d74e800/16x9",
-//     ],
-//     quantity: 200,
-//   },
-// ];
-
 const ProductItem = ({ selectedProduct }) => {
   const { id, name, quantity, minQuantity, priceUAH, priceUSD, sku, stock } =
     selectedProduct;
@@ -156,10 +102,19 @@ const ProductItem = ({ selectedProduct }) => {
     setMouseEnter(false);
   };
 
+  // not work
   const handleFavouriteClick = async () => {
     try {
       setIsFavorite(!isFavorite);
-      const response = await axios.patch("/user/favorite", { productId: id });
+      const response = await axios.patch(
+        `${baseUrl}/user/favorite`,
+        { productId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       // response = user.favoriteProducts;
       // dispatch(user);
       console.log(response);
@@ -174,7 +129,7 @@ const ProductItem = ({ selectedProduct }) => {
         `${baseUrl}/basket`,
         {
           product: id,
-          number: quantity,
+          number: productQuantity,
         },
         {
           headers: {
@@ -182,8 +137,7 @@ const ProductItem = ({ selectedProduct }) => {
           },
         }
       );
-      console.log(response);
-      dispatch(setProductsInCart(response.data.products));
+      dispatch(setProductsInCart(response.data.basket.products));
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -199,7 +153,6 @@ const ProductItem = ({ selectedProduct }) => {
     }
   }
 
-  const exchangeRate = priceUAH / priceUSD;
   const totalAmountUAH = priceUAH * productQuantity;
   const totalAmountUSD = priceUSD * productQuantity;
 

@@ -17,12 +17,20 @@ import AboutUs from "./pages/AboutUs";
 import RedirectPage from "./pages/RedirectPage";
 import { PivateRouter } from "./components/AuthModal/PrivateRouter";
 import { ProtectedRoute } from "./components/AuthModal/protectedRoute";
-
+import {
+  selectDateProducts,
+  selectTopProducts,
+  selectLastSeenProducts,
+  selectInterestProducts,
+} from "./redux/features/productsSlice";
+import { useSelector } from "react-redux";
 
 function App() {
+  const dateProducts = useSelector(selectDateProducts);
+  const topProducts = useSelector(selectTopProducts);
+  const lastSeenProducts = useSelector(selectLastSeenProducts);
+  const interestProducts = useSelector(selectInterestProducts);
 
-  // const user = useSelector(selectedUser);
-  
   return (
     <>
       <Routes>
@@ -50,10 +58,34 @@ function App() {
           }
         />
 
-        <Route path="ostannі-nadkhodzhennya" element={<Catalog/>} />
-        <Route path="ostannі-pereglyanutі" element={<Catalog />} />
-        <Route path="top-prodazhu" element={<Catalog />} />
-        <Route path="vas-mozhe-zatsіkaviti" element={<Catalog />} />
+        <Route
+          path="ostannі-nadkhodzhennya"
+          element={
+            <Catalog products={dateProducts} title={"Останні надходження"} />
+          }
+        />
+        <Route
+          path="top-prodazhu"
+          element={<Catalog products={topProducts} title={"Топ продажу"} />}
+        />
+        <Route
+          path="ostannі-pereglyanutі"
+          element={
+            <Catalog
+              products={lastSeenProducts}
+              title={"Останні переглянуті"}
+            />
+          }
+        />
+        <Route
+          path="vas-mozhe-zatsіkaviti"
+          element={
+            <Catalog
+              products={interestProducts}
+              title={"Вас може зацікавити"}
+            />
+          }
+        />
 
         {/* <Route path=":category/:subcategory/" element={<Catalog />} /> */}
         {/* передавать на бек категорію чи підкатегорію */}
@@ -115,7 +147,6 @@ function App() {
 
 export default App;
 
-
 // import { useSelector } from "react-redux";
 // import { useMediaQuery } from "react-responsive";
 // import { Navigate } from "react-router-dom";
@@ -128,7 +159,6 @@ export default App;
 //   if (isMobile) return <Navigate to="/info" />;
 //   return <Navigate to={navigateTo} />;
 // };
-
 
 /* <Route
               path="register"

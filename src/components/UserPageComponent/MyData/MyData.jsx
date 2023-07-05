@@ -8,6 +8,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const MyData = () => {
   const [dataForm, setDataForm] = useState({
     firstName: "",
@@ -137,7 +139,7 @@ const MyData = () => {
       setIsButtonDisabled(true);
       try {
         const response = await axios.put(
-          "http://localhost:5502/user/user-data",
+          `${baseUrl}/user/user-data`,
           {
             ...dataForm,
           },

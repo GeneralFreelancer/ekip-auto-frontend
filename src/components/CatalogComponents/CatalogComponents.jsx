@@ -1,5 +1,4 @@
 import s from "./CatalogComponents.module.scss";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import InStock from "./InStock";
@@ -8,13 +7,16 @@ import ListCards from "../ListCards";
 import Pagination from "rc-pagination";
 import { ReactComponent as Arrow } from "../../assets/svg/up-arrow.svg";
 import "./Pagination/Pagination.scss";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  selectDateProducts,
-  selectTopProducts,
-  selectLastSeenProducts,
-  selectInterestProducts,
+  setAllProducts,
+  setDateProducts,
+  setTopProducts,
+  setLastSeenProducts,
+  setInterestProducts,
 } from "../../redux/features/productsSlice";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../redux/features/userSlice";
 
 // transition text
 // import { transliterate, slugify } from "transliteration";
@@ -311,8 +313,9 @@ import {
 //   console.log(result);
 //   return result;
 // };
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
-const CatalogComponents = ({ title }) => {
+const CatalogComponents = ({ products, title }) => {
   const [filter, setFilter] = useState("new");
   const [inStock, setInStock] = useState(false);
   const [items, setItems] = useState([]);
@@ -320,11 +323,83 @@ const CatalogComponents = ({ title }) => {
 
   const [perPage, setPerPage] = useState(10);
   const [current, setCurrent] = useState(1);
+  const user = useSelector(selectedUser);
 
-  const dateProducts = useSelector(selectDateProducts);
+  const dispatch = useDispatch();
 
-  // якщо нема масиву або пустий, то запрос до бази і в редакс
-  // const [translitText, setTranslitText] = useState(""); //test translit text
+  const getProductsAll = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product`);
+      dispatch(setAllProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsWithDateFilter = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/?filter=date`);
+      dispatch(setDateProducts(response.data.products));
+      setItems(response.data.products);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsWithTopFilter = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/?filter=top`);
+      dispatch(setTopProducts(response.data.products));
+      setItems(response.data.products);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsWithLast_seenFilter = async () => {
+    try {
+      let response;
+      if (user.isLoggedIn) {
+        response = await axios.get(
+          `${baseUrl}/product/?filter=last_seen&userId=${user.userdata.id}`
+        );
+      } else {
+        response = await axios.get(`${baseUrl}/product/?filter=last_seen`);
+      }
+      dispatch(setLastSeenProducts(response.data.products));
+      setItems(response.data.products);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsWithInterestFilter = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/?filter=interest`);
+      dispatch(setInterestProducts(response.data.products));
+      setItems(response.data.products);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (title === "Останні надходження" && products.length === 0) {
+      getProductsWithDateFilter();
+      getProductsAll();
+    } else if (title === "Топ продажу" && products.length === 0) {
+      getProductsWithTopFilter();
+      getProductsAll();
+    } else if (title === "Останні переглянуті" && products.length === 0) {
+      getProductsWithLast_seenFilter();
+      getProductsAll();
+    } else if (title === "Вас може зацікавити" && products.length === 0) {
+      getProductsWithInterestFilter();
+      getProductsAll();
+    }
+  }, [products, title]);
+
+  const [translitText, setTranslitText] = useState(""); //test translit text
 
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
@@ -368,22 +443,7 @@ const CatalogComponents = ({ title }) => {
     const category = pathArray[1];
     const subCategory = pathArray.length === 3 && pathArray[2];
 
-    setItems(dateProducts);
-
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await axios.get("https://example.com/api/products", {
-    //       params: {
-    //         category: category,
-    //         subCategory: subCategory
-    //       }
-    //     });
-    //     setItems(response.data);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
-    // fetchData();
+    setItems(products);
   }, []);
 
   useEffect(() => {
@@ -456,8 +516,7 @@ const CatalogComponents = ({ title }) => {
   return (
     <section>
       <div className={s.mainWrapper}>
-        <div className={s.title}>Заголовок</div>
-        {/* Заголовок з беку */}
+        <div className={s.title}>{title}</div>
         <div className={s.wrapper}>
           <Filter onChangeParams={onChangeParams} />
           <Pagination

@@ -5,17 +5,17 @@ import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
 import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
 import { ReactComponent as Plus } from "../../../../assets/svg/plus.svg";
 
-const initialData = [
-  { name: "Висота", value: "18 см" },
-  { name: "Ширина", value: "50 см" },
-  { name: "Глибина", value: "40 см" },
-];
+// const initialData = [
+//   { name: "Висота", value: "18 см" },
+//   { name: "Ширина", value: "50 см" },
+//   { name: "Глибина", value: "40 см" },
+// ];
 
 const Characteristic = (props) => {
   const { options, role } = props;
 
   const [isEditMode, setIsEditMode] = useState(false);
-  const [charactData, setCharactData] = useState(initialData);
+  const [charactData, setCharactData] = useState(options);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
   let mobileV = viewportWidth < 510;
@@ -38,7 +38,7 @@ const Characteristic = (props) => {
 
   const handleCancelClick = () => {
     setIsEditMode(false);
-    setCharactData(initialData);
+    setCharactData(options);
   };
 
   const handleAddCharactClick = () => {
@@ -88,7 +88,7 @@ const Characteristic = (props) => {
                 className={s.character_input}
                 value={charact.value}
                 onChange={(e) => handleCharactValueChange(index, e)}
-              />
+              />см
             </div>
           ))}
           <button
@@ -125,7 +125,7 @@ const Characteristic = (props) => {
                   .................................................................................
                 </span>
               )}
-              <p> {char.value}</p>
+              <p>{char.value}см</p>
             </div>
           ))}
         </>

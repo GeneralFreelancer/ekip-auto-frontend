@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { register } from "../../redux/features/userSlice";
 import axios from "axios";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const RegisterTab = (props) => {
   const [registerForm, setRegisterForm] = useState({
     email: "",
@@ -86,7 +88,7 @@ const RegisterTab = (props) => {
       (registerForm.password.trim() === registerForm.confirmPassword.trim()) 
     ) {
       try {
-        const response = await axios.post("http://localhost:5502/auth/register", {
+        const response = await axios.post(`${baseUrl}/auth/register`, {
           ...registerForm,
         });
         setRegisterForm({

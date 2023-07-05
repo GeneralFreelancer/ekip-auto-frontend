@@ -308,7 +308,7 @@ const ListCards = ({
           <Card
             key={id}
             id={id}
-            imgUrl={'https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg'}
+            imgUrl={pictures[0]}
             name={name}
             priceUAH={priceUAH}
             priceUSD={priceUSD}
@@ -384,9 +384,7 @@ const ListCards = ({
                   <Card
                     key={id}
                     id={id}
-                    imgUrl={
-                      "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg"
-                    }
+                    imgUrl={pictures[0]}
                     name={name}
                     priceUAH={priceUAH}
                     priceUSD={priceUSD}
