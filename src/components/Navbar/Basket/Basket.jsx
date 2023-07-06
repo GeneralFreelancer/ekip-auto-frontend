@@ -78,11 +78,11 @@ const Basket = () => {
 
   const handelClick = () => {
     setShowModal((prevState) => !prevState);
-    setNumberOfProducts(cart.cartProducts)
+    setNumberOfProducts(cart.cartProducts);
   };
 
   const removeFromBasket = async (id) => {
-      const arrayWithoutDeletedProduct = [...numberOfProducts]
+    const arrayWithoutDeletedProduct = [...numberOfProducts]
       .filter((item) => item.product.id !== id)
       .map((p) => ({ product: p.product.id, number: p.number }));
     try {
@@ -118,14 +118,20 @@ const Basket = () => {
           !showModal ? style.wrapperShoppingCard : style.wrapperShoppingCardOpen
         }
       >
-        <div onClick={handelClick}>
-          <ShoppingCard
-            className={!showModal ? style.shoppingCard : style.shoppingCardOpen}
-          />
-          <div className={!showModal ? style.number : style.numberOpen}>
-            <p>{cart.cartProducts?.length ? cart.cartProducts.length : 0}</p>
+        {/* {viewportWidth <= 1024 ? (
+          <NavLink className={style.button} to="/myprofile/basket"></NavLink>
+        ) : ( */}
+          <div onClick={handelClick}>
+            <ShoppingCard
+              className={
+                !showModal ? style.shoppingCard : style.shoppingCardOpen
+              }
+            />
+            <div className={!showModal ? style.number : style.numberOpen}>
+              <p>{cart.cartProducts?.length ? cart.cartProducts.length : 0}</p>
+            </div>
           </div>
-        </div>
+        {/* )} */}
 
         {desktopV && showModal && (
           <div className={style.modalCard}>
@@ -145,9 +151,7 @@ const Basket = () => {
                 ))}
               </ul>
             ) : (
-              <p className={style.textAlert}>
-                Корзина пуста
-              </p>
+              <p className={style.textAlert}>Корзина пуста</p>
             )}
 
             <div className={style.wrapperPrice}>

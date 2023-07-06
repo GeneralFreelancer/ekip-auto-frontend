@@ -16,11 +16,11 @@ const MobileMenu = (props) => {
   const user = useSelector(selectedUser);
   const navigate = useNavigate();
 
-  const onClickNavigate = () => {
-    if (user.isLoggedIn || user.isRegisteredConfirmed) {
-      navigate("/myprofile/favorite");
-    }
-  };
+  // const onClickNavigate = () => {
+  //   if (user.isLoggedIn || user.isRegisteredConfirmed) {
+  //     navigate("/myprofile/favorite");
+  //   }
+  // };
 
   return (
     <div className={s.mobile_modal}>
@@ -34,14 +34,14 @@ const MobileMenu = (props) => {
         <div className={s.userMob_block}>
           {/* {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>} */}
           {user.isRegisteredConfirmed ? (
-            <Link to={"#"}>
+            <Link to={"/myprofile/mydata"}>
               <UserMob className={s.userMob_red} />
             </Link>
           ) : (
             <UserMob
               className={s.userMob}
               onClick={() => {
-                onClickNavigate();
+                // onClickNavigate();
                 props.onShowModal();
               }}
             />

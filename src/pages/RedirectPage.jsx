@@ -17,7 +17,7 @@ const RedirectPage = () => {
       try {
         const response = await axios.post(
           `${baseUrl}/auth/register/confirm`,
-          {code: "818243"}
+          {code: "106001"}
         );
         dispatch(registerConfirmed(response.data));
         navigate("/");

@@ -11,12 +11,10 @@ const translit = (name) => {
   return cyrillicToTranslit.transform(String(name), "-").toLowerCase();
 };
 
-
 const Subcategoryitem = (props) => {
   // const [isActive, setIsActive] = useState(false);
   // const dispatch = useDispatch();
 
-  
   //   if (isActive) {
   //     dispatch(changeSumMenuState(true))
   //   }
@@ -24,16 +22,15 @@ const Subcategoryitem = (props) => {
   //     dispatch(changeSumMenuState(false))
   //   }
 
-
   return (
     <div
       className={style.menu__subContent}
-      style={{top: `${props.catPosition}px`}}
+      style={{ top: `${props.catPosition}px` }}
       // onMouseEnter={(e) => {
       //   setIsActive(true);
       // }}
       onBlur={() => {
-        console.log('Triggered because this input lost focus');
+        console.log("Triggered because this input lost focus");
       }}
     >
       <div>
