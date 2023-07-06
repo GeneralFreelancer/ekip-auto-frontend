@@ -11,21 +11,50 @@ import { selectedUser } from "../redux/features/userSlice";
 import ListCards from "../components/ListCards/ListCards";
 import { selectInterestProducts } from "../redux/features/productsSlice";
 import { useParams } from "react-router-dom";
-import { getProductsAll, getProductsWithInterestFilter } from "../productService";
+import { getProductsWithInterestFilter } from "../productService";
 import { useDispatch } from "react-redux";
+import axios from "axios";
+import { setAllProducts } from "../redux/features/productsSlice";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
   const interestProducts = useSelector(selectInterestProducts);
 
+  const [oneProduct, setOneProduct] = useState({});
+
   const { id } = useParams();
 
   const dispatch = useDispatch();
 
+  const getOneProduct = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setOneProduct(response.data.product);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsAll = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product`);
+      dispatch(setAllProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   useEffect(() => {
-    getProductsAll(dispatch);
-    getProductsWithInterestFilter(dispatch)
+    getOneProduct();
+    getProductsAll();
+    getProductsWithInterestFilter(dispatch);
   }, [dispatch]);
 
   const showModalHandler = () => {
@@ -45,7 +74,7 @@ const ProductItemPage = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        <Product productId={id} />
+        <Product product={oneProduct} />
         <div style={{ paddingTop: "30px" }}>
           <ListCards title={"Вас може зацікавити"} items={interestProducts} />
         </div>

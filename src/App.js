@@ -91,6 +91,10 @@ function App() {
         {/* передавать на бек категорію чи підкатегорію */}
 
         <Route
+          path="/:id"
+          element={<ProductItemPage />}
+        />
+        <Route
           path="ostannі-nadkhodzhennya/:id"
           element={<ProductItemPage />}
         />

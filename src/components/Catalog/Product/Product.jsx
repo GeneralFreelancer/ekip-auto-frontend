@@ -2,25 +2,20 @@ import React from "react";
 import Description from "./Description";
 import ProductItem from "./ProductItem";
 import Breadcrumbs from "../Breadcrumps";
-import { useSelector } from "react-redux";
-import { selectAllProducts } from "../../../redux/features/productsSlice";
 
-const Product = ({ productId }) => {
-  const allProducts = useSelector(selectAllProducts);
-
-  const selectedProduct = allProducts?.find(
-    (product) => product.id === productId
-  );
+const Product = ({ product }) => {
 
   return (
     <>
       <section>
-        <Breadcrumbs selectedProduct={selectedProduct} />
+        <Breadcrumbs />
       </section>
       <section>
-        <ProductItem selectedProduct={selectedProduct} />
+        {Object.keys(product).length && (
+          <ProductItem selectedProduct={product} />
+        )}
       </section>
-      <Description selectedProduct={selectedProduct} />
+      {Object.keys(product).length && <Description selectedProduct={product} />}
     </>
   );
 };

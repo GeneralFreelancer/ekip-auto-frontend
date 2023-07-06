@@ -3,7 +3,7 @@ import React from "react";
 
 const TableBodyMiddle = (props) => {
 
-  return props.data.map(
+  return props.data?.map(
     (item, i) => (
       <React.Fragment key={i + 1}>
         <tr>

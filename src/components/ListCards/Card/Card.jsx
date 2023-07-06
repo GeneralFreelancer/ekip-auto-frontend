@@ -32,7 +32,7 @@ const Card = ({
         onClick={(e) => {
           navigate(id);
           window.scrollTo(0, 0);
-          console.log(e.target.id); /**add riderect link */
+          // console.log(e.target.id); /**add riderect link */
         }}
       ></span>
       <div

@@ -60,15 +60,17 @@ const FavoriteList = ({ items, handelClick }) => {
 
   const renderCards = () => {
     return cards.map(
-      ({ id, imgUrl, title, priceUAH, priseUSD, inStock }, index) => (
+      ({ id, pictures, name, priceUAH, priseUSD, stock, minQuantity
+      }, index) => (
         <FavoriteCard
           key={id}
           id={id}
-          imgUrl={imgUrl}
-          title={title}
+          imgUrl={pictures[0]}
+          title={name}
           priceUAH={priceUAH}
           priseUSD={priseUSD}
-          inStock={inStock}
+          inStock={stock}
+          minQuantity={minQuantity}
           handelClick={handelClick}
         />
       )

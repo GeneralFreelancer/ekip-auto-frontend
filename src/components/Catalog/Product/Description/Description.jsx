@@ -5,6 +5,7 @@ import Pack from "./Pack";
 import s from "./Description.module.scss";
 
 const Description = ({selectedProduct}) => {
+
   const {description, options, deliveryOptions} = selectedProduct;
   const [role, setRole] = useState(false);
   const localStor = localStorage.getItem("role");

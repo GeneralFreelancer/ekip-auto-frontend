@@ -40,6 +40,8 @@ const MyData = () => {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isBtnChangeDisabled, setIsBtnChangeDisabled] = useState(true);
+  const [passwordMessage, setPasswordMessage] = useState(null);
+
   const user = useSelector(selectedUser);
   const dispatch = useDispatch();
 
@@ -150,18 +152,17 @@ const MyData = () => {
           }
         );
         dispatch(fullUserRegistered({ ...response.data }));
-
-        setDataForm({
-          email: "",
-          password: "",
-        });
+        // setDataForm({
+        //   email: "",
+        //   password: "",
+        // });
       } catch (e) {
         console.log(e);
       }
     }
   };
 
-  const changePasswordHandler = (e) => {
+  const changePasswordHandler = async (e) => {
     setPassForm((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -169,19 +170,30 @@ const MyData = () => {
     validateChangeForm(e.target.name, e.target.value);
     if (passForm.newPassword && passForm.confirmPassword) {
       setIsBtnChangeDisabled(false);
-      dispatch(
-        fullUserRegistered({
-          newPassword: passForm.newPassword,
-        })
-      );
     }
   };
 
-  const submitPasswordHandler = (e) => {
+  const submitPasswordHandler = async (e) => {
+    console.log('dasd');
     e.preventDefault();
     if (passForm.newPassword === passForm.confirmPassword) {
-      console.log(passForm);
       setIsBtnChangeDisabled(false);
+      try {
+        const response = await axios.post(
+          `${baseUrl}/auth/password/change`,
+          {
+            password: passForm.newPassword,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setPasswordMessage(response.data.message);
+      } catch (e) {
+        console.log(e);
+      }
       setPassForm({
         newPassword: "",
         confirmPassword: "",
@@ -368,6 +380,11 @@ const MyData = () => {
               >
                 Змінити
               </button>
+              {passwordMessage ? (
+                <p style={{marginTop: '5px'}} className={s.error_message}>{passwordMessage}</p>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </form>

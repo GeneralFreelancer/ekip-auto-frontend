@@ -18,6 +18,7 @@ import axios from "axios";
 import { setProductsInCart } from "../../../../redux/features/cartSlice";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../../redux/features/userSlice";
+import { addToFavorites } from "../../../../redux/features/userSlice";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -44,6 +45,29 @@ const ProductItem = ({ selectedProduct }) => {
 
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
+
+  useEffect(() => {
+    const getLastSeenProduct = async () => {
+      try {
+        const response = await axios.put(
+          `${baseUrl}/user/last-seen`,
+          {
+            productId: id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        // dispatch(setProductsInCart(response.data.basket.products));
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+    getLastSeenProduct();
+  }, [id, user.token]);
+
   useEffect(() => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
@@ -102,11 +126,10 @@ const ProductItem = ({ selectedProduct }) => {
     setMouseEnter(false);
   };
 
-  // not work
   const handleFavouriteClick = async () => {
     try {
       setIsFavorite(!isFavorite);
-      const response = await axios.patch(
+      const response = await axios.put(
         `${baseUrl}/user/favorite`,
         { productId: id },
         {
@@ -115,9 +138,7 @@ const ProductItem = ({ selectedProduct }) => {
           },
         }
       );
-      // response = user.favoriteProducts;
-      // dispatch(user);
-      console.log(response);
+      dispatch(addToFavorites(response.data.user.favoriteProducts));
     } catch (error) {
       console.error(error);
     }

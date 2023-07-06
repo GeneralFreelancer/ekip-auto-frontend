@@ -45,16 +45,19 @@ const userSlice = createSlice({
     },
     fullUserRegistered: (state, action) => {
       state.isDataFullFilled = true;
-      state.userdata.phone = action.payload.user.phone;
-      state.userdata.firstName = action.payload.user.firstName;
-      state.userdata.lastName = action.payload.user.lastName;
-      state.userdata.secondName = action.payload.user.secondName;
-      state.userdata.email = action.payload.user.email;
-      state.userdata.street = action.payload.user.livingAddress.street;
-      state.userdata.city = action.payload.user.livingAddress.city;
+      state.userdata.phone = action.payload.user?.phone;
+      state.userdata.firstName = action.payload.user?.firstName;
+      state.userdata.lastName = action.payload.user?.lastName;
+      state.userdata.secondName = action.payload.user?.secondName;
+      state.userdata.email = action.payload.user?.email;
+      state.userdata.street = action.payload.user?.livingAddress.street;
+      state.userdata.city = action.payload.user?.livingAddress.city;
       state.userdata.additionalInfo =
-        action.payload.user.livingAddress.additionalInfo;
+        action.payload.user?.livingAddress.additionalInfo;
     },
+    addToFavorites: (state, action) => {
+      state.userdata.favoriteProducts = action.payload
+    }
   },
 });
 
@@ -64,6 +67,7 @@ export const {
   register,
   registerConfirmed,
   fullUserRegistered,
+  addToFavorites
 } = userSlice.actions;
 export default userSlice.reducer;
 export const selectedUser = (state) => state.user;

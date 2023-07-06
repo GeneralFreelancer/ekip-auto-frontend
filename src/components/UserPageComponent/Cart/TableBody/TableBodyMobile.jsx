@@ -13,7 +13,7 @@ const TableBodyMobile = (props) => {
       (item) => (item.id === id ? console.log(id) : "") // edit this for send request to db on change state
     );
   };
-  return props.data.map(
+  return props.data?.map(
     (item, i) => (
       <React.Fragment key={i + 1}>
         <tr>

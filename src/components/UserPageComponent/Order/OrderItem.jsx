@@ -7,15 +7,13 @@ import TableBody from './TableBody/TableBody';
 import TableBodyMiddle from './TableBody/TableBodyMiddle';
 import TableBodyMobile from './TableBody/TableBodyMobile';
 
-
-
 const OrderItem = (props) => {
-  // console.log('OrderItem ',props)
+
   const desktop = useMediaPredicate("(min-width: 1071px)");
   const middle = useMediaPredicate("(min-width: 540px) and (max-width: 1070px)");
   const mobile = useMediaPredicate("(max-width: 540px)");
   return(
-    <React.Fragment key={props.id}>
+    <React.Fragment key={props.data.id}>
       <div className={style.order__wrappr}>
         <div className={style.order__date}></div>
         {desktop && <TableHead />}

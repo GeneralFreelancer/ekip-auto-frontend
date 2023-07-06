@@ -2,7 +2,7 @@ import style from "./TableBody.module.scss";
 
 const TableBody = (props) => {
  
-  return props.data.map(
+  return props.data?.map(
     (item, i) => (
       <tr key={i + 1}>
         <td className={style.cart__table_number}>{i + 1}</td>
@@ -16,7 +16,7 @@ const TableBody = (props) => {
           <div className={style.cart__table_title_row1}>
             <h2>{item.product.name}</h2>
             <span id={item.product.id} className={style.favorite}>
-              {item.product.favourite ? (
+              {item.favorite ? (
                 <span
                   className={style.activeFavorite}
                   onClick={() => {
