@@ -201,7 +201,7 @@ const OrderList = () => {
   // const timestamp = Date.now(); // This would be the timestamp you want to format for test
   // console.log(new Intl.DateTimeFormat('UKR', {year: 'numeric', month: 'long',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp));
   const [orders, setOrders] = useState([])
-
+console.log(orders);
   const user = useSelector(selectedUser);
 
   const orderDateHuman = (orderDate) => {

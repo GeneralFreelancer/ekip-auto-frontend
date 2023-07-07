@@ -1,9 +1,9 @@
 import style from "./Subcategoryitem.module.scss";
 import { Link } from "react-router-dom";
-// import { useState, useEffect } from "react";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-// import { useDispatch } from "react-redux";
-// import { changeSumMenuState } from "../../../redux/features/subMenu";
+import axios from "axios";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
@@ -22,6 +22,18 @@ const Subcategoryitem = (props) => {
   //     dispatch(changeSumMenuState(false))
   //   }
 
+  const fetchProductsBySubCategory = async (title) => {
+    console.log(title);
+    try {
+      const response = await axios.get(`${baseUrl}/product/?subcategory=${title}`);
+      console.log(response.data);
+      // dispatch(setAllProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+
   return (
     <div
       className={style.menu__subContent}
@@ -39,7 +51,9 @@ const Subcategoryitem = (props) => {
             key={id}
             id={id}
             className={style.menu__content__link}
-            to={`${props.categoryLink}/${translit(title)}`}
+            // to={`${props.categoryLink}/${translit(title)}`}
+            to={`product/${translit(title)}`}
+            onClick={() => fetchProductsBySubCategory(title)}
           >
             {title}
           </Link>

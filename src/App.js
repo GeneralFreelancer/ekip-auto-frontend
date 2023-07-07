@@ -87,8 +87,8 @@ function App() {
           }
         />
 
-        {/* <Route path=":category/:subcategory/" element={<Catalog />} /> */}
-        {/* передавать на бек категорію чи підкатегорію */}
+        <Route path="product/" element={<Catalog />} />
+        <Route path="product/:category/:id" element={<ProductItemPage />} />
 
         <Route
           path="/:id"

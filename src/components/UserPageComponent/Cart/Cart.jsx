@@ -50,19 +50,6 @@ const Cart = () => {
     getProductsFromCart();
   }, [dispatch, user.token]);
 
-  // const updatedDataCartItems = dataCartItems.map((item) => {
-  //   if (user.userdata.favoriteProducts.includes(item.product.id)) {
-  //     return {
-  //       ...item,
-  //       favorite: true,
-  //     };
-  //   }
-  //   return {
-  //     ...item,
-  //     favorite: false,
-  //   };
-  // });
-
   useEffect(() => {
     const updatedDataCartItems = dataCartItems.map((item) => {
       if (user.userdata.favoriteProducts.includes(item.product.id)) {
@@ -78,28 +65,6 @@ const Cart = () => {
     });
     setDataCartItems(updatedDataCartItems);
   }, [user.userdata.favoriteProducts]);
-
-  const remove = async (id) => {
-    const arrayWithoutDeletedProduct = [...dataCartItems]
-      .filter((item) => item.product.id !== id)
-      .map((p) => ({ product: p.product.id, number: p.number }));
-
-    try {
-      const response = await axios.post(
-        `${baseUrl}/basket`,
-        { products: arrayWithoutDeletedProduct },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      setDataCartItems(response.data.basket.products);
-      dispatch(setProductsInCart(response.data.basket.products));
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
-  };
 
   //  not work
   const checkfavorite = async (id) => {
@@ -129,23 +94,44 @@ const Cart = () => {
     }
   };
 
+  const remove = async (id) => {
+    const arrayWithoutDeletedProduct = [...dataCartItems]
+      .filter((item) => item.product.id !== id)
+      .map((p) => ({ product: p.product.id, number: p.number }));
+
+    try {
+      const response = await axios.post(
+        `${baseUrl}/basket`,
+        { products: arrayWithoutDeletedProduct },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setDataCartItems(response.data.basket.products);
+      dispatch(setProductsInCart(response.data.basket.products));
+      console.log(response.data.basket.products);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
 
   // not work
   const changeQuantity = async (id, btnType) => {
-    console.log(btnType);
     if (btnType === "up") {
       setDataCartItems(
         dataCartItems.filter((item) =>
-          item.id === id ? (item.quantity += item.minQuantity) : item.quantity
+          item.product.id === id ? (item.number += item.product.minQuantity) : item.number
         )
       );
     }
     if (btnType === "down") {
       setDataCartItems(
         dataCartItems.filter((item) =>
-          item.id === id && item.quantity > item.minQuantity
-            ? (item.quantity -= item.minQuantity)
-            : item.quantity
+          item.product.id === id && item.number > item.product.minQuantity
+            ? (item.number -= item.product.minQuantity)
+            : item.number
         )
       );
     }
@@ -154,7 +140,7 @@ const Cart = () => {
         `${baseUrl}/basket`,
         {
           product: id,
-          // number: quantity,??
+          // number: productQuantity,
         },
         {
           headers: {
@@ -162,8 +148,9 @@ const Cart = () => {
           },
         }
       );
-      // setDataMockItems(response.data.products);
-      // dispatch(setProductsInCart(response.data.products));
+      console.log(response.data.basket.products);
+      setDataCartItems(response.data.basket.products);
+      dispatch(setProductsInCart(response.data.basket.products));
     } catch (error) {
       console.error("Error:", error.message);
     }

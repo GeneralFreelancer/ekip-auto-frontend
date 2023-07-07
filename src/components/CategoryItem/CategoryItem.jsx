@@ -3,7 +3,9 @@ import CyrillicToTranslit from "cyrillic-to-translit-js";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Subcategoryitem from "./SubCategoryItem";
-import axios from 'axios';
+import axios from "axios";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
@@ -20,7 +22,6 @@ const CategoryItem = (props) => {
   const [catPosition, setCatPosition] = useState("");
   const [mouseDirection, setMouseDirection] = useState(false);
   const [previousPosition, setPreviousPosition] = useState(null);
-  // const subMenuState = useSelector(selectedState);
 
   const handleMouseMove = (event) => {
     const currentPosition = event.clientY;
@@ -43,10 +44,11 @@ const CategoryItem = (props) => {
   const fetchProductsByCategory = async (title) => {
     console.log(title);
     try {
-      const response = await axios.get(`/api/products?title=${title}`);
-      const products = response.data;
+      const response = await axios.get(`${baseUrl}/product/?category=${title}`);
+      console.log(response.data);
+      // dispatch(setAllProducts(response.data.products));
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
     }
   };
 
@@ -68,7 +70,7 @@ const CategoryItem = (props) => {
                 ? `${s.menu__content__link} ${s.activeCategory}`
                 : s.menu__content__link
             }
-            to={`/${translit(title)}`}
+            to={`/product/${translit(title)}`}
             onMouseEnter={(e) => {
               if (subCategory.length > 0) {
                 setIsSubCat(true);
@@ -82,7 +84,7 @@ const CategoryItem = (props) => {
               }
               currentHeight(e);
             }}
-            onClick={() => fetchProductsByCategory(title)} 
+            onClick={() => fetchProductsByCategory(title)}
           >
             {title}
           </Link>
