@@ -1,10 +1,16 @@
 import React, { useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
-
 import "./Accordion.scss";
-
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import { ReactComponent as ArrowDown } from "../../../../../assets/svg/up-arrow.svg";
+import axios from "axios";
+import {
+  setCategoryProducts,
+  setSubCategoryProducts,
+} from "../../../../../redux/features/productsSlice";
+import { useDispatch } from "react-redux";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const mockCategoryName = [
   {
@@ -402,10 +408,43 @@ const AccordionItem = (props) => {
   const { handleToggle, active, item } = props;
   const { id, title, subCategory } = item;
 
+  const dispatch = useDispatch();
+
+  const fetchProductsByCategory = async (title) => {
+ 
+    try {
+      const response = await axios.get(`${baseUrl}/product/?category=${title}`);
+      dispatch(setCategoryProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const fetchProductsBySubCategory = async (title) => {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/product/?subcategory=${title}`
+      );
+      dispatch(setSubCategoryProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   return (
     <div className="rc-accordion-card">
       {subCategory.length === 0 ? (
-        <NavLink to={`/${translit(title)}`}>
+        <NavLink
+          // to={`/${translit(title)}`}
+          to={`/category`}
+          onClick={() => {
+            props.onClick()
+            dispatch(setCategoryProducts([]));
+            fetchProductsByCategory(title);
+            localStorage.setItem("category", title);
+            localStorage.removeItem("subcategory");
+          }}
+        >
           <div className="rc-accordion-title single">{title}</div>
         </NavLink>
       ) : (
@@ -413,7 +452,18 @@ const AccordionItem = (props) => {
           className={`rc-accordion-toggle p-3 ${active === id ? "active" : ""}`}
           onClick={(e) => handleToggle(id, e)}
         >
-          <NavLink to={`/${translit(title)}`} className="rc-accordion-title">
+          <NavLink
+            // to={`/${translit(title)}`}
+            to={`/category`}
+            className="rc-accordion-title"
+            onClick={() => {
+              props.onClick()
+              dispatch(setCategoryProducts([]));
+              fetchProductsByCategory(title);
+              localStorage.setItem("category", title);
+              localStorage.removeItem("subcategory");
+            }}
+          >
             {title}
           </NavLink>
 
@@ -436,7 +486,15 @@ const AccordionItem = (props) => {
               subCategory.map((sub) => {
                 return (
                   <NavLink
-                    to={`${translit(title)}/${translit(sub.title)}`}
+                    to={`/category`}
+                    // to={`${translit(title)}/${translit(sub.title)}`}
+                    onClick={() => {
+                      props.onClick()
+                      dispatch(setSubCategoryProducts([]));
+                      fetchProductsBySubCategory(sub.title);
+                      localStorage.setItem("subcategory", sub.title);
+                      localStorage.removeItem("category");
+                    }}
                     id={sub.id}
                     key={sub.id}
                   >
@@ -451,7 +509,7 @@ const AccordionItem = (props) => {
   );
 };
 
-const Accordion = () => {
+const Accordion = (props) => {
   const [active, setActive] = useState(null);
 
   const handleToggle = (index, e) => {
@@ -475,6 +533,7 @@ const Accordion = () => {
                 active={active}
                 handleToggle={handleToggle}
                 item={item}
+                onClick={props.onClick}
               />
             );
           })}

@@ -49,7 +49,7 @@ const MobileMenu = (props) => {
         </div>
       </div>
       <NavbarLink styleItem={"logo_navlink_mobile"} />
-      <Accordion />
+      <Accordion onClick={props.onClick}/>
     </div>
   );
 };

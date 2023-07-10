@@ -32,7 +32,6 @@ const Subcategoryitem = (props) => {
         `${baseUrl}/product/?subcategory=${title}`
       );
       dispatch(setSubCategoryProducts(response.data.products));
-      console.log(response.data.products);
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -56,8 +55,10 @@ const Subcategoryitem = (props) => {
             id={id}
             className={style.menu__content__link}
             // to={`${props.categoryLink}/${translit(title)}`}
-            to={`/${translit(title)}`}
+            // to={`/${translit(title)}`}
+            to={`/category`}
             onClick={() => {
+              dispatch(setSubCategoryProducts([]));
               fetchProductsBySubCategory(title)
               localStorage.setItem('subcategory', title)
               localStorage.removeItem("category");

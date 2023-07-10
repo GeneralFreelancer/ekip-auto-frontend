@@ -72,7 +72,8 @@ const CategoryItem = (props) => {
                 ? `${s.menu__content__link} ${s.activeCategory}`
                 : s.menu__content__link
             }
-            to={`/${translit(title)}`}
+            // to={`/${translit(title)}`}
+            to={`/category`}
             onMouseEnter={(e) => {
               if (subCategory.length > 0) {
                 setIsSubCat(true);
@@ -87,6 +88,7 @@ const CategoryItem = (props) => {
               currentHeight(e);
             }}
             onClick={() => {
+              dispatch(setCategoryProducts([]));
               fetchProductsByCategory(title)
               localStorage.setItem("category", title);
               localStorage.removeItem("subcategory");

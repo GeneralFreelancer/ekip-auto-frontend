@@ -18,6 +18,13 @@ const TableBodyMobile = (props) => {
   // const [quantity, setQuantity] = useState(500);
   const user = useSelector(selectedUser);
 
+  let sumUAH = props.data.products?.reduce((total, item) => {
+    return total + item.number * item.product.priceUAH;
+  }, 0);
+  let sumUSD = props.data.products?.reduce((total, item) => {
+    return total + item.number * item.product.priceUAH;
+  }, 0);
+
   const handleSaveClick = async (id, name) => {
     setEdite(false);
     try {
@@ -137,10 +144,10 @@ const TableBodyMobile = (props) => {
       <tr>
         <td colSpan={2} className={style.order__table_summaryPrice}>
           <div>
-            {/* <p className={style.nationalSummary}>{totalPrice[0]} &#8372;</p> */}
+            <p className={style.nationalSummary}>{sumUAH} &#8372;</p>
           </div>
           <div>
-            {/* <p className={style.internationSummary}>{totalPrice[1]} &#65284;</p> */}
+            <p className={style.internationSummary}>{sumUSD} &#65284;</p>
           </div>
         </td>
       </tr>

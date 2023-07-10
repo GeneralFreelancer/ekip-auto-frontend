@@ -9,15 +9,8 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import SideBarSlider from "../components/SideBarSlider/";
 import MainContainer from "../components/MainContainer";
-// import axios from "axios";
 import { useDispatch } from "react-redux";
-// import {
-//   setAllProducts,
-//   setDateProducts,
-//   setTopProducts,
-//   setLastSeenProducts,
-//   setInterestProducts,
-// } from "../redux/features/productsSlice";
+
 import {
   selectDateProducts,
   selectTopProducts,
@@ -33,8 +26,6 @@ import {
   getProductsWithInterestFilter,
 } from '../productService';
 
-// const baseUrl = process.env.REACT_APP_BASE_URL;
-
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
@@ -44,66 +35,6 @@ const HomePage = () => {
   const topProducts = useSelector(selectTopProducts);
   const LastSeenProducts = useSelector(selectLastSeenProducts);
   const interestProducts = useSelector(selectInterestProducts);
-
-  // const getProductsAll = async () => {
-  //   try {
-  //     const response = await axios.get(`${baseUrl}/product`);
-  //     dispatch(setAllProducts(response.data.products));
-  //   } catch (error) {
-  //     console.error("Error:", error.message);
-  //   }
-  // };
-
-  // const getProductsWithDateFilter = async () => {
-  //   try {
-  //     const response = await axios.get(`${baseUrl}/product/?filter=date`);
-  //     dispatch(setDateProducts(response.data.products));
-  //   } catch (error) {
-  //     console.error("Error:", error.message);
-  //   }
-  // };
-
-  // const getProductsWithTopFilter = async () => {
-  //   try {
-  //     const response = await axios.get(`${baseUrl}/product/?filter=top`);
-  //     dispatch(setTopProducts(response.data.products));
-  //   } catch (error) {
-  //     console.error("Error:", error.message);
-  //   }
-  // };
-
-  // const getProductsWithLast_seenFilter = async () => {
-  //   try {
-  //     let response;
-  //     if (user.isLoggedIn) {
-  //       response = await axios.get(
-  //         `${baseUrl}/product/?filter=last_seen&userId=${user.userdata.id}` 
-  //       );
-  //     } else {
-  //       response = await axios.get(`${baseUrl}/product/?filter=last_seen`);
-  //     }
-  //     dispatch(setLastSeenProducts(response.data.products));
-  //   } catch (error) {
-  //     console.error("Error:", error.message);
-  //   }
-  // };
-
-  // const getProductsWithInterestFilter = async () => {
-  //   try {
-  //     const response = await axios.get(`${baseUrl}/product/?filter=interest`);
-  //     dispatch(setInterestProducts(response.data.products));
-  //   } catch (error) {
-  //     console.error("Error:", error.message);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getProductsAll();
-  //   getProductsWithDateFilter();
-  //   getProductsWithTopFilter();
-  //   getProductsWithLast_seenFilter();
-  //   getProductsWithInterestFilter();
-  // }, []);
 
   useEffect(() => {
     getProductsAll(dispatch);

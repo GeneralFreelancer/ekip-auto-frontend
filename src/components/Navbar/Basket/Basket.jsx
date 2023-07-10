@@ -97,7 +97,6 @@ const Basket = () => {
           },
         }
       );
-      console.log(response);
       setNumberOfProducts(response.data.basket.products);
       dispatch(setProductsInCart(response.data.basket.products));
     } catch (error) {

@@ -87,13 +87,14 @@ function App() {
           }
         />
 
-        <Route path="/:category" element={<Catalog/>} />
-        <Route path="/:category/:id" element={<ProductItemPage />} />
+        <Route path="/category" element={<Catalog/>} />
+        <Route path="/category/:id" element={<ProductItemPage />} />
 
         <Route
           path="/:id"
           element={<ProductItemPage />}
         />
+
         <Route
           path="ostannі-nadkhodzhennya/:id"
           element={<ProductItemPage />}
@@ -130,7 +131,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="order-history-details" element={<OrderDetails />} />
+          <Route path="order-history-details/:id" element={<OrderDetails />} />
           <Route
             path="favorite"
             element={
