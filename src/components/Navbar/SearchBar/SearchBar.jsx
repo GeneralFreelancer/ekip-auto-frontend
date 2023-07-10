@@ -68,6 +68,8 @@ const SearchBar = () => {
     },
   ];
 
+  // http://localhost:5502/product/?search=${data}
+
   const wrapperSearchBarRef = useRef(null);
 
   useEffect(() => {

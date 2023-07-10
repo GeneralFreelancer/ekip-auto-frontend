@@ -1,0 +1,32 @@
+.logo__wrapper {
+  margin-right: 50px;
+}
+@media screen and (max-width: 1420px) {
+  .logo__wrapper {
+    margin-right: 15px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .logo__wrapper {
+    margin-right: 0;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .logo__wrapper {
+    flex: 1;
+  }
+}
+
+.logo {
+  background-image: url("../../../../assets/logo.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 175px;
+  height: 70px;
+  filter: drop-shadow(8px 8px 8px rgba(0, 0, 0, 0.5));
+}
+
+.modal__center {
+  flex: 0;
+}/*# sourceMappingURL=Logo.module.css.map */

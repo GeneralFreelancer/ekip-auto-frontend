@@ -1,0 +1,117 @@
+.card {
+  box-sizing: border-box;
+  width: 500px;
+  overflow-y: scroll;
+  margin: 0 auto;
+}
+@media screen and (max-width: 550px) {
+  .card {
+    width: 400px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .card {
+    width: 320px;
+  }
+}
+
+.rc-accordion-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+.rc-accordion-toggle.active {
+  background-color: #f8f7f0;
+  color: #333030;
+}
+
+.rc-accordion-card {
+  border-top: 1px solid #f8f7f0;
+  overflow: hidden;
+  border-left: 1px solid #f8f7f0;
+  border-right: 1px solid #f8f7f0;
+}
+
+.rc-accordion-card:last-child {
+  margin-bottom: 0;
+  border-bottom: 1px solid #f8f7f0;
+}
+
+.rc-accordion-title {
+  color: #f8f7f0;
+  font-weight: 500;
+  font-size: 16px;
+  position: relative;
+  margin-bottom: 0;
+  transition: 0.3s;
+  color: #f8f7f0;
+  padding: 10px 0px 10px 20px;
+}
+.rc-accordion-title:active {
+  text-shadow: #f8f7f0 1px 0 10px;
+}
+
+.single:active {
+  background-color: #f8f7f0;
+  color: #333030;
+}
+
+.rc-accordion-toggle.active .rc-accordion-title {
+  color: #333030;
+}
+
+.rc-accordion-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 10px;
+}
+
+.rc-accordion-body div {
+  font-size: 16px;
+  color: #f8f7f0;
+  padding: 10px;
+  border-radius: 2px;
+}
+.rc-accordion-body div a {
+  color: #f8f7f0;
+}
+
+.rc-accordion-body-title {
+  border-bottom: 1px solid #f8f7f0;
+}
+
+.rc-accordion-body div:hover {
+  background-color: #f8f7f0;
+  color: #333030;
+  cursor: pointer;
+}
+.rc-accordion-body div:hover a {
+  color: #333030;
+}
+
+.rc-collapse {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}
+
+.rc-collapse.show {
+  height: auto;
+}
+
+.arrow-down {
+  margin-right: 10px;
+  width: 15px;
+  height: 15px;
+  fill: #f8f7f0;
+  transform: rotate(180deg);
+}
+
+.rc-accordion-card a {
+  text-decoration: none;
+  text-transform: uppercase;
+}/*# sourceMappingURL=Accordion.css.map */

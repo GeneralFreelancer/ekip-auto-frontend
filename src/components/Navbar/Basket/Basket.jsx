@@ -38,7 +38,9 @@ const Basket = () => {
         console.error("Error:", error.message);
       }
     };
-    getProductsFromCart();
+    if (user.token) {
+      getProductsFromCart();
+    } 
   }, [dispatch, user.token]);
 
   useEffect(() => {
@@ -121,16 +123,14 @@ const Basket = () => {
         {/* {viewportWidth <= 1024 ? (
           <NavLink className={style.button} to="/myprofile/basket"></NavLink>
         ) : ( */}
-          <div onClick={handelClick}>
-            <ShoppingCard
-              className={
-                !showModal ? style.shoppingCard : style.shoppingCardOpen
-              }
-            />
-            <div className={!showModal ? style.number : style.numberOpen}>
-              <p>{cart.cartProducts?.length ? cart.cartProducts.length : 0}</p>
-            </div>
+        <div onClick={handelClick}>
+          <ShoppingCard
+            className={!showModal ? style.shoppingCard : style.shoppingCardOpen}
+          />
+          <div className={!showModal ? style.number : style.numberOpen}>
+            <p>{cart.cartProducts?.length ? cart.cartProducts.length : 0}</p>
           </div>
+        </div>
         {/* )} */}
 
         {desktopV && showModal && (

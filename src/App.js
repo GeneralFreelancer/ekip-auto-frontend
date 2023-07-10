@@ -21,7 +21,7 @@ import {
   selectDateProducts,
   selectTopProducts,
   selectLastSeenProducts,
-  selectInterestProducts,
+  selectInterestProducts
 } from "./redux/features/productsSlice";
 import { useSelector } from "react-redux";
 
@@ -44,7 +44,7 @@ function App() {
           path="admin_slider"
           element={
             <PivateRouter>
-              <AdminSliderPage />{" "}
+              <AdminSliderPage />
             </PivateRouter>
           }
         />
@@ -87,8 +87,8 @@ function App() {
           }
         />
 
-        <Route path="product/" element={<Catalog />} />
-        <Route path="product/:category/:id" element={<ProductItemPage />} />
+        <Route path="/:category" element={<Catalog/>} />
+        <Route path="/:category/:id" element={<ProductItemPage />} />
 
         <Route
           path="/:id"

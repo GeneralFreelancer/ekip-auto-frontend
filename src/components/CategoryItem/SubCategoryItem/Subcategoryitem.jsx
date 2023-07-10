@@ -2,6 +2,8 @@ import style from "./Subcategoryitem.module.scss";
 import { Link } from "react-router-dom";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import axios from "axios";
+import { setSubCategoryProducts } from "../../../redux/features/productsSlice";
+import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -22,17 +24,19 @@ const Subcategoryitem = (props) => {
   //     dispatch(changeSumMenuState(false))
   //   }
 
+    const dispatch = useDispatch();
+
   const fetchProductsBySubCategory = async (title) => {
-    console.log(title);
     try {
-      const response = await axios.get(`${baseUrl}/product/?subcategory=${title}`);
-      console.log(response.data);
-      // dispatch(setAllProducts(response.data.products));
+      const response = await axios.get(
+        `${baseUrl}/product/?subcategory=${title}`
+      );
+      dispatch(setSubCategoryProducts(response.data.products));
+      console.log(response.data.products);
     } catch (error) {
       console.error("Error:", error.message);
     }
   };
-
 
   return (
     <div
@@ -52,8 +56,12 @@ const Subcategoryitem = (props) => {
             id={id}
             className={style.menu__content__link}
             // to={`${props.categoryLink}/${translit(title)}`}
-            to={`product/${translit(title)}`}
-            onClick={() => fetchProductsBySubCategory(title)}
+            to={`/${translit(title)}`}
+            onClick={() => {
+              fetchProductsBySubCategory(title)
+              localStorage.setItem('subcategory', title)
+              localStorage.removeItem("category");
+            }}
           >
             {title}
           </Link>

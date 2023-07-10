@@ -65,7 +65,9 @@ const ProductItem = ({ selectedProduct }) => {
         console.error("Error:", error.message);
       }
     };
-    getLastSeenProduct();
+    if (user.token) {
+      getLastSeenProduct();
+    } 
   }, [id, user.token]);
 
   useEffect(() => {

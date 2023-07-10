@@ -1,0 +1,92 @@
+.mobile_modal {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  background-color: #333030;
+  z-index: 1000;
+  animation: MobileMenu_slide-down__rdixe 300ms ease-out forwards;
+  overflow: hidden;
+}
+.mobile_modal_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+.mobile_cross {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cross {
+  fill: #f8f7f0;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+@media screen and (max-width: 540px) {
+  .cross {
+    width: 25px;
+    height: 25px;
+  }
+}
+.cross:hover {
+  scale: 1.05;
+  cursor: pointer;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.userMob {
+  width: 45px;
+  height: 45px;
+  fill: #f8f7f0;
+}
+@media screen and (max-width: 540px) {
+  .userMob {
+    width: 30px;
+    height: 30px;
+  }
+}
+.userMob:hover {
+  scale: 1.05;
+  cursor: pointer;
+}
+
+.userMob_red {
+  width: 45px;
+  height: 45px;
+  fill: red;
+}
+@media screen and (max-width: 540px) {
+  .userMob_red {
+    width: 30px;
+    height: 30px;
+  }
+}
+.userMob_red:hover {
+  scale: 1.05;
+  cursor: pointer;
+}
+
+.userMob_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}/*# sourceMappingURL=MobileMenu.module.css.map */
