@@ -3,17 +3,22 @@ import s from "./MyData.module.scss";
 import { useDispatch } from "react-redux";
 import { PatternFormat } from "react-number-format";
 import TextBlock from "../TextBlock/TextBlock";
-import { setUserData } from "../../../redux/features/userSlice";
+import { fullUserRegistered } from "../../../redux/features/userSlice";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../../redux/features/userSlice";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const MyData = () => {
   const [dataForm, setDataForm] = useState({
-    name: "",
-    surname: "",
-    fathername: "",
+    firstName: "",
+    lastName: "",
+    secondName: "",
     phone: "",
     email: "",
-    deliveryPlace: "",
-    deliveryAddress: "",
+    city: "",
+    street: "",
     extraInfo: "",
   });
 
@@ -23,29 +28,31 @@ const MyData = () => {
   });
 
   const [dataErrors, setDataErrors] = useState({
-    name: "",
-    surname: "",
+    firstName: "",
+    lastName: "",
     phone: "",
     email: "",
-    deliveryPlace: "",
-    deliveryAddress: "",
+    city: "",
+    street: "",
     newPassword: "",
     confirmPassword: "",
   });
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isBtnChangeDisabled, setIsBtnChangeDisabled] = useState(true);
+  const [passwordMessage, setPasswordMessage] = useState(null);
 
+  const user = useSelector(selectedUser);
   const dispatch = useDispatch();
 
   const validateChangeForm = (name, value) => {
     let errors = { ...dataErrors };
     switch (name) {
-      case "name":
-        errors.name = isValidData(value);
+      case "firstName":
+        errors.firstName = isValidData(value);
         break;
-      case "surname":
-        errors.surname = isValidData(value);
+      case "lastName":
+        errors.lastName = isValidData(value);
         break;
       case "phone":
         errors.phone = isValidData(value);
@@ -53,11 +60,11 @@ const MyData = () => {
       case "email":
         errors.email = isValidEmail(value);
         break;
-      case "deliveryPlace":
-        errors.deliveryPlace = isValidData(value);
+      case "city":
+        errors.city = isValidData(value);
         break;
-      case "deliveryAddress":
-        errors.deliveryAddress = isValidData(value);
+      case "street":
+        errors.street = isValidData(value);
         break;
       case "newPassword":
         errors.newPassword = isValidData(value);
@@ -99,64 +106,63 @@ const MyData = () => {
 
     validateChangeForm(event.target.name, event.target.value);
     if (
-      dataForm.name &&
-      dataForm.surname &&
+      dataForm.firstName &&
+      dataForm.lastName &&
       dataForm.phone &&
       dataForm.email &&
-      dataForm.deliveryPlace &&
-      dataForm.deliveryAddress
+      dataForm.city &&
+      dataForm.street
     ) {
       setIsButtonDisabled(false);
     }
   };
 
-  const submitChangeHandler = (e) => {
+  const submitChangeHandler = async (e) => {
     e.preventDefault();
     if (
-      dataForm.name &&
-      dataForm.surname &&
+      dataForm.firstName &&
+      dataForm.lastName &&
       dataForm.phone &&
       dataForm.email &&
-      dataForm.deliveryPlace &&
-      dataForm.deliveryAddress
+      dataForm.city &&
+      dataForm.street
     ) {
-      console.log(dataForm);
       setIsButtonDisabled(false);
       setDataForm({
-        name: "",
-        surname: "",
-        fathername: "",
+        firstName: "",
+        lastName: "",
+        secondName: "",
         phone: "",
         email: "",
-        deliveryPlace: "",
-        deliveryAddress: "",
+        city: "",
+        street: "",
         extraInfo: "",
       });
       setIsButtonDisabled(true);
-      dispatch(
-        setUserData({
-          name: dataForm.email,
-          surname: dataForm.surname,
-          fathername: dataForm.fathername,
-          phone: dataForm.phone,
-          email: dataForm.email,
-          deliveryPlace: dataForm.deliveryPlace,
-          deliveryAddress: dataForm.deliveryAddress,
-          extraInfo: dataForm.extraInfo,
-        })
-      );
-
-      // try {
-      //   const data = await axios.post('/api/auth/changeData', { ...dataForm })
-      //   setDataForm({
-      //     email: '', password: ''
-      //   })
-      // } catch (e) {
-      //   console.log(e)
+      try {
+        const response = await axios.put(
+          `${baseUrl}/user/user-data`,
+          {
+            ...dataForm,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        dispatch(fullUserRegistered({ ...response.data }));
+        // setDataForm({
+        //   email: "",
+        //   password: "",
+        // });
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
-  const changePasswordHandler = (e) => {
+  const changePasswordHandler = async (e) => {
     setPassForm((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -164,19 +170,30 @@ const MyData = () => {
     validateChangeForm(e.target.name, e.target.value);
     if (passForm.newPassword && passForm.confirmPassword) {
       setIsBtnChangeDisabled(false);
-      dispatch(
-        setUserData({
-          newPassword: passForm.newPassword,
-        })
-      );
     }
   };
 
-  const submitPasswordHandler = (e) => {
+  const submitPasswordHandler = async (e) => {
+    console.log('dasd');
     e.preventDefault();
     if (passForm.newPassword === passForm.confirmPassword) {
-      console.log(passForm);
       setIsBtnChangeDisabled(false);
+      try {
+        const response = await axios.post(
+          `${baseUrl}/auth/password/change`,
+          {
+            password: passForm.newPassword,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        setPasswordMessage(response.data.message);
+      } catch (e) {
+        console.log(e);
+      }
       setPassForm({
         newPassword: "",
         confirmPassword: "",
@@ -195,11 +212,11 @@ const MyData = () => {
               <label>Ім'я: *</label>
               <input
                 type="text"
-                name="name"
+                name="firstName"
                 className={`${s.form_input} ${
-                  dataErrors.name ? s.input_error : ""
+                  dataErrors.firstName ? s.input_error : ""
                 }`}
-                value={dataForm.name}
+                value={dataForm.firstName}
                 onChange={changeDataHandler}
               />
               {dataErrors.name && (
@@ -210,24 +227,24 @@ const MyData = () => {
               <label>Прізвище: *</label>
               <input
                 type="text"
-                name="surname"
+                name="lastName"
                 className={`${s.form_input} ${
-                  dataErrors.surname ? s.input_error : ""
+                  dataErrors.lastName ? s.input_error : ""
                 }`}
-                value={dataForm.surname}
+                value={dataForm.lastName}
                 onChange={changeDataHandler}
               />
-              {dataErrors.surname && (
-                <div className={s.error_message}>{dataErrors.surname}</div>
+              {dataErrors.lastName && (
+                <div className={s.error_message}>{dataErrors.lastName}</div>
               )}
             </div>
             <div className={s.form_group}>
               <label>По батькові:</label>
               <input
                 type="text"
-                name="fathername"
+                name="secondName"
                 className={s.form_input}
-                value={dataForm.fathername}
+                value={dataForm.secondName}
                 onChange={changeDataHandler}
               />
             </div>
@@ -272,34 +289,30 @@ const MyData = () => {
               <label>Місто доставки: *</label>
               <input
                 type="text"
-                name="deliveryPlace"
+                name="city"
                 className={`${s.form_input} ${
-                  dataErrors.deliveryPlace ? s.input_error : ""
+                  dataErrors.city ? s.input_error : ""
                 }`}
-                value={dataForm.deliveryPlace}
+                value={dataForm.city}
                 onChange={changeDataHandler}
               />
-              {dataErrors.deliveryPlace && (
-                <div className={s.error_message}>
-                  {dataErrors.deliveryPlace}
-                </div>
+              {dataErrors.city && (
+                <div className={s.error_message}>{dataErrors.city}</div>
               )}
             </div>
             <div className={s.form_group}>
               <label>Адреса доставки: *</label>
               <input
                 type="text"
-                name="deliveryAddress"
+                name="street"
                 className={`${s.form_input} ${
-                  dataErrors.deliveryAddress ? s.input_error : ""
+                  dataErrors.street ? s.input_error : ""
                 }`}
-                value={dataForm.deliveryAddress}
+                value={dataForm.street}
                 onChange={changeDataHandler}
               />
-              {dataErrors.deliveryAddress && (
-                <div className={s.error_message}>
-                  {dataErrors.deliveryAddress}
-                </div>
+              {dataErrors.street && (
+                <div className={s.error_message}>{dataErrors.street}</div>
               )}
             </div>
           </div>
@@ -367,6 +380,11 @@ const MyData = () => {
               >
                 Змінити
               </button>
+              {passwordMessage ? (
+                <p style={{marginTop: '5px'}} className={s.error_message}>{passwordMessage}</p>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </form>

@@ -5,13 +5,15 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { useDispatch } from "react-redux";
-import { logout, registerOut } from "../../../redux/features/userSlice";
+import { logout } from "../../../redux/features/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
   const user = useSelector(selectedUser);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const wrapperAuthRef = useRef(null);
 
@@ -39,7 +41,7 @@ const AuthNav = (props) => {
   }, [showModal]);
 
   const onClick = () => {
-    if (user.isLoggedIn || user.isRegistered) {
+    if (user.isLoggedIn || user.isRegisteredConfirmed) {
       setShowModal((prevState) => !prevState);
     }
   };
@@ -47,10 +49,10 @@ const AuthNav = (props) => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
-    dispatch(registerOut()); //
     setShowModal(false);
+    navigate("/");
     // Test
-    sessionStorage.removeItem("role");
+    localStorage.removeItem("role");
   };
 
   return (
@@ -71,16 +73,23 @@ const AuthNav = (props) => {
             <Link className={style.item} to={"/myprofile/order-history"}>
               <li>Замовлення</li>
             </Link>
-            <Link className={style.item} to={"#"}>
+            <Link className={style.item}>
               <li onClick={handleLogout}>Вийти</li>
             </Link>
+            {localStorage.getItem("role") === 'admin' && (
+              <Link className={style.item} to={"/myprofile/share-stocks"}>
+                <li>Залишки товару</li>
+              </Link>
+            )}
           </ul>
         )}
       </div>
-      {user.isLoggedIn && <p className={style.userLog}>Тимур</p>}
-      {user.isRegistered && (
-        <Link className={style.userRegister} to={"#"}>
-          Завершити <br></br> реестрацію
+      {(user.isLoggedIn || user.isDataFullFilled) && (
+        <p className={style.userLog}>{user?.userdata?.firstName}</p>
+      )}
+      {user.isRegisteredConfirmed && !user.isDataFullFilled && (
+        <Link className={style.userRegister} to={"/myprofile/mydata"}>
+          Заповнити <br></br> дані
         </Link>
       )}
     </div>

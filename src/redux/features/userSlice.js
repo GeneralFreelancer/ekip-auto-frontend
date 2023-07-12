@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoggedIn: false,
-  currentUser: null,
-  userData: null
-  // token: null,
+  userdata: null,
+  token: "",
+  roles: [],
 };
 
 const userSlice = createSlice({
@@ -12,32 +12,62 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      // const {isLoggedIn, currentUser, accessToken} = action.payload
       state.isLoggedIn = true;
-      state.currentUser = action.payload;
-      // state.token = accessToken
-      // localStorage.setItem("token", accessToken)
+      state.roles = action.payload.user.roles;
+      state.token = action.payload.token;
+      state.userdata = action.payload.user;
+      state.isRegistered = true;
+      state.isRegisteredConfirmed = action.payload.user.isEmailConfirmed;
+      state.isDataFullFilled = action.payload.user.livingAddress ? true : false;
     },
     logout: (state) => {
       state.isLoggedIn = false;
-      state.currentUser = null;
-      // state.token = null
-      // localStorage.removeItem('token')
+      state.userdata = null;
+      state.token = null;
+      state.roles = [];
+      state.isRegistered = null;
+      state.isRegisteredConfirmed = null;
+      state.isDataFullFilled = null;
+      localStorage.removeItem("role");
     },
     register: (state, action) => {
       state.isRegistered = true;
-      state.currentUser = action.payload;
+      state.isRegisteredConfirmed = false;
+      state.userdata = action.payload;
+      state.isDataFullFilled = false;
     },
-    registerOut: (state) => {
-      state.isRegistered = false;
-      state.currentUser = null;
+    registerConfirmed: (state, action) => {
+      state.isRegistered = true;
+      state.isRegisteredConfirmed = action.payload.user.isEmailConfirmed;
+      state.isDataFullFilled = false;
+      state.token = action.payload.token;
+      state.roles = action.payload.user.roles;
     },
-    setUserData: (state, action) => {
-      state.userData = action.payload;
+    fullUserRegistered: (state, action) => {
+      state.isDataFullFilled = true;
+      state.userdata.phone = action.payload.user?.phone;
+      state.userdata.firstName = action.payload.user?.firstName;
+      state.userdata.lastName = action.payload.user?.lastName;
+      state.userdata.secondName = action.payload.user?.secondName;
+      state.userdata.email = action.payload.user?.email;
+      state.userdata.street = action.payload.user?.livingAddress.street;
+      state.userdata.city = action.payload.user?.livingAddress.city;
+      state.userdata.additionalInfo =
+        action.payload.user?.livingAddress.additionalInfo;
+    },
+    addToFavorites: (state, action) => {
+      state.userdata.favoriteProducts = action.payload
     }
   },
 });
 
-export const { login, logout, register, registerOut, setUserData } = userSlice.actions;
+export const {
+  login,
+  logout,
+  register,
+  registerConfirmed,
+  fullUserRegistered,
+  addToFavorites
+} = userSlice.actions;
 export default userSlice.reducer;
 export const selectedUser = (state) => state.user;

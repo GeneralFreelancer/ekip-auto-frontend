@@ -4,12 +4,14 @@ import Characteristic from "./Characteristic";
 import Pack from "./Pack";
 import s from "./Description.module.scss";
 
-const Description = (props) => {
+const Description = ({selectedProduct}) => {
+
+  const {id, description, options, deliveryOptions} = selectedProduct;
   const [role, setRole] = useState(false);
-  const localStor = sessionStorage.getItem("role");
+  const localStor = localStorage.getItem("role");
 
   useEffect(() => {
-    if (sessionStorage.getItem("role") === "admin") {
+    if (localStorage.getItem("role") === "admin") {
       setRole(true);
     } else {
       setRole(false);
@@ -20,15 +22,15 @@ const Description = (props) => {
     <>
       <section>
         <a id="mainInfo" className={s.anchor}></a>
-        <MainInfo productId={props.productId} role={role} />
+        <MainInfo id={id} description={description} role={role} />
       </section>
       <section>
         <a id="characteristic" className={s.anchor}></a>
-        <Characteristic productId={props.productId} role={role} />
+        <Characteristic id={id} options={options} role={role} />
       </section>
       <section>
         <a id="pack" className={s.anchor}></a>
-        <Pack productId={props.productId} role={role} />
+        <Pack id={id} deliveryOptions={deliveryOptions} role={role} />
       </section>
     </>
   );

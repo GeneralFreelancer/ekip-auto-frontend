@@ -1,10 +1,16 @@
 import React, { useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
-
 import "./Accordion.scss";
-
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import { ReactComponent as ArrowDown } from "../../../../../assets/svg/up-arrow.svg";
+import axios from "axios";
+import {
+  setCategoryProducts,
+  setSubCategoryProducts,
+} from "../../../../../redux/features/productsSlice";
+import { useDispatch } from "react-redux";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const mockCategoryName = [
   {
@@ -45,17 +51,17 @@ const mockCategoryName = [
   },
   {
     id: "4",
-    title: "Декоративне свiтло",
+    title: "Декоративне світло",
     subCategory: [],
   },
   {
     id: "5",
-    title: "Електроннi компоненти",
+    title: "Електронні компоненти",
     subCategory: [],
   },
   {
     id: "6",
-    title: "Кабельна продукцiя",
+    title: "Кабельна продукція",
     subCategory: [
       {
         id: "1",
@@ -89,7 +95,7 @@ const mockCategoryName = [
       },
       {
         id: "4",
-        title: "Декоративне свiтло",
+        title: "Декоративне світло",
         subCategory: [
           {
             id: "1fg5",
@@ -99,7 +105,7 @@ const mockCategoryName = [
       },
       {
         id: "5",
-        title: "Електроннi компоненти",
+        title: "Електронні компоненти",
         subCategory: [
           {
             id: "5-5",
@@ -109,7 +115,7 @@ const mockCategoryName = [
       },
       {
         id: "6",
-        title: "Кабельна продукцiя",
+        title: "Кабельна продукція",
         subCategory: [
           {
             id: "6-6",
@@ -129,7 +135,7 @@ const mockCategoryName = [
       },
       {
         id: "8",
-        title: "Мiкрофони та аксесуари",
+        title: "Мікрофони та аксесуари",
         subCategory: [
           {
             id: "8_8",
@@ -139,7 +145,7 @@ const mockCategoryName = [
       },
       {
         id: "9",
-        title: "Металевi стiйки, ферми",
+        title: "Металеві стійки, ферми",
         subCategory: [
           {
             id: "9-9",
@@ -149,7 +155,7 @@ const mockCategoryName = [
       },
       {
         id: "10",
-        title: "Свiтлове обладнання",
+        title: "Світлове обладнання",
         subCategory: [
           {
             id: "10-1",
@@ -159,7 +165,7 @@ const mockCategoryName = [
       },
       {
         id: "11",
-        title: "Свiтлове обладнання",
+        title: "Світлове обладнання",
         subCategory: [
           {
             id: "11-1",
@@ -169,7 +175,7 @@ const mockCategoryName = [
       },
       {
         id: "12",
-        title: "Трансляцiйне обладнання",
+        title: "Трансляційне обладнання",
         subCategory: [
           {
             id: "12-12",
@@ -209,7 +215,7 @@ const mockCategoryName = [
       },
       {
         id: "16",
-        title: "Декоративне свiтло",
+        title: "Декоративне світло",
         subCategory: [
           {
             id: "1fdffdfwer",
@@ -219,7 +225,7 @@ const mockCategoryName = [
       },
       {
         id: "17",
-        title: "Електроннi компоненти",
+        title: "Електронні компоненти",
         subCategory: [
           {
             id: "17-17",
@@ -229,7 +235,7 @@ const mockCategoryName = [
       },
       {
         id: "18",
-        title: "Кабельна продукцiя",
+        title: "Кабельна продукція",
         subCategory: [
           {
             id: "18-18",
@@ -249,7 +255,7 @@ const mockCategoryName = [
       },
       {
         id: "20",
-        title: "Мiкрофони та аксесуари",
+        title: "Мікрофони та аксесуари",
         subCategory: [
           {
             id: "20-20",
@@ -259,7 +265,7 @@ const mockCategoryName = [
       },
       {
         id: "21",
-        title: "Металевi стiйки, ферми",
+        title: "Металеві стійки, ферми",
         subCategory: [
           {
             id: "21-21",
@@ -269,7 +275,7 @@ const mockCategoryName = [
       },
       {
         id: "22",
-        title: "Свiтлове обладнання",
+        title: "Світлове обладнання",
         subCategory: [
           {
             id: "22-22",
@@ -279,7 +285,7 @@ const mockCategoryName = [
       },
       {
         id: "23",
-        title: "Свiтлове обладнання",
+        title: "Світлове обладнання",
         subCategory: [
           {
             id: "23-23",
@@ -289,7 +295,7 @@ const mockCategoryName = [
       },
       {
         id: "24",
-        title: "Трансляцiйне обладнання",
+        title: "Трансляційне обладнання",
         subCategory: [
           {
             id: "24-24",
@@ -306,27 +312,27 @@ const mockCategoryName = [
   },
   {
     id: "8",
-    title: "Мiкрофони та аксесуари",
+    title: "Мікрофони та аксесуари",
     subCategory: [],
   },
   {
     id: "9",
-    title: "Металевi стiйки, ферми",
+    title: "Металеві стійки, ферми",
     subCategory: [],
   },
   {
     id: "10",
-    title: "Свiтлове обладнання",
+    title: "Світлове обладнання",
     subCategory: [],
   },
   {
     id: "11",
-    title: "Свiтлове обладнання",
+    title: "Світлове обладнання",
     subCategory: [],
   },
   {
     id: "12",
-    title: "Трансляцiйне обладнання",
+    title: "Трансляційне обладнання",
     subCategory: [],
   },
   {
@@ -346,17 +352,17 @@ const mockCategoryName = [
   },
   {
     id: "16",
-    title: "Декоративне свiтло",
+    title: "Декоративне світло",
     subCategory: [],
   },
   {
     id: "17",
-    title: "Електроннi компоненти",
+    title: "Електронні компоненти",
     subCategory: [],
   },
   {
     id: "18",
-    title: "Кабельна продукцiя",
+    title: "Кабельна продукція",
     subCategory: [],
   },
   {
@@ -366,27 +372,27 @@ const mockCategoryName = [
   },
   {
     id: "20",
-    title: "Мiкрофони та аксесуари",
+    title: "Мікрофони та аксесуари",
     subCategory: [],
   },
   {
     id: "21",
-    title: "Металевi стiйки, ферми",
+    title: "Металеві стійки, ферми",
     subCategory: [],
   },
   {
     id: "22",
-    title: "Свiтлове обладнання",
+    title: "Світлове обладнання",
     subCategory: [],
   },
   {
     id: "23",
-    title: "Свiтлове обладнання",
+    title: "Світлове обладнання",
     subCategory: [],
   },
   {
     id: "24",
-    title: "Трансляцiйне обладнання",
+    title: "Трансляційне обладнання",
     subCategory: [],
   },
 ];
@@ -402,10 +408,44 @@ const AccordionItem = (props) => {
   const { handleToggle, active, item } = props;
   const { id, title, subCategory } = item;
 
+  const dispatch = useDispatch();
+
+  const fetchProductsByCategory = async (title) => {
+ 
+    try {
+      const response = await axios.get(`${baseUrl}/product/?category=${title}`);
+      dispatch(setCategoryProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const fetchProductsBySubCategory = async (title) => {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/product/?subcategory=${title}`
+      );
+      dispatch(setSubCategoryProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   return (
     <div className="rc-accordion-card">
       {subCategory.length === 0 ? (
-        <NavLink to={`/${translit(title)}`}>
+        <NavLink
+          // to={`/${translit(title)}`}
+          to={`/category`}
+          onClick={() => {
+            props.onClick()
+            dispatch(setCategoryProducts([]));
+            dispatch(setSubCategoryProducts([]));
+            fetchProductsByCategory(title);
+            localStorage.setItem("category", title);
+            localStorage.removeItem("subcategory");
+          }}
+        >
           <div className="rc-accordion-title single">{title}</div>
         </NavLink>
       ) : (
@@ -413,7 +453,19 @@ const AccordionItem = (props) => {
           className={`rc-accordion-toggle p-3 ${active === id ? "active" : ""}`}
           onClick={(e) => handleToggle(id, e)}
         >
-          <NavLink to={`/${translit(title)}`} className="rc-accordion-title">
+          <NavLink
+            // to={`/${translit(title)}`}
+            to={`/category`}
+            className="rc-accordion-title"
+            onClick={() => {
+              props.onClick()
+              dispatch(setCategoryProducts([]));
+              dispatch(setSubCategoryProducts([]));
+              fetchProductsByCategory(title);
+              localStorage.setItem("category", title);
+              localStorage.removeItem("subcategory");
+            }}
+          >
             {title}
           </NavLink>
 
@@ -436,7 +488,16 @@ const AccordionItem = (props) => {
               subCategory.map((sub) => {
                 return (
                   <NavLink
-                    to={`${translit(title)}/${translit(sub.title)}`}
+                    to={`/category`}
+                    // to={`${translit(title)}/${translit(sub.title)}`}
+                    onClick={() => {
+                      props.onClick()
+                      dispatch(setSubCategoryProducts([]));
+                      dispatch(setCategoryProducts([]));
+                      fetchProductsBySubCategory(sub.title);
+                      localStorage.setItem("subcategory", sub.title);
+                      localStorage.removeItem("category");
+                    }}
                     id={sub.id}
                     key={sub.id}
                   >
@@ -451,7 +512,7 @@ const AccordionItem = (props) => {
   );
 };
 
-const Accordion = () => {
+const Accordion = (props) => {
   const [active, setActive] = useState(null);
 
   const handleToggle = (index, e) => {
@@ -475,6 +536,7 @@ const Accordion = () => {
                 active={active}
                 handleToggle={handleToggle}
                 item={item}
+                onClick={props.onClick}
               />
             );
           })}

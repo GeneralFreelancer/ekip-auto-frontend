@@ -16,32 +16,32 @@ const MobileMenu = (props) => {
   const user = useSelector(selectedUser);
   const navigate = useNavigate();
 
-  const onClickNavigate = () => {
-    if (user.isLoggedIn || user.isRegistered) {
-      navigate("/myprofile/favorite");
-    }
-  };
+  // const onClickNavigate = () => {
+  //   if (user.isLoggedIn || user.isRegisteredConfirmed) {
+  //     navigate("/myprofile/favorite");
+  //   }
+  // };
 
   return (
     <div className={s.mobile_modal}>
       <div className={s.mobile_modal_header}>
         <div
-          className={(user.isLoggedIn || user.isRegistered) && s.mobile_cross}
+          className={(user.isLoggedIn || user.isRegisteredConfirmed) && s.mobile_cross}
         >
           <Cross className={s.cross} onClick={props.onClick} />
         </div>
         <Logo styleItem={"modal__center"} />
         <div className={s.userMob_block}>
           {/* {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>} */}
-          {user.isRegistered ? (
-            <Link to={"#"}>
+          {user.isRegisteredConfirmed ? (
+            <Link to={"/myprofile/mydata"}>
               <UserMob className={s.userMob_red} />
             </Link>
           ) : (
             <UserMob
               className={s.userMob}
               onClick={() => {
-                onClickNavigate();
+                // onClickNavigate();
                 props.onShowModal();
               }}
             />
@@ -49,7 +49,7 @@ const MobileMenu = (props) => {
         </div>
       </div>
       <NavbarLink styleItem={"logo_navlink_mobile"} />
-      <Accordion />
+      <Accordion onClick={props.onClick}/>
     </div>
   );
 };

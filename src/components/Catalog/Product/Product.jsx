@@ -3,16 +3,20 @@ import Description from "./Description";
 import ProductItem from "./ProductItem";
 import Breadcrumbs from "../Breadcrumps";
 
-const Product = ({ productId }) => {
+const Product = ({ product }) => {
   return (
     <>
       <section>
-        <Breadcrumbs />
+        {Object.keys(product).length && (
+          <Breadcrumbs selectedProduct={product} />
+        )}
       </section>
       <section>
-        <ProductItem productId={productId} />
+        {Object.keys(product).length && (
+          <ProductItem selectedProduct={product} />
+        )}
       </section>
-      <Description productId={productId} />
+      {Object.keys(product).length && <Description selectedProduct={product} />}
     </>
   );
 };

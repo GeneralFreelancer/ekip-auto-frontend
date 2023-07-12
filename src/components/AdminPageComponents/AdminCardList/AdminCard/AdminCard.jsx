@@ -37,6 +37,8 @@ const AdminCard = ({
             />
           </div>
         </div>
+        {/* <input className="fileInput" type="file" /> */}
+        {/* <div className="imgPreview">{$imagePreview}</div> */}
         <div
           className={styleName ? ` ${s[`${styleName}`]} ${s.img}` : s.img}
           style={{ backgroundImage: `url(${url})` }}
@@ -77,9 +79,9 @@ const AdminCard = ({
               <Arrow className={`${s.arrowRight} ${s.arrow}`} />
             </button>
           </div>
-          <div className={s.wrapperIcon}>
+          {/* <div className={s.wrapperIcon}>
             <Upload className={`${s.upload} ${s.icon}`} />
-          </div>
+          </div> */}
         </div>
       </div>
       {isFullScreen && (

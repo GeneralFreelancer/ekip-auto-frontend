@@ -16,7 +16,6 @@ const PageMenu = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
-    dispatch(registerOut()); //
     navigate("/");
 
   };

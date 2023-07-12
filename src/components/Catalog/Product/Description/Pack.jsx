@@ -4,18 +4,26 @@ import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
 import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
 import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
 import { ReactComponent as Plus } from "../../../../assets/svg/plus.svg";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../../../redux/features/userSlice";
 
-const initialData = [
-  { name: "Кількість в коробці", value: "500 шт." },
-  { name: "Кількість в упаковці", value: "50 см" },
-  { name: "Розмір коробки", value: "40x50x50 см." },
-];
+// const initialData = [
+//   { name: "Кількість в коробці", value: "500 шт." },
+//   { name: "Кількість в упаковці", value: "50 см" },
+//   { name: "Розмір коробки", value: "40x50x50 см." },
+// ];
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Pack = (props) => {
-  const { productId, role } = props;
+  const { id, deliveryOptions, role } = props;
+
   const [isEditMode, setIsEditMode] = useState(false);
-  const [charactData, setCharactData] = useState(initialData);
+  const [charactData, setCharactData] = useState(deliveryOptions);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  
+  const user = useSelector(selectedUser);
 
   let mobileV = viewportWidth < 510;
 
@@ -31,13 +39,27 @@ const Pack = (props) => {
     setIsEditMode(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async(id, deliveryOptions) => {
     setIsEditMode(false);
+    try {
+      const response = await axios.put(
+        `${baseUrl}/product`,
+        { id, deliveryOptions },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleCancelClick = () => {
     setIsEditMode(false);
-    setCharactData(initialData);
+    setCharactData([...deliveryOptions].map(item => ({ ...item })));
   };
 
   const handleAddCharactClick = () => {
@@ -86,7 +108,7 @@ const Pack = (props) => {
                 className={s.character_input}
                 value={charact.value}
                 onChange={(e) => handleCharactValueChange(index, e)}
-              />
+              />шт
             </div>
           ))}
           <button
@@ -104,7 +126,7 @@ const Pack = (props) => {
             </div>
           </button>
 
-          <button className={s.character_btn_save} onClick={handleSaveClick}>
+          <button className={s.character_btn_save} onClick={() => handleSaveClick(id, charactData)}>
             <Tick />
           </button>
         </>
@@ -123,7 +145,7 @@ const Pack = (props) => {
                   ......................................................................
                 </span>
               )}
-              <p>{char.value}</p>
+              <p>{char.value}шт</p>
             </div>
           ))}
         </>

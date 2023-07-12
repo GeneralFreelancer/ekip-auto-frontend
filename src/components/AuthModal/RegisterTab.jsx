@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/features/userSlice";
+import axios from "axios";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const RegisterTab = (props) => {
   const [registerForm, setRegisterForm] = useState({
@@ -15,8 +18,16 @@ const RegisterTab = (props) => {
     password: "",
     confirmPassword: "",
   });
+  const [errorRegisterMessage, setErrorRegisterMessage] = useState(null);
 
   const dispatch = useDispatch();
+
+    useEffect(() => {
+    if (errorRegisterMessage === "") {
+      props.onSubmit(true);
+    }
+  }, [errorRegisterMessage, props]);
+
 
   const validateRegisterForm = (name, value) => {
     let errors = { ...regiserErrors };
@@ -47,8 +58,8 @@ const RegisterTab = (props) => {
   function isValidPassword(value) {
     if (!value) {
       return "Введіть пароль";
-    } else if (value.length < 5) {
-      return "Пароль повинен містити не менше 5 символів";
+    } else if (value.length < 6) {
+      return "Пароль повинен містити не менше 6 символів";
     }
   }
 
@@ -68,18 +79,35 @@ const RegisterTab = (props) => {
     validateRegisterForm(event.target.name, event.target.value);
   };
 
-  const submitRegisterHandler = (e) => {
+
+  const submitRegisterHandler = async (e) => {
     e.preventDefault();
     if (
       registerForm.email &&
       registerForm.password &&
-      registerForm.confirmPassword
+      (registerForm.password.trim() === registerForm.confirmPassword.trim()) 
     ) {
-      console.log(registerForm);
-
-      dispatch(register({ email: registerForm.email, password: registerForm.password, confirmPassword: registerForm.confirmPassword}));
-
-      props.onSubmit(true);
+      try {
+        const response = await axios.post(`${baseUrl}/auth/register`, {
+          ...registerForm,
+        });
+        setRegisterForm({
+          email: "",
+          password: "",
+        });
+        dispatch(
+          register({
+            email: response.data.user.email,
+            password: registerForm.password,
+          })
+        );
+      } catch (error) {
+        if (error.response && error.response.status === 409) {
+          setErrorRegisterMessage(error.response.data.message)
+        } else {
+          console.log("Error:", error.message);
+        }
+      }
     } else if (!registerForm.email) {
       validateRegisterForm("email", null);
     } else if (!registerForm.password) {
@@ -87,17 +115,11 @@ const RegisterTab = (props) => {
     } else if (!registerForm.confirmPassword) {
       validateRegisterForm("confirmPassword", null);
     }
-    // try {
-    //   const data = await axios.post('/api/auth/register', { ...registerForm })
-    //   setRegisterForm({
-    //     email: '', password: ''
-    //   })
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    
   };
 
   const handleShowPasswordChange = (e) => setShowPassword(e.target.checked);
+
 
   return (
     <>
@@ -169,6 +191,7 @@ const RegisterTab = (props) => {
             <button type="submit" onClick={submitRegisterHandler}>
               Зареєструватися
             </button>
+            {errorRegisterMessage ? (<p className={s.error_message}>{errorRegisterMessage}</p>) : ('')}
           </div>
         </div>
       </form>

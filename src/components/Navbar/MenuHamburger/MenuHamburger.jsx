@@ -44,17 +44,17 @@ const mockCategoryName = [
   },
   {
     id: "4",
-    title: "Декоративне свiтло",
+    title: "Декоративне світло",
     subCategory: [],
   },
   {
     id: "5",
-    title: "Електроннi компоненти",
+    title: "Електронні компоненти",
     subCategory: [],
   },
   {
     id: "6",
-    title: "Кабельна продукцiя",
+    title: "Кабельна продукція",
     subCategory: [
       {
         id: "1",
@@ -88,7 +88,7 @@ const mockCategoryName = [
       },
       {
         id: "4",
-        title: "Декоративне свiтло",
+        title: "Декоративне світло",
         subCategory: [
           {
             id: "1fg5",
@@ -98,7 +98,7 @@ const mockCategoryName = [
       },
       {
         id: "5",
-        title: "Електроннi компоненти",
+        title: "Електронні компоненти",
         subCategory: [
           {
             id: "5-5",
@@ -108,7 +108,7 @@ const mockCategoryName = [
       },
       {
         id: "6",
-        title: "Кабельна продукцiя",
+        title: "Кабельна продукція",
         subCategory: [
           {
             id: "6-6",
@@ -128,7 +128,7 @@ const mockCategoryName = [
       },
       {
         id: "8",
-        title: "Мiкрофони та аксесуари",
+        title: "Мікрофони та аксесуари",
         subCategory: [
           {
             id: "8_8",
@@ -138,7 +138,7 @@ const mockCategoryName = [
       },
       {
         id: "9",
-        title: "Металевi стiйки, ферми",
+        title: "Металеві стійки, ферми",
         subCategory: [
           {
             id: "9-9",
@@ -148,7 +148,7 @@ const mockCategoryName = [
       },
       {
         id: "10",
-        title: "Свiтлове обладнання",
+        title: "Світлове обладнання",
         subCategory: [
           {
             id: "10-1",
@@ -158,7 +158,7 @@ const mockCategoryName = [
       },
       {
         id: "11",
-        title: "Свiтлове обладнання",
+        title: "Світлове обладнання",
         subCategory: [
           {
             id: "11-1",
@@ -168,7 +168,7 @@ const mockCategoryName = [
       },
       {
         id: "12",
-        title: "Трансляцiйне обладнання",
+        title: "Трансляційне обладнання",
         subCategory: [
           {
             id: "12-12",
@@ -208,7 +208,7 @@ const mockCategoryName = [
       },
       {
         id: "16",
-        title: "Декоративне свiтло",
+        title: "Декоративне світло",
         subCategory: [
           {
             id: "1fdffdfwer",
@@ -218,7 +218,7 @@ const mockCategoryName = [
       },
       {
         id: "17",
-        title: "Електроннi компоненти",
+        title: "Електронні компоненти",
         subCategory: [
           {
             id: "17-17",
@@ -228,7 +228,7 @@ const mockCategoryName = [
       },
       {
         id: "18",
-        title: "Кабельна продукцiя",
+        title: "Кабельна продукція",
         subCategory: [
           {
             id: "18-18",
@@ -248,7 +248,7 @@ const mockCategoryName = [
       },
       {
         id: "20",
-        title: "Мiкрофони та аксесуари",
+        title: "Мікрофони та аксесуари",
         subCategory: [
           {
             id: "20-20",
@@ -258,7 +258,7 @@ const mockCategoryName = [
       },
       {
         id: "21",
-        title: "Металевi стiйки, ферми",
+        title: "Металеві стійки, ферми",
         subCategory: [
           {
             id: "21-21",
@@ -268,7 +268,7 @@ const mockCategoryName = [
       },
       {
         id: "22",
-        title: "Свiтлове обладнання",
+        title: "Світлове обладнання",
         subCategory: [
           {
             id: "22-22",
@@ -278,7 +278,7 @@ const mockCategoryName = [
       },
       {
         id: "23",
-        title: "Свiтлове обладнання",
+        title: "Світлове обладнання",
         subCategory: [
           {
             id: "23-23",
@@ -288,7 +288,7 @@ const mockCategoryName = [
       },
       {
         id: "24",
-        title: "Трансляцiйне обладнання",
+        title: "Трансляційне обладнання",
         subCategory: [
           {
             id: "24-24",
@@ -305,27 +305,27 @@ const mockCategoryName = [
   },
   {
     id: "8",
-    title: "Мiкрофони та аксесуари",
+    title: "Мікрофони та аксесуари",
     subCategory: [],
   },
   {
     id: "9",
-    title: "Металевi стiйки, ферми",
+    title: "Металеві стійки, ферми",
     subCategory: [],
   },
   {
     id: "10",
-    title: "Свiтлове обладнання",
+    title: "Світлове обладнання",
     subCategory: [],
   },
   {
     id: "11",
-    title: "Свiтлове обладнання",
+    title: "Світлове обладнання",
     subCategory: [],
   },
   {
     id: "12",
-    title: "Трансляцiйне обладнання",
+    title: "Трансляційне обладнання",
     subCategory: [],
   },
   {
@@ -345,17 +345,17 @@ const mockCategoryName = [
   },
   {
     id: "16",
-    title: "Декоративне свiтло",
+    title: "Декоративне світло",
     subCategory: [],
   },
   {
     id: "17",
-    title: "Електроннi компоненти",
+    title: "Електронні компоненти",
     subCategory: [],
   },
   {
     id: "18",
-    title: "Кабельна продукцiя",
+    title: "Кабельна продукція",
     subCategory: [],
   },
   {
@@ -365,27 +365,27 @@ const mockCategoryName = [
   },
   {
     id: "20",
-    title: "Мiкрофони та аксесуари",
+    title: "Мікрофони та аксесуари",
     subCategory: [],
   },
   {
     id: "21",
-    title: "Металевi стiйки, ферми",
+    title: "Металеві стійки, ферми",
     subCategory: [],
   },
   {
     id: "22",
-    title: "Свiтлове обладнання",
+    title: "Світлове обладнання",
     subCategory: [],
   },
   {
     id: "23",
-    title: "Свiтлове обладнання",
+    title: "Світлове обладнання",
     subCategory: [],
   },
   {
     id: "24",
-    title: "Трансляцiйне обладнання",
+    title: "Трансляційне обладнання",
     subCategory: [],
   },
 ];

@@ -2,8 +2,6 @@ import "./index.scss";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import UserPage from "./pages/UserPage";
-// import { useSelector } from "react-redux";
-// import { selectedUser } from "./redux/features/userSlice";
 import Cart from "./components/UserPageComponent/Cart/Cart";
 import MyData from "./components/UserPageComponent/MyData/MyData";
 import Catalog from "./pages/Catalog";
@@ -14,23 +12,89 @@ import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetai
 import AdminSliderPage from "./pages/AdminSliderPage";
 import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
 import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
+import PartnerPage from "./pages/PartnerPage";
+import AboutUs from "./pages/AboutUs";
+import RedirectPage from "./pages/RedirectPage";
+import { PivateRouter } from "./components/AuthModal/PrivateRouter";
+import { ProtectedRoute } from "./components/AuthModal/protectedRoute";
+import {
+  selectDateProducts,
+  selectTopProducts,
+  selectLastSeenProducts,
+  selectInterestProducts
+} from "./redux/features/productsSlice";
+import { useSelector } from "react-redux";
 
 function App() {
-  // const user = useSelector(selectedUser);
+  const dateProducts = useSelector(selectDateProducts);
+  const topProducts = useSelector(selectTopProducts);
+  const lastSeenProducts = useSelector(selectLastSeenProducts);
+  const interestProducts = useSelector(selectInterestProducts);
 
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="admin_slider" element={<AdminSliderPage />} />
-        <Route path="admin_product_photo" element={<AdminProductPhotoPage />} />
-        <Route path="ostannі-nadkhodzhennya" element={<Catalog />} />
-        <Route path="ostannі-pereglyanutі" element={<Catalog />} />
-        <Route path="top-prodazhu" element={<Catalog />} />
-        <Route path="vas-mozhe-zatsіkaviti" element={<Catalog />} />
+        <Route path="partners" element={<PartnerPage />} />
+        <Route path="about" element={<AboutUs />} />
 
-        {/* <Route path="category/subcategory/:id" element={<ProductItemPage />} /> */}
-        
+        <Route path="/confirm-email/:code" element={<RedirectPage />} />
+
+        <Route
+          path="admin_slider"
+          element={
+            <PivateRouter>
+              <AdminSliderPage />
+            </PivateRouter>
+          }
+        />
+
+        <Route
+          path="admin_product_photo/:id"
+          element={
+            <PivateRouter>
+              <AdminProductPhotoPage />
+            </PivateRouter>
+          }
+        />
+
+        <Route
+          path="ostannі-nadkhodzhennya"
+          element={
+            <Catalog products={dateProducts} title={"Останні надходження"} />
+          }
+        />
+        <Route
+          path="top-prodazhu"
+          element={<Catalog products={topProducts} title={"Топ продажу"} />}
+        />
+        <Route
+          path="ostannі-pereglyanutі"
+          element={
+            <Catalog
+              products={lastSeenProducts}
+              title={"Останні переглянуті"}
+            />
+          }
+        />
+        <Route
+          path="vas-mozhe-zatsіkaviti"
+          element={
+            <Catalog
+              products={interestProducts}
+              title={"Вас може зацікавити"}
+            />
+          }
+        />
+
+        <Route path="/category" element={<Catalog/>} />
+        <Route path="/category/:id" element={<ProductItemPage />} />
+
+        <Route
+          path="/:id"
+          element={<ProductItemPage />}
+        />
+
         <Route
           path="ostannі-nadkhodzhennya/:id"
           element={<ProductItemPage />}
@@ -42,22 +106,43 @@ function App() {
         <Route path="myprofile" element={<UserPage />}>
           <Route
             path="mydata"
-            element={<MyData />}
+            element={
+              <ProtectedRoute>
+                <MyData />
+              </ProtectedRoute>
+            }
             default //не працює
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
           <Route
             path="basket"
-            element={<Cart />}
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
-          <Route path="order-history" element={<OrderList />} />
-          <Route path="order-history-details" element={<OrderDetails />} />
+          <Route
+            path="order-history"
+            element={
+              <ProtectedRoute>
+                <OrderList />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="order-history-details/:id" element={<OrderDetails />} />
           <Route
             path="favorite"
-            element={<Favorite />}
+            element={
+              <ProtectedRoute>
+                <Favorite />
+              </ProtectedRoute>
+            }
             // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
+
+          {/* http://localhost:3000/myprofile/share-stocks */}
           <Route path="share-stocks" element={<AdminShareStocksPage />} />
         </Route>
       </Routes>
@@ -66,37 +151,6 @@ function App() {
 }
 
 export default App;
-/*
-// <Routes> 
-            //   <Route path="/" element={<HomePage />} /> 
-            //     <Route path="/" element={<SharedLayout />}> 
-            //         <Route path="/" element={<Home />} /> 
-            //         <Route path="catalog" element={<Catalog />} /> 
-            //         <Route path="about" element={<About />} />
-            //         <Route path="partners" element={<Partners />} />
-            //         <Route path="delivery" element={<Delivery />} />
-                  
-            //         <Route path='/catalog' element={<CatalogPage />}/>
-            //         <Route path='/catalog/:sorted' element={<CatalogPage />}/>
-            //         <Route path='/catalog/subcategory' element={<CatalogPage />}/>
-            //         <Route path='category/subcategory/:id' element={<ProductPage />} />
-                           
-            //     // privare routes
-            //         <Route path='/myprofile' element={loggedIn ? <Navigate to='/myprofile/basket' /> : <Redirect to='/' />}>
-            //             <Route path='/mydata' element={loggedIn ? <MyDataPage /> : <Redirect to='/' />} />
-            //             <Route path='/basket' element={loggedIn ? <BasketPage /> : <Redirect to='/' />} />
-            //             <Route path='/orders' element={loggedIn ? <OrdersPage /> : <Redirect to='/' />} />
-            //             <Route path='/selected' element={loggedIn ? <SelectedPage /> : <Redirect to='/' />} />
-            //         </Route>
-        
-                        <Route path="*" element={<NotFound />} />
-            //         </Route>
-            // </Routes>
-        </div>
-    );
-};
-
-
 
 // import { useSelector } from "react-redux";
 // import { useMediaQuery } from "react-responsive";
@@ -110,7 +164,6 @@ export default App;
 //   if (isMobile) return <Navigate to="/info" />;
 //   return <Navigate to={navigateTo} />;
 // };
-
 
 /* <Route
               path="register"

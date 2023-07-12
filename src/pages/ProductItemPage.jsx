@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Product from "../components/Catalog/Product/Product";
 import MainContainer from "../components/MainContainer/MainContainer";
 import Footer from "../components/Footer";
@@ -8,17 +8,59 @@ import ScrollToTopButton from "../components/ScrollToTopButton";
 import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
-import { Outlet } from "react-router-dom";
 import ListCards from "../components/ListCards/ListCards";
+import { selectInterestProducts } from "../redux/features/productsSlice";
+import { useParams } from "react-router-dom";
+import { getProductsWithInterestFilter } from "../productService";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { setAllProducts } from "../redux/features/productsSlice";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
+  const interestProducts = useSelector(selectInterestProducts);
+
+  const [oneProduct, setOneProduct] = useState({});
+
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+
+  const getOneProduct = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setOneProduct(response.data.product);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  const getProductsAll = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product`);
+      dispatch(setAllProducts(response.data.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getOneProduct();
+    getProductsAll();
+    getProductsWithInterestFilter(dispatch);
+  }, [dispatch]);
 
   const showModalHandler = () => {
-    if (user.isLoggedIn || user.isRegistered) {
+    if (user.isLoggedIn || user.isRegisteredConfirmed) {
       setModalIsVisible(false);
-    } else {
+    } else if (user.isRegistered || !user.isLoggedIn) {
       setModalIsVisible(true);
     }
   };
@@ -32,10 +74,9 @@ const ProductItemPage = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        {/* <Outlet/> */}
-        <Product />
-        <div style={{paddingTop: '30px'}}>
-          <ListCards title={"Вас може зацікавити"} />
+        {Object.keys(oneProduct).length > 0 && <Product product={oneProduct} />}
+        <div style={{ paddingTop: "30px" }}>
+          <ListCards title={"Вас може зацікавити"} items={interestProducts} />
         </div>
       </MainContainer>
       <ScrollToTopButton />

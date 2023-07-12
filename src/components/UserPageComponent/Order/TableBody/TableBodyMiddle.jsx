@@ -5,74 +5,113 @@ import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
 import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
 import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
 import { useState } from "react";
-const TableBodyMiddle = (props) => {
-  const [isEdite, setEdite] = useState(false);
-  // const [newTitle, setNewTitle] = useState(title);
-  // const [quantity, setQuantity] = useState(500);
-  
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../../../redux/features/userSlice";
+import axios from "axios";
 
-  const handleSaveClick = () => {
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
+const TableBodyMiddle = (props) => {
+  const { id, name, products, totalPrice, weight, paidStatus } = props.data;
+  const [isEdite, setEdite] = useState(false);
+  const [title, setTitle] = useState(name);
+  // const [quantity, setQuantity] = useState(500);
+  const user = useSelector(selectedUser);
+
+  let sumUAH = props.data.products?.reduce((total, item) => {
+    return total + item.number * item.product.priceUAH;
+  }, 0);
+  let sumUSD = props.data.products?.reduce((total, item) => {
+    return total + item.number * item.product.priceUSD;
+  }, 0);
+
+  const handleSaveClick = async (id, name) => {
     setEdite(false);
-    // setNewTitle()
+    try {
+      const response = await axios.put(
+        `${baseUrl}/order-history/name`,
+        { id, name },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setTitle(e.target.value);
   };
 
   const handleCancelClick = () => {
+    setTitle(name);
     setEdite(false);
   };
-  
-  
+
   const redirect = (id) => {
-    console.log(id)
-  }
-  const editableInputTypes = (id) => {
-    console.log(id)
-    !isEdite ? setEdite(true) : setEdite(false)
-  }  
-  const { id, title, goods, totalPrice, deliveryWeight, paidStatus } =
-    props.data;
+    console.log(id);
+  };
+  const editableInputTypes = () => {
+    !isEdite ? setEdite(true) : setEdite(false);
+  };
 
   return (
     <React.Fragment key={id}>
       <tr>
-        <td rowSpan="3" className={style.order__table_number}>{goods.length}</td>
+        <td rowSpan="3" className={style.order__table_number}>
+          {products.length}
+        </td>
         <td className={style.order__table_picture}>
           <div
             className={style.order__table_picture}
-            style={{ backgroundImage: `url(${goods[0].image[0]})` }}
+            style={{
+              backgroundImage: `url(${products[0].product.pictures[0]})`,
+            }}
           ></div>
         </td>
         <td colSpan="2" className={style.order__table_title}>
           <div className={style.order__table_title_row1}>
-          {!isEdite ? (
-                  <>
-                    <h2>{title}</h2>
-                    <Pen onClick={() => {editableInputTypes(id)}}/>
-                  </>
-                  ) 
-                  : 
-                  (
-                  <>
-                    <input type="text" defaultValue={title}/>
-                    <button
-                      className={style.productItem_btn}
-                      onClick={handleCancelClick}
-                    >
-                        <Cross />
-                    </button>
-                    <button
-                      className={style.productItem_btn}
-                      onClick={handleSaveClick}
-                    >
-                      <Tick />
-                    </button>
-                  </>
-                  )}
+            {!isEdite ? (
+              <>
+                <h2>{title}</h2>
+                <Pen
+                  onClick={() => {
+                    editableInputTypes(id);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <input type="text" value={title} onChange={handleChange} />
+                <button
+                  className={style.productItem_btn}
+                  onClick={handleCancelClick}
+                >
+                  <Cross />
+                </button>
+                <button
+                  className={style.productItem_btn}
+                  onClick={() => handleSaveClick(id, title)}
+                >
+                  <Tick />
+                </button>
+              </>
+            )}
           </div>
         </td>
         <td rowSpan="3" className={style.order__table_riderect_middle}>
-            <NavLink to='/myprofile/order-history-details' >
-              <span id={id} className={style.iconRiderect} onClick={() => { redirect(id) }} ></span>
-            </NavLink>
+          <NavLink to={`/myprofile/order-history-details/${id}`}>
+            <span
+              id={id}
+              className={style.iconRiderect}
+              // onClick={() => {
+              //   redirect(id);
+              // }}
+            ></span>
+          </NavLink>
         </td>
       </tr>
       <tr>
@@ -83,15 +122,15 @@ const TableBodyMiddle = (props) => {
       <tr>
         <td className={style.order__table_weight}>
           <div>
-            <p className={style.weight}>{deliveryWeight} кг.</p>
+            <p className={style.weight}>{weight} кг.</p>
           </div>
         </td>
         <td className={style.order__table_summaryPrice}>
           <div>
-            <p className={style.nationalSummary}>{totalPrice[0]} &#8372;</p>
+            <p className={style.nationalSummary}>{sumUAH} &#8372;</p>
           </div>
           <div>
-            <p className={style.internationSummary}>{totalPrice[1]} &#65284;</p>
+            <p className={style.internationSummary}>{sumUSD} &#65284;</p>
           </div>
         </td>
         <td className={style.order__table_paid}>

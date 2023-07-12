@@ -4,7 +4,7 @@ import React from "react";
 
 const TableBodyMiddle = (props) => {
   return props.data.map(
-    ({ id, title, favorite, SKU, price, minQuantity, image, quantity }, i) => (
+    (item, i) => (
       <React.Fragment key={i + 1}>
         <tr>
           <td rowSpan="3" className={style.orderDetails__table_number}>
@@ -13,38 +13,38 @@ const TableBodyMiddle = (props) => {
           <td className={style.orderDetails__table_picture}>
             <div
               className={style.orderDetails__table_picture_item}
-              style={{ backgroundImage: `url(${image[0]})` }}
+              style={{ backgroundImage: `url(${item.product.pictures[0]})` }}
             ></div>
           </td>
           <td colSpan="2" className={style.orderDetails__table_title}>
             <div className={style.orderDetails__table_title_row1}>
-              <h2>{title}</h2>
-              <span id={id} className={style.favorite}>
-                {favorite ? (
+              <h2>{item.product.name}</h2>
+              {/* <span id={item.product.id} className={style.favorite}>
+                {item.favorite ? (
                     <span 
                       className={style.activeFavorite} onClick={() => {
-                      props.checkFavorire(id)
+                      props.checkFavorire(item.product.id)
                     }}></span>
                   ) : (
                       <span 
                         className={style.hoverFavorite} onClick={() => {
-                          props.checkFavorire(id)
+                          props.checkFavorire(item.product.id)
                         }}
                       ></span>
                   )}
-              </span>
+              </span> */}
             </div>
             <div className={style.orderDetails__table_title_row2}>
               <p className={style.product_sku}>
-                Art: <span>{SKU}</span>
+                Art: <span>{item.product.sku}</span>
               </p>
             </div>
           </td>
           <td rowSpan="3" className={style.orderDetails__table_basket_middle}>
             <span
-              id={id}
+              id={item.product.id}
               onClick={() => {
-                props.delete(id);
+                props.delete(item.product.id, item.number);
               }}
               className={style.icon}
             ></span>
@@ -58,19 +58,19 @@ const TableBodyMiddle = (props) => {
         <tr>
           <td className={style.orderDetails__table_price}>
             <div>
-              <p className={style.nationalPrice}>{price[0]} &#8372;</p>
+              <p className={style.nationalPrice}>{item.product.priceUAH} &#8372;</p>
             </div>
             <div>
-              <p className={style.internationalPrice}>{price[1]} &#65284;</p>
+              <p className={style.internationalPrice}>{item.product.priceUSD} &#65284;</p>
             </div>
           </td>
           <td className={style.orderDetails__table_quantity}>
-            <div>
+            {/* <div>
               <p className={style.minQuantity}>
-                Введіть кратно: <br /> {minQuantity}
+                Введіть кратно: <br /> {item.product.minQuantity}
               </p>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <span className={style.inputDisable}>
                 <span className={style.navigationWrapper}>
                   <span
@@ -81,7 +81,7 @@ const TableBodyMiddle = (props) => {
                     }}
                     className={style.itemUp}
                     data-name={"up"}
-                    data-id={id}
+                    data-id={item.product.id}
                   ></span>
                   <span
                     onClick={(e) => {
@@ -91,26 +91,27 @@ const TableBodyMiddle = (props) => {
                     }}
                     className={style.itemDown}
                     data-name={"down"}
-                    data-id={id}
+                    data-id={item.product.id}
                   ></span>
                 </span>
               </span>
               <input
-                id={id}
-                min={minQuantity}
+                id={item.product.id}
+                min={item.product.minQuantity}
                 type="number"
-                value={quantity}
+                value={item.number}
                 readOnly={true}
               />
               <p>шт.</p>
-            </div>
+            </div> */}
+            <p>{item.number} шт.</p>
           </td>
           <td className={style.orderDetails__table_summaryPrice}>
             <div>
-              <p className={style.nationalSummary}>10000 &#8372;</p>
+              <p className={style.nationalSummary}>{item.number * item.product.priceUAH} &#8372;</p>
             </div>
             <div>
-              <p className={style.internationSummary}>1000 &#65284;</p>
+              <p className={style.internationSummary}>{item.number * item.product.priceUSD} &#65284;</p>
             </div>
           </td>
         </tr>

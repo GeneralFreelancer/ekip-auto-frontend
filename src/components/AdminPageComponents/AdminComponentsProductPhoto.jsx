@@ -1,9 +1,14 @@
 /* eslint-disable no-duplicate-case */
 import { useState, useEffect } from "react";
-
 import AdminTitle from "./AdminCardList/AdminTitle";
 import AdminCardList from "./AdminCardList";
 import AdminButtons from "./AdminButtons";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../redux/features/userSlice";
+import { useParams } from "react-router-dom";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const images = [
   "https://www.mukachevo.net/Content/Uploads/IIIRomeoIII/61b0a55a500d3.jpg",
@@ -15,10 +20,14 @@ const images = [
 
 const AdminComponentsProductPhoto = () => {
   const [temporal, setTemporal] = useState(images);
+  const user = useSelector(selectedUser);
+  const { id } = useParams();
+  const [file, setFile] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('')
 
   useEffect(() => {
     //Запит на бек по фото
-  });
+  }, []);
 
   const onDelete = (index) => {
     let updatedArray = [];
@@ -30,15 +39,14 @@ const AdminComponentsProductPhoto = () => {
   const onHandleImageUpload = (event, name) => {
     const file = event.target.files[0];
     const reader = new FileReader();
-
     reader.onload = (e) => {
       const imageUrl = e.target.result;
       // Виконати дії з отриманим URL зображення (наприклад, зберегти або відобразити)
       console.log("Завантажено зображення:", imageUrl);
     };
-
     reader.readAsDataURL(file);
   };
+
   const onChangePosition = (direction, index) => {
     let updatedArray = [];
 
@@ -58,15 +66,53 @@ const AdminComponentsProductPhoto = () => {
     setTemporal(updatedArray);
   };
 
+  // на заміну картинки після завантаження
+  // айди, картинка, назва
+
+  // на видалення картинки delete('/image'
+  // айди,  назва картинки 1.jpg
+
+  // маленький крестик внизу - без запиту, закриваємо сторінку і повертаємось на сторінку товару, послідовність не зберігається
+
+  // маленька галочка внизу то йде запит на бек і зберіється сортування
+  // put /product, айди и масив заголовків картинок
+
   const onClickMainButton = (name) => {
-    if ((name = "close")) {
+    if (name === "cancel") {
       setTemporal(images);
-    } else {
+    } else if (name === "save") {
       //відправка на бек
+      // на велики плюс після завантаження картинки
+      const savePhoto = async () => {
+        try {
+          const response = await axios.post(
+            `${baseUrl}/product/image`,
+            // { productId: id, image },
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
+          console.log(response);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      savePhoto();
     }
   };
 
-  const addNewCard = () => {
+  const addNewCard = (e) => {
+ 
+    // let reader = new FileReader();
+    // let file = e.target.files[0];
+    // reader.onloadend = () => {
+    //   setFile(file);
+    //   setImagePreviewUrl(reader.result);
+    // };
+
+    // reader.readAsDataURL(file);
     let updatedArray = [];
     updatedArray = [...temporal];
     updatedArray.push(
@@ -74,6 +120,14 @@ const AdminComponentsProductPhoto = () => {
     );
     setTemporal(updatedArray);
   };
+
+  // let $imagePreview = null;
+  // if (imagePreviewUrl) {
+  //   $imagePreview = <img src={imagePreviewUrl} alt="Preview" />;
+  // } else if (! $imagePreview) {
+  //   $imagePreview = <div className="previewText">Please select an Image for Preview</div>;
+  // }
+
 
   return (
     <>

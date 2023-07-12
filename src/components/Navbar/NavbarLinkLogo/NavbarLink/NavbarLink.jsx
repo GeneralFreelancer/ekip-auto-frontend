@@ -17,11 +17,11 @@ const NavbarLink = ({styleItem}) => {
             <Link to="/partners">Для партнерів</Link>
           </div>
         </div>
-        <div className={s.nav_links_wrapper}>
+        {/* <div className={s.nav_links_wrapper}>
           <div className={s.nav_li}>
             <Link to="/delivery">Доставка</Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

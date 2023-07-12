@@ -15,13 +15,13 @@ export default function UserPage() {
   const user = useSelector(selectedUser);
 
   const showModalHandler = () => {
-    if (user.isLoggedIn || user.isRegistered) {
+    if (user.isLoggedIn || user.isRegisteredConfirmed) {
       setModalIsVisible(false);
-    } else {
+    } else if (user.isRegistered || !user.isLoggedIn) {
       setModalIsVisible(true);
     }
   };
-
+  
   const hideModalHandler = () => {
     setModalIsVisible(false);
   };

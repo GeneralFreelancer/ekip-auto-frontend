@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import s from "./AuthModal.module.scss";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/features/userSlice";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../redux/features/userSlice";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const LoginTab = (props) => {
   const [loginForm, setLoginForm] = useState({
@@ -10,19 +15,27 @@ const LoginTab = (props) => {
     rememberMe: true,
   });
   const [loginErrors, setloginErrors] = useState({ email: "", password: "" });
+  const [errorLoginMessage, setErrorLoginMessage] = useState(null);
 
   const dispatch = useDispatch();
+  const user = useSelector(selectedUser);
 
-  // Test
   useEffect(() => {
-    if (
-      loginForm.email === "admin@gmail.com" &&
-      loginForm.password === "12345"
-    ) {
-      sessionStorage.setItem("role", "admin");
+    if (errorLoginMessage === "") {
+      props.onSubmit(true);
     }
-  }, [loginForm.email, loginForm.password]);
-  // Test end
+  }, [errorLoginMessage, props]);
+
+  // Admin
+  useEffect(() => {
+    if (user.roles.includes("ADMIN")) {
+      localStorage.setItem("role", "admin");
+    } else if (user.roles.includes("USER")) {
+      localStorage.setItem("role", "user");
+    }
+  }, [user.roles]);
+  // Admin end
+
 
   const validateLoginForm = (name, value) => {
     let errors = { ...loginErrors };
@@ -50,8 +63,8 @@ const LoginTab = (props) => {
   function isValidPassword(value) {
     if (!value) {
       return "Введіть пароль";
-    } else if (value.length < 5) {
-      return "Пароль повинен містити не менше 5 символів";
+    } else if (value.length < 6) {
+      return "Пароль повинен містити не менше 6 символів";
     }
   }
 
@@ -62,29 +75,34 @@ const LoginTab = (props) => {
     validateLoginForm(name, fieldValue);
   };
 
-  const submitLoginHandler = (e) => {
+  const submitLoginHandler = async (e) => {
     e.preventDefault();
+
     if (loginForm.email && loginForm.password) {
-      console.log(loginForm);
+      try {
+        const response = await axios.post(`${baseUrl}/auth/login`, {
+          ...loginForm,
+        });
 
-      dispatch(
-        login({
-          email: loginForm.email,
-          password: loginForm.password,
-          rememberMe: loginForm.rememberMe,
-        })
-      );
-
-      props.onSubmit(true);
+        dispatch(
+          login({
+            ...response.data,
+            rememberMe: loginForm.rememberMe,
+          })
+        );
+        setErrorLoginMessage("");
+      } catch (error) {
+        if (error.response) {
+          setErrorLoginMessage(error.response.data.message);
+        } else {
+          console.log("Error:", error.message);
+        }
+      }
     } else if (!loginForm.email) {
       validateLoginForm("email", null);
     } else if (!loginForm.password) {
       validateLoginForm("password", null);
     }
-    // try {
-    //   const data = await axios.post("/api/auth/login", { ...loginForm });
-    //   auth.login(data.token, data.userId);
-    // } catch (e) {}
   };
 
   return (
@@ -139,6 +157,11 @@ const LoginTab = (props) => {
             <button type="submit" onClick={submitLoginHandler}>
               Увійти
             </button>
+            {errorLoginMessage ? (
+              <p className={s.error_message}>{errorLoginMessage}</p>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </form>
