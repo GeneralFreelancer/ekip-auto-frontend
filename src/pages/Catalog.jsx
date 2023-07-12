@@ -20,6 +20,7 @@ import axios from "axios";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Catalog = ({ products, title }) => {
+  console.log(products, title);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
   const categoryProducts = useSelector(selectCategoryProducts);
@@ -28,8 +29,8 @@ const Catalog = ({ products, title }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const category = localStorage.getItem("category")
-    const subCategory = localStorage.getItem("subcategory")
+    const category = localStorage.getItem("category");
+    const subCategory = localStorage.getItem("subcategory");
 
     const fetchProductsByCategory = async () => {
       try {
@@ -41,7 +42,7 @@ const Catalog = ({ products, title }) => {
         console.error("Error:", error.message);
       }
     };
-    const fetchProductsBySubCategory = async() => {
+    const fetchProductsBySubCategory = async () => {
       try {
         const response = await axios.get(
           `${baseUrl}/product/?subcategory=${subCategory}`
@@ -53,7 +54,10 @@ const Catalog = ({ products, title }) => {
     };
     if (!categoryProducts?.length && localStorage.getItem("category")) {
       fetchProductsByCategory();
-    } else if (!subCategoryProducts?.length && localStorage.getItem("subcategory")) {
+    } else if (
+      !subCategoryProducts?.length &&
+      localStorage.getItem("subcategory")
+    ) {
       fetchProductsBySubCategory();
     }
   }, []);
@@ -75,22 +79,25 @@ const Catalog = ({ products, title }) => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        {products?.length && (
+        {products?.length > 0 && (
           <CatalogComponents products={products} title={title} />
-        )}
+        ) 
+        // : (
+        //   <CatalogComponents products={products} title={title} />
+        // )
+        }
         {categoryProducts?.length > 0 && !subCategoryProducts?.length && (
           <CatalogComponents
             products={categoryProducts}
             title={categoryProducts[0]?.category}
           />
         )}
-        {subCategoryProducts?.length > 0  && (
+        {subCategoryProducts?.length > 0 && (
           <CatalogComponents
             products={subCategoryProducts}
             title={subCategoryProducts[0]?.subCategory}
           />
         )}
-        
       </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />

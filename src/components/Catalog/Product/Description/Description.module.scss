@@ -233,7 +233,7 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  top: 94px;
+  top: 84px;
   left: 623px;
   width: 33px;
   height: 33px;
@@ -253,7 +253,7 @@
     left: 465px;
   }
   @media screen and (max-width: 510px) {
-    top: 81px;
+    top: 72px;
     left: 315px;
   }
 }
@@ -279,7 +279,7 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  bottom: 0px;
+  bottom: -45px;
   left: 623px;
   width: 33px;
   height: 33px;
@@ -304,6 +304,7 @@
   }
   @media screen and (max-width: 510px) {
     left: 315px;
+    bottom: -35px;
   }
 }
 

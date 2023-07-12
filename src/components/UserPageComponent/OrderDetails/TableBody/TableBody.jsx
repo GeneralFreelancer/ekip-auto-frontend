@@ -1,6 +1,6 @@
 import style from "./TableBody.module.scss";
-import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
-import { ReactComponent as BalckHeart } from "../../../../assets/svg/black_heart.svg";
+// import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
+// import { ReactComponent as BalckHeart } from "../../../../assets/svg/black_heart.svg";
 
 const TableBody = (props) => {
 
@@ -100,7 +100,7 @@ const TableBody = (props) => {
           <span
             id={item.product.id}
             onClick={() => {
-              props.delete(item.product.id);
+              props.delete(item.product.id, item.number);
             }}
             className={style.icon}
           ></span>

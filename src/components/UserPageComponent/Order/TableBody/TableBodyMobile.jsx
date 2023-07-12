@@ -22,7 +22,7 @@ const TableBodyMobile = (props) => {
     return total + item.number * item.product.priceUAH;
   }, 0);
   let sumUSD = props.data.products?.reduce((total, item) => {
-    return total + item.number * item.product.priceUAH;
+    return total + item.number * item.product.priceUSD;
   }, 0);
 
   const handleSaveClick = async (id, name) => {
@@ -153,13 +153,13 @@ const TableBodyMobile = (props) => {
       </tr>
       <tr>
         <td colSpan={2} className={style.order__table_riderect_middle}>
-          <NavLink to="/myprofile/order-history-details">
+        <NavLink to={`/myprofile/order-history-details/${id}`}>
             <span
               id={id}
               className={style.iconRiderect}
-              onClick={() => {
-                redirect(id);
-              }}
+              // onClick={() => {
+              //   redirect(id);
+              // }}
             ></span>
           </NavLink>
         </td>

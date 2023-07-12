@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Subcategoryitem from "./SubCategoryItem";
 import axios from "axios";
-import { setCategoryProducts } from "../../redux/features/productsSlice";
+import { setCategoryProducts, setSubCategoryProducts } from "../../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -89,6 +89,7 @@ const CategoryItem = (props) => {
             }}
             onClick={() => {
               dispatch(setCategoryProducts([]));
+              dispatch(setSubCategoryProducts([]));
               fetchProductsByCategory(title)
               localStorage.setItem("category", title);
               localStorage.removeItem("subcategory");

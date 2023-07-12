@@ -316,6 +316,7 @@ import { selectedUser } from "../../redux/features/userSlice";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const CatalogComponents = ({ products, title }) => {
+
   const [filter, setFilter] = useState("new");
   const [inStock, setInStock] = useState(false);
   const [items, setItems] = useState([]);

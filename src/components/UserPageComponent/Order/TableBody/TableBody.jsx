@@ -22,7 +22,7 @@ const TableBody = (props) => {
     return total + item.number * item.product.priceUAH;
   }, 0);
   let sumUSD = props.data.products?.reduce((total, item) => {
-    return total + item.number * item.product.priceUAH;
+    return total + item.number * item.product.priceUSD;
   }, 0);
 
   const handleSaveClick = async (id, name) => {
@@ -65,7 +65,7 @@ const TableBody = (props) => {
       <td className={style.order__table_picture}>
         <div
           className={style.order__table_picture}
-          style={{ backgroundImage: `url(${products[0].product.pictures[0]})` }}
+          style={{ backgroundImage: `url(${products[0].product?.pictures[0]})` }}
         ></div>
       </td>
       <td className={style.order__table_title}>

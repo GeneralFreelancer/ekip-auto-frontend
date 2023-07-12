@@ -74,7 +74,7 @@ const ProductItemPage = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        <Product product={oneProduct} />
+        {Object.keys(oneProduct).length > 0 && <Product product={oneProduct} />}
         <div style={{ paddingTop: "30px" }}>
           <ListCards title={"Вас може зацікавити"} items={interestProducts} />
         </div>

@@ -12,20 +12,19 @@ import axios from "axios";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const TableBodyMiddle = (props) => {
-  const { id, name, products, totalPrice, weight, paidStatus } =
-  props.data;
+  const { id, name, products, totalPrice, weight, paidStatus } = props.data;
   const [isEdite, setEdite] = useState(false);
   const [title, setTitle] = useState(name);
   // const [quantity, setQuantity] = useState(500);
   const user = useSelector(selectedUser);
-  
+
   let sumUAH = props.data.products?.reduce((total, item) => {
     return total + item.number * item.product.priceUAH;
   }, 0);
   let sumUSD = props.data.products?.reduce((total, item) => {
-    return total + item.number * item.product.priceUAH;
+    return total + item.number * item.product.priceUSD;
   }, 0);
-  
+
   const handleSaveClick = async (id, name) => {
     setEdite(false);
     try {
@@ -48,59 +47,71 @@ const TableBodyMiddle = (props) => {
   };
 
   const handleCancelClick = () => {
-    setTitle(name)
+    setTitle(name);
     setEdite(false);
   };
-  
+
   const redirect = (id) => {
-    console.log(id)
-  }
+    console.log(id);
+  };
   const editableInputTypes = () => {
-    !isEdite ? setEdite(true) : setEdite(false)
-  }  
+    !isEdite ? setEdite(true) : setEdite(false);
+  };
 
   return (
     <React.Fragment key={id}>
       <tr>
-        <td rowSpan="3" className={style.order__table_number}>{products.length}</td>
+        <td rowSpan="3" className={style.order__table_number}>
+          {products.length}
+        </td>
         <td className={style.order__table_picture}>
           <div
             className={style.order__table_picture}
-            style={{ backgroundImage: `url(${products[0].product.pictures[0]})` }}
+            style={{
+              backgroundImage: `url(${products[0].product.pictures[0]})`,
+            }}
           ></div>
         </td>
         <td colSpan="2" className={style.order__table_title}>
           <div className={style.order__table_title_row1}>
-          {!isEdite ? (
-                  <>
-                    <h2>{title}</h2>
-                    <Pen onClick={() => {editableInputTypes(id)}}/>
-                  </>
-                  ) 
-                  : 
-                  (
-                  <>
-                    <input type="text" value={title} onChange={handleChange}/>
-                    <button
-                      className={style.productItem_btn}
-                      onClick={handleCancelClick}
-                    >
-                        <Cross />
-                    </button>
-                    <button
-                      className={style.productItem_btn}
-                      onClick={() => handleSaveClick(id, title)}
-                    >
-                      <Tick />
-                    </button>
-                  </>
-                  )}
+            {!isEdite ? (
+              <>
+                <h2>{title}</h2>
+                <Pen
+                  onClick={() => {
+                    editableInputTypes(id);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <input type="text" value={title} onChange={handleChange} />
+                <button
+                  className={style.productItem_btn}
+                  onClick={handleCancelClick}
+                >
+                  <Cross />
+                </button>
+                <button
+                  className={style.productItem_btn}
+                  onClick={() => handleSaveClick(id, title)}
+                >
+                  <Tick />
+                </button>
+              </>
+            )}
           </div>
         </td>
         <td rowSpan="3" className={style.order__table_riderect_middle}>
-            <NavLink to='/myprofile/order-history-details' >
-              <span id={id} className={style.iconRiderect} onClick={() => { redirect(id) }} ></span>
-            </NavLink>
+          <NavLink to={`/myprofile/order-history-details/${id}`}>
+            <span
+              id={id}
+              className={style.iconRiderect}
+              // onClick={() => {
+              //   redirect(id);
+              // }}
+            ></span>
+          </NavLink>
         </td>
       </tr>
       <tr>

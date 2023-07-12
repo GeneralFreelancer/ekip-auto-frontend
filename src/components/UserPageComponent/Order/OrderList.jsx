@@ -265,7 +265,7 @@ const OrderList = () => {
 
   return (
     <>
-      <div className={style.order__wrapper}>{itemblock(orders)}</div>
+      <div className={style.order__wrapper}>{orders.length > 0 ? itemblock(orders) : <h1 style={{textAlign: 'center'}}>Нема замовлень</h1>}</div>
     </>
   );
 };

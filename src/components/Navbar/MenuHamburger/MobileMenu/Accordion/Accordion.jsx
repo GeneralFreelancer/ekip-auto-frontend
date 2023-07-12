@@ -440,6 +440,7 @@ const AccordionItem = (props) => {
           onClick={() => {
             props.onClick()
             dispatch(setCategoryProducts([]));
+            dispatch(setSubCategoryProducts([]));
             fetchProductsByCategory(title);
             localStorage.setItem("category", title);
             localStorage.removeItem("subcategory");
@@ -459,6 +460,7 @@ const AccordionItem = (props) => {
             onClick={() => {
               props.onClick()
               dispatch(setCategoryProducts([]));
+              dispatch(setSubCategoryProducts([]));
               fetchProductsByCategory(title);
               localStorage.setItem("category", title);
               localStorage.removeItem("subcategory");
@@ -491,6 +493,7 @@ const AccordionItem = (props) => {
                     onClick={() => {
                       props.onClick()
                       dispatch(setSubCategoryProducts([]));
+                      dispatch(setCategoryProducts([]));
                       fetchProductsBySubCategory(sub.title);
                       localStorage.setItem("subcategory", sub.title);
                       localStorage.removeItem("category");

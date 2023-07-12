@@ -50,7 +50,7 @@ function App() {
         />
 
         <Route
-          path="admin_product_photo"
+          path="admin_product_photo/:id"
           element={
             <PivateRouter>
               <AdminProductPhotoPage />

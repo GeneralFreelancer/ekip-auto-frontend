@@ -4,19 +4,23 @@ import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
 import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
 import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
 import { ReactComponent as Plus } from "../../../../assets/svg/plus.svg";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../../../redux/features/userSlice";
 
 // const initialData = [
 //   { name: "Висота", value: "18 см" },
 //   { name: "Ширина", value: "50 см" },
 //   { name: "Глибина", value: "40 см" },
 // ];
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Characteristic = (props) => {
-  const { options, role } = props;
-
+  const { id, options, role } = props;
   const [isEditMode, setIsEditMode] = useState(false);
   const [charactData, setCharactData] = useState(options);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const user = useSelector(selectedUser);
 
   let mobileV = viewportWidth < 510;
 
@@ -32,13 +36,26 @@ const Characteristic = (props) => {
     setIsEditMode(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async (id, options) => {
     setIsEditMode(false);
+    try {
+      const response = await axios.put(
+        `${baseUrl}/product`,
+        { id, options },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleCancelClick = () => {
     setIsEditMode(false);
-    setCharactData(options);
+    setCharactData(options.map(item => ({ ...item })));
   };
 
   const handleAddCharactClick = () => {
@@ -83,12 +100,11 @@ const Characteristic = (props) => {
                   .................................................................................
                 </span>
               )}
-
               <input
                 className={s.character_input}
                 value={charact.value}
                 onChange={(e) => handleCharactValueChange(index, e)}
-              />см
+              />
             </div>
           ))}
           <button
@@ -106,7 +122,7 @@ const Characteristic = (props) => {
             </div>
           </button>
 
-          <button className={s.character_btn_save} onClick={handleSaveClick}>
+          <button className={s.character_btn_save} onClick={() => handleSaveClick(id, charactData)}>
             <Tick />
           </button>
         </>
@@ -125,7 +141,7 @@ const Characteristic = (props) => {
                   .................................................................................
                 </span>
               )}
-              <p>{char.value}см</p>
+              <p>{char.value}</p>
             </div>
           ))}
         </>

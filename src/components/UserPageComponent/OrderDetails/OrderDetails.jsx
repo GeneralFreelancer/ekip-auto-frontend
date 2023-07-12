@@ -13,6 +13,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import {useParams } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setProductsInCart } from "../../../redux/features/cartSlice";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -217,6 +219,7 @@ const OrderDetails = () => {
   const [isActive, setIsActive] = useState(false);
   const user = useSelector(selectedUser);
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getOrders = async () => {
@@ -234,16 +237,31 @@ const OrderDetails = () => {
     getOrders();
   }, [user.token]);
 
-
-  //remover function delete items
-  const remove = (id) => {
-    console.log(id);
+  const remove = async(id, quantity) => {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/basket`,
+        {
+          product: id,
+          number: quantity
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      dispatch(setProductsInCart(response.data.basket.products));
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
     // let templateArr = dataMockOrder;
 
     // templateArr = [...templateArr].filter(item => item.id !== id);
     // console.log(templateArr);
     // setdataMockOrder(templateArr);
   };
+
   // change favorite state in DB
   const checkfavorite = (id) => {
     console.log(id);
@@ -272,6 +290,16 @@ const OrderDetails = () => {
       );
     } 
   };
+
+  const sumUAH = dataOrder?.reduce((total, item) => {
+    return total + item.number * item.product.priceUAH;
+  }, 0);
+
+  const sumUSD = dataOrder?.reduce((total, item) => {
+    return total + item.number * item.product.priceUSD;
+  }, 0);
+
+
 
   const leftComment = (event) => {
     event.preventDefault();
@@ -309,9 +337,9 @@ const OrderDetails = () => {
           )}
         </tbody>
         <tfoot>
-          {desktop && <TableFooter />}
-          {middle && <TableFooterMiddle />}
-          {mobile && <TableFooterMobile />}
+          {desktop && <TableFooter sumUAH={sumUAH} sumUSD={sumUSD}  />}
+          {middle && <TableFooterMiddle sumUAH={sumUAH} sumUSD={sumUSD} />}
+          {mobile && <TableFooterMobile sumUAH={sumUAH} sumUSD={sumUSD} />}
         </tfoot>
       </table>
 

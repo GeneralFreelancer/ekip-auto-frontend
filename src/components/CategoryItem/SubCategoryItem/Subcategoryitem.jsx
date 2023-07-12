@@ -2,7 +2,7 @@ import style from "./Subcategoryitem.module.scss";
 import { Link } from "react-router-dom";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import axios from "axios";
-import { setSubCategoryProducts } from "../../../redux/features/productsSlice";
+import { setSubCategoryProducts, setCategoryProducts } from "../../../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -59,6 +59,7 @@ const Subcategoryitem = (props) => {
             to={`/category`}
             onClick={() => {
               dispatch(setSubCategoryProducts([]));
+              dispatch(setCategoryProducts([]));
               fetchProductsBySubCategory(title)
               localStorage.setItem('subcategory', title)
               localStorage.removeItem("category");

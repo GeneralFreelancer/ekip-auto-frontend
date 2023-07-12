@@ -42,6 +42,8 @@ const ProductItem = ({ selectedProduct }) => {
   const [productQuantity, setProductQuantity] = useState(minQuantity);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [mouseEnter, setMouseEnter] = useState(false);
+  const [requestMessage, setRequestMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
@@ -60,14 +62,13 @@ const ProductItem = ({ selectedProduct }) => {
             },
           }
         );
-        // dispatch(setProductsInCart(response.data.basket.products));
       } catch (error) {
         console.error("Error:", error.message);
       }
     };
     if (user.token) {
       getLastSeenProduct();
-    } 
+    }
   }, [id, user.token]);
 
   useEffect(() => {
@@ -95,13 +96,60 @@ const ProductItem = ({ selectedProduct }) => {
     setIsEditMode(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async (id, name) => {
     setIsEditMode(false);
+    try {
+      const response = await axios.put(
+        `${baseUrl}/product`,
+        { id, name },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleCancelClick = () => {
     setIsEditMode(false);
     setTitle(name);
+  };
+
+  // ?????-?????-
+  const hideProduct = async () => {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/product`,
+        { id, name },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteProduct = async () => {
+    try {
+      const response = await axios.delete(
+        `${baseUrl}/product/${id}`,
+        { id },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleMinusClick = () => {
@@ -166,6 +214,30 @@ const ProductItem = ({ selectedProduct }) => {
     }
   };
 
+  const handleGoodsRequest = async () => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/product-request`,
+        {
+          productId: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+      setRequestMessage(response.data.message);
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+        setRequestMessage("");
+      }, 2000);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   function scrollToAnchor(anchorId) {
     const element = document.getElementById(anchorId);
     if (element) {
@@ -220,11 +292,11 @@ const ProductItem = ({ selectedProduct }) => {
               </button>
               <button
                 className={s.productItem_btn_save}
-                onClick={handleSaveClick}
+                onClick={() => handleSaveClick(id, title)}
               >
                 <Tick />
               </button>
-              <NavLink to="/admin_product_photo">
+              <NavLink to={`/admin_product_photo/${id}`}>
                 <button className={s.productItem_btn_setting}>
                   <Setting />
                 </button>
@@ -352,11 +424,27 @@ const ProductItem = ({ selectedProduct }) => {
 
         <div className={s.productItem_content_main}>
           <div className={s.productItem_content}>
-            <p>
+            <div style={{ display: "flex", gap: "10px" }}>
               <span className={s.productItem_is}>
                 {stock ? "В наявності" : "Нема в наявності"}
               </span>
-            </p>
+              {isEditMode && (
+                <>
+                  <button
+                    onClick={hideProduct}
+                    className={s.productItem_btn_ask}
+                  >
+                    Скрити
+                  </button>
+                  <button
+                    onClick={deleteProduct}
+                    className={s.productItem_btn_ask}
+                  >
+                    Видалити
+                  </button>
+                </>
+              )}
+            </div>
             <div className={s.productItem_price}>
               <p>
                 <span>
@@ -369,9 +457,15 @@ const ProductItem = ({ selectedProduct }) => {
               <p>Мінімальне замовлення від: {minQuantity} шт.</p>
               <div className={s.productItem_info}>
                 <p>Залишок на складі:</p>
-                <button className={s.productItem_btn_ask}>
+                <button
+                  onClick={handleGoodsRequest}
+                  className={s.productItem_btn_ask}
+                >
                   Запитати доступ
                 </button>
+                {showMessage && (
+                  <p style={{ color: "red" }}>{requestMessage}</p>
+                )}
               </div>
             </div>
             <div>
