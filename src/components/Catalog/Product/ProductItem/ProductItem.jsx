@@ -443,7 +443,7 @@ const ProductItem = (props) => {
                 />
               ) : (
                 <>
-                  {!mouseEnter ? <Heart className={s.heart} onMouseEnter={hadleMouseEnter}  onClick={handleFavouriteClick} /> : <Blackheart
+                  {!mouseEnter ? <Heart className={s.heart} onMouseEnter={hadleMouseEnter}/> : <Blackheart
                     className={s.heartHover}
                     onMouseLeave={hadleMouseLeave}
                     onClick={handleFavouriteClick}
@@ -461,3 +461,5 @@ const ProductItem = (props) => {
 };
 
 export default ProductItem;
+
+

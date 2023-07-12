@@ -10,6 +10,43 @@ import TableFooterMiddle from "./TableFooter/TableFooterMiddle";
 import TableBodyMobile from "./TableBody/TableBodyMobile";
 import TableFooterMobile from "./TableFooter/TableFooterMobile";
 
+
+// temp example
+// [
+//   {
+//     "category": {
+//       "title": "category name",
+//       "subcat": [
+//         "subcatname",
+//         "subcatname",
+//         "subcatname"
+//       ],
+//       "items": [
+//         {
+//           "id": "1",
+//           "category": "categoryname",
+//           "subcategory": "subcategory",
+//           "title": "Назва товаруНазва товаруНазва товару",
+//           "description": "lorem",
+//           "options": [],
+//           "deliveryOptions": [],
+//           "SKU": "number1212sdsd",
+//           "price": {
+//             "ua": 1000,
+//             "usd": 100
+//           },
+//           "minQuantity": 100,
+//           "image": [
+//             "url",
+//             "url"
+//           ],
+//           "quantity": 100
+//         }
+//       ]
+//     }
+//   }
+// ]
+
 const mockItems = [
   {
     id: "1",
