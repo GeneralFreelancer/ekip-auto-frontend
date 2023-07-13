@@ -7,6 +7,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../redux/features/userSlice";
 import { useParams, useNavigate } from "react-router-dom";
+import { setOneProduct } from "../../redux/features/productsSlice";
+import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -24,6 +26,7 @@ const AdminComponentsProductPhoto = () => {
   const { id } = useParams();
   const fileInputRef = useRef(null);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getOneProduct = async () => {
@@ -57,6 +60,7 @@ const AdminComponentsProductPhoto = () => {
         },
       });
       setImages(response.data.product.pictures);
+      dispatch(setOneProduct(response.data.product));
     } catch (error) {
       console.error(error);
     }
@@ -96,6 +100,7 @@ const AdminComponentsProductPhoto = () => {
             }
           );
           setImages(response.data.product.pictures);
+          dispatch(setOneProduct(response.data.product));
         } catch (error) {
           console.error(error);
         }
@@ -130,6 +135,7 @@ const AdminComponentsProductPhoto = () => {
         },
       });
       setImages(response.data.product.pictures);
+      dispatch(setOneProduct(response.data.product));
     } catch (error) {
       console.error(error);
     }
@@ -138,7 +144,7 @@ const AdminComponentsProductPhoto = () => {
   return (
     <>
       <div style={{ marginBottom: "70px" }}>
-        <AdminTitle title={'Редагування фото продукта'}/>
+        <AdminTitle title={"Редагування фото продукта"} />
         <AdminCardList
           name={"desktop"}
           onChangePosition={onChangePosition}

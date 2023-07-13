@@ -12,6 +12,7 @@ const AdminCardList = ({
   addNewCard,
   styleName,
 }) => {
+
   return (
     <div>
       <p className={s.size}>{size}</p>
@@ -19,7 +20,7 @@ const AdminCardList = ({
         {arr.map((image, i) => (
           <AdminCard
             name={name}
-            url={image}
+            url={typeof image === 'object' ? image.Image : image}
             index={i}
             key={i}
             total={Number(arr.length) - 1}

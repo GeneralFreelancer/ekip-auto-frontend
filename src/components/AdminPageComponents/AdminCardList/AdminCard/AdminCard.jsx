@@ -21,6 +21,7 @@ const AdminCard = ({
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
+ 
   return (
     <>
       <div className={isFirstCard ? `${s.notBorder} ${s.card}` : s.card}>
@@ -31,7 +32,7 @@ const AdminCard = ({
               className={`${s.cancel} ${s.icon}`}
               index={index}
               name={name}
-              onClick={() => onDelete(index, url)}
+              onClick={() => onDelete(index, url, name)}
             />
           </div>
         </div>
