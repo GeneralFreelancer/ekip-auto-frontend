@@ -9,25 +9,31 @@ import CallBackButton from "../components/CallBackButton";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import ListCards from "../components/ListCards/ListCards";
-import { selectInterestProducts } from "../redux/features/productsSlice";
 import { useParams } from "react-router-dom";
 import { getProductsWithInterestFilter } from "../productService";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { setAllProducts } from "../redux/features/productsSlice";
+import {
+  setAllProducts,
+  setOneProduct,
+  selectInterestProducts,
+  selectOneProduct,
+} from "../redux/features/productsSlice";
+import { useLocation } from "react-router-dom";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
+
   const user = useSelector(selectedUser);
   const interestProducts = useSelector(selectInterestProducts);
-
-  const [oneProduct, setOneProduct] = useState({});
+  const oneProduct = useSelector(selectOneProduct);
 
   const { id } = useParams();
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const getOneProduct = async () => {
     try {
@@ -36,11 +42,15 @@ const ProductItemPage = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      setOneProduct(response.data.product);
+      dispatch(setOneProduct(response.data.product));
     } catch (error) {
       console.error("Error:", error.message);
     }
   };
+
+  useEffect(() => {
+    getOneProduct();
+  }, [location.pathname]);
 
   const getProductsAll = async () => {
     try {
@@ -52,7 +62,6 @@ const ProductItemPage = () => {
   };
 
   useEffect(() => {
-    getOneProduct();
     getProductsAll();
     getProductsWithInterestFilter(dispatch);
   }, [dispatch]);
@@ -74,7 +83,8 @@ const ProductItemPage = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        {Object.keys(oneProduct).length > 0 && <Product product={oneProduct} />}
+        <Product />
+        {/* {Object.keys(oneProduct).length > 0 && <Product product={oneProduct} />} */}
         <div style={{ paddingTop: "30px" }}>
           <ListCards title={"Вас може зацікавити"} items={interestProducts} />
         </div>

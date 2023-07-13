@@ -1,9 +1,9 @@
 import s from "./AdminTitle.module.scss";
 
-const AdminTitle = () => {
+const AdminTitle = (props) => {
   return (
     <>
-      <h2 className={s.title}>Редагування фото продукта</h2>
+      <h2 className={s.title}>{props.title}</h2>
     </>
   );
 };

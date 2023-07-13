@@ -20,7 +20,6 @@ import axios from "axios";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Catalog = ({ products, title }) => {
-  console.log(products, title);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const user = useSelector(selectedUser);
   const categoryProducts = useSelector(selectCategoryProducts);

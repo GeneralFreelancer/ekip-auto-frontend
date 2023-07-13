@@ -1,15 +1,38 @@
 import s from "./Footer.module.scss";
 import React, { useEffect, useState } from "react";
-
+import axios from "axios";
 import { ReactComponent as Tick } from "../../assets/svg/Tick.svg";
 import { ReactComponent as Setting } from "../../assets/svg/setting.svg";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../redux/features/userSlice";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Footer = (props) => {
   const [role, setRole] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [text, setText] = useState(38.5);
+  const [currency, setCurrency] = useState("");
 
   const localStor = localStorage.getItem("role");
+  const user = useSelector(selectedUser);
+
+  useEffect(() => {
+    const getCurrency = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/exchange`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        setCurrency(response.data.usdRate);
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+    if (user.token) {
+      getCurrency();
+    }
+  }, [user.token]);
 
   useEffect(() => {
     if (localStorage.getItem("role") === "admin") {
@@ -23,8 +46,21 @@ const Footer = (props) => {
     setIsEditMode(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
     setIsEditMode(false);
+    try {
+      const response = await axios.post(
+        `${baseUrl}/exchange`,
+        { usdRate: currency },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
 
   return (
@@ -41,8 +77,8 @@ const Footer = (props) => {
                       Курс доллара:
                       <input
                         className={s.input}
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
                       />
                     </p>
                     <button
@@ -55,9 +91,7 @@ const Footer = (props) => {
                 ) : (
                   <p className={s.textRead}>
                     Курс доллара:
-                    {/* <span className={s.textRate}>{props.currentRate}</span>UAH = 1$ */}
-                    <span>{text}</span>
-                    {/* <input className={s.textRate} value={text} /> */}
+                    <span>{currency}</span>
                   </p>
                 )}
                 {!isEditMode && (
