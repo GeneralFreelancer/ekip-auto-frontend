@@ -12,7 +12,7 @@ import { selectedUser } from "../../../redux/features/userSlice";
 const photos = [
   // get /advertising
   // {image: 'link', url: 'website url'}
-  "http://localhost:5502/images/230363_adver1.jpg",
+  {image: "http://localhost:5502/images/230363_adver1.jpg", url: ''},
   "http://localhost:5502/images/744699_adver2.jpg",
   "http://localhost:5502/images/811860_adver3.jpg",
 ];
