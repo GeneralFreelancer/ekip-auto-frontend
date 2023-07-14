@@ -181,25 +181,27 @@ const AdminComponentsSlider = () => {
     } else if (name === "save") {
       //  на галочку внизу запит на бек put /advertising
       // три масива картинком тільки назва
-      // let formattedArray = images.map((image) => image.split("/").pop());
-      // const savePhotoArray = async () => {
-      //   try {
-      //     const response = await axios.put(
-      //       `${baseUrl}/product`,
-      //       { id, pictures: formattedArray },
-      //       {
-      //         headers: {
-      //           Authorization: `Bearer ${user.token}`,
-      //         },
-      //       }
-      //     );
-      //     setImages(response.data.product.pictures);
-      //   } catch (error) {
-      //     console.error(error);
-      //   }
-      // };
-      // savePhotoArray();
-      // navigate(-1);
+      let formattedArray1 = temporalDesktop.map((image) => image.Image.split("/").pop());
+      let formattedArray2 = temporalTablet.map((image) => image.Image.split("/").pop());
+      let formattedArray3 = temporalMobile.map((image) => image.Image.split("/").pop());
+      const savePhotoArray = async () => {
+        try {
+          const response = await axios.put(
+            `${baseUrl}/product`,
+            { pictures: formattedArray1, formattedArray2, formattedArray3},
+            {
+              headers: {
+                Authorization: `Bearer ${user.token}`,
+              },
+            }
+          );
+          // setImages(response.data.product.pictures);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      savePhotoArray();
+      navigate(-1);
     }
   };
 
