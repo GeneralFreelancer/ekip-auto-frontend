@@ -28,7 +28,7 @@ const Cart = () => {
   const [isActive, setIsActive] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
-
+  console.log(dataCartItems);
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
   const cart = useSelector(selectedCart);
@@ -98,7 +98,7 @@ const Cart = () => {
     const arrayWithoutDeletedProduct = [...dataCartItems]
       .filter((item) => item.product.id !== id)
       .map((p) => ({ product: p.product.id, number: p.number }));
-
+    console.log(arrayWithoutDeletedProduct)
     try {
       const response = await axios.post(
         `${baseUrl}/basket`,
@@ -119,28 +119,34 @@ const Cart = () => {
 
   // not work
   const changeQuantity = async (id, btnType) => {
+    console.log(id, btnType);
+  
+    let updateQuantity = [...dataCartItems];
     if (btnType === "up") {
-      setDataCartItems(
-        dataCartItems.filter((item) =>
-          item.product.id === id ? (item.number += item.product.minQuantity) : item.number
-        )
-      );
+      updateQuantity = updateQuantity.map((item) => {
+        if (item.product.id === id) {
+          return { product: item.product.id, number: item.number + item.product.minQuantity }
+        }
+        else {
+          return {product: item.product.id, number: item.number}
+        }
+      });  
     }
     if (btnType === "down") {
-      setDataCartItems(
-        dataCartItems.filter((item) =>
-          item.product.id === id && item.number > item.product.minQuantity
-            ? (item.number -= item.product.minQuantity)
-            : item.number
-        )
-      );
+      updateQuantity = updateQuantity.map((item) => {
+        if (item.product.id === id && item.number !== item.product.minQuantity) {
+          return { product: item.product.id, number: item.number - item.product.minQuantity }
+        }
+        else {
+          return {product: item.product.id, number: item.number}
+        }
+      });  
     }
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `${baseUrl}/basket`,
         {
-          product: id,
-          // number: productQuantity,
+          products: updateQuantity
         },
         {
           headers: {
