@@ -1,12 +1,14 @@
 /* eslint-disable no-duplicate-case */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AdminTitle from "./AdminCardList/AdminTitle";
 import AdminCardList from "./AdminCardList";
 import AdminButtons from "./AdminButtons";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../redux/features/userSlice";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { setOneProduct } from "../../redux/features/productsSlice";
+import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -19,39 +21,54 @@ const images = [
 ];
 
 const AdminComponentsProductPhoto = () => {
-  const [temporal, setTemporal] = useState(images);
+  const [images, setImages] = useState([]);
   const user = useSelector(selectedUser);
   const { id } = useParams();
-  const [file, setFile] = useState(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState('')
+  const fileInputRef = useRef(null);
 
-  useEffect(() => {
-    //Запит на бек по фото
-  }, []);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const onDelete = (index) => {
-    let updatedArray = [];
-
-    updatedArray = temporal.slice(0, index).concat(temporal.slice(index + 1));
-    setTemporal(updatedArray);
+  const getOneProduct = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setImages(response.data.product.pictures);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
 
-  const onHandleImageUpload = (event, name) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const imageUrl = e.target.result;
-      // Виконати дії з отриманим URL зображення (наприклад, зберегти або відобразити)
-      console.log("Завантажено зображення:", imageUrl);
-    };
-    reader.readAsDataURL(file);
+  useEffect(() => {
+    getOneProduct();
+  }, []);
+
+  const onDelete = async (index, filename) => {
+    let formattedArray = filename.split("/");
+    let formattedFileName = formattedArray[formattedArray.length - 1];
+    let updatedArray = [];
+    updatedArray = images.slice(0, index).concat(images.slice(index + 1));
+    setImages(updatedArray);
+    try {
+      const response = await axios.delete(`${baseUrl}/product/image`, {
+        data: { productId: id, image: formattedFileName },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setImages(response.data.product.pictures);
+      dispatch(setOneProduct(response.data.product));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const onChangePosition = (direction, index) => {
     let updatedArray = [];
-
-    updatedArray = [...temporal];
-
+    updatedArray = [...images];
     if (direction === "left" && index > 0) {
       [updatedArray[index - 1], updatedArray[index]] = [
         updatedArray[index],
@@ -63,84 +80,87 @@ const AdminComponentsProductPhoto = () => {
         updatedArray[index],
       ];
     }
-    setTemporal(updatedArray);
+    setImages(updatedArray);
   };
-
-  // на заміну картинки після завантаження
-  // айди, картинка, назва
-
-  // на видалення картинки delete('/image'
-  // айди,  назва картинки 1.jpg
-
-  // маленький крестик внизу - без запиту, закриваємо сторінку і повертаємось на сторінку товару, послідовність не зберігається
-
-  // маленька галочка внизу то йде запит на бек і зберіється сортування
-  // put /product, айди и масив заголовків картинок
 
   const onClickMainButton = (name) => {
     if (name === "cancel") {
-      setTemporal(images);
+      navigate(-1);
     } else if (name === "save") {
-      //відправка на бек
-      // на велики плюс після завантаження картинки
-      const savePhoto = async () => {
+      let formattedArray = images.map((image) => image.split("/").pop());
+      const savePhotoArray = async () => {
         try {
-          const response = await axios.post(
-            `${baseUrl}/product/image`,
-            // { productId: id, image },
+          const response = await axios.put(
+            `${baseUrl}/product`,
+            { id, pictures: formattedArray },
             {
               headers: {
                 Authorization: `Bearer ${user.token}`,
               },
             }
           );
-          console.log(response);
+          setImages(response.data.product.pictures);
+          dispatch(setOneProduct(response.data.product));
         } catch (error) {
           console.error(error);
         }
       };
-      savePhoto();
+      savePhotoArray();
+      navigate(-1);
     }
   };
 
-  const addNewCard = (e) => {
- 
-    // let reader = new FileReader();
-    // let file = e.target.files[0];
-    // reader.onloadend = () => {
-    //   setFile(file);
-    //   setImagePreviewUrl(reader.result);
-    // };
-
-    // reader.readAsDataURL(file);
-    let updatedArray = [];
-    updatedArray = [...temporal];
-    updatedArray.push(
-      "https://images.prom.ua/697887103_skupka-nespravnih-televizorivzhk.jpg"
-    );
-    setTemporal(updatedArray);
+  const addNewCard = () => {
+    fileInputRef.current.click();
   };
 
-  // let $imagePreview = null;
-  // if (imagePreviewUrl) {
-  //   $imagePreview = <img src={imagePreviewUrl} alt="Preview" />;
-  // } else if (! $imagePreview) {
-  //   $imagePreview = <div className="previewText">Please select an Image for Preview</div>;
-  // }
+  const handleFileChange = (e) => {
+    let reader = new FileReader();
+    const file = e.target.files[0];
+    reader.onload = () => {
+      sendImageToBD(id, file, file.name);
+    };
+    reader.readAsDataURL(file);
+  };
 
+  const sendImageToBD = async (id, file, filename) => {
+    const formData = new FormData();
+    formData.append("image", file, filename);
+    formData.append("productId", id);
+    try {
+      const response = await axios.post(`${baseUrl}/product/image`, formData, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setImages(response.data.product.pictures);
+      dispatch(setOneProduct(response.data.product));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
       <div style={{ marginBottom: "70px" }}>
-        <AdminTitle />
+        <AdminTitle title={"Редагування фото продукта"} />
         <AdminCardList
           name={"desktop"}
           onChangePosition={onChangePosition}
           onDelete={onDelete}
-          arr={temporal}
+          arr={images}
           size={"1135px × 375px"}
           addNewCard={addNewCard}
           styleName={"imgProduct"}
+        />
+
+        <input
+          ref={fileInputRef}
+          style={{ opacity: "0" }}
+          type="file"
+          onChange={handleFileChange}
+          accept="image/*,.png,.jpg,.web"
         />
       </div>
       <AdminButtons onClickMainButton={onClickMainButton} />

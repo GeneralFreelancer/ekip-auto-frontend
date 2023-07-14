@@ -1,25 +1,22 @@
 import style from "./Card.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setOneProduct } from "../../../redux/features/productsSlice";
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
-const translit = (name) => {
-  return cyrillicToTranslit
-    .transform(String(name).replace(",", ""), "-")
-    .toLowerCase();
-};
+// const translit = (name) => {
+//   return cyrillicToTranslit
+//     .transform(String(name).replace(",", ""), "-")
+//     .toLowerCase();
+// };
 
-const Card = ({
-  id,
-  imgUrl,
-  name,
-  priceUAH,
-  priceUSD,
-  stock,
-  styleCard,
-}) => {
+const Card = ({ id, imgUrl, name, priceUAH, priceUSD, stock, styleCard }) => {
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
   return (
     <div
       className={
@@ -30,8 +27,9 @@ const Card = ({
         className={style.clickArea}
         id={id}
         onClick={(e) => {
-          // navigate(`/${id}`);
-          navigate(id);
+          dispatch(setOneProduct({}));
+          navigate(`/${id}`);
+          // navigate(id);
           window.scrollTo(0, 0);
         }}
       ></span>

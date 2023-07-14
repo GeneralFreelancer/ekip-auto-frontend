@@ -21,15 +21,17 @@ import {
   selectDateProducts,
   selectTopProducts,
   selectLastSeenProducts,
-  selectInterestProducts
+  selectInterestProducts,
 } from "./redux/features/productsSlice";
 import { useSelector } from "react-redux";
+
 
 function App() {
   const dateProducts = useSelector(selectDateProducts);
   const topProducts = useSelector(selectTopProducts);
   const lastSeenProducts = useSelector(selectLastSeenProducts);
   const interestProducts = useSelector(selectInterestProducts);
+
 
   return (
     <>
@@ -87,13 +89,9 @@ function App() {
           }
         />
 
-        <Route path="/category" element={<Catalog/>} />
-        <Route path="/category/:id" element={<ProductItemPage />} />
-
-        <Route
-          path="/:id"
-          element={<ProductItemPage />}
-        />
+        <Route path="/category" element={<Catalog />} />
+        <Route path="/:id" element={<ProductItemPage/>}/>
+        {/* <Route path="/category/:id" element={<ProductItemPage />} /> */}
 
         <Route
           path="ostannі-nadkhodzhennya/:id"
@@ -111,8 +109,6 @@ function App() {
                 <MyData />
               </ProtectedRoute>
             }
-            default //не працює
-            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
           <Route
             path="basket"
@@ -121,7 +117,6 @@ function App() {
                 <Cart />
               </ProtectedRoute>
             }
-            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
           <Route
             path="order-history"
@@ -139,7 +134,6 @@ function App() {
                 <Favorite />
               </ProtectedRoute>
             }
-            // element={user.isLoggedIn ? <MyData /> : <Navigate to="/" />}
           />
 
           {/* http://localhost:3000/myprofile/share-stocks */}
@@ -151,42 +145,3 @@ function App() {
 }
 
 export default App;
-
-// import { useSelector } from "react-redux";
-// import { useMediaQuery } from "react-responsive";
-// import { Navigate } from "react-router-dom";
-// import { userSelector } from "../../redux/selector/user-selector";
-
-// export const PrivateRoute = ({ children, navigateTo }) => {
-//   const isLogin = useSelector(userSelector.getIsLogin);
-//   const isMobile = useMediaQuery({ maxWidth: 767 });
-//   if (isLogin) return children;
-//   if (isMobile) return <Navigate to="/info" />;
-//   return <Navigate to={navigateTo} />;
-// };
-
-/* <Route
-              path="register"
-              element={
-                <PublicRoute navigateTo="/">
-                  <Register />
-                </PublicRoute>
-              }
-            />
-
-            <Route
-              path="training"
-              element={
-                <PrivateRoute navigateTo="/login">
-                  <TrainingPage />
-                </PrivateRoute>
-              } */
-
-//               import { useSelector } from 'react-redux';
-// import { Navigate } from 'react-router-dom';
-// import { userSelector } from '../../redux/selector/user-selector';
-
-// export const PublicRoute = ({ children, navigateTo }) => {
-//   const isLogin = useSelector(userSelector.getIsLogin);
-//   return !isLogin ? children : <Navigate to={navigateTo} />;
-// };

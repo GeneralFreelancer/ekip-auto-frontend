@@ -316,7 +316,6 @@ import { selectedUser } from "../../redux/features/userSlice";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const CatalogComponents = ({ products, title }) => {
-
   const [filter, setFilter] = useState("new");
   const [inStock, setInStock] = useState(false);
   const [items, setItems] = useState([]);
@@ -452,15 +451,16 @@ const CatalogComponents = ({ products, title }) => {
     filteredItems = items.filter((item) =>
       inStock ? item.stock === inStock : item
     );
-
     switch (filter) {
       case "new":
-        // filteredItems = [...filteredItems].sort(
-        //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        // );
+        filteredItems = [...filteredItems].sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
         break;
       case "popular":
-        //    filteredItems = [...filteredItems].sort((a, b) => b.popular - a.popular);
+        filteredItems = [...filteredItems].sort(
+          (a, b) => b.inTopRate - a.inTopRate
+        );
         break;
       case "cheap":
         filteredItems = [...filteredItems].sort(

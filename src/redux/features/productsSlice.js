@@ -9,7 +9,8 @@ const productsSlice = createSlice({
     lastSeenProducts: [],
     interestProducts: [],
     categoryProducts: [],
-    subCategoryProducts: []
+    subCategoryProducts: [],
+    oneProduct: {}
   },
   reducers: {
     setAllProducts: (state, action) => {
@@ -33,6 +34,9 @@ const productsSlice = createSlice({
     setSubCategoryProducts: (state, action) => {
       state.subCategoryProducts = action.payload;
     },
+    setOneProduct: (state, action) => {
+      state.oneProduct = action.payload;
+    }
   },
 });
 
@@ -43,7 +47,8 @@ export const {
   setLastSeenProducts,
   setInterestProducts,
   setCategoryProducts,
-  setSubCategoryProducts
+  setSubCategoryProducts,
+  setOneProduct
 } = productsSlice.actions;
 export default productsSlice.reducer;
 export const selectAllProducts = (state) => state.products.allProducts;
@@ -53,3 +58,4 @@ export const selectLastSeenProducts = (state) => state.products.lastSeenProducts
 export const selectInterestProducts = (state) => state.products.interestProducts;
 export const selectCategoryProducts = (state) => state.products.categoryProducts;
 export const selectSubCategoryProducts = (state) => state.products.subCategoryProducts;
+export const selectOneProduct = (state) => state.products.oneProduct;

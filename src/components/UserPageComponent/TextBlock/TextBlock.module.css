@@ -1,0 +1,52 @@
+.textBlock {
+  margin-top: 50px;
+  padding: 30px;
+}
+@media screen and (max-width: 1024px) {
+  .textBlock {
+    margin-top: 0px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .textBlock {
+    padding-bottom: 0px;
+  }
+}
+
+.textBlock_title {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+@media screen and (max-width: 800px) {
+  .textBlock_title {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .textBlock_title {
+    font-size: 26px;
+  }
+}
+
+.textBlock_text {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+@media screen and (max-width: 800px) {
+  .textBlock_text {
+    font-size: 26px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .textBlock_text {
+    font-size: 22px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .textBlock_text {
+    font-size: 20px;
+  }
+}/*# sourceMappingURL=TextBlock.module.css.map */

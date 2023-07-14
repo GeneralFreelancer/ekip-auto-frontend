@@ -3,6 +3,8 @@ import s from "./SearchBar.module.scss";
 import { ReactComponent as Search } from "../../../assets/magnifying-glass.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setOneProduct } from "../../../redux/features/productsSlice";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -14,6 +16,9 @@ const SearchBar = () => {
   const [timerId, setTimerId] = useState(null);
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  
   // const products = [
   //   {
   //     id: 1,
@@ -116,11 +121,6 @@ const SearchBar = () => {
     };
   }, [showResults]);
 
-
-  // useEffect(() => {
-  //   setSearchItems(products);
-  // }, []);
-
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
     setShowResults(true);
@@ -150,6 +150,7 @@ const SearchBar = () => {
   };
 
   const handleItemClick = (id) => {
+    dispatch(setOneProduct({}));
     navigate(`/${id}`);
     setIsFocused(false);
     setShowResults(false);

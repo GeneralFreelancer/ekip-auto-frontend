@@ -78,7 +78,7 @@ const CategoryItem = (props) => {
               if (subCategory.length > 0) {
                 setIsSubCat(true);
                 setCatId(id);
-                setCategoryLink(`${translit(title)}`);
+                setCategoryLink(`/${translit(title)}`);
               } else {
                 if (id !== catId) {
                   setIsSubCat(false);

@@ -347,8 +347,10 @@ const ListCards = ({
               {!showAll && (
                 <NavLink
                   className={style.buttonMore}
-                  to={`${translit(title)}`}
+                  to={`/${translit(title)}`}
                   onClick={() => {
+                    localStorage.removeItem('category')
+                    localStorage.removeItem('subcategory')
                     window.scrollTo(0, 0);
                   }}
                 >
@@ -374,7 +376,7 @@ const ListCards = ({
         ) : need_A_Slider ? (
           <div className="wrapperSlider sliderCard">
             {title && (
-              <NavLink to={`${translit(title)}`}>
+              <NavLink to={`/${translit(title)}`}>
                 <h2 className={style.titleCategory}>{title} :</h2>
               </NavLink>
             )}

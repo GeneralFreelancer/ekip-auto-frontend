@@ -10,7 +10,7 @@ import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
 import { ReactComponent as Blackheart } from "../../../../assets/svg/black_heart.svg";
 import Plus from "../../../../assets/plus.png";
 import Minus from "../../../../assets/minus.png";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { useDispatch } from "react-redux";
@@ -24,15 +24,25 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 // const initialTitle = `ASUS 100500 G Arial- Black (G170-48) `;
 
-const images = [
-  "https://cdn.27.ua/799/9d/06/2596102_11.jpeg",
-  "https://zhzh.info/_pu/126/47073814.jpg",
-  "https://files.foxtrot.com.ua/PhotoNew/img_0_977_4158_1.jpg",
-];
+// const images = [
+//   "https://cdn.27.ua/799/9d/06/2596102_11.jpeg",
+//   "https://zhzh.info/_pu/126/47073814.jpg",
+//   "https://files.foxtrot.com.ua/PhotoNew/img_0_977_4158_1.jpg",
+// ];
 
 const ProductItem = ({ selectedProduct }) => {
-  const { id, name, quantity, minQuantity, priceUAH, priceUSD, sku, stock } =
-    selectedProduct;
+  const {
+    id,
+    name,
+    quantity,
+    minQuantity,
+    priceUAH,
+    priceUSD,
+    sku,
+    stock,
+    hidden,
+    pictures,
+  } = selectedProduct;
 
   const [role, setRole] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -44,6 +54,10 @@ const ProductItem = ({ selectedProduct }) => {
   const [mouseEnter, setMouseEnter] = useState(false);
   const [requestMessage, setRequestMessage] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [isHidden, setIsHidden] = useState(hidden);
+  const [images, setImages] = useState(pictures);
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
@@ -118,34 +132,35 @@ const ProductItem = ({ selectedProduct }) => {
     setTitle(name);
   };
 
-  // ?????-?????-
+  // ?????
   const hideProduct = async () => {
+    const newHiddenValue = !isHidden;
     try {
       const response = await axios.put(
         `${baseUrl}/product`,
-        { id, name },
+        { id: id, hidden: newHiddenValue },
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         }
       );
+      setIsHidden(newHiddenValue);
     } catch (error) {
       console.error(error);
     }
   };
 
+   // ?????
   const deleteProduct = async () => {
     try {
-      const response = await axios.delete(
-        `${baseUrl}/product/${id}`,
-        { id },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await axios.delete(`${baseUrl}/product/${id}`, {
+        data: { id },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+        navigate(-1);
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -434,7 +449,7 @@ const ProductItem = ({ selectedProduct }) => {
                     onClick={hideProduct}
                     className={s.productItem_btn_ask}
                   >
-                    Скрити
+                    {isHidden ? "Показати" : "Скрити"}
                   </button>
                   <button
                     onClick={deleteProduct}

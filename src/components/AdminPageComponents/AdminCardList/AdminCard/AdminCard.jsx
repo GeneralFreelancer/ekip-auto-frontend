@@ -11,11 +11,9 @@ const AdminCard = ({
   name,
   total,
   onDelete,
-  onHandleImageUpload,
   onChangePosition,
   styleName,
 }) => {
-
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isFirstCard = index === 0;
   const isLastCard = index === total;
@@ -23,6 +21,7 @@ const AdminCard = ({
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
+ 
   return (
     <>
       <div className={isFirstCard ? `${s.notBorder} ${s.card}` : s.card}>
@@ -33,17 +32,18 @@ const AdminCard = ({
               className={`${s.cancel} ${s.icon}`}
               index={index}
               name={name}
-              onClick={() => onDelete(index, name)}
+              onClick={() => onDelete(index, url, name)}
             />
           </div>
         </div>
-        {/* <input className="fileInput" type="file" /> */}
-        {/* <div className="imgPreview">{$imagePreview}</div> */}
+
         <div
           className={styleName ? ` ${s[`${styleName}`]} ${s.img}` : s.img}
           style={{ backgroundImage: `url(${url})` }}
           onClick={toggleFullScreen}
-        ></div>
+        >
+        </div>
+
         <div className={s.wrapperSecond}>
           <div>
             <button

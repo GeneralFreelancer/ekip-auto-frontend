@@ -4,18 +4,20 @@ import "./Slider.scss";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ReactComponent as Setting } from "../../../assets/svg/setting.svg";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../../redux/features/userSlice";
 
-const images = [
+const photos = [
   // get /advertising
   // {image: 'link', url: 'website url'}
-  "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-  "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-  "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+  {image: "http://localhost:5502/images/230363_adver1.jpg", url: ''},
+  "http://localhost:5502/images/744699_adver2.jpg",
+  "http://localhost:5502/images/811860_adver3.jpg",
 ];
 
-
-//  на галочку внизу запит на бек put /advertising 
-// три масива картинком тільки назва
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const indicators = (index) => <div className="indicator">{index + 1}</div>;
 
@@ -30,8 +32,29 @@ const properties = {
 const Slider = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [role, setRole] = useState(false);
+  const [images, setImages] = useState([]);
+
+  const user = useSelector(selectedUser);
+  const navigate = useNavigate();
 
   const localStor = localStorage.getItem("role");
+
+  useEffect(() => {
+    const getSlidersImages = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/advertising`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        setImages(response.data.advertising.desktop);
+       
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+    getSlidersImages();
+  }, [user.token]);
 
   useEffect(() => {
     if (localStorage.getItem("role") === "admin") {
@@ -47,6 +70,11 @@ const Slider = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleImageClick = (imageUrl) => {
+    window.open(imageUrl);
+  };
+
+console.log(images);
   return (
     <div className="wrapperSlider">
       {role && (
@@ -58,12 +86,13 @@ const Slider = () => {
       )}
       {viewportWidth < 825 ? (
         <Slide indicators={indicators} scale={1.4} {...properties}>
-          {images.map((each, index) => (
+          {images?.map((each, index) => (
             <div key={index} style={{ width: "100%" }}>
               <img
-                style={{ objectFit: "cover", width: "100%", height: "375px" }}
+                style={{ objectFit: "cover", width: "100%", height: "375px", cursor: "pointer" }}
                 alt="Slide img"
-                src={each}
+                src={each.Image}
+                onClick={() => handleImageClick(each.url)}
               />
             </div>
           ))}
@@ -71,11 +100,14 @@ const Slider = () => {
       ) : (
         <Slide indicators={indicators} scale={1.4} {...properties}>
           {images.map((each, index) => (
-            <div key={index} style={{ width: "100%" }}>
+            <div key={index} 
+            style={{ width: "100%" }}
+            >
               <img
-                style={{ objectFit: "cover", width: "100%", height: "375px" }}
+                style={{ objectFit: "cover", width: "100%", height: "375px", cursor: "pointer"  }}
                 alt="Slide img"
-                src={each}
+                src={each.Image}
+                onClick={() => handleImageClick(each.url)}
               />
             </div>
           ))}
