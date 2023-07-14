@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
@@ -25,13 +26,11 @@ import {
 } from "./redux/features/productsSlice";
 import { useSelector } from "react-redux";
 
-
 function App() {
   const dateProducts = useSelector(selectDateProducts);
   const topProducts = useSelector(selectTopProducts);
   const lastSeenProducts = useSelector(selectLastSeenProducts);
   const interestProducts = useSelector(selectInterestProducts);
-
 
   return (
     <>
@@ -90,7 +89,7 @@ function App() {
         />
 
         <Route path="/category" element={<Catalog />} />
-        <Route path="/:id" element={<ProductItemPage/>}/>
+        <Route path="/:id" element={<ProductItemPage />} />
         {/* <Route path="/category/:id" element={<ProductItemPage />} /> */}
 
         <Route

@@ -1,4 +1,3 @@
-/* eslint-disable no-duplicate-case */
 import { useState, useEffect, useRef } from "react";
 import AdminTitle from "./AdminCardList/AdminTitle";
 import AdminCardList from "./AdminCardList";
@@ -12,13 +11,13 @@ import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-const images = [
-  "https://www.mukachevo.net/Content/Uploads/IIIRomeoIII/61b0a55a500d3.jpg",
-  "https://i1.poltava.to/uploads/2022/10/23/tv.jpg",
-  "https://i.allo.ua/media/catalog/product/cache/3/image/468x468/602f0fa2c1f0d1ba5e241f914e856ff9/a/2/a2-32-front.jpg",
-  "https://images.prom.ua/697887103_skupka-nespravnih-televizorivzhk.jpg",
-  "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-];
+// const images = [
+//   "https://www.mukachevo.net/Content/Uploads/IIIRomeoIII/61b0a55a500d3.jpg",
+//   "https://i1.poltava.to/uploads/2022/10/23/tv.jpg",
+//   "https://i.allo.ua/media/catalog/product/cache/3/image/468x468/602f0fa2c1f0d1ba5e241f914e856ff9/a/2/a2-32-front.jpg",
+//   "https://images.prom.ua/697887103_skupka-nespravnih-televizorivzhk.jpg",
+//   "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+// ];
 
 const AdminComponentsProductPhoto = () => {
   const [images, setImages] = useState([]);

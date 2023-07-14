@@ -10,24 +10,27 @@ import { selectedUser } from "../redux/features/userSlice";
 import SideBarSlider from "../components/SideBarSlider/";
 import MainContainer from "../components/MainContainer";
 import { useDispatch } from "react-redux";
-
 import {
   selectDateProducts,
   selectTopProducts,
   selectLastSeenProducts,
   selectInterestProducts,
 } from "../redux/features/productsSlice";
-
 import {
   getProductsAll,
   getProductsWithDateFilter,
   getProductsWithTopFilter,
   getProductsWithLast_seenFilter,
   getProductsWithInterestFilter,
-} from '../productService';
+} from "../productService";
+import { setAdvertising } from "../redux/features/advertisingSlice";
+import axios from "axios";
+
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
+ 
   const user = useSelector(selectedUser);
 
   const dispatch = useDispatch();
@@ -37,13 +40,29 @@ const HomePage = () => {
   const interestProducts = useSelector(selectInterestProducts);
 
   useEffect(() => {
+    const getSlidersImages = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/advertising`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        
+        dispatch(setAdvertising(response.data.advertising.desktop))
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+    getSlidersImages();
+  }, [baseUrl, user.token]);
+
+  useEffect(() => {
     getProductsAll(dispatch);
     getProductsWithDateFilter(dispatch);
     getProductsWithTopFilter(dispatch);
     getProductsWithLast_seenFilter(dispatch, user);
     getProductsWithInterestFilter(dispatch);
   }, [dispatch, user]);
-
 
   const showModalHandler = () => {
     if (user.isLoggedIn || user.isRegisteredConfirmed) {

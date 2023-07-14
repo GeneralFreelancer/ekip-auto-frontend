@@ -7,11 +7,12 @@ import Slider from "./Slider/Slider";
 
 
 const SideBarSlider = () => {
+
   return (
     <section>
       <div className={s.container__sidebar_slider}>
           <SideBar/>
-          <Slider />
+          <Slider/>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import userReducer from "./features/userSlice";
 import cartReducer from "./features/cartSlice";
 import productsReducer from "./features/productsSlice";
 import favoriteReducer from "./features/favoriteSlice";
+import advertisingReducer from "./features/advertisingSlice";
 
 import {
   persistStore,
@@ -23,14 +24,15 @@ const persistConfig = {
 };
 
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
-// const persistedCartReducer = persistReducer(persistConfig, cartReducer);
+const persistedAdvertisingReducer = persistReducer(persistConfig, advertisingReducer);
 
 export const store = configureStore({
   reducer: {
     user: persistedUserReducer,
     cart: cartReducer,
     products: productsReducer,
-    favorite: favoriteReducer
+    favorite: favoriteReducer,
+    advertising: persistedAdvertisingReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

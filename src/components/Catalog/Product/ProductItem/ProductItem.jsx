@@ -132,7 +132,6 @@ const ProductItem = ({ selectedProduct }) => {
     setTitle(name);
   };
 
-  // ?????
   const hideProduct = async () => {
     const newHiddenValue = !isHidden;
     try {
@@ -146,12 +145,13 @@ const ProductItem = ({ selectedProduct }) => {
         }
       );
       setIsHidden(newHiddenValue);
+      navigate('/');
     } catch (error) {
       console.error(error);
     }
   };
 
-   // ?????
+ 
   const deleteProduct = async () => {
     try {
       const response = await axios.delete(`${baseUrl}/product/${id}`, {
@@ -160,8 +160,7 @@ const ProductItem = ({ selectedProduct }) => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-        navigate(-1);
-      console.log(response);
+        navigate('/');
     } catch (error) {
       console.error(error);
     }
