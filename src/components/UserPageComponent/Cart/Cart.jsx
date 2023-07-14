@@ -28,7 +28,7 @@ const Cart = () => {
   const [isActive, setIsActive] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
-
+  console.log(dataCartItems);
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
   const cart = useSelector(selectedCart);
@@ -50,55 +50,11 @@ const Cart = () => {
     getProductsFromCart();
   }, [dispatch, user.token]);
 
-  useEffect(() => {
-    const updatedDataCartItems = dataCartItems.map((item) => {
-      if (user.userdata.favoriteProducts.includes(item.product.id)) {
-        return {
-          ...item,
-          favorite: true,
-        };
-      }
-      return {
-        ...item,
-        favorite: false,
-      };
-    });
-    setDataCartItems(updatedDataCartItems);
-  }, [user.userdata.favoriteProducts]);
-
-  //  not work
-  const checkfavorite = async (id) => {
-    const updatedDataCartItems = dataCartItems.map((item) => {
-      if (item.product.id === id) {
-        return {
-          ...item,
-          favorite: !item.favorite,
-        };
-      }
-      return item;
-    });
-    setDataCartItems(updatedDataCartItems);
-    try {
-      const response = await axios.put(
-        `${baseUrl}/user/favorite`,
-        { productId: id },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      // console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const remove = async (id) => {
     const arrayWithoutDeletedProduct = [...dataCartItems]
       .filter((item) => item.product.id !== id)
       .map((p) => ({ product: p.product.id, number: p.number }));
-
+    console.log(arrayWithoutDeletedProduct)
     try {
       const response = await axios.post(
         `${baseUrl}/basket`,
@@ -117,30 +73,36 @@ const Cart = () => {
     }
   };
 
-  // not work
+  // chacne quantity 
   const changeQuantity = async (id, btnType) => {
+    console.log(id, btnType);
+  
+    let updateQuantity = [...dataCartItems];
     if (btnType === "up") {
-      setDataCartItems(
-        dataCartItems.filter((item) =>
-          item.product.id === id ? (item.number += item.product.minQuantity) : item.number
-        )
-      );
+      updateQuantity = updateQuantity.map((item) => {
+        if (item.product.id === id) {
+          return { product: item.product.id, number: item.number + item.product.minQuantity }
+        }
+        else {
+          return {product: item.product.id, number: item.number}
+        }
+      });  
     }
     if (btnType === "down") {
-      setDataCartItems(
-        dataCartItems.filter((item) =>
-          item.product.id === id && item.number > item.product.minQuantity
-            ? (item.number -= item.product.minQuantity)
-            : item.number
-        )
-      );
+      updateQuantity = updateQuantity.map((item) => {
+        if (item.product.id === id && item.number !== item.product.minQuantity) {
+          return { product: item.product.id, number: item.number - item.product.minQuantity }
+        }
+        else {
+          return {product: item.product.id, number: item.number}
+        }
+      });  
     }
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `${baseUrl}/basket`,
         {
-          product: id,
-          // number: productQuantity,
+          products: updateQuantity
         },
         {
           headers: {
@@ -204,7 +166,6 @@ const Cart = () => {
                 {desktop && (
                   <TableBody
                     changeQuantity={changeQuantity}
-                    checkFavorire={checkfavorite}
                     delete={remove}
                     data={dataCartItems}
                   />
@@ -212,7 +173,6 @@ const Cart = () => {
                 {middle && (
                   <TableBodyMiddle
                     changeQuantity={changeQuantity}
-                    checkFavorire={checkfavorite}
                     delete={remove}
                     data={dataCartItems}
                   />
@@ -220,7 +180,6 @@ const Cart = () => {
                 {mobile && (
                   <TableBodyMobile
                     changeQuantity={changeQuantity}
-                    checkFavorire={checkfavorite}
                     delete={remove}
                     data={dataCartItems}
                   />

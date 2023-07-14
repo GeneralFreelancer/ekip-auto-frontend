@@ -543,19 +543,11 @@ const ProductItem = ({ selectedProduct }) => {
                 />
               ) : (
                 <>
-                  {!mouseEnter ? (
-                    <Heart
-                      className={s.heart}
-                      onMouseEnter={hadleMouseEnter}
-                      onClick={handleFavouriteClick}
-                    />
-                  ) : (
-                    <Blackheart
-                      className={s.heartHover}
-                      onMouseLeave={hadleMouseLeave}
-                      onClick={handleFavouriteClick}
-                    />
-                  )}
+                  {!mouseEnter ? <Heart className={s.heart} onMouseEnter={hadleMouseEnter}/> : <Blackheart
+                    className={s.heartHover}
+                    onMouseLeave={hadleMouseLeave}
+                    onClick={handleFavouriteClick}
+                  />}
                 </>
               )}
 
@@ -569,3 +561,5 @@ const ProductItem = ({ selectedProduct }) => {
 };
 
 export default ProductItem;
+
+

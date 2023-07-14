@@ -4,15 +4,7 @@ import { ReactComponent as Heart } from "../../../../assets/svg/heart.svg";
 import { ReactComponent as BalckHeart } from "../../../../assets/svg/black_heart.svg";
 
 const TableBodyMobile = (props) => {
-  const remove = (id) => {
-    console.log(id);
-  };
-
-  const checkFavorite = (id) => {
-    props.data.find(
-      (item) => (item.id === id ? console.log(id) : "") // edit this for send request to db on change state
-    );
-  };
+  
   return props.data?.map(
     (item, i) => (
       <React.Fragment key={i + 1}>
@@ -48,20 +40,6 @@ const TableBodyMobile = (props) => {
           <td colSpan={2} className={style.cart__table_title}>
             <div className={style.cart__table_title_row1}>
               <h2>{item.product.name}</h2>
-              <span id={item.product.id} className={style.favorite}>
-                {item.product.favourite ? (
-                    <span 
-                      className={style.activeFavorite} onClick={() => {
-                      props.checkFavorire(item.product.id)
-                    }}></span>
-                  ) : (
-                      <span 
-                        className={style.hoverFavorite} onClick={() => {
-                          props.checkFavorire(item.product.id)
-                        }}
-                      ></span>
-                  )}
-              </span>
             </div>
             <div className={style.cart__table_title_row2}>
               <p className={style.product_sku}>
