@@ -19,20 +19,6 @@ const TableBodyMiddle = (props) => {
           <td colSpan="2" className={style.cart__table_title}>
             <div className={style.cart__table_title_row1}>
               <h2>{item.product.name}</h2>
-              <span id={item.product.id} className={style.favorite}>
-                {item.product.favourite ? (
-                    <span 
-                      className={style.activeFavorite} onClick={() => {
-                      props.checkFavorire(item.product.id)
-                    }}></span>
-                  ) : (
-                      <span 
-                        className={style.hoverFavorite} onClick={() => {
-                          props.checkFavorire(item.product.id)
-                        }}
-                      ></span>
-                  )}
-              </span>
             </div>
             <div className={style.cart__table_title_row2}>
               <p className={style.product_sku}>
