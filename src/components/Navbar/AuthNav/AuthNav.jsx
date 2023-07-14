@@ -7,6 +7,7 @@ import { selectedUser } from "../../../redux/features/userSlice";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/features/userSlice";
 import { useNavigate } from "react-router-dom";
+import {setProductsInCart} from "../../../redux/features/cartSlice"
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -51,7 +52,7 @@ const AuthNav = (props) => {
     dispatch(logout());
     setShowModal(false);
     navigate("/");
-    // Test
+    dispatch(setProductsInCart(null));
     localStorage.removeItem("role");
   };
 

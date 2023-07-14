@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { useDispatch } from "react-redux";
-import { logout, registerOut } from "../../../redux/features/userSlice";
+import { logout } from "../../../redux/features/userSlice";
 import { useNavigate } from "react-router-dom";
+import {setProductsInCart} from "../../../redux/features/cartSlice"
 
 const PageMenu = () => {
   const user = useSelector(selectedUser);
@@ -17,7 +18,7 @@ const PageMenu = () => {
     e.preventDefault();
     dispatch(logout());
     navigate("/");
-
+    dispatch(setProductsInCart(null));
   };
 
   return (

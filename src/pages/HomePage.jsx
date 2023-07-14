@@ -23,14 +23,18 @@ import {
   getProductsWithLast_seenFilter,
   getProductsWithInterestFilter,
 } from "../productService";
-import { setAdvertising } from "../redux/features/advertisingSlice";
+import {
+  setAdvertisingDesktop,
+  setAdvertisingTablet,
+  setAdvertisingMobile,
+} from "../redux/features/advertisingSlice";
 import axios from "axios";
 
-  const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
- 
+
   const user = useSelector(selectedUser);
 
   const dispatch = useDispatch();
@@ -38,6 +42,8 @@ const HomePage = () => {
   const topProducts = useSelector(selectTopProducts);
   const LastSeenProducts = useSelector(selectLastSeenProducts);
   const interestProducts = useSelector(selectInterestProducts);
+
+  // const viewportWidth = window.innerWidth;
 
   useEffect(() => {
     const getSlidersImages = async () => {
@@ -47,14 +53,19 @@ const HomePage = () => {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        
-        dispatch(setAdvertising(response.data.advertising.desktop))
+        // if (viewportWidth <= 540) {
+          dispatch(setAdvertisingMobile(response.data.advertising?.mobile));
+        // } else if (viewportWidth <= 1024) {
+          dispatch(setAdvertisingTablet(response.data.advertising?.tablet));
+        // } else {
+          dispatch(setAdvertisingDesktop(response.data.advertising?.desktop));
+        // }
       } catch (error) {
         console.error("Error:", error.message);
       }
     };
     getSlidersImages();
-  }, [baseUrl, user.token]);
+  }, [dispatch, user.token]);
 
   useEffect(() => {
     getProductsAll(dispatch);
