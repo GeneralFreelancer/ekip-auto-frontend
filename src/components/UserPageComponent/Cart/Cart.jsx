@@ -28,7 +28,7 @@ const Cart = () => {
   const [isActive, setIsActive] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
-  console.log(dataCartItems);
+ 
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
   const cart = useSelector(selectedCart);
@@ -73,10 +73,8 @@ const Cart = () => {
     }
   };
 
-  // chacne quantity 
+  // change quantity 
   const changeQuantity = async (id, btnType) => {
-    console.log(id, btnType);
-  
     let updateQuantity = [...dataCartItems];
     if (btnType === "up") {
       updateQuantity = updateQuantity.map((item) => {
@@ -110,7 +108,6 @@ const Cart = () => {
           },
         }
       );
-      console.log(response.data.basket.products);
       setDataCartItems(response.data.basket.products);
       dispatch(setProductsInCart(response.data.basket.products));
     } catch (error) {

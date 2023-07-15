@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { selectedCart } from "../../../redux/features/cartSlice";
 import { setProductsInCart } from "../../../redux/features/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -18,6 +19,7 @@ const Basket = () => {
   // const [timeoutId, setTimeoutId] = useState(null);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
   const cart = useSelector(selectedCart);
@@ -40,7 +42,7 @@ const Basket = () => {
     };
     if (user.token) {
       getProductsFromCart();
-    } 
+    }
   }, [dispatch, user.token]);
 
   useEffect(() => {
@@ -81,6 +83,9 @@ const Basket = () => {
   const handelClick = () => {
     setShowModal((prevState) => !prevState);
     setNumberOfProducts(cart.cartProducts);
+    if (viewportWidth <= 1024) {
+      navigate("/myprofile/basket");
+    }
   };
 
   const removeFromBasket = async (id) => {
@@ -119,9 +124,6 @@ const Basket = () => {
           !showModal ? style.wrapperShoppingCard : style.wrapperShoppingCardOpen
         }
       >
-        {/* {viewportWidth <= 1024 ? (
-          <NavLink className={style.button} to="/myprofile/basket"></NavLink>
-        ) : ( */}
         <div onClick={handelClick}>
           <ShoppingCard
             className={!showModal ? style.shoppingCard : style.shoppingCardOpen}
@@ -130,7 +132,6 @@ const Basket = () => {
             <p>{cart.cartProducts?.length ? cart.cartProducts.length : 0}</p>
           </div>
         </div>
-        {/* )} */}
 
         {desktopV && showModal && (
           <div className={style.modalCard}>

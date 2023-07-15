@@ -1,79 +1,127 @@
-import style from './Share.module.scss';
+import style from "./Share.module.scss";
 import { useMediaPredicate } from "react-media-hook";
-import { useState } from 'react';
-import TableHead from './TableHead/TableHead';
-import TableHeadMiddle from './TableHead/TableHeadMiddle';
-import TableBody from './TableBody/TableBody';
-import TableBodyMiddle from './TableBody/TableBodyMiddle';
-import TableBodyMobile from './TableBody/TableBodyMobile';
+import { useEffect, useState } from "react";
+import TableHead from "./TableHead/TableHead";
+import TableHeadMiddle from "./TableHead/TableHeadMiddle";
+import TableBody from "./TableBody/TableBody";
+import TableBodyMiddle from "./TableBody/TableBodyMiddle";
+import TableBodyMobile from "./TableBody/TableBodyMobile";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../../redux/features/userSlice";
 
 const mockItems = [
   {
-    id: '1',
-    name: 'Сергій Притула',
-    productId: '1',
+    id: "1",
+    name: "Сергій Притула",
+    productId: "1",
     status: true,
-    date: 1679497533000 
+    date: 1679497533000,
   },
   {
-    id: '1',
-    name: 'Сергій Притула',
-    productId: '1',
+    id: "2",
+    name: "Сергій Притула",
+    productId: "1",
     status: true,
-    date: 1679497533000 
+    date: 1679497533000,
   },
   {
-    id: '1',
-    name: 'Сергій Притула',
-    productId: '1',
+    id: "3",
+    name: "Сергій Притула",
+    productId: "1",
     status: true,
-    date: 1679497533000 
+    date: 1679497533000,
   },
-]
+];
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const AdminComponentsShare = () => {
   const desktop = useMediaPredicate("(min-width: 1024px)");
-  const middle = useMediaPredicate("(min-width: 540px) and (max-width: 1023px)");
+  const middle = useMediaPredicate(
+    "(min-width: 540px) and (max-width: 1023px)"
+  );
   const mobile = useMediaPredicate("(max-width: 540px)");
-  const [dataMockItems, setDataMockItems] = useState(mockItems);
-  
-  //remover function delete items
-  const remove = (id) => {
-    console.log(id);
+  const [dataItems, setDataItems] = useState([]);
+
+  const user = useSelector(selectedUser);
+
+  useEffect(() => {
+    const handleGoodsRequest = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/product-request`, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
+        setDataItems(response.data.productRequests);
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+    handleGoodsRequest()
+  }, [user.token]);
+
+  const remove = async(id) => {
+    try {
+      const response = await axios.delete(`${baseUrl}/product-request/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      console.log(response.data.productRequest);
+      setDataItems(response.data.productRequests);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
     // let templateArr = dataMockItems;
     // templateArr = [...templateArr].filter(item => item.id !== id);
     // console.log(templateArr);
     // setDataMockItems(templateArr);
   };
+
   // change favorite state in DB
   const access = (id) => {
     console.log(id);
     // let templateArr = dataMockItems;
-
     // templateArr = [...templateArr].filter(item => (
     //   item.id === id ? !item.favorite : !item.favorite
     //   ));
     // setDataMockItems(templateArr);
-  }
-  return(
+  };
+
+  return (
     <>
       <div className={style.share__wrapper}>
-      <div className={style.share__blockTitle}>доступ до залишків на складі</div>
-      {desktop && <TableHead />}
-      <table className={style.share__table}>
-        <thead>
-          {middle && <TableHeadMiddle />}
-        </thead>
-        <tbody>
-          {desktop && <TableBody access={access} delete={remove} data={dataMockItems}/>}
-          {middle && <TableBodyMiddle access={access} delete={remove} data={dataMockItems}/>}
-          {mobile && <TableBodyMobile access={access} delete={remove} data={dataMockItems}/>}
-        </tbody>
-      </table>
-    </div>
+        <div className={style.share__blockTitle}>
+          доступ до залишків на складі
+        </div>
+        {desktop && <TableHead />}
+        <table className={style.share__table}>
+          <thead>{middle && <TableHeadMiddle />}</thead>
+          <tbody>
+            {desktop && (
+              <TableBody access={access} delete={remove} data={dataItems} />
+            )}
+            {middle && (
+              <TableBodyMiddle
+                access={access}
+                delete={remove}
+                data={dataItems}
+              />
+            )}
+            {mobile && (
+              <TableBodyMobile
+                access={access}
+                delete={remove}
+                data={dataItems}
+              />
+            )}
+          </tbody>
+        </table>
+      </div>
     </>
-  )
-}
+  );
+};
 
 export default AdminComponentsShare;

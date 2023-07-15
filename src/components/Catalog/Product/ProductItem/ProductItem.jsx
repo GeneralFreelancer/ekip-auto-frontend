@@ -22,8 +22,6 @@ import { addToFavorites } from "../../../../redux/features/userSlice";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-// const initialTitle = `ASUS 100500 G Arial- Black (G170-48) `;
-
 // const images = [
 //   "https://cdn.27.ua/799/9d/06/2596102_11.jpeg",
 //   "https://zhzh.info/_pu/126/47073814.jpg",
