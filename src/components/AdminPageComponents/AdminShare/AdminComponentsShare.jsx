@@ -62,6 +62,7 @@ const AdminComponentsShare = () => {
     handleGoodsRequest()
   }, [user.token]);
 
+  //  not work
   const remove = async(id) => {
     try {
       const response = await axios.delete(`${baseUrl}/product-request/${id}`, {

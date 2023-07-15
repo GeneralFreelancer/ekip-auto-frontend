@@ -34,6 +34,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const HomePage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const user = useSelector(selectedUser);
 
@@ -53,15 +54,15 @@ const HomePage = () => {
             Authorization: `Bearer ${user.token}`,
           },
         });
-        // if (viewportWidth <= 540) {
-          dispatch(setAdvertisingMobile(response.data.advertising?.mobile));
-        // } else if (viewportWidth <= 1024) {
-          dispatch(setAdvertisingTablet(response.data.advertising?.tablet));
-        // } else {
-          dispatch(setAdvertisingDesktop(response.data.advertising?.desktop));
-        // }
+        dispatch(setAdvertisingMobile(response.data.advertising?.mobile));
+        setIsLoading(false);
+        dispatch(setAdvertisingTablet(response.data.advertising?.tablet));
+        setIsLoading(false);
+        dispatch(setAdvertisingDesktop(response.data.advertising?.desktop));
+        setIsLoading(false);
       } catch (error) {
         console.error("Error:", error.message);
+        setIsLoading(false);
       }
     };
     getSlidersImages();
@@ -92,11 +93,17 @@ const HomePage = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        <SideBarSlider />
-        <ListCards title={"Останні надходження"} items={dateProducts} />
-        <ListCards title={"Топ продажу"} items={topProducts} />
-        <ListCards title={"Останні переглянуті"} items={LastSeenProducts} />
-        <ListCards title={"Вас може зацікавити"} items={interestProducts} />
+        {isLoading ? (
+          <div className="loader"></div>
+        ) : (
+          <>
+            <SideBarSlider />
+            <ListCards title={"Останні надходження"} items={dateProducts} />
+            <ListCards title={"Топ продажу"} items={topProducts} />
+            <ListCards title={"Останні переглянуті"} items={LastSeenProducts} />
+            <ListCards title={"Вас може зацікавити"} items={interestProducts} />
+          </>
+        )}
       </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />

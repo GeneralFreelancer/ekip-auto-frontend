@@ -134,8 +134,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          {/* http://localhost:3000/myprofile/share-stocks */}
           <Route path="share-stocks" element={<AdminShareStocksPage />} />
         </Route>
       </Routes>
