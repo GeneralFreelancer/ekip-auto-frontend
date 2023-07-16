@@ -13,9 +13,15 @@ const userToken = JSON.parse(obj)?.token;
 
 const authorization = userToken ? `Bearer ${JSON.parse(userToken)}` : undefined;
 
-// if (authorization && authorization !== "Bearer ") {
-//   axios.defaults.headers.common["Authorization"] = authorization;
-// }
+if (authorization && authorization !== "Bearer null" && authorization !== "Bearer ") {
+  axios.defaults.headers.common["Authorization"] = authorization;
+  // console.log(axios.defaults.headers.common["Authorization"]);
+}
+
+// const headers = userToken ? {
+//   Authorization: `Bearer ${JSON.parse(userToken)}`,
+// } : {};
+// console.log(headers);
 
 // products
 export const getProductsAll = async (dispatch) => {
@@ -48,7 +54,7 @@ export const getProductsWithTopFilter = async (dispatch) => {
 export const getProductsWithLast_seenFilter = async (dispatch, user) => {
   try {
     let response;
-    if (user.isLoggedIn) {
+    if (user?.isLoggedIn) {
       response = await axios.get(
         `${baseUrl}/product/?filter=last_seen&userId=${user.userdata.id}`
       );

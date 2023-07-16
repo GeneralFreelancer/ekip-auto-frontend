@@ -18,6 +18,8 @@ const Favorite = () => {
   const [perPage, setPerPage] = useState(36);
   const [current, setCurrent] = useState(1);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+  const [isLoading, setIsLoading] = useState(true);
+
   const user = useSelector(selectedUser);
   const dispatch = useDispatch();
 
@@ -65,8 +67,10 @@ const Favorite = () => {
       });
       dispatch(setFavoriteProducts(response.data.products));
       setItems(response.data.products);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error:", error.message);
+      setIsLoading(false);
     }
   };
 
@@ -101,7 +105,6 @@ const Favorite = () => {
     return originalElement;
   };
 
-  
   const handelClick = async (id) => {
     try {
       const response = await axios.put(
@@ -123,20 +126,26 @@ const Favorite = () => {
   return (
     <>
       <div className={s.wrapperListCards}>
-        <FavoriteList
-          items={getData(current, perPage)}
-          handelClick={handelClick}
-        />
-        {items.length > perPage && (
-          <Pagination
-            className="pagination-data"
-            onChange={PaginationChange}
-            total={items.length}
-            current={current}
-            pageSize={perPage}
-            showSizeChanger={false}
-            itemRender={PrevNextArrow}
-          />
+        {isLoading ? (
+          <div className="loader"></div>
+        ) : (
+          <>
+            <FavoriteList
+              items={getData(current, perPage)}
+              handelClick={handelClick}
+            />
+            {items.length > perPage && (
+              <Pagination
+                className="pagination-data"
+                onChange={PaginationChange}
+                total={items.length}
+                current={current}
+                pageSize={perPage}
+                showSizeChanger={false}
+                itemRender={PrevNextArrow}
+              />
+            )}
+          </>
         )}
       </div>
     </>
