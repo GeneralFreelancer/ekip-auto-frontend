@@ -13,6 +13,7 @@ const AdminCard = ({
   onDelete,
   onChangePosition,
   styleName,
+  disabled,
 }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isFirstCard = index === 0;
@@ -21,18 +22,20 @@ const AdminCard = ({
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
- 
+
+
   return (
     <>
       <div className={isFirstCard ? `${s.notBorder} ${s.card}` : s.card}>
         <div className={s.wrapperFirst}>
           <p className={s.number}>№ {index + 1}</p>
-          <div className={s.wrapperIcon}>
+          <div className={`${s.wrapperIcon} ${disabled ? s.disabled : ''}`}>
             <Cancel
               className={`${s.cancel} ${s.icon}`}
               index={index}
               name={name}
               onClick={() => onDelete(index, url, name)}
+              disabled={disabled}
             />
           </div>
         </div>
@@ -41,8 +44,7 @@ const AdminCard = ({
           className={styleName ? ` ${s[`${styleName}`]} ${s.img}` : s.img}
           style={{ backgroundImage: `url(${url})` }}
           onClick={toggleFullScreen}
-        >
-        </div>
+        ></div>
 
         <div className={s.wrapperSecond}>
           <div>

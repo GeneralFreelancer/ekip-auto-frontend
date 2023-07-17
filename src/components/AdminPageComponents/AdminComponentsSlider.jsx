@@ -71,6 +71,9 @@ const AdminComponentsSlider = () => {
   const [temporalDesktop, setTemporalDesktop] = useState([]);
   const [temporalTablet, setTemporalTablet] = useState([]);
   const [temporalMobile, setTemporalMobile] = useState([]);
+  const [deleteButtonDesktop, setDeleteButtonDesktop] = useState(false);
+  const [deleteButtonTablet, setDeleteButtonTablet] = useState(false);
+  const [deleteButtonMobile, setDeleteButtonMobile] = useState(false);
 
   const [typeName, setTypeName] = useState("");
 
@@ -98,6 +101,19 @@ const AdminComponentsSlider = () => {
     getSliders();
   }, [user.token]);
 
+  useEffect(() => {
+    if (temporalDesktop.length === 1) {
+      console.log(temporalDesktop, deleteButtonDesktop);
+      setDeleteButtonDesktop(true);
+    } else if (temporalTablet.length === 1) {
+      console.log(temporalTablet, deleteButtonTablet);
+      setDeleteButtonTablet(true);
+    } else if (temporalMobile.length === 1) {
+      console.log(deleteButtonMobile, deleteButtonMobile);
+      setDeleteButtonMobile(true);
+    }
+  }, [deleteButtonDesktop, deleteButtonMobile, deleteButtonTablet, temporalDesktop, temporalMobile.length, temporalTablet, temporalTablet.length])
+
   const onDelete = async (index, url, name) => {
     let formattedArray = url.split("/");
     let formattedUrlName = formattedArray[formattedArray.length - 1];
@@ -124,22 +140,41 @@ const AdminComponentsSlider = () => {
           .slice(0, index)
           .concat(temporalDesktop.slice(index + 1));
         setTemporalDesktop(updatedArray);
+        if (updatedArray.length === 1) {
+          console.log(updatedArray, deleteButtonDesktop);
+          setDeleteButtonDesktop(true);
+        } else if (updatedArray.length > 1) {
+          setDeleteButtonDesktop(false);
+        }
         break;
       case "tablet":
         updatedArray = temporalTablet
           .slice(0, index)
           .concat(temporalTablet.slice(index + 1));
         setTemporalTablet(updatedArray);
+        if (updatedArray.length === 1) {
+          console.log(updatedArray, deleteButtonTablet);
+          setDeleteButtonTablet(true);
+        } else if (updatedArray.length > 1) {
+          setDeleteButtonTablet(false);
+        }
         break;
       case "mobile":
         updatedArray = temporalMobile
           .slice(0, index)
           .concat(temporalMobile.slice(index + 1));
         setTemporalMobile(updatedArray);
+        if (updatedArray.length === 1) {
+          console.log(updatedArray, deleteButtonMobile);
+          setDeleteButtonMobile(true);
+        } else if (updatedArray.length > 1) {
+          setDeleteButtonMobile(false);
+        }
         break;
       default:
         break;
     }
+
   };
 
   const onChangePosition = (direction, index, name) => {
@@ -182,7 +217,6 @@ const AdminComponentsSlider = () => {
         return;
     }
   };
-
 
   const onClickMainButton = (name) => {
     if (name === "cancel") {
@@ -304,6 +338,7 @@ const AdminComponentsSlider = () => {
           arr={temporalDesktop}
           size={"1920px × 508px"}
           addNewCard={addNewCard}
+          disabled={deleteButtonDesktop}
         />
         <AdminCardList
           name={"tablet"}
@@ -312,6 +347,7 @@ const AdminComponentsSlider = () => {
           arr={temporalTablet}
           size={"1024px × 465px"}
           addNewCard={addNewCard}
+          disabled={deleteButtonTablet}
         />
         <AdminCardList
           name={"mobile"}
@@ -320,6 +356,7 @@ const AdminComponentsSlider = () => {
           arr={temporalMobile}
           size={"540px × 453px"}
           addNewCard={addNewCard}
+          disabled={deleteButtonMobile}
         />
 
         <input

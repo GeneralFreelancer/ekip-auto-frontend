@@ -14,7 +14,7 @@ const TableBody = (props) => {
     //   day: "2-digit",
     // }).format(orderDate);
   };
-console.log(props.data);
+
   return props.data?.map((item) => (
     <tr key={item._id}>
       <td className={style.share__table_number}>{orderDateHuman(item.createdAt)}</td>
