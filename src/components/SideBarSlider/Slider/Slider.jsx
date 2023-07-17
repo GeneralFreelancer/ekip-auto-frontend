@@ -39,7 +39,7 @@ const Slider = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [role, setRole] = useState(false);
   const images = useSelector(selectedAdvertising).advertising;
-  
+  console.log(images)
   const localStor = localStorage.getItem("role");
 
   const navigate = useNavigate();
