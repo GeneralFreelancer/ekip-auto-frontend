@@ -21,7 +21,9 @@ const AdminCardList = ({
           <AdminCard
             name={name}
             url={typeof image === 'object' ? image.Image : image}
+            link={image.url}
             index={i}
+            length={arr.length}
             key={i}
             total={Number(arr.length) - 1}
             onDelete={onDelete}

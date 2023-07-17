@@ -71,7 +71,7 @@ const AdminComponentsSlider = () => {
   const [temporalDesktop, setTemporalDesktop] = useState([]);
   const [temporalTablet, setTemporalTablet] = useState([]);
   const [temporalMobile, setTemporalMobile] = useState([]);
-
+console.log('temporalDesktop ', temporalDesktop);
   const [typeName, setTypeName] = useState("");
 
   const fileInputRef = useRef(null);

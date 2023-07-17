@@ -7,8 +7,10 @@ import { ReactComponent as Upload } from "../../../../assets/svg/admin/upload.sv
 
 const AdminCard = ({
   url,
+  link,
   index,
   name,
+  length,
   total,
   onDelete,
   onChangePosition,
@@ -17,16 +19,17 @@ const AdminCard = ({
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isFirstCard = index === 0;
   const isLastCard = index === total;
-
+  
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
- 
+
   return (
     <>
       <div className={isFirstCard ? `${s.notBorder} ${s.card}` : s.card}>
         <div className={s.wrapperFirst}>
           <p className={s.number}>№ {index + 1}</p>
+      { length > 1 &&   
           <div className={s.wrapperIcon}>
             <Cancel
               className={`${s.cancel} ${s.icon}`}
@@ -34,15 +37,14 @@ const AdminCard = ({
               name={name}
               onClick={() => onDelete(index, url, name)}
             />
-          </div>
+          </div>}
         </div>
 
         <div
           className={styleName ? ` ${s[`${styleName}`]} ${s.img}` : s.img}
           style={{ backgroundImage: `url(${url})` }}
           onClick={toggleFullScreen}
-        >
-        </div>
+        ></div>
 
         <div className={s.wrapperSecond}>
           <div>
@@ -82,6 +84,15 @@ const AdminCard = ({
           {/* <div className={s.wrapperIcon}>
             <Upload className={`${s.upload} ${s.icon}`} />
           </div> */}
+        </div>
+        <div>
+          <label> Дайте посилання на рекламу</label>
+          <input
+            className={s.ads_input}
+            placeholder="https://sitename.com/fullpath"
+            value={link}
+            type="text"
+          />
         </div>
       </div>
       {isFullScreen && (
