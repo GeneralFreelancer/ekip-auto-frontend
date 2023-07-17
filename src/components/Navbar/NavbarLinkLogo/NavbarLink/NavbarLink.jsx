@@ -4,17 +4,21 @@ import s from "./NavbarLink.module.scss";
 
 const NavbarLink = ({styleItem}) => {
 
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
+  
   return (
     <div className={styleItem ? `${s[`${styleItem}`]} ${s.logo_navlink}` : s.logo_navlink}>
       <div className={s.nav_links}>
         <div className={s.nav_links_wrapper}>
           <div className={s.nav_li}>
-            <Link to="/about">Про нас</Link>
+            <Link to="/about" onClick={scrollToTop}>Про нас</Link>
           </div>
         </div>
         <div className={s.nav_links_wrapper}>
           <div className={s.nav_li}>
-            <Link to="/partners">Для партнерів</Link>
+            <Link to="/partners" onClick={scrollToTop}>Для партнерів</Link>
           </div>
         </div>
         {/* <div className={s.nav_links_wrapper}>

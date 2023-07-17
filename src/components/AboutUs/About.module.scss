@@ -2,7 +2,7 @@
   position: absolute;
   top: 73px;
   width: 100%;
-  height: 350px;
+  height: 100vh;
   background-image: url("../../assets/Front-BG.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -12,10 +12,10 @@
   position: relative;
   padding-bottom: 5px;
   .partners_empty {
-    height: 350px;
-    @media screen and (max-width: 540px) {
-      height: 40vh;
-    }
+    height: 100vh;
+    // @media screen and (max-width: 540px) {
+    //   height: 40vh;
+    // }
   }
   .partners_image {
     position: absolute;
@@ -25,31 +25,31 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 350px;
+    height: 100vh;
     width: calc(100% + 60px);
     margin: 0 auto;
     border: none;
     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.4);
     @media screen and (max-width: 540px) {
       width: calc(100% + 35px);
-      height: 40vh;
+      // height: 40vh;
     }
   }
   .partners_logo {
     position: absolute;
-    top: 50px;
+    top: 25vh;
     left: 0px;
     background-image: url("../../assets/logo&slogan.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 150px;
+    height: 230px;
     width: 100%;
     margin: 0 auto;
   }
   .partners_text {
     position: absolute;
-    top: 240px;
+    top: 375px;
     left: 50%;
     transform: translate(-50%, -50%);
     text-transform: uppercase;
@@ -58,7 +58,7 @@
     width: auto;
     @media screen and (max-width: 540px) {
       font-size: 16px;
-      top: 180px;
+      // top: 180px;
     }
     @media screen and (max-width: 400px) {
       font-size: 13px;
@@ -66,13 +66,13 @@
   }
   .partners_arrow {
     position: absolute;
-    top: 255px;
+    top: 395px;
     left: 50%;
     width: 25px;
     height: 25px;
     cursor: pointer;
     @media screen and (max-width: 540px) {
-      top: 190px;
+      // top: 190px;
       width: 18px;
       height: 18px;
     }

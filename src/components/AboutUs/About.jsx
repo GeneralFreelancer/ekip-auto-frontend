@@ -19,7 +19,7 @@ const About = () => {
         <div className={s.partners_empty}></div>
         <div className={s.partners_image}></div>
         <div className={s.partners_logo}>
-          <div className={s.partners_text}>Читати для партнерів</div>
+          <div className={s.partners_text}>Читати про нас</div>
           <DoubleArrow
             className={s.partners_arrow}
             onClick={() => scrollToAnchor("lastParagraph_block")}
@@ -28,7 +28,7 @@ const About = () => {
         <div className={s.partners_arrow}></div>
         <div className={s.partners_title}></div>
         <div className={s.partners_button}></div>
-
+        <a id="lastParagraph_block" className={s.anchor}></a>
         <div>
           <p className={s.title}>
             Наша компанія Ekip-Auto вже більш ніж 20 років займається імпортом
@@ -51,7 +51,6 @@ const About = () => {
                 усі тонкощі плідної та перспективної співпраці.
                 <img className={s.image} src={boxes} />
               </p>
-              <a id="lastParagraph_block" className={s.anchor}></a>
               <p className={s.text}>
                 Ми віримо, що наш досвід та індивідуальний підхід до потреб
                 кожного партнера дозволять нам з вами побудувати довгі та

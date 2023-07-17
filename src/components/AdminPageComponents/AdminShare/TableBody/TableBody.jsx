@@ -21,14 +21,14 @@ console.log(props.data);
       <td className={style.share__table_title}>
         <div className={style.share__table_title_row1}>
           <h2>
-            {item.user.firstName} {item.user.lastName}
+            {item.user?.firstName} {item.user?.lastName}
           </h2>
         </div>
       </td>
       <td className={style.share__table_picture}>
         <div
           className={style.share__table_picture_item}
-          // style={{ backgroundImage: `url(${})` }}
+          style={{ backgroundImage: `url(${item.product?.pictures[0]})` }}
         ></div>
       </td>
       <td className={style.share__table_delete}>

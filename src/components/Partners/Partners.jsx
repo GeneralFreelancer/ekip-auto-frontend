@@ -27,7 +27,7 @@ const Partners = () => {
         <div className={s.partners_arrow}></div>
         <div className={s.partners_title}></div>
         <div className={s.partners_button}></div>
-        
+        <a id='message_block' className={s.anchor}></a>
         <div className={s.partners_content}>
           <p className={s.title}>
             Наша компанія завжди відкрита для нових пропозицій<br></br> і ми
@@ -42,7 +42,6 @@ const Partners = () => {
             </p>
             <div className={s.hr}></div>
           </div>
-          <a id='message_block' className={s.anchor}></a>
           <div className={s.message_block}>
             <div style={{ position: "relative", maxWidth: "100%" }}>
               <textarea

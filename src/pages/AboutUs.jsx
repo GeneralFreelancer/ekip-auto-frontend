@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { selectedUser } from "../redux/features/userSlice";
 import MainContainer from "../components/MainContainer";
 import About from "../components/AboutUs";
+import s from "../components/AboutUs/About.module.scss";
 
 const AboutUs = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
@@ -29,6 +30,7 @@ const AboutUs = () => {
     <>
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
+      <div className={s.partners_bg}></div>
       <MainContainer>
         <About />
       </MainContainer>
