@@ -80,6 +80,7 @@ const AdminComponentsProductPhoto = () => {
       ];
     }
     setImages(updatedArray);
+    // dispatch(setOneProduct(updatedArray));
   };
 
   const onClickMainButton = (name) => {

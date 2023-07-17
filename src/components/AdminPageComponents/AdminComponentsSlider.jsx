@@ -1,4 +1,3 @@
-/* eslint-disable no-duplicate-case */
 import { useState, useEffect, useRef } from "react";
 import AdminTitle from "./AdminCardList/AdminTitle";
 import AdminCardList from "./AdminCardList";
@@ -6,7 +5,13 @@ import AdminButtons from "./AdminButtons";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../redux/features/userSlice";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {
+  setAdvertisingDesktop,
+  setAdvertisingTablet,
+  setAdvertisingMobile,
+} from "../../redux/features/advertisingSlice";
+import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -73,6 +78,7 @@ const AdminComponentsSlider = () => {
   const user = useSelector(selectedUser);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getSliders = async () => {
@@ -104,8 +110,11 @@ const AdminComponentsSlider = () => {
         },
       });
       setTemporalDesktop(response.data.advertising.desktop);
+      dispatch(setAdvertisingDesktop(response.data.advertising.desktop));
       setTemporalTablet(response.data.advertising.tablet);
+      dispatch(setAdvertisingTablet(response.data.advertising.tablet));
       setTemporalMobile(response.data.advertising.mobile);
+      dispatch(setAdvertisingMobile(response.data.advertising.mobile));
     } catch (error) {
       console.error(error);
     }
@@ -174,28 +183,56 @@ const AdminComponentsSlider = () => {
     }
   };
 
-  //  not work
+
   const onClickMainButton = (name) => {
-    if ((name = "close")) {
+    if (name === "cancel") {
       navigate(-1);
     } else if (name === "save") {
-      //  на галочку внизу запит на бек put /advertising
-      // три масива картинком тільки назва
-      let formattedArray1 = temporalDesktop.map((image) => image.Image.split("/").pop());
-      let formattedArray2 = temporalTablet.map((image) => image.Image.split("/").pop());
-      let formattedArray3 = temporalMobile.map((image) => image.Image.split("/").pop());
+      const formattedArray1 = temporalDesktop.map((item) => {
+        const lastSlashIndex = item.Image.lastIndexOf("/");
+        const imageName = item.Image.substring(lastSlashIndex + 1);
+        return {
+          image: imageName,
+          url: item.url,
+        };
+      });
+      const formattedArray2 = temporalTablet.map((item) => {
+        const lastSlashIndex = item.Image.lastIndexOf("/");
+        const imageName = item.Image.substring(lastSlashIndex + 1);
+        return {
+          image: imageName,
+          url: item.url,
+        };
+      });
+      const formattedArray3 = temporalMobile.map((item) => {
+        const lastSlashIndex = item.Image.lastIndexOf("/");
+        const imageName = item.Image.substring(lastSlashIndex + 1);
+        return {
+          image: imageName,
+          url: item.url,
+        };
+      });
       const savePhotoArray = async () => {
         try {
           const response = await axios.put(
-            `${baseUrl}/product`,
-            { pictures: formattedArray1, formattedArray2, formattedArray3},
+            `${baseUrl}/advertising`,
+            {
+              desktop: formattedArray1,
+              tablet: formattedArray2,
+              mobile: formattedArray3,
+            },
             {
               headers: {
                 Authorization: `Bearer ${user.token}`,
               },
             }
           );
-          // setImages(response.data.product.pictures);
+          setTemporalDesktop(response.data.advertising.desktop);
+          dispatch(setAdvertisingDesktop(response.data.advertising.desktop));
+          setTemporalTablet(response.data.advertising.tablet);
+          dispatch(setAdvertisingTablet(response.data.advertising.tablet));
+          setTemporalMobile(response.data.advertising.mobile);
+          dispatch(setAdvertisingMobile(response.data.advertising.mobile));
         } catch (error) {
           console.error(error);
         }
@@ -238,12 +275,15 @@ const AdminComponentsSlider = () => {
       switch (name) {
         case "desktop":
           setTemporalDesktop(response.data.advertising.desktop);
+          dispatch(setAdvertisingDesktop(response.data.advertising.desktop));
           break;
         case "tablet":
           setTemporalTablet(response.data.advertising.tablet);
+          dispatch(setAdvertisingTablet(response.data.advertising.tablet));
           break;
         case "mobile":
           setTemporalMobile(response.data.advertising.mobile);
+          dispatch(setAdvertisingMobile(response.data.advertising.mobile));
           break;
         default:
           return;

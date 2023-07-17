@@ -13,7 +13,7 @@ const TableBodyMiddle = (props) => {
           <td className={style.cart__table_picture}>
             <div
               className={style.cart__table_picture_item}
-              style={{ backgroundImage: `url(${item.product.pictures[0]}})` }}
+              style={{ backgroundImage: `url(${item.product.pictures[0]})` }}
             ></div>
           </td>
           <td colSpan="2" className={style.cart__table_title}>

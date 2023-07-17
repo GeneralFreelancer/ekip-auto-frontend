@@ -26,22 +26,26 @@ const MobileMenu = (props) => {
     <div className={s.mobile_modal}>
       <div className={s.mobile_modal_header}>
         <div
-          className={(user.isLoggedIn || user.isRegisteredConfirmed) && s.mobile_cross}
+          className={
+            (user.isLoggedIn || user.isRegisteredConfirmed) && s.mobile_cross
+          }
         >
           <Cross className={s.cross} onClick={props.onClick} />
         </div>
         <Logo styleItem={"modal__center"} />
         <div className={s.userMob_block}>
-          {/* {user.isLoggedIn && <p style={{ color: "white" }}>Тимур</p>} */}
           {user.isRegisteredConfirmed ? (
             <Link to={"/myprofile/mydata"}>
-              <UserMob className={s.userMob_red} />
+              {user.isDataFullFilled ? (
+                <UserMob className={s.userMob} />
+              ) : (
+                <UserMob className={`${s.userMob} ${s.userMob_red}`} />
+              )}
             </Link>
           ) : (
             <UserMob
               className={s.userMob}
               onClick={() => {
-                // onClickNavigate();
                 props.onShowModal();
               }}
             />
@@ -49,7 +53,7 @@ const MobileMenu = (props) => {
         </div>
       </div>
       <NavbarLink styleItem={"logo_navlink_mobile"} />
-      <Accordion onClick={props.onClick}/>
+      <Accordion onClick={props.onClick} />
     </div>
   );
 };

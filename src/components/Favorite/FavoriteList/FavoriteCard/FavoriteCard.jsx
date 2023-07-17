@@ -61,7 +61,7 @@ const FavoriteCard = ({
         className={s.clickArea}
         id={id}
         onClick={(e) => {
-          console.log(e.target.id); /**add riderect link */
+          // console.log(e.target.id); /**add riderect link */
         }}
       ></span>
       <div

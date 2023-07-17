@@ -4,11 +4,12 @@ import "./Slider.scss";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ReactComponent as Setting } from "../../../assets/svg/setting.svg";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useSelector } from "react-redux";
-import { selectedUser } from "../../../redux/features/userSlice";
-import { selectedAdvertising } from "../../../redux/features/advertisingSlice";
+import {
+  selectedAdvertisingDesktop,
+  selectedAdvertisingTablet,
+  selectedAdvertisingMobile,
+} from "../../../redux/features/advertisingSlice";
 
 // const photos = [
 //   {
@@ -38,11 +39,22 @@ const properties = {
 const Slider = () => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const [role, setRole] = useState(false);
-  const images = useSelector(selectedAdvertising).advertising;
-  console.log(images)
-  const localStor = localStorage.getItem("role");
 
-  const navigate = useNavigate();
+  let advertisingMobile = useSelector(selectedAdvertisingMobile);
+  let advertisingTablet = useSelector(selectedAdvertisingTablet);
+  let advertisingDesktop = useSelector(selectedAdvertisingDesktop);
+
+  let images;
+
+  if (viewportWidth <= 540) {
+    images = advertisingMobile;
+  } else if (viewportWidth <= 1024) {
+    images = advertisingTablet;
+  } else {
+    images = advertisingDesktop;
+  }
+
+  const localStor = localStorage.getItem("role");
 
   useEffect(() => {
     if (localStorage.getItem("role") === "admin") {

@@ -6,209 +6,8 @@ import "../SideBarSlider/Slider/Slider.scss";
 import style from "./ListCards.module.scss";
 import Card from "./Card";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-
-// let cardsData = [
-//   {
-//     id: 1,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title:
-//       " Lampa is wery good lampaLampa is wery good lampaLampa is wery good",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 2,
-//     imgUrl:
-//       "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 3,
-//     imgUrl:
-//       "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: false,
-//   },
-//   {
-//     id: 4,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: false,
-//   },
-//   {
-//     id: 5,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: false,
-//   },
-//   {
-//     id: 6,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 7,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 8,
-//     imgUrl:
-//       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 9,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 10,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 11,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 12,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 13,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title:
-//       " Lampa is wery good lampaLampa is wery good lampaLampa is wery good",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 14,
-//     imgUrl:
-//       "https://w7.pngwing.com/pngs/235/163/png-transparent-ghost-drawing-halloween-ghost-pics-white-marine-mammal-fictional-character.png",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 15,
-//     imgUrl:
-//       "https://w.forfun.com/fetch/9d/9db2d4683d92f5f2045e9142fbd82633.jpeg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: false,
-//   },
-//   {
-//     id: 16,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: false,
-//   },
-//   {
-//     id: 17,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: false,
-//   },
-//   {
-//     id: 18,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 19,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 20,
-//     imgUrl:
-//       "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/LetterG.svg/800px-LetterG.svg.png",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 21,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 22,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 23,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-//   {
-//     id: 24,
-//     imgUrl: "https://sts.sumy.ua/wp-content/uploads/2019/07/tvar.jpg",
-//     title: "Lampa is wery good lampa",
-//     priceUAH: "5000",
-//     priseUSD: "500",
-//     inStock: true,
-//   },
-// ];
+import { setCategoryProducts, setSubCategoryProducts } from "../../redux/features/productsSlice";
+import { useDispatch } from "react-redux";
 
 const properties = {
   autoplay: false,
@@ -233,8 +32,10 @@ const ListCards = ({
   const [cards, setCards] = useState(items);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(6);
-  const [lastPage, setLastPage] = useState(false);
+  // const [lastPage, setLastPage] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
+  const dispatch = useDispatch();
 
   const changeCardsQuantity = (width) => {
     if (width > 1575) {
@@ -349,6 +150,8 @@ const ListCards = ({
                   className={style.buttonMore}
                   to={`/${translit(title)}`}
                   onClick={() => {
+                    dispatch(setCategoryProducts([]));
+                    dispatch(setSubCategoryProducts([]));
                     localStorage.removeItem('category')
                     localStorage.removeItem('subcategory')
                     window.scrollTo(0, 0);
@@ -358,25 +161,19 @@ const ListCards = ({
                 </NavLink>
               )}
 
-              {/* {!showAll &&
-        (lastPage ? (
-          <button
-            className={style.buttonMore}
-            onClick={handleCollapseClick}
-          >
-            Згорнути
-          </button>
-        ) : (
-          <button className={style.buttonMore} onClick={handlePageClick}>
-            Показати ще...
-          </button>
-        ))} */}
             </div>
           </div>
         ) : need_A_Slider ? (
           <div className="wrapperSlider sliderCard">
             {title && (
-              <NavLink to={`/${translit(title)}`}>
+              <NavLink to={`/${translit(title)}`}
+              onClick={() => {
+                dispatch(setCategoryProducts([]));
+                dispatch(setSubCategoryProducts([]));
+                localStorage.removeItem('category')
+                localStorage.removeItem('subcategory')
+                window.scrollTo(0, 0);
+              }}>
                 <h2 className={style.titleCategory}>{title} :</h2>
               </NavLink>
             )}

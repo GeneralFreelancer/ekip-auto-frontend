@@ -16,6 +16,13 @@ import {
 } from "../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import {
+  getProductsWithDateFilter,
+  getProductsWithTopFilter,
+  getProductsWithLast_seenFilter,
+  getProductsWithInterestFilter,
+  getProductsAll,
+} from "../productService";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -30,7 +37,6 @@ const Catalog = ({ products, title }) => {
   useEffect(() => {
     const category = localStorage.getItem("category");
     const subCategory = localStorage.getItem("subcategory");
-
     const fetchProductsByCategory = async () => {
       try {
         const response = await axios.get(
@@ -61,6 +67,22 @@ const Catalog = ({ products, title }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (title === "Останні надходження" && products.length === 0) {
+      getProductsWithDateFilter(dispatch);
+      getProductsAll(dispatch);
+    } else if (title === "Топ продажу" && products.length === 0) {
+      getProductsWithTopFilter(dispatch);
+      getProductsAll(dispatch);
+    } else if (title === "Останні переглянуті" && products.length === 0) {
+      getProductsWithLast_seenFilter(dispatch);
+      getProductsAll(dispatch);
+    } else if (title === "Вас може зацікавити" && products.length === 0) {
+      getProductsWithInterestFilter(dispatch);
+      getProductsAll(dispatch);
+    }
+  }, [dispatch, products, title]);
+
   const showModalHandler = () => {
     if (user.isLoggedIn || user.isRegisteredConfirmed) {
       setModalIsVisible(false);
@@ -80,11 +102,7 @@ const Catalog = ({ products, title }) => {
       <MainContainer>
         {products?.length > 0 && (
           <CatalogComponents products={products} title={title} />
-        ) 
-        // : (
-        //   <CatalogComponents products={products} title={title} />
-        // )
-        }
+        )}
         {categoryProducts?.length > 0 && !subCategoryProducts?.length && (
           <CatalogComponents
             products={categoryProducts}

@@ -3,16 +3,29 @@ import { createSlice } from "@reduxjs/toolkit";
 const advertisingSlice = createSlice({
   name: "advertising",
   initialState: {
-    advertising: []
+    desktop: [],
+    tablet: [],
+    mobile: [],
   },
   reducers: {
-    setAdvertising: (state, action) => {
-      state.advertising = action.payload
+    setAdvertisingDesktop: (state, action) => {
+      state.desktop = action.payload;
     },
-    
+    setAdvertisingTablet: (state, action) => {
+      state.tablet = action.payload;
+    },
+    setAdvertisingMobile: (state, action) => {
+      state.mobile = action.payload;
+    },
   },
 });
 
-export const { setAdvertising } = advertisingSlice.actions;
+export const {
+  setAdvertisingDesktop,
+  setAdvertisingTablet,
+  setAdvertisingMobile,
+} = advertisingSlice.actions;
 export default advertisingSlice.reducer;
-export const selectedAdvertising = (state) => state.advertising;
+export const selectedAdvertisingDesktop = (state) => state.advertising.desktop;
+export const selectedAdvertisingTablet = (state) => state.advertising.tablet;
+export const selectedAdvertisingMobile = (state) => state.advertising.mobile;

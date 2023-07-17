@@ -201,6 +201,7 @@ const OrderList = () => {
   // const timestamp = Date.now(); // This would be the timestamp you want to format for test
   // console.log(new Intl.DateTimeFormat('UKR', {year: 'numeric', month: 'long',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp));
   const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const user = useSelector(selectedUser);
 
@@ -238,8 +239,10 @@ const OrderList = () => {
           },
         });
         setOrders(response.data.orderHistory);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setIsLoading(false);
       }
     };
     getOrders();
@@ -265,7 +268,17 @@ const OrderList = () => {
 
   return (
     <>
-      <div className={style.order__wrapper}>{orders.length > 0 ? itemblock(orders) : <h1 style={{textAlign: 'center'}}>Нема замовлень</h1>}</div>
+      {isLoading ? (
+        <div className="loader"></div>
+      ) : (
+        <>
+          {orders.length > 0 ? (
+            itemblock(orders)
+          ) : (
+            <h1 style={{ textAlign: "center" }}>Нема замовлень</h1>
+          )}
+        </>
+      )}
     </>
   );
 };

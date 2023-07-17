@@ -25,6 +25,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const ProductItemPage = () => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const user = useSelector(selectedUser);
   const interestProducts = useSelector(selectInterestProducts);
@@ -43,8 +44,10 @@ const ProductItemPage = () => {
         },
       });
       dispatch(setOneProduct(response.data.product));
+      setIsLoading(false);
     } catch (error) {
       console.error("Error:", error.message);
+      setIsLoading(false);
     }
   };
 
@@ -83,11 +86,19 @@ const ProductItemPage = () => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        <Product />
-        {/* {Object.keys(oneProduct).length > 0 && <Product product={oneProduct} />} */}
-        <div style={{ paddingTop: "30px" }}>
-          <ListCards title={"Вас може зацікавити"} items={interestProducts} />
-        </div>
+        {isLoading ? (
+          <div className="loader"></div>
+        ) : (
+          <>
+            <Product />
+            <div style={{ paddingTop: "30px" }}>
+              <ListCards
+                title={"Вас може зацікавити"}
+                items={interestProducts}
+              />
+            </div>
+          </>
+        )}
       </MainContainer>
       <ScrollToTopButton />
       <CallBackButton />

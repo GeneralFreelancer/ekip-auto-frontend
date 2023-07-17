@@ -24,7 +24,7 @@ const persistConfig = {
 };
 
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
-const persistedAdvertisingReducer = persistReducer(persistConfig, advertisingReducer);
+// const persistedAdvertisingReducer = persistReducer(persistConfig, advertisingReducer);
 
 export const store = configureStore({
   reducer: {
@@ -32,7 +32,7 @@ export const store = configureStore({
     cart: cartReducer,
     products: productsReducer,
     favorite: favoriteReducer,
-    advertising: persistedAdvertisingReducer
+    advertising: advertisingReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
