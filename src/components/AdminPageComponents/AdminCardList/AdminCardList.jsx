@@ -11,26 +11,27 @@ const AdminCardList = ({
   name,
   addNewCard,
   styleName,
-  disabled,
+  addLink,
 }) => {
-  // console.log(disabled);
+
   return (
     <div>
       <p className={s.size}>{size}</p>
       <div className={s.wrapperList}>
         {arr.map((image, i) => (
-          <div key={i} style={{ display: "flex", flexDirection: "column" }}>
-            <AdminCard
-              name={name}
-              url={typeof image === "object" ? image.Image : image}
-              index={i}
-              total={Number(arr.length) - 1}
-              onDelete={onDelete}
-              onChangePosition={onChangePosition}
-              styleName={styleName}
-              disabled={disabled}
-            />
-          </div>
+          <AdminCard
+            name={name}
+            url={typeof image === 'object' ? image.Image : image}
+            // link={image.url}
+            addLink={addLink}
+            index={i}
+            length={arr.length}
+            key={i}
+            total={Number(arr.length) - 1}
+            onDelete={onDelete}
+            onChangePosition={onChangePosition}
+            styleName={styleName}
+          />
         ))}
         <AdminNewCard
           index={Number(arr.length)}

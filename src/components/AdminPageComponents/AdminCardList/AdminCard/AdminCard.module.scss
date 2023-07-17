@@ -49,15 +49,9 @@
     }
   }
 
-  .disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
   .img {
     height: 85px;
     width: 250px;
-
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -108,6 +102,10 @@
         transform: rotate(90deg);
       }
     }
+  }
+  .ads_input {
+    width: 100%;
+    outline: none;
   }
 }
 
