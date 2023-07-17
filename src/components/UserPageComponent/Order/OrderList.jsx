@@ -275,7 +275,7 @@ const OrderList = () => {
           {orders.length > 0 ? (
             itemblock(orders)
           ) : (
-            <h1 style={{ textAlign: "center" }}>Нема замовлень</h1>
+            <h1 style={{ textAlign: "center", marginTop: '70px' }}>Нема замовлень</h1>
           )}
         </>
       )}

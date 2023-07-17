@@ -33,9 +33,6 @@ const AuthModal = (props) => {
   const handleTabChange = (tab) => setActiveTab(tab);
 
   const renderRegistrationSuccess = () => {
-    if (!user.isRegisteredConfirmed) {
-      resendVerificationEmail();
-    }
     return (
       <div className={s.modalRegistSuccess}>
         <h1>Дякуємо за реєстрацію!</h1>

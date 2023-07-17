@@ -12,13 +12,13 @@ const RedirectPage = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(
-          `${baseUrl}/auth/register/confirm`,
-          {code: "997026"}
-        );
+        const response = await axios.post(`${baseUrl}/auth/register/confirm`, {
+          code: code,
+        });
         dispatch(registerConfirmed(response.data));
         navigate("/");
       } catch (error) {
@@ -26,20 +26,20 @@ const RedirectPage = () => {
         setError(true);
       }
     };
-
     fetchData();
-  }, [code, dispatch, navigate]);
+  }, []);
 
   if (error) {
-    return <p style={{ textAlign: 'center', marginTop: '50px'}}>Спробуйте, будь ласка, знову.</p>;
+    return (
+      <p style={{ textAlign: "center", marginTop: "50px" }}>
+        Спробуйте, будь ласка, знову.
+      </p>
+    );
   }
-
 
   return (
     <>
-      <div className='loader'>
-      
-      </div>
+      <div className="loader"></div>
     </>
   );
 };

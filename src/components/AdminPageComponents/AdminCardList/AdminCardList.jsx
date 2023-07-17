@@ -19,20 +19,17 @@ const AdminCardList = ({
       <p className={s.size}>{size}</p>
       <div className={s.wrapperList}>
         {arr.map((image, i) => (
-          <div style={{display: 'flex', flexDirection: 'column'}}>
+          <div key={i} style={{ display: "flex", flexDirection: "column" }}>
             <AdminCard
               name={name}
               url={typeof image === "object" ? image.Image : image}
               index={i}
-              key={i}
               total={Number(arr.length) - 1}
               onDelete={onDelete}
               onChangePosition={onChangePosition}
               styleName={styleName}
               disabled={disabled}
             />
-            <br></br>
-            <input type="text" />
           </div>
         ))}
         <AdminNewCard

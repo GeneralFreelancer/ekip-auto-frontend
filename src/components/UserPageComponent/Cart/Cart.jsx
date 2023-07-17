@@ -15,6 +15,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 import { selectedCart } from "../../../redux/features/cartSlice";
+import { Link } from "react-router-dom";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -148,6 +149,16 @@ const Cart = () => {
     }
   };
 
+  const downloadExcelFile = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/basket/xlsx`);
+      const fileUrl = response.data.file;
+      window.open(fileUrl, '_blank');
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
   const sumUAH = dataCartItems?.reduce((total, item) => {
     return total + item.number * item.product.priceUAH;
   }, 0);
@@ -212,8 +223,8 @@ const Cart = () => {
 
                     <div className={style.cart__downloadOrder}>
                       <div className={style.cart__downloadOrder_wrapper}>
-                        <button>
-                          Cкачать Excel{" "}
+                        <button onClick={downloadExcelFile}>
+                          Cкачать Excel
                           <span className={style.downloadIcon}></span>
                         </button>
                         <p>
@@ -246,7 +257,7 @@ const Cart = () => {
                     </div>
                   </>
                 ) : (
-                  <div style={{textAlign: 'center'}}>
+                  <div style={{ textAlign: "center" }}>
                     <h1>Корзина пуста</h1>
                   </div>
                 )}
@@ -259,15 +270,28 @@ const Cart = () => {
 
             <div className={style.cart__orderBtn}>
               <div>
-                {!orderSuccess && cart.cartProducts && cart.cartProducts.length > 0 && (
-                  <button
-                    type="submit"
-                    onClick={createOrder}
-                    disabled={cart.cartProducts === null}
-                  >
-                    замовити
-                  </button>
-                )}
+                {!orderSuccess &&
+                  cart.cartProducts &&
+                  cart.cartProducts.length > 0 && (
+                    <>
+                      {user?.isDataFullFilled ? (
+                        <>
+                          <button
+                            type="submit"
+                            onClick={createOrder}
+                            disabled={cart.cartProducts === null}
+                          >
+                            замовити
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <Link to="/myprofile/mydata" style={{color:'red'}}>Для здійслення замовлення заповніть дані</Link>
+                        </>
+                      )}
+                    </>
+                  )}
+
                 {orderSuccess && (
                   <p>
                     *Наш менеджер зв'яжеться з вами після замовлення для

@@ -152,10 +152,6 @@ const MyData = () => {
           }
         );
         dispatch(fullUserRegistered({ ...response.data }));
-        // setDataForm({
-        //   email: "",
-        //   password: "",
-        // });
       } catch (e) {
         console.log(e);
       }

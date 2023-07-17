@@ -23,13 +23,12 @@ const AdminCard = ({
     setIsFullScreen(!isFullScreen);
   };
 
-
   return (
     <>
       <div className={isFirstCard ? `${s.notBorder} ${s.card}` : s.card}>
         <div className={s.wrapperFirst}>
           <p className={s.number}>№ {index + 1}</p>
-          <div className={`${s.wrapperIcon} ${disabled ? s.disabled : ''}`}>
+          <div className={`${s.wrapperIcon} ${disabled ? s.disabled : ""}`}>
             <Cancel
               className={`${s.cancel} ${s.icon}`}
               index={index}
@@ -86,6 +85,9 @@ const AdminCard = ({
           </div> */}
         </div>
       </div>
+      <br></br>
+      <input type="text" />
+      <br></br>
       {isFullScreen && (
         <div className={s.fullScreen} onClick={toggleFullScreen}>
           <img src={url} alt={`Image ${index + 1}`} />

@@ -112,7 +112,15 @@ const AdminComponentsSlider = () => {
       console.log(deleteButtonMobile, deleteButtonMobile);
       setDeleteButtonMobile(true);
     }
-  }, [deleteButtonDesktop, deleteButtonMobile, deleteButtonTablet, temporalDesktop, temporalMobile.length, temporalTablet, temporalTablet.length])
+  }, [
+    deleteButtonDesktop,
+    deleteButtonMobile,
+    deleteButtonTablet,
+    temporalDesktop,
+    temporalMobile.length,
+    temporalTablet,
+    temporalTablet.length,
+  ]);
 
   const onDelete = async (index, url, name) => {
     let formattedArray = url.split("/");
@@ -174,7 +182,6 @@ const AdminComponentsSlider = () => {
       default:
         break;
     }
-
   };
 
   const onChangePosition = (direction, index, name) => {
@@ -291,6 +298,7 @@ const AdminComponentsSlider = () => {
   };
 
   const sendImageToBD = async (name, file, url) => {
+  console.log(url);
     const formData = new FormData();
     formData.append("type", name);
     formData.append("image", file);
@@ -358,15 +366,14 @@ const AdminComponentsSlider = () => {
           addNewCard={addNewCard}
           disabled={deleteButtonMobile}
         />
-
-        <input
-          ref={fileInputRef}
-          style={{ opacity: "0" }}
-          type="file"
-          onChange={handleFileChange}
-          accept="image/*,.png,.jpg,.web"
-        />
       </div>
+      <input
+        ref={fileInputRef}
+        style={{ opacity: "0" }}
+        type="file"
+        onChange={handleFileChange}
+        accept="image/*,.png,.jpg,.web"
+      />
       <AdminButtons onClickMainButton={onClickMainButton} />
     </>
   );

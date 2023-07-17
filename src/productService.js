@@ -13,7 +13,11 @@ const userToken = JSON.parse(obj)?.token;
 
 const authorization = userToken ? `Bearer ${JSON.parse(userToken)}` : undefined;
 
-if (authorization && authorization !== "Bearer null" && authorization !== "Bearer ") {
+if (
+  authorization &&
+  authorization !== "Bearer null" &&
+  authorization !== "Bearer "
+) {
   axios.defaults.headers.common["Authorization"] = authorization;
   // console.log(axios.defaults.headers.common["Authorization"]);
 }
@@ -56,7 +60,7 @@ export const getProductsWithLast_seenFilter = async (dispatch, user) => {
     let response;
     if (user?.isLoggedIn) {
       response = await axios.get(
-        `${baseUrl}/product/?filter=last_seen&userId=${user.userdata.id}`
+        `${baseUrl}/product/?filter=last_seen&userId=${user.userdata?.id}`
       );
     } else {
       response = await axios.get(`${baseUrl}/product/?filter=last_seen`);
