@@ -245,7 +245,6 @@ const AdminComponentsSlider = () => {
 
   const addLink = (url) => {
     console.log(url);
-    
   }
 
   const addNewCard = (name) => {
