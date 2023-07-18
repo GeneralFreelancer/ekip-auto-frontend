@@ -79,21 +79,23 @@ const AdminComponentsSlider = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const getSliders = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/advertising`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setTemporalDesktop(response.data.advertising.desktop);
+      setTemporalTablet(response.data.advertising.tablet);
+      setTemporalMobile(response.data.advertising.mobile);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   useEffect(() => {
-    const getSliders = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/advertising`, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        setTemporalDesktop(response.data.advertising.desktop);
-        setTemporalTablet(response.data.advertising.tablet);
-        setTemporalMobile(response.data.advertising.mobile);
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
-    };
+    
     getSliders();
   }, [user.token]);
 
@@ -250,6 +252,7 @@ const AdminComponentsSlider = () => {
       
       if (name === "desktop") { 
       let updatedArray = [...temporalDesktop];
+      console.log('updatedArray ',updatedArray);
       updatedArray[index].url = value;
       setTemporalDesktop(updatedArray);
       }
@@ -278,13 +281,14 @@ const AdminComponentsSlider = () => {
     let reader = new FileReader();
     const file = e.target.files[0];
     reader.onload = () => {
-      sendImageToBD(typeName, file, "https://rozetka.com.ua/");
+      sendImageToBD(typeName, file, "");
     };
     reader.readAsDataURL(file);
   };
 
   const sendImageToBD = async (name, file, url) => {
   console.log(url);
+
     const formData = new FormData();
     formData.append("type", name);
     formData.append("image", file);
@@ -316,6 +320,7 @@ const AdminComponentsSlider = () => {
         default:
           return;
       }
+      getSliders();
     } catch (error) {
       console.error(error);
     }
