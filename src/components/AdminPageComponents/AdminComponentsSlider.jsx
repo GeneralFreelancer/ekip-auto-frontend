@@ -15,7 +15,6 @@ import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-// const images1 = [
 //   {
 //     image:
 //       "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
@@ -149,6 +148,7 @@ const AdminComponentsSlider = () => {
     switch (name) {
       case "desktop":
         updatedArray = [...temporalDesktop];
+        console.log('updatedArray ',updatedArray)
         break;
       case "tablet":
         updatedArray = [...temporalTablet];
@@ -243,8 +243,29 @@ const AdminComponentsSlider = () => {
     }
   };
 
-  const addLink = (url) => {
-    console.log(url);
+  const addLink = (event) => {
+    let name = event.currentTarget.name,
+      value = event.currentTarget.value,
+      index = event.currentTarget.dataset.index;
+      
+      if (name === "desktop") { 
+      let updatedArray = [...temporalDesktop];
+      updatedArray[index].url = value;
+      setTemporalDesktop(updatedArray);
+      }
+      else if (name === "tablet") { 
+        let updatedArray = [...temporalTablet];
+        updatedArray[index].url = value;
+        setTemporalTablet(updatedArray);
+      }
+      else if (name === "mobile") { 
+        let updatedArray = [...temporalMobile];
+        updatedArray[index].url = value;
+        setTemporalMobile(updatedArray);
+      }
+    
+
+    console.log(name, value, index);
     
   }
 
@@ -311,7 +332,7 @@ const AdminComponentsSlider = () => {
           arr={temporalDesktop}
           size={"1920px × 508px"}
           addNewCard={addNewCard}
-          addLink={addLink}
+          updateLink={addLink}
         />
         <AdminCardList
           name={"tablet"}
@@ -320,6 +341,7 @@ const AdminComponentsSlider = () => {
           arr={temporalTablet}
           size={"1024px × 465px"}
           addNewCard={addNewCard}
+          updateLink={addLink}
         />
         <AdminCardList
           name={"mobile"}
@@ -328,6 +350,7 @@ const AdminComponentsSlider = () => {
           arr={temporalMobile}
           size={"540px × 453px"}
           addNewCard={addNewCard}
+          updateLink={addLink}
         />
       </div>
       <input

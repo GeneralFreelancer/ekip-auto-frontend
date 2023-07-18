@@ -7,8 +7,8 @@ import { ReactComponent as Upload } from "../../../../assets/svg/admin/upload.sv
 
 const AdminCard = ({
   url,
-  // link,
-  addLink,
+  link,
+  updateLink,
   index,
   name,
   length,
@@ -20,16 +20,16 @@ const AdminCard = ({
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isFirstCard = index === 0;
   const isLastCard = index === total;
-  const [link, setLink] = useState('');
+  
 
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
 
-  const handleLinkChange = (e) => {
-    setLink(e.target.value);
-    // addLink(e.target.value); // Вызов функции обратного вызова при изменении значения в инпуте
-  };
+  // const handleLinkChange = (e) => {
+  //   setLink(e.target.value);
+  //   // addLink(e.target.value); // Вызов функции обратного вызова при изменении значения в инпуте
+  // };
 
   return (
     <>
@@ -77,6 +77,7 @@ const AdminCard = ({
               className={s.button}
               direction="right"
               index={index}
+              url={link}
               name={name}
               onClick={(e) =>
                 onChangePosition(
@@ -93,16 +94,17 @@ const AdminCard = ({
             <Upload className={`${s.upload} ${s.icon}`} />
           </div> */}
         </div>
-        <button style={{width: '140px'}} onClick={() => addLink(link)}>Відправити дані</button>
+        {/* <button style={{width: '140px'}} onClick={() => addLink(link)}>Відправити дані</button> */}
         <div>
           <label> Дайте посилання на рекламу</label>
           <input
             className={s.ads_input}
             placeholder="https://sitename.com/fullpath"
+            data-index={index}
+            name={name}
             value={link}
             type="text"
-            onChange={handleLinkChange}
-            // onChange={(e) => addAdvertisingLink(e.target.value)}
+            onChange={(e) => updateLink(e)}
           />
         </div>
       </div>
