@@ -20,16 +20,10 @@ const AdminCard = ({
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isFirstCard = index === 0;
   const isLastCard = index === total;
-  
 
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
-
-  // const handleLinkChange = (e) => {
-  //   setLink(e.target.value);
-  //   // addLink(e.target.value); // Вызов функции обратного вызова при изменении значения в инпуте
-  // };
 
   return (
     <>
@@ -95,18 +89,20 @@ const AdminCard = ({
           </div> */}
         </div>
         {/* <button style={{width: '140px'}} onClick={() => addLink(link)}>Відправити дані</button> */}
-        <div>
-          <label> Дайте посилання на рекламу</label>
-          <input
-            className={s.ads_input}
-            placeholder="https://sitename.com/fullpath"
-            data-index={index}
-            name={name}
-            value={link}
-            type="text"
-            onChange={(e) => updateLink(e)}
-          />
-        </div>
+        {updateLink && (
+          <div>
+            <label> Дайте посилання на рекламу</label>
+            <input
+              className={s.ads_input}
+              placeholder="https://sitename.com/fullpath"
+              data-index={index}
+              name={name}
+              value={link}
+              type="text"
+              onChange={(e) => updateLink(e)}
+            />
+          </div>
+        )}
       </div>
       {isFullScreen && (
         <div className={s.fullScreen} onClick={toggleFullScreen}>

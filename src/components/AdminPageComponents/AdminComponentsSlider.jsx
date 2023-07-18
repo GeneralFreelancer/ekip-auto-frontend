@@ -19,7 +19,6 @@ const AdminComponentsSlider = () => {
   const [temporalDesktop, setTemporalDesktop] = useState([]);
   const [temporalTablet, setTemporalTablet] = useState([]);
   const [temporalMobile, setTemporalMobile] = useState([]);
-
   const [typeName, setTypeName] = useState("");
 
   const fileInputRef = useRef(null);
@@ -28,21 +27,22 @@ const AdminComponentsSlider = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const getSliders = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/advertising`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setTemporalDesktop(response.data.advertising.desktop);
+      setTemporalTablet(response.data.advertising.tablet);
+      setTemporalMobile(response.data.advertising.mobile);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
   useEffect(() => {
-    const getSliders = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/advertising`, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        setTemporalDesktop(response.data.advertising.desktop);
-        setTemporalTablet(response.data.advertising.tablet);
-        setTemporalMobile(response.data.advertising.mobile);
-      } catch (error) {
-        console.error("Error:", error.message);
-      }
-    };
     getSliders();
   }, [user.token]);
 
@@ -97,7 +97,6 @@ const AdminComponentsSlider = () => {
     switch (name) {
       case "desktop":
         updatedArray = [...temporalDesktop];
-        console.log("updatedArray ", updatedArray);
         break;
       case "tablet":
         updatedArray = [...temporalTablet];
@@ -209,7 +208,6 @@ const AdminComponentsSlider = () => {
       updatedArray[index].url = value;
       setTemporalMobile(updatedArray);
     }
-    console.log(name, value, index);
   };
 
   const addNewCard = (name) => {
@@ -258,6 +256,7 @@ const AdminComponentsSlider = () => {
         default:
           return;
       }
+      getSliders();
     } catch (error) {
       console.error(error);
     }

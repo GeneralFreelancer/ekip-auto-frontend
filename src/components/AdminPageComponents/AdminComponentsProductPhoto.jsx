@@ -107,6 +107,7 @@ const AdminComponentsProductPhoto = () => {
       };
       savePhotoArray();
       navigate(-1);
+      getOneProduct();
     }
   };
 

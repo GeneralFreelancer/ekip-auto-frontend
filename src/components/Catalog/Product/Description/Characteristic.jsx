@@ -8,11 +8,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../../redux/features/userSlice";
 
-// const initialData = [
-//   { name: "Висота", value: "18 см" },
-//   { name: "Ширина", value: "50 см" },
-//   { name: "Глибина", value: "40 см" },
-// ];
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Characteristic = (props) => {
@@ -55,7 +50,7 @@ const Characteristic = (props) => {
 
   const handleCancelClick = () => {
     setIsEditMode(false);
-    setCharactData(options.map(item => ({ ...item })));
+    setCharactData(options.map((item) => ({ ...item })));
   };
 
   const handleAddCharactClick = () => {
@@ -64,13 +59,19 @@ const Characteristic = (props) => {
 
   const handleCharactNameChange = (index, e) => {
     const newCharactData = [...charactData];
-    newCharactData[index].name = e.target.value;
+    newCharactData[index] = {
+      ...newCharactData[index],
+      name: e.target.value,
+    };
     setCharactData(newCharactData);
   };
 
   const handleCharactValueChange = (index, e) => {
     const newCharactData = [...charactData];
-    newCharactData[index].value = e.target.value;
+    newCharactData[index] = {
+      ...newCharactData[index],
+      value: e.target.value,
+    };
     setCharactData(newCharactData);
   };
 
@@ -122,7 +123,10 @@ const Characteristic = (props) => {
             </div>
           </button>
 
-          <button className={s.character_btn_save} onClick={() => handleSaveClick(id, charactData)}>
+          <button
+            className={s.character_btn_save}
+            onClick={() => handleSaveClick(id, charactData)}
+          >
             <Tick />
           </button>
         </>

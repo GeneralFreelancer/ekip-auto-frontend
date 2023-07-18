@@ -11,8 +11,10 @@ import CatalogComponents from "../components/CatalogComponents/CatalogComponents
 import {
   selectCategoryProducts,
   selectSubCategoryProducts,
+  selectLoading,
   setCategoryProducts,
   setSubCategoryProducts,
+  setLoading
 } from "../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -28,33 +30,43 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Catalog = ({ products, title }) => {
   const [modalIsVisible, setModalIsVisible] = useState(false);
+  // const [isLoading, setIsLoading] = useState(true);
+
   const user = useSelector(selectedUser);
   const categoryProducts = useSelector(selectCategoryProducts);
   const subCategoryProducts = useSelector(selectSubCategoryProducts);
 
   const dispatch = useDispatch();
 
+  const isLoading = useSelector(selectLoading);
+
   useEffect(() => {
     const category = localStorage.getItem("category");
     const subCategory = localStorage.getItem("subcategory");
     const fetchProductsByCategory = async () => {
+      dispatch(setLoading(true));
       try {
         const response = await axios.get(
           `${baseUrl}/product/?category=${category}`
         );
+        dispatch(setLoading(false));
         dispatch(setCategoryProducts(response.data.products));
       } catch (error) {
         console.error("Error:", error.message);
+        dispatch(setLoading(false));
       }
     };
     const fetchProductsBySubCategory = async () => {
+      dispatch(setLoading(true));
       try {
         const response = await axios.get(
           `${baseUrl}/product/?subcategory=${subCategory}`
         );
+        dispatch(setLoading(false));
         dispatch(setSubCategoryProducts(response.data.products));
       } catch (error) {
         console.error("Error:", error.message);
+        dispatch(setLoading(false));
       }
     };
     if (!categoryProducts?.length && localStorage.getItem("category")) {
@@ -100,20 +112,31 @@ const Catalog = ({ products, title }) => {
       {modalIsVisible && <AuthModal onHideModal={hideModalHandler} />}
       <Navbar onShowModal={showModalHandler} />
       <MainContainer>
-        {products?.length > 0 && (
-          <CatalogComponents products={products} title={title} />
-        )}
-        {categoryProducts?.length > 0 && !subCategoryProducts?.length && (
-          <CatalogComponents
-            products={categoryProducts}
-            title={categoryProducts[0]?.category}
-          />
-        )}
-        {subCategoryProducts?.length > 0 && (
-          <CatalogComponents
-            products={subCategoryProducts}
-            title={subCategoryProducts[0]?.subCategory}
-          />
+        {isLoading ? (
+         <div className="loader"></div>
+        ) : (
+          <>
+            {products?.length > 0 && (
+              <CatalogComponents products={products} title={title} />
+            )}
+            {categoryProducts?.length > 0 && !subCategoryProducts?.length && (
+              <CatalogComponents
+                products={categoryProducts}
+                title={categoryProducts[0]?.category}
+              />
+            )}
+            {subCategoryProducts?.length > 0 && (
+              <CatalogComponents
+                products={subCategoryProducts}
+                title={subCategoryProducts[0]?.subCategory}
+              />
+            )}
+            {!products?.length && !categoryProducts?.length && !subCategoryProducts?.length && (
+              <h1 style={{ textAlign: "center", marginTop: "70px" }}>
+                Товар у данній категорії відсутній
+              </h1>
+            )}
+          </>
         )}
       </MainContainer>
       <ScrollToTopButton />
