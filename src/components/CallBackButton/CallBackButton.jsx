@@ -11,6 +11,7 @@ const CallBackButton = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsOpen(false);
+    console.log(phoneNumber);
     setPhoneNumber("+38 (0__) ___ __ __");
   };
 
