@@ -11,7 +11,7 @@ const AdminCardList = ({
   name,
   addNewCard,
   styleName,
-  addLink,
+  updateLink,
 }) => {
 
   return (
@@ -22,8 +22,8 @@ const AdminCardList = ({
           <AdminCard
             name={name}
             url={typeof image === 'object' ? image.Image : image}
-            // link={image.url}
-            addLink={addLink}
+            link={image.url}
+            updateLink={updateLink}
             index={i}
             length={arr.length}
             key={i}

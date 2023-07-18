@@ -15,58 +15,6 @@ import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-// const images1 = [
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-// ];
-// const images2 = [
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-// ];
-// const images3 = [
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-//   {
-//     image:
-//       "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-//     url: "https://rozetka.com.ua/",
-//   },
-// ];
-
 const AdminComponentsSlider = () => {
   const [temporalDesktop, setTemporalDesktop] = useState([]);
   const [temporalTablet, setTemporalTablet] = useState([]);
@@ -124,14 +72,14 @@ const AdminComponentsSlider = () => {
           .slice(0, index)
           .concat(temporalDesktop.slice(index + 1));
         setTemporalDesktop(updatedArray);
-        
+
         break;
       case "tablet":
         updatedArray = temporalTablet
           .slice(0, index)
           .concat(temporalTablet.slice(index + 1));
         setTemporalTablet(updatedArray);
-        
+
         break;
       case "mobile":
         updatedArray = temporalMobile
@@ -149,6 +97,7 @@ const AdminComponentsSlider = () => {
     switch (name) {
       case "desktop":
         updatedArray = [...temporalDesktop];
+        console.log("updatedArray ", updatedArray);
         break;
       case "tablet":
         updatedArray = [...temporalTablet];
@@ -243,9 +192,25 @@ const AdminComponentsSlider = () => {
     }
   };
 
-  const addLink = (url) => {
-    console.log(url);
-  }
+  const addLink = (event) => {
+    let name = event.currentTarget.name,
+      value = event.currentTarget.value,
+      index = event.currentTarget.dataset.index;
+    if (name === "desktop") {
+      let updatedArray = [...temporalDesktop];
+      updatedArray[index].url = value;
+      setTemporalDesktop(updatedArray);
+    } else if (name === "tablet") {
+      let updatedArray = [...temporalTablet];
+      updatedArray[index].url = value;
+      setTemporalTablet(updatedArray);
+    } else if (name === "mobile") {
+      let updatedArray = [...temporalMobile];
+      updatedArray[index].url = value;
+      setTemporalMobile(updatedArray);
+    }
+    console.log(name, value, index);
+  };
 
   const addNewCard = (name) => {
     fileInputRef.current.click();
@@ -256,13 +221,12 @@ const AdminComponentsSlider = () => {
     let reader = new FileReader();
     const file = e.target.files[0];
     reader.onload = () => {
-      sendImageToBD(typeName, file, "https://rozetka.com.ua/");
+      sendImageToBD(typeName, file, "");
     };
     reader.readAsDataURL(file);
   };
 
   const sendImageToBD = async (name, file, url) => {
-  console.log(url);
     const formData = new FormData();
     formData.append("type", name);
     formData.append("image", file);
@@ -310,7 +274,7 @@ const AdminComponentsSlider = () => {
           arr={temporalDesktop}
           size={"1920px × 508px"}
           addNewCard={addNewCard}
-          addLink={addLink}
+          updateLink={addLink}
         />
         <AdminCardList
           name={"tablet"}
@@ -319,6 +283,7 @@ const AdminComponentsSlider = () => {
           arr={temporalTablet}
           size={"1024px × 465px"}
           addNewCard={addNewCard}
+          updateLink={addLink}
         />
         <AdminCardList
           name={"mobile"}
@@ -327,6 +292,7 @@ const AdminComponentsSlider = () => {
           arr={temporalMobile}
           size={"540px × 453px"}
           addNewCard={addNewCard}
+          updateLink={addLink}
         />
       </div>
       <input
