@@ -1,4 +1,4 @@
-import style from "./Hamburger.module.scss";
+import style from "./hamburger.module.scss";
 import { useEffect, useState, useRef } from "react";
 import { ReactComponent as Humburger } from "../../../assets/svg/hamburger.svg";
 import CategoryItem from "../../CategoryItem";

@@ -319,7 +319,7 @@ const MyData = () => {
               />
               {dataErrors?.livingAddress?.city && (
                 <div className={s.error_message}>
-                  {dataErrors.livingAddress.city}
+                  {dataErrors?.livingAddress?.city}
                 </div>
               )}
             </div>
@@ -336,7 +336,7 @@ const MyData = () => {
               />
               {dataErrors?.livingAddress?.street && (
                 <div className={s.error_message}>
-                  {dataErrors.livingAddress.street}
+                  {dataErrors?.livingAddress?.street}
                 </div>
               )}
             </div>
