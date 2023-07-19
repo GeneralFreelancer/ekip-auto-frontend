@@ -26,11 +26,6 @@ const AdminCard = ({
     setIsFullScreen(!isFullScreen);
   };
 
-  // const handleLinkChange = (e) => {
-  //   setLink(e.target.value);
-  //   // addLink(e.target.value); // Вызов функции обратного вызова при изменении значения в инпуте
-  // };
-
   return (
     <>
       <div className={isFirstCard ? `${s.notBorder} ${s.card}` : s.card}>
@@ -94,7 +89,7 @@ const AdminCard = ({
             <Upload className={`${s.upload} ${s.icon}`} />
           </div> */}
         </div>
-        {/* <button style={{width: '140px'}} onClick={() => addLink(link)}>Відправити дані</button> */}
+
         <div>
           <label> Дайте посилання на рекламу</label>
           <input
