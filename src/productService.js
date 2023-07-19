@@ -33,6 +33,7 @@ export const getProductsAll = async (dispatch) => {
   try {
     const response = await axios.get(`${baseUrl}/product`);
     dispatch(setAllProducts(response.data.products));
+    console.log(response.data);
   } catch (error) {
     console.error("Error:", error.message);
   }

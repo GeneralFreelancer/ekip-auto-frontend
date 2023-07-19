@@ -153,6 +153,7 @@ const MyData = () => {
   };
 
   const submitChangeHandler = async (e) => {
+
     e.preventDefault();
     if (
       dataForm.firstName &&
@@ -179,7 +180,8 @@ const MyData = () => {
         console.log(e);
       }
       navigate('/');
-    }
+    } 
+    
   };
 
   const changePasswordHandler = async (e) => {
@@ -312,10 +314,10 @@ const MyData = () => {
                 className={`${s.form_input} ${
                   dataErrors.city ? s.input_error : ""
                 }`}
-                value={dataForm.livingAddress.city}
+                value={dataForm?.livingAddress?.city}
                 onChange={(e) => changeDataHandler(e)}
               />
-              {dataErrors.livingAddress.city && (
+              {dataErrors?.livingAddress?.city && (
                 <div className={s.error_message}>
                   {dataErrors.livingAddress.city}
                 </div>
@@ -329,10 +331,10 @@ const MyData = () => {
                 className={`${s.form_input} ${
                   dataErrors.street ? s.input_error : ""
                 }`}
-                value={dataForm.livingAddress.street}
+                value={dataForm?.livingAddress?.street}
                 onChange={(e) => changeDataHandler(e)}
               />
-              {dataErrors.livingAddress.street && (
+              {dataErrors?.livingAddress?.street && (
                 <div className={s.error_message}>
                   {dataErrors.livingAddress.street}
                 </div>
@@ -347,7 +349,7 @@ const MyData = () => {
                 type="text"
                 name="livingAddress.additionalInfo"
                 className={s.form_input}
-                value={dataForm.livingAddress.additionalInfo}
+                value={dataForm?.livingAddress?.additionalInfo}
                 onChange={(e) => changeDataHandler(e)}
                 placeholder="Тут можна додати більш детальну інформацію про адресу доставки..."
               />

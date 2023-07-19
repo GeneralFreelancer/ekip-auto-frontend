@@ -30,6 +30,7 @@ const Cart = () => {
   // const [isFavorite, setIsFavorite] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [comment, setComment] = useState("");
 
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
@@ -133,7 +134,7 @@ const Cart = () => {
     try {
       const response = await axios.post(
         `${baseUrl}/order-history`,
-        { products: orderProducts },
+        { products: orderProducts, comment: comment },
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -151,9 +152,9 @@ const Cart = () => {
     try {
       const response = await axios.get(`${baseUrl}/basket/xlsx`);
       const fileUrl = response.data.file;
-      window.open(fileUrl, '_blank');
+      window.open(fileUrl, "_blank");
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error("Error:", error.message);
     }
   };
 
@@ -239,6 +240,8 @@ const Cart = () => {
                               id={"dsfsdf"}
                               cols="30"
                               rows="10"
+                              value={comment}
+                              onChange={(e) => setComment(e.target.value)}
                             ></textarea>
                           )}
                           <button
@@ -284,7 +287,9 @@ const Cart = () => {
                         </>
                       ) : (
                         <>
-                          <Link to="/myprofile/mydata" style={{color:'red'}}>Для здійслення замовлення заповніть дані</Link>
+                          <Link to="/myprofile/mydata" style={{ color: "red" }}>
+                            Для здійслення замовлення заповніть дані
+                          </Link>
                         </>
                       )}
                     </>
