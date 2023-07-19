@@ -50,10 +50,10 @@ const userSlice = createSlice({
       state.userdata.lastName = action.payload.user?.lastName;
       state.userdata.secondName = action.payload.user?.secondName;
       state.userdata.email = action.payload.user?.email;
-      state.userdata.livingAddress.street = action.payload.user?.livingAddress.street;
-      state.userdata.livingAddress.city = action.payload.user?.livingAddress.city;
-      state.userdata.livingAddress.additionalInfo =
-        action.payload.user?.livingAddress.additionalInfo;
+      // state.userdata.livingAddress.street = action.payload.user?.livingAddress.street;
+      // state.userdata.livingAddress.city = action.payload.user?.livingAddress.city;
+      // state.userdata.livingAddress.additionalInfo =
+      //   action.payload.user?.livingAddress.additionalInfo;
     },
     addToFavorites: (state, action) => {
       state.userdata.favoriteProducts = action.payload
