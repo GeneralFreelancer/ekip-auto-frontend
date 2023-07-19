@@ -10,8 +10,9 @@ const productsSlice = createSlice({
     interestProducts: [],
     categoryProducts: [],
     subCategoryProducts: [],
+    categoryNames: [],
     oneProduct: {},
-    loading: false
+    loading: false,
   },
   reducers: {
     setAllProducts: (state, action) => {
@@ -35,6 +36,9 @@ const productsSlice = createSlice({
     setSubCategoryProducts: (state, action) => {
       state.subCategoryProducts = action.payload;
     },
+    setCategoryNames: (state, action) => {
+      state.categoryNames = action.payload;
+    },
     setOneProduct: (state, action) => {
       state.oneProduct = action.payload;
     },
@@ -52,16 +56,22 @@ export const {
   setInterestProducts,
   setCategoryProducts,
   setSubCategoryProducts,
+  setCategoryNames,
   setOneProduct,
-  setLoading
+  setLoading,
 } = productsSlice.actions;
 export default productsSlice.reducer;
 export const selectAllProducts = (state) => state.products.allProducts;
 export const selectDateProducts = (state) => state.products.dateProducts;
 export const selectTopProducts = (state) => state.products.topProducts;
-export const selectLastSeenProducts = (state) => state.products.lastSeenProducts;
-export const selectInterestProducts = (state) => state.products.interestProducts;
-export const selectCategoryProducts = (state) => state.products.categoryProducts;
-export const selectSubCategoryProducts = (state) => state.products.subCategoryProducts;
+export const selectLastSeenProducts = (state) =>
+  state.products.lastSeenProducts;
+export const selectInterestProducts = (state) =>
+  state.products.interestProducts;
+export const selectCategoryProducts = (state) =>
+  state.products.categoryProducts;
+export const selectSubCategoryProducts = (state) =>
+  state.products.subCategoryProducts;
+export const selectCategoryNames = (state) => state.products.categoryNames;
 export const selectOneProduct = (state) => state.products.oneProduct;
 export const selectLoading = (state) => state.products.loading;

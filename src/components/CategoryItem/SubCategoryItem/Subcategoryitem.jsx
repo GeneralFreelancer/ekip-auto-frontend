@@ -47,7 +47,7 @@ const Subcategoryitem = (props) => {
       }}
     >
       <div>
-        {props.subCategory.map(({ id, title }) => (
+        {props.subcategories.map(({ id, title }) => (
           <Link
             key={id}
             id={id}

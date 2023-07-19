@@ -4,6 +4,7 @@ import {
   setDateProducts,
   setTopProducts,
   setLastSeenProducts,
+  setCategoryNames,
   setInterestProducts,
   setLoading
 } from "./redux/features/productsSlice";
@@ -30,12 +31,15 @@ if (
 
 // products
 export const getProductsAll = async (dispatch) => {
+  dispatch(setLoading(true));
   try {
     const response = await axios.get(`${baseUrl}/product`);
     dispatch(setAllProducts(response.data.products));
-    console.log(response.data);
+    dispatch(setCategoryNames(response.data.categories))
+    dispatch(setLoading(false));
   } catch (error) {
     console.error("Error:", error.message);
+    dispatch(setLoading(false));
   }
 };
 

@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Subcategoryitem from "./SubCategoryItem";
 import axios from "axios";
-import { setCategoryProducts, setSubCategoryProducts,  setLoading} from "../../redux/features/productsSlice";
+import {
+  setCategoryProducts,
+  setSubCategoryProducts,
+  setLoading,
+} from "../../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -18,6 +22,7 @@ const translit = (name) => {
 };
 
 const CategoryItem = (props) => {
+
   const [isActive, setIsSubCat] = useState(false);
   const [catId, setCatId] = useState(false);
   const [categoryLink, setCategoryLink] = useState(false);
@@ -45,7 +50,7 @@ const CategoryItem = (props) => {
     }
   };
 
-  const fetchProductsByCategory = async(title) => {
+  const fetchProductsByCategory = async (title) => {
     dispatch(setLoading(true));
     try {
       const response = await axios.get(`${baseUrl}/product/?category=${title}`);
@@ -66,7 +71,7 @@ const CategoryItem = (props) => {
       }
     >
       <div className={s.menu__content} onMouseMove={handleMouseMove}>
-        {props.data.map(({ id, title, subCategory }, i) => (
+        {props.data.map(({ id, category, subcategories }, i) => (
           <Link
             key={id}
             id={id}
@@ -78,10 +83,10 @@ const CategoryItem = (props) => {
             // to={`/${translit(title)}`}
             to={`/category`}
             onMouseEnter={(e) => {
-              if (subCategory.length > 0) {
+              if (subcategories?.length > 0) {
                 setIsSubCat(true);
                 setCatId(id);
-                setCategoryLink(`/${translit(title)}`);
+                setCategoryLink(`/${translit(category)}`);
               } else {
                 if (id !== catId) {
                   setIsSubCat(false);
@@ -93,22 +98,22 @@ const CategoryItem = (props) => {
             onClick={() => {
               dispatch(setCategoryProducts([]));
               dispatch(setSubCategoryProducts([]));
-              fetchProductsByCategory(title)
-              localStorage.setItem("category", title);
+              fetchProductsByCategory(category);
+              localStorage.setItem("category", category);
               localStorage.removeItem("subcategory");
             }}
           >
-            {title}
+            {category}
           </Link>
         ))}
       </div>
       {isActive &&
-        props.data.map(({ id, subCategory }) =>
-          subCategory.length > 0 && id === catId ? (
+        props.data.map(({ id, subcategories }) =>
+        subcategories.length > 0 && id === catId ? (
             <Subcategoryitem
               key={id}
               catPosition={catPosition}
-              subCategory={subCategory}
+              subcategories={subcategories}
               categoryLink={categoryLink}
             />
           ) : (
