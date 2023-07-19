@@ -84,7 +84,7 @@ const FavoriteList = ({ items, handelClick }) => {
           <div className={s.cardGrid}>{renderCards()}</div>
         </div>
       ) : (
-        <p className={s.alert}>Ви не додали жодного товару</p>
+        <h1 className={s.alert}>Ви не додали жодного товару</h1>
       )}
     </>
   );
