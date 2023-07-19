@@ -83,7 +83,7 @@ const OrderList = () => {
         <div className="loader"></div>
       ) : (
         <>
-          {orders.length > 0 ? (
+          {orders?.length > 0 ? (
             itemblock(orders)
           ) : (
             <h1 style={{ textAlign: "center", marginTop: '70px' }}>Нема замовлень</h1>
