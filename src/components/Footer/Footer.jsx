@@ -4,7 +4,7 @@ import { ReactComponent as Tick } from "../../assets/svg/Tick.svg";
 import { ReactComponent as Setting } from "../../assets/svg/setting.svg";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../redux/features/userSlice";
-import s from "./Footer.module.scss";
+import s from "./footer.module.scss";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
