@@ -67,10 +67,12 @@
   .partners_arrow {
     cursor: pointer;
     height: 25px;
-    left: 50%;
+    left: 0;
     position: absolute;
-    top: 420px;
+    top: 395px;
     width: 25px;
+    right: 0;
+    margin: auto;
     @media screen and (max-width: 540px) {
       // top: 190px;
       width: 18px;
