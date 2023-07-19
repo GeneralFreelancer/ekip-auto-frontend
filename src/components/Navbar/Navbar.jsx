@@ -1,4 +1,4 @@
-import style from "./Navbar.module.scss";
+import style from "./navbar.module.scss";
 import { useEffect, useState } from "react";
 import MenuHamburger from "./MenuHamburger";
 import NavbarLink from "./NavbarLinkLogo/NavbarLink";
