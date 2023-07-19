@@ -10,7 +10,8 @@ const productsSlice = createSlice({
     interestProducts: [],
     categoryProducts: [],
     subCategoryProducts: [],
-    oneProduct: {}
+    oneProduct: {},
+    loading: false
   },
   reducers: {
     setAllProducts: (state, action) => {
@@ -36,7 +37,10 @@ const productsSlice = createSlice({
     },
     setOneProduct: (state, action) => {
       state.oneProduct = action.payload;
-    }
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
   },
 });
 
@@ -48,7 +52,8 @@ export const {
   setInterestProducts,
   setCategoryProducts,
   setSubCategoryProducts,
-  setOneProduct
+  setOneProduct,
+  setLoading
 } = productsSlice.actions;
 export default productsSlice.reducer;
 export const selectAllProducts = (state) => state.products.allProducts;
@@ -59,3 +64,4 @@ export const selectInterestProducts = (state) => state.products.interestProducts
 export const selectCategoryProducts = (state) => state.products.categoryProducts;
 export const selectSubCategoryProducts = (state) => state.products.subCategoryProducts;
 export const selectOneProduct = (state) => state.products.oneProduct;
+export const selectLoading = (state) => state.products.loading;

@@ -20,7 +20,6 @@ const AdminCard = ({
   const [isFullScreen, setIsFullScreen] = useState(false);
   const isFirstCard = index === 0;
   const isLastCard = index === total;
-  
 
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
@@ -89,19 +88,21 @@ const AdminCard = ({
             <Upload className={`${s.upload} ${s.icon}`} />
           </div> */}
         </div>
-
-        <div>
-          <label> Дайте посилання на рекламу</label>
-          <input
-            className={s.ads_input}
-            placeholder="https://sitename.com/fullpath"
-            data-index={index}
-            name={name}
-            value={link}
-            type="text"
-            onChange={(e) => updateLink(e)}
-          />
-        </div>
+        {/* <button style={{width: '140px'}} onClick={() => addLink(link)}>Відправити дані</button> */}
+        {updateLink && (
+          <div>
+            <label> Дайте посилання на рекламу</label>
+            <input
+              className={s.ads_input}
+              placeholder="https://sitename.com/fullpath"
+              data-index={index}
+              name={name}
+              value={link}
+              type="text"
+              onChange={(e) => updateLink(e)}
+            />
+          </div>
+        )}
       </div>
       {isFullScreen && (
         <div className={s.fullScreen} onClick={toggleFullScreen}>

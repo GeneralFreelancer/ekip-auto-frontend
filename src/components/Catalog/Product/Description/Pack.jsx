@@ -22,7 +22,7 @@ const Pack = (props) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [charactData, setCharactData] = useState(deliveryOptions);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-  
+
   const user = useSelector(selectedUser);
 
   let mobileV = viewportWidth < 510;
@@ -39,7 +39,7 @@ const Pack = (props) => {
     setIsEditMode(true);
   };
 
-  const handleSaveClick = async(id, deliveryOptions) => {
+  const handleSaveClick = async (id, deliveryOptions) => {
     setIsEditMode(false);
     try {
       const response = await axios.put(
@@ -51,7 +51,6 @@ const Pack = (props) => {
           },
         }
       );
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -59,7 +58,7 @@ const Pack = (props) => {
 
   const handleCancelClick = () => {
     setIsEditMode(false);
-    setCharactData([...deliveryOptions].map(item => ({ ...item })));
+    setCharactData([...deliveryOptions].map((item) => ({ ...item })));
   };
 
   const handleAddCharactClick = () => {
@@ -68,13 +67,19 @@ const Pack = (props) => {
 
   const handleCharactNameChange = (index, e) => {
     const newCharactData = [...charactData];
-    newCharactData[index].name = e.target.value;
+    newCharactData[index] = {
+      ...newCharactData[index],
+      name: e.target.value,
+    };
     setCharactData(newCharactData);
   };
 
   const handleCharactValueChange = (index, e) => {
     const newCharactData = [...charactData];
-    newCharactData[index].value = e.target.value;
+    newCharactData[index] = {
+      ...newCharactData[index],
+      value: e.target.value,
+    };
     setCharactData(newCharactData);
   };
 
@@ -108,7 +113,7 @@ const Pack = (props) => {
                 className={s.character_input}
                 value={charact.value}
                 onChange={(e) => handleCharactValueChange(index, e)}
-              />шт
+              />
             </div>
           ))}
           <button
@@ -126,7 +131,10 @@ const Pack = (props) => {
             </div>
           </button>
 
-          <button className={s.character_btn_save} onClick={() => handleSaveClick(id, charactData)}>
+          <button
+            className={s.character_btn_save}
+            onClick={() => handleSaveClick(id, charactData)}
+          >
             <Tick />
           </button>
         </>
@@ -145,7 +153,7 @@ const Pack = (props) => {
                   ......................................................................
                 </span>
               )}
-              <p>{char.value}шт</p>
+              <p>{char.value}</p>
             </div>
           ))}
         </>

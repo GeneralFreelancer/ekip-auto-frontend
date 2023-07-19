@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Subcategoryitem from "./SubCategoryItem";
 import axios from "axios";
-import { setCategoryProducts, setSubCategoryProducts } from "../../redux/features/productsSlice";
+import { setCategoryProducts, setSubCategoryProducts,  setLoading} from "../../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -46,11 +46,14 @@ const CategoryItem = (props) => {
   };
 
   const fetchProductsByCategory = async(title) => {
+    dispatch(setLoading(true));
     try {
       const response = await axios.get(`${baseUrl}/product/?category=${title}`);
+      dispatch(setLoading(false));
       dispatch(setCategoryProducts(response.data.products));
     } catch (error) {
       console.error("Error:", error.message);
+      dispatch(setLoading(false));
     }
   };
 

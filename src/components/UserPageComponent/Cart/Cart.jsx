@@ -58,7 +58,6 @@ const Cart = () => {
     const arrayWithoutDeletedProduct = [...dataCartItems]
       .filter((item) => item.product.id !== id)
       .map((p) => ({ product: p.product.id, number: p.number }));
-    console.log(arrayWithoutDeletedProduct);
     try {
       const response = await axios.post(
         `${baseUrl}/basket`,
@@ -71,7 +70,6 @@ const Cart = () => {
       );
       setDataCartItems(response.data.basket.products);
       dispatch(setProductsInCart(response.data.basket.products));
-      console.log(response.data.basket.products);
     } catch (error) {
       console.error("Error:", error.message);
     }

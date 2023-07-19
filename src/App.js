@@ -90,7 +90,6 @@ function App() {
 
         <Route path="/category" element={<Catalog />} />
         <Route path="/:id" element={<ProductItemPage />} />
-        {/* <Route path="/category/:id" element={<ProductItemPage />} /> */}
 
         <Route
           path="ostannі-nadkhodzhennya/:id"

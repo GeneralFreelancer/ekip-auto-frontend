@@ -10,7 +10,6 @@ const ProductItem = ({
   removeFromBasket,
 }) => {
   const handleClick = () => {
-    console.log(id);
     removeFromBasket(id);
   };
 

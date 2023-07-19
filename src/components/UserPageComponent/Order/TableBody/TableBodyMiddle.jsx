@@ -51,9 +51,9 @@ const TableBodyMiddle = (props) => {
     setEdite(false);
   };
 
-  const redirect = (id) => {
-    console.log(id);
-  };
+  // const redirect = (id) => {
+  //   console.log(id);
+  // };
   const editableInputTypes = () => {
     !isEdite ? setEdite(true) : setEdite(false);
   };

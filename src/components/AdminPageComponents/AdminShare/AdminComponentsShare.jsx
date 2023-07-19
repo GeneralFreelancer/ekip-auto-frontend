@@ -10,30 +10,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
 
-const mockItems = [
-  {
-    id: "1",
-    name: "Сергій Притула",
-    productId: "1",
-    status: true,
-    date: 1679497533000,
-  },
-  {
-    id: "2",
-    name: "Сергій Притула",
-    productId: "1",
-    status: true,
-    date: 1679497533000,
-  },
-  {
-    id: "3",
-    name: "Сергій Притула",
-    productId: "1",
-    status: true,
-    date: 1679497533000,
-  },
-];
-
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const AdminComponentsShare = () => {
@@ -70,15 +46,10 @@ const AdminComponentsShare = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      console.log(response.data.productRequest);
       setDataItems(response.data.productRequests);
     } catch (error) {
       console.error("Error:", error.message);
     }
-    // let templateArr = dataMockItems;
-    // templateArr = [...templateArr].filter(item => item.id !== id);
-    // console.log(templateArr);
-    // setDataMockItems(templateArr);
   };
 
   // change favorite state in DB

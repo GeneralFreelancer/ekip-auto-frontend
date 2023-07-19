@@ -7,8 +7,11 @@ import axios from "axios";
 import {
   setCategoryProducts,
   setSubCategoryProducts,
+  selectLoading,
+  setLoading
 } from "../../../../../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -410,24 +413,31 @@ const AccordionItem = (props) => {
 
   const dispatch = useDispatch();
 
+  const isLoading = useSelector(selectLoading);
+
   const fetchProductsByCategory = async (title) => {
- 
+    dispatch(setLoading(true));
     try {
       const response = await axios.get(`${baseUrl}/product/?category=${title}`);
+      dispatch(setLoading(false));
       dispatch(setCategoryProducts(response.data.products));
     } catch (error) {
       console.error("Error:", error.message);
+      dispatch(setLoading(false));
     }
   };
 
   const fetchProductsBySubCategory = async (title) => {
+    dispatch(setLoading(true));
     try {
       const response = await axios.get(
         `${baseUrl}/product/?subcategory=${title}`
       );
+      dispatch(setLoading(false));
       dispatch(setSubCategoryProducts(response.data.products));
     } catch (error) {
       console.error("Error:", error.message);
+      dispatch(setLoading(false));
     }
   };
 

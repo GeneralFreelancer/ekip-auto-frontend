@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./MyData.module.scss";
 import { useDispatch } from "react-redux";
 import { PatternFormat } from "react-number-format";
@@ -7,6 +7,7 @@ import { fullUserRegistered } from "../../../redux/features/userSlice";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectedUser } from "../../../redux/features/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -17,9 +18,11 @@ const MyData = () => {
     secondName: "",
     phone: "",
     email: "",
-    city: "",
-    street: "",
-    extraInfo: "",
+    livingAddress: {
+      city: "",
+      street: "",
+      additionalInfo: "",
+    },
   });
 
   const [passForm, setPassForm] = useState({
@@ -32,18 +35,39 @@ const MyData = () => {
     lastName: "",
     phone: "",
     email: "",
-    city: "",
-    street: "",
+    livingAddress: {
+      city: "",
+      street: "",
+      additionalInfo: "",
+    },
     newPassword: "",
     confirmPassword: "",
   });
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  // const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isBtnChangeDisabled, setIsBtnChangeDisabled] = useState(true);
   const [passwordMessage, setPasswordMessage] = useState(null);
 
+  const navigate = useNavigate();
+
   const user = useSelector(selectedUser);
   const dispatch = useDispatch();
+
+  const getDataFromBD = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/user`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setDataForm({ ...response.data.user });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getDataFromBD();
+  }, []);
 
   const validateChangeForm = (name, value) => {
     let errors = { ...dataErrors };
@@ -99,22 +123,33 @@ const MyData = () => {
   }
 
   const changeDataHandler = (event) => {
-    setDataForm((prevState) => ({
-      ...prevState,
-      [event.target.name]: event.target.value,
-    }));
-
-    validateChangeForm(event.target.name, event.target.value);
-    if (
-      dataForm.firstName &&
-      dataForm.lastName &&
-      dataForm.phone &&
-      dataForm.email &&
-      dataForm.city &&
-      dataForm.street
-    ) {
-      setIsButtonDisabled(false);
+    const { name, value } = event.target;
+    if (name.includes(".")) {
+      const [parentProp, childProp] = name.split(".");
+      setDataForm((prevState) => ({
+        ...prevState,
+        [parentProp]: {
+          ...prevState[parentProp],
+          [childProp]: value,
+        },
+      }));
+    } else {
+      setDataForm((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
     }
+    validateChangeForm(event.target.name, event.target.value);
+    // if (
+    //   dataForm.firstName &&
+    //   dataForm.lastName &&
+    //   dataForm.phone &&
+    //   dataForm.email &&
+    //   dataForm.livingAddress.city &&
+    //   dataForm.livingAddress.street
+    // ) {
+    //   setIsButtonDisabled(false);
+    // }
   };
 
   const submitChangeHandler = async (e) => {
@@ -124,21 +159,9 @@ const MyData = () => {
       dataForm.lastName &&
       dataForm.phone &&
       dataForm.email &&
-      dataForm.city &&
-      dataForm.street
+      dataForm.livingAddress.city &&
+      dataForm.livingAddress.street
     ) {
-      setIsButtonDisabled(false);
-      setDataForm({
-        firstName: "",
-        lastName: "",
-        secondName: "",
-        phone: "",
-        email: "",
-        city: "",
-        street: "",
-        extraInfo: "",
-      });
-      setIsButtonDisabled(true);
       try {
         const response = await axios.put(
           `${baseUrl}/user/user-data`,
@@ -155,6 +178,7 @@ const MyData = () => {
       } catch (e) {
         console.log(e);
       }
+      navigate('/');
     }
   };
 
@@ -170,7 +194,6 @@ const MyData = () => {
   };
 
   const submitPasswordHandler = async (e) => {
-    console.log('dasd');
     e.preventDefault();
     if (passForm.newPassword === passForm.confirmPassword) {
       setIsBtnChangeDisabled(false);
@@ -213,7 +236,7 @@ const MyData = () => {
                   dataErrors.firstName ? s.input_error : ""
                 }`}
                 value={dataForm.firstName}
-                onChange={changeDataHandler}
+                onChange={(e) => changeDataHandler(e)}
               />
               {dataErrors.name && (
                 <div className={s.error_message}>{dataErrors.name}</div>
@@ -228,7 +251,7 @@ const MyData = () => {
                   dataErrors.lastName ? s.input_error : ""
                 }`}
                 value={dataForm.lastName}
-                onChange={changeDataHandler}
+                onChange={(e) => changeDataHandler(e)}
               />
               {dataErrors.lastName && (
                 <div className={s.error_message}>{dataErrors.lastName}</div>
@@ -241,7 +264,7 @@ const MyData = () => {
                 name="secondName"
                 className={s.form_input}
                 value={dataForm.secondName}
-                onChange={changeDataHandler}
+                onChange={(e) => changeDataHandler(e)}
               />
             </div>
           </div>
@@ -256,7 +279,7 @@ const MyData = () => {
                 allowEmptyFormatting
                 mask="_"
                 className={s.form_input}
-                onChange={changeDataHandler}
+                onChange={(e) => changeDataHandler(e)}
               />
               {dataErrors.phone && (
                 <div className={s.error_message}>{dataErrors.phone}</div>
@@ -272,7 +295,7 @@ const MyData = () => {
                   dataErrors.email ? s.input_error : ""
                 }`}
                 value={dataForm.email}
-                onChange={changeDataHandler}
+                onChange={(e) => changeDataHandler(e)}
               />
               {dataErrors.email && (
                 <div className={s.error_message}>{dataErrors.email}</div>
@@ -285,30 +308,34 @@ const MyData = () => {
               <label>Місто доставки: *</label>
               <input
                 type="text"
-                name="city"
+                name="livingAddress.city"
                 className={`${s.form_input} ${
                   dataErrors.city ? s.input_error : ""
                 }`}
-                value={dataForm.city}
-                onChange={changeDataHandler}
+                value={dataForm.livingAddress.city}
+                onChange={(e) => changeDataHandler(e)}
               />
-              {dataErrors.city && (
-                <div className={s.error_message}>{dataErrors.city}</div>
+              {dataErrors.livingAddress.city && (
+                <div className={s.error_message}>
+                  {dataErrors.livingAddress.city}
+                </div>
               )}
             </div>
             <div className={s.form_group}>
               <label>Адреса доставки: *</label>
               <input
                 type="text"
-                name="street"
+                name="livingAddress.street"
                 className={`${s.form_input} ${
                   dataErrors.street ? s.input_error : ""
                 }`}
-                value={dataForm.street}
-                onChange={changeDataHandler}
+                value={dataForm.livingAddress.street}
+                onChange={(e) => changeDataHandler(e)}
               />
-              {dataErrors.street && (
-                <div className={s.error_message}>{dataErrors.street}</div>
+              {dataErrors.livingAddress.street && (
+                <div className={s.error_message}>
+                  {dataErrors.livingAddress.street}
+                </div>
               )}
             </div>
           </div>
@@ -318,10 +345,10 @@ const MyData = () => {
               <label>Додаткова інформація доставки:</label>
               <textarea
                 type="text"
-                name="extraInfo"
+                name="livingAddress.additionalInfo"
                 className={s.form_input}
-                value={dataForm.extraInfo}
-                onChange={changeDataHandler}
+                value={dataForm.livingAddress.additionalInfo}
+                onChange={(e) => changeDataHandler(e)}
                 placeholder="Тут можна додати більш детальну інформацію про адресу доставки..."
               />
             </div>
@@ -377,7 +404,9 @@ const MyData = () => {
                 Змінити
               </button>
               {passwordMessage ? (
-                <p style={{marginTop: '5px'}} className={s.error_message}>{passwordMessage}</p>
+                <p style={{ marginTop: "5px" }} className={s.error_message}>
+                  {passwordMessage}
+                </p>
               ) : (
                 ""
               )}
@@ -389,7 +418,7 @@ const MyData = () => {
           <button
             type="submit"
             onClick={submitChangeHandler}
-            disabled={isButtonDisabled}
+            // disabled={isButtonDisabled}
           >
             Зберегти
           </button>

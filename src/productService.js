@@ -5,6 +5,7 @@ import {
   setTopProducts,
   setLastSeenProducts,
   setInterestProducts,
+  setLoading
 } from "./redux/features/productsSlice";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -38,24 +39,31 @@ export const getProductsAll = async (dispatch) => {
 };
 
 export const getProductsWithDateFilter = async (dispatch) => {
+  dispatch(setLoading(true));
   try {
     const response = await axios.get(`${baseUrl}/product/?filter=date`);
+    dispatch(setLoading(false));
     dispatch(setDateProducts(response.data.products));
   } catch (error) {
     console.error("Error:", error.message);
+    dispatch(setLoading(false));
   }
 };
 
 export const getProductsWithTopFilter = async (dispatch) => {
+  dispatch(setLoading(true));
   try {
     const response = await axios.get(`${baseUrl}/product/?filter=top`);
     dispatch(setTopProducts(response.data.products));
+    dispatch(setLoading(false));
   } catch (error) {
     console.error("Error:", error.message);
+    dispatch(setLoading(false));
   }
 };
 
 export const getProductsWithLast_seenFilter = async (dispatch, user) => {
+  dispatch(setLoading(true));
   try {
     let response;
     if (user?.isLoggedIn) {
@@ -66,17 +74,22 @@ export const getProductsWithLast_seenFilter = async (dispatch, user) => {
       response = await axios.get(`${baseUrl}/product/?filter=last_seen`);
     }
     dispatch(setLastSeenProducts(response.data.products));
+    dispatch(setLoading(false));
   } catch (error) {
     console.error("Error:", error.message);
+    dispatch(setLoading(false));
   }
 };
 
 export const getProductsWithInterestFilter = async (dispatch) => {
+  dispatch(setLoading(true));
   try {
     const response = await axios.get(`${baseUrl}/product/?filter=interest`);
     dispatch(setInterestProducts(response.data.products));
+    dispatch(setLoading(false));
   } catch (error) {
     console.error("Error:", error.message);
+    dispatch(setLoading(false));
   }
 };
 // products end
