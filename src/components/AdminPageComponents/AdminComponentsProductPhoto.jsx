@@ -136,7 +136,6 @@ const AdminComponentsProductPhoto = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data);
       setImages(response.data.product.pictures);
       dispatch(setOneProduct(response.data.product));
     } catch (error) {
