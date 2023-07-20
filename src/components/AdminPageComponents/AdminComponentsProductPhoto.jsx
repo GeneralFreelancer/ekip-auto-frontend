@@ -126,6 +126,7 @@ const AdminComponentsProductPhoto = () => {
 
   const sendImageToBD = async (id, file, filename) => {
     const formData = new FormData();
+   
     formData.append("image", file, filename);
     formData.append("productId", id);
     try {
@@ -135,6 +136,7 @@ const AdminComponentsProductPhoto = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      console.log(response.data);
       setImages(response.data.product.pictures);
       dispatch(setOneProduct(response.data.product));
     } catch (error) {
