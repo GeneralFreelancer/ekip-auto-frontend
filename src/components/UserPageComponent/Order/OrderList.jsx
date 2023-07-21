@@ -13,7 +13,7 @@ const OrderList = () => {
   // console.log(new Intl.DateTimeFormat('UKR', {year: 'numeric', month: 'long',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(timestamp));
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(orders)
+  
   const user = useSelector(selectedUser);
 
   const months = {

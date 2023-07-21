@@ -126,6 +126,7 @@ const AdminComponentsProductPhoto = () => {
 
   const sendImageToBD = async (id, file, filename) => {
     const formData = new FormData();
+   
     formData.append("image", file, filename);
     formData.append("productId", id);
     try {

@@ -32,25 +32,42 @@ const Characteristic = (props) => {
   };
 
   const handleSaveClick = async (id, options) => {
+    let updOptions = [];
+    for (let item of options) {
+      if (item.name !== "" || item.value !== "") {
+        updOptions.push({ name: item.name, value: item.value });
+      }
+    }
     setIsEditMode(false);
     try {
       const response = await axios.put(
         `${baseUrl}/product`,
-        { id, options },
+        { id, options: updOptions },
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         }
       );
+      setCharactData(response.data.product.options);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleCancelClick = () => {
+  const handleCancelClick = async () => {
     setIsEditMode(false);
-    setCharactData(options.map((item) => ({ ...item })));
+    try {
+      const response = await axios.get(`${baseUrl}/product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setCharactData(response.data.product.options);
+    } catch (error) {
+      console.error(error);
+    }
+    // setCharactData(options.map((item) => ({ ...item })));
   };
 
   const handleAddCharactClick = () => {

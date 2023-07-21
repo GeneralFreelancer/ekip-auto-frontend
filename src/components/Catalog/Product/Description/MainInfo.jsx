@@ -9,19 +9,8 @@ import { selectedUser } from "../../../../redux/features/userSlice";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-// const initialText = `Серветки ColorWay для чищення екранів, моніторів, ноутбуків, телевізорів, смартфонів, комп'ютерів, периферії та іншої офісної та домашньої електроніки. Призначені для вологого чищення сильних забруднень, плям, що в'їдаються, потертостей, пилу та інших плям різного ступеня забруднення. 
-
-// Lorem ipsum dolor sit amet consectetur adipisicing elit.
-// Fugiat quis numquam ratione veniam! Impedit tempora voluptatibus quia unde inventore voluptatum, autem, illo vel, similique ad eius architecto facilis officia hic.
-
-// Autem, illo vel, similique ad eius architecto facilis officia hic.Lorem ipsum dolor sit amet consectetur adipisicing elit.
-// Fugiat quis numquam. 
-
-// Склад: вологі серветки 100 шт.
-// Розмір: 12 x 12см.`;
-
 const MainInfo = (props) => {
-  const {  id, description, role} = props;
+  const { id, description, role } = props;
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(description);
   const user = useSelector(selectedUser);
@@ -32,26 +21,29 @@ const MainInfo = (props) => {
     setIsEditMode(true);
   };
 
-  const handleSaveClick = async(id, description) => {
+  const handleSaveClick = async (id, description) => {
     setIsEditMode(false);
-    try {
-      const response = await axios.put(
-        `${baseUrl}/product`,
-        { id, description },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-    } catch (error) {
-      console.error(error);
+    if (description !== '') {
+      try {
+        const response = await axios.put(
+          `${baseUrl}/product`,
+          { id, description },
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
   const handleCancelClick = () => {
     setIsEditMode(false);
     setText(description);
+    console.log(text);
   };
 
   return (

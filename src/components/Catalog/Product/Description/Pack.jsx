@@ -40,25 +40,42 @@ const Pack = (props) => {
   };
 
   const handleSaveClick = async (id, deliveryOptions) => {
+    let updDeliveryOptions = [];
+    for (let item of deliveryOptions) {
+      if (item.name !== "" || item.value !== "") {
+        updDeliveryOptions.push({ name: item.name, value: item.value });
+      }
+    }
     setIsEditMode(false);
     try {
       const response = await axios.put(
         `${baseUrl}/product`,
-        { id, deliveryOptions },
+        { id, deliveryOptions: updDeliveryOptions },
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         }
       );
+      setCharactData(response.data.product.deliveryOptions);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleCancelClick = () => {
+  const handleCancelClick = async() => {
     setIsEditMode(false);
-    setCharactData([...deliveryOptions].map((item) => ({ ...item })));
+    try {
+      const response = await axios.get(`${baseUrl}/product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setCharactData(response.data.product.deliveryOptions);
+    } catch (error) {
+      console.error(error);
+    }
+    // setCharactData(deliveryOptions.map((item) => ({ ...item })));
   };
 
   const handleAddCharactClick = () => {

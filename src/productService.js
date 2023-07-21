@@ -47,8 +47,8 @@ export const getProductsWithDateFilter = async (dispatch) => {
   dispatch(setLoading(true));
   try {
     const response = await axios.get(`${baseUrl}/product/?filter=date`);
-    dispatch(setLoading(false));
     dispatch(setDateProducts(response.data.products));
+    dispatch(setLoading(false));
   } catch (error) {
     console.error("Error:", error.message);
     dispatch(setLoading(false));
