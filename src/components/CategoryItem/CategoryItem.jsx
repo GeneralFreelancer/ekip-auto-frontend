@@ -1,6 +1,6 @@
 import s from "./Category.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Subcategoryitem from "./SubCategoryItem";
 import axios from "axios";
@@ -16,51 +16,29 @@ const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
 const translit = (name) => {
   return cyrillicToTranslit
-  .transform(String(name).replace(",", ""), "-")
-  .toLowerCase();
+    .transform(String(name).replace(",", ""), "-")
+    .toLowerCase();
 };
 
 const CategoryItem = (props) => {
-  
-  const element = useRef(null);
-  const arrOfCategoryes = useRef(null);
-  
   const [isActive, setIsSubCat] = useState(false);
   const [catId, setCatId] = useState(false);
   const [categoryLink, setCategoryLink] = useState(false);
   const [catPosition, setCatPosition] = useState("");
-  const [mouseDirection, setMouseDirection] = useState(false);
-  const [previousPosition, setPreviousPosition] = useState(null);
-  const [isCategoryes, setIsCategoryes] = useState([]);
-  
-  useEffect(() => {
-    let arr = [];
-    arrOfCategoryes.current.childNodes.forEach((item) => {
-      arr.push(item.id)
-    })
-    setIsCategoryes(arr)
-  }, [])
+  const [isScroll, setIsScroll] = useState(0);
 
   const dispatch = useDispatch();
-  const handleMouseMove = (event) => {
-    const currentPosition = event.clientY;
-    if (previousPosition && previousPosition > currentPosition) {
-      setMouseDirection(false);
-    } else if (previousPosition && previousPosition < currentPosition) {
-      setMouseDirection(true);
-    }
-    setPreviousPosition(currentPosition);
-  };
 
+  const handleScroll = (event) => {
+    let value = Math.round(event.target.scrollTop);
+    setIsScroll(value);
+  };
   const currentHeight = (elem) => {
-    const elementId = elem.target.id;
-    const elementIndex = isCategoryes.indexOf(elementId);
-    console.log('elementIndex ', elementIndex)
-    console.log(elem.clientY);
-    if (!mouseDirection) {
-      setCatPosition(elem.clientY - 73 - 40);
+    if (isScroll > 0) {
+      let value = elem.target.offsetTop - isScroll;
+      setCatPosition(value);
     } else {
-      setCatPosition(elem.clientY - 73);
+      setCatPosition(elem.target.offsetTop);
     }
   };
 
@@ -84,12 +62,11 @@ const CategoryItem = (props) => {
           : s.menu__wrapper
       }
     >
-      <div ref={arrOfCategoryes} className={s.menu__content} onMouseMove={handleMouseMove}>
+      <div className={s.menu__content} onScroll={handleScroll}>
         {props.data.map(({ id, category, subcategories }, i) => (
           <React.Fragment key={id}>
             <Link
               id={id}
-              ref={element}
               className={
                 isActive && id === catId
                   ? `${s.menu__content__link} ${s.activeCategory}`
@@ -99,7 +76,7 @@ const CategoryItem = (props) => {
               to={`/category`}
               onMouseEnter={(e) => {
                 if (subcategories?.length > 0) {
-                  console.log('menu target ',id, e.target.previousSibling.offse)
+                  console.log("menu target ", id, e.target.offsetTop);
                   setIsSubCat(true);
                   setCatId(id);
                   setCategoryLink(`/${translit(category)}`);
@@ -119,7 +96,6 @@ const CategoryItem = (props) => {
                 localStorage.removeItem("subcategory");
               }}
             >
-              
               {category}
             </Link>
           </React.Fragment>
@@ -127,7 +103,7 @@ const CategoryItem = (props) => {
       </div>
       {isActive &&
         props.data.map(({ id, subcategories }) =>
-        subcategories.length > 0 && id === catId ? (
+          subcategories.length > 0 && id === catId ? (
             <Subcategoryitem
               key={id}
               catPosition={catPosition}
