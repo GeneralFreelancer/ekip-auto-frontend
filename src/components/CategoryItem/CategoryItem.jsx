@@ -1,6 +1,6 @@
 import s from "./Category.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Subcategoryitem from "./SubCategoryItem";
 import axios from "axios";
@@ -12,26 +12,36 @@ import {
 import { useDispatch } from "react-redux";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
-
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
 const translit = (name) => {
   return cyrillicToTranslit
-    .transform(String(name).replace(",", ""), "-")
-    .toLowerCase();
+  .transform(String(name).replace(",", ""), "-")
+  .toLowerCase();
 };
 
 const CategoryItem = (props) => {
-
+  
+  const element = useRef(null);
+  const arrOfCategoryes = useRef(null);
+  
   const [isActive, setIsSubCat] = useState(false);
   const [catId, setCatId] = useState(false);
   const [categoryLink, setCategoryLink] = useState(false);
   const [catPosition, setCatPosition] = useState("");
   const [mouseDirection, setMouseDirection] = useState(false);
   const [previousPosition, setPreviousPosition] = useState(null);
+  const [isCategoryes, setIsCategoryes] = useState([]);
+  
+  useEffect(() => {
+    let arr = [];
+    arrOfCategoryes.current.childNodes.forEach((item) => {
+      arr.push(item.id)
+    })
+    setIsCategoryes(arr)
+  }, [])
 
   const dispatch = useDispatch();
-
   const handleMouseMove = (event) => {
     const currentPosition = event.clientY;
     if (previousPosition && previousPosition > currentPosition) {
@@ -43,6 +53,10 @@ const CategoryItem = (props) => {
   };
 
   const currentHeight = (elem) => {
+    const elementId = elem.target.id;
+    const elementIndex = isCategoryes.indexOf(elementId);
+    console.log('elementIndex ', elementIndex)
+    console.log(elem.clientY);
     if (!mouseDirection) {
       setCatPosition(elem.clientY - 73 - 40);
     } else {
@@ -70,11 +84,12 @@ const CategoryItem = (props) => {
           : s.menu__wrapper
       }
     >
-      <div className={s.menu__content} onMouseMove={handleMouseMove}>
+      <div ref={arrOfCategoryes} className={s.menu__content} onMouseMove={handleMouseMove}>
         {props.data.map(({ id, category, subcategories }, i) => (
           <Link
             key={id}
             id={id}
+            ref={element}
             className={
               isActive && id === catId
                 ? `${s.menu__content__link} ${s.activeCategory}`
@@ -84,6 +99,7 @@ const CategoryItem = (props) => {
             to={`/category`}
             onMouseEnter={(e) => {
               if (subcategories?.length > 0) {
+                console.log('menu target ',id, e.target)
                 setIsSubCat(true);
                 setCatId(id);
                 setCategoryLink(`/${translit(category)}`);
@@ -115,6 +131,7 @@ const CategoryItem = (props) => {
               catPosition={catPosition}
               subcategories={subcategories}
               categoryLink={categoryLink}
+              state={setIsSubCat}
             />
           ) : (
             ""
