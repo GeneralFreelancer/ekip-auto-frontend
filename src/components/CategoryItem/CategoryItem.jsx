@@ -86,41 +86,43 @@ const CategoryItem = (props) => {
     >
       <div ref={arrOfCategoryes} className={s.menu__content} onMouseMove={handleMouseMove}>
         {props.data.map(({ id, category, subcategories }, i) => (
-          <Link
-            key={id}
-            id={id}
-            ref={element}
-            className={
-              isActive && id === catId
-                ? `${s.menu__content__link} ${s.activeCategory}`
-                : s.menu__content__link
-            }
-            // to={`/${translit(title)}`}
-            to={`/category`}
-            onMouseEnter={(e) => {
-              if (subcategories?.length > 0) {
-                console.log('menu target ',id, e.target)
-                setIsSubCat(true);
-                setCatId(id);
-                setCategoryLink(`/${translit(category)}`);
-              } else {
-                if (id !== catId) {
-                  setIsSubCat(false);
-                  setCategoryLink(false);
-                }
+          <React.Fragment key={id}>
+            <Link
+              id={id}
+              ref={element}
+              className={
+                isActive && id === catId
+                  ? `${s.menu__content__link} ${s.activeCategory}`
+                  : s.menu__content__link
               }
-              currentHeight(e);
-            }}
-            onClick={() => {
-              dispatch(setCategoryProducts([]));
-              dispatch(setSubCategoryProducts([]));
-              fetchProductsByCategory(category);
-              localStorage.setItem("category", category);
-              localStorage.removeItem("subcategory");
-            }}
-          >
-            {category}
-          </Link>
+              // to={`/${translit(title)}`}
+              to={`/category`}
+              onMouseEnter={(e) => {
+                if (subcategories?.length > 0) {
+                  console.log('menu target ',id, e.target.previousSibling.offse)
+                  setIsSubCat(true);
+                  setCatId(id);
+                  setCategoryLink(`/${translit(category)}`);
+                } else {
+                  if (id !== catId) {
+                    setIsSubCat(false);
+                    setCategoryLink(false);
+                  }
+                }
+                currentHeight(e);
+              }}
+              onClick={() => {
+                dispatch(setCategoryProducts([]));
+                dispatch(setSubCategoryProducts([]));
+                fetchProductsByCategory(category);
+                localStorage.setItem("category", category);
+                localStorage.removeItem("subcategory");
+              }}
+            >
+              
+              {category}
+            </Link>
+          </React.Fragment>
         ))}
       </div>
       {isActive &&
