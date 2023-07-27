@@ -217,6 +217,7 @@
     height: 30px;
   }
   .input_file {
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -232,4 +233,7 @@
     color: #333030;
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
   }
+}
+.success {
+  color: green;
 }

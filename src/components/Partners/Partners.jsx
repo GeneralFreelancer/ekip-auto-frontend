@@ -14,26 +14,47 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Partners = () => {
   const [comment, setComment] = useState("");
-  console.log(comment);
+  const [isLoggedIn, setIsLoggedIn] = useState("");
+  const [file, setFile] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
 
   const sendComment = async (comment) => {
     try {
-      const response = await axios.post(
-        `${baseUrl}//partner`,
-        {
-          comment: comment,
+      const formData = new FormData();
+
+      formData.append("message", comment);
+      // console.log(file)
+      formData.append("file", file); // 'file' is the variable that holds the file to be sent
+
+      const response = await axios.post(`${baseUrl}/user/partner`, formData, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "multipart/form-data", // Make sure to set the proper content type for file uploads
         },
-        { headers: { Authorization: `Bearer ${user.token}` } }
-      );
+      });
+
+      // Handle the response here
+      if (response.data.success) {
+        setComment("");
+        setFile(null);
+        setIsSuccess(true);
+      }
     } catch (error) {
       console.error("Error:", error.message);
     }
   };
 
+  const getFile = async (f) => {
+    setFile(f.target.files[0]);
+  };
+
   useEffect(() => {
-    sendComment(comment);
+    if (isLoggedIn) {
+      sendComment(comment);
+    }
+    setIsLoggedIn(user.isLoggedIn);
   }, [dispatch, user.token]);
 
   function scrollToAnchor(anchorId) {
@@ -86,25 +107,31 @@ const Partners = () => {
               ></textarea>
               <PaperClip className={s.paper_clip} />
             </div>
+
             <div className={s.input_file}>
-              <input name="file" type="file"/>
+              <input name="file" type="file" onChange={(f) => getFile(f)} />
               <label htmlFor="file">
                 Ви можете надіслати наступні форматии:
                 (jpg|jpeg|png|pdf|doc|docx|txt|xls|xlsx|rtf)
               </label>
             </div>
-            <button
-              className={s.btn_send}
-              onClick={() => {
-                sendComment(comment);
-              }}
-            >
-              Надіслати пропозицію
-            </button>
-            <Link
-              to="#"
-              style={{ "text-decoration": "none", cursor: "default" }}
-            >
+
+            {isLoggedIn &&
+              (isSuccess ? (
+                <div className={s.success}>
+                  Ваша пропозиція успішно надіслана
+                </div>
+              ) : (
+                <button
+                  className={s.btn_send}
+                  onClick={() => {
+                    sendComment(comment);
+                  }}
+                >
+                  Надіслати пропозицію
+                </button>
+              ))}
+            <Link to="#" style={{ textDecoration: "none", cursor: "default" }}>
               *Для того щоб надіслати пропозицію, будь ласка, авторизуйтесь, або
               зареєструйтесь
             </Link>
