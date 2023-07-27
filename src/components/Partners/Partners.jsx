@@ -1,9 +1,40 @@
 import s from "./Partners.module.scss";
 import React from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectedUser } from "../../redux/features/userSlice";
+
+import { Link } from "react-router-dom";
 import { ReactComponent as PaperClip } from "../../assets/svg/paper_clip.svg.svg";
-import { ReactComponent as DoubleArrow} from "../../assets/svg/down_duble_arrow.svg.svg"
+import { ReactComponent as DoubleArrow } from "../../assets/svg/down_duble_arrow.svg.svg";
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Partners = () => {
+  const [comment, setComment] = useState("");
+  console.log(comment);
+  const dispatch = useDispatch();
+  const user = useSelector(selectedUser);
+
+  const sendComment = async (comment) => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}//partner`,
+        {
+          comment: comment,
+        },
+        { headers: { Authorization: `Bearer ${user.token}` } }
+      );
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    sendComment(comment);
+  }, [dispatch, user.token]);
 
   function scrollToAnchor(anchorId) {
     const element = document.getElementById(anchorId);
@@ -16,18 +47,21 @@ const Partners = () => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <div className={s.container_partners}>
         <div className={s.partners_empty}></div>
         <div className={s.partners_image}></div>
         <div className={s.partners_logo}>
           <div className={s.partners_text}>Читати для партнерів</div>
-          <DoubleArrow className={s.partners_arrow} onClick={() => scrollToAnchor("message_block")} />
+          <DoubleArrow
+            className={s.partners_arrow}
+            onClick={() => scrollToAnchor("message_block")}
+          />
         </div>
         <div className={s.partners_arrow}></div>
         <div className={s.partners_title}></div>
         <div className={s.partners_button}></div>
-        <a id='message_block' className={s.anchor}></a>
+        <a id="message_block" className={s.anchor}></a>
         <div className={s.partners_content}>
           <p className={s.title}>
             Наша компанія завжди відкрита для нових пропозицій<br></br> і ми
@@ -47,14 +81,37 @@ const Partners = () => {
               <textarea
                 className={s.textarea}
                 placeholder="Додайте свою пропозицію і ми обов'язково її розглянемо..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
               ></textarea>
               <PaperClip className={s.paper_clip} />
             </div>
-            <button className={s.btn_send}>Надіслати пропозицію</button>
+            <div className={s.input_file}>
+              <input name="file" type="file"/>
+              <label htmlFor="file">
+                Ви можете надіслати наступні форматии:
+                (jpg|jpeg|png|pdf|doc|docx|txt|xls|xlsx|rtf)
+              </label>
+            </div>
+            <button
+              className={s.btn_send}
+              onClick={() => {
+                sendComment(comment);
+              }}
+            >
+              Надіслати пропозицію
+            </button>
+            <Link
+              to="#"
+              style={{ "text-decoration": "none", cursor: "default" }}
+            >
+              *Для того щоб надіслати пропозицію, будь ласка, авторизуйтесь, або
+              зареєструйтесь
+            </Link>
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 export default Partners;

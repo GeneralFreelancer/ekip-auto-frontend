@@ -29,7 +29,7 @@ const About = () => {
         <div className={s.partners_title}></div>
         <div className={s.partners_button}></div>
         <a id="lastParagraph_block" className={s.anchor}></a>
-        <div>
+        <div className={s.content_wrapper}>
           <p className={s.title}>
             Наша компанія Ekip-Auto вже більш ніж 20 років займається імпортом
             та оптовим продажем авто-аксесуарів, авто-комплектуючих та іншого

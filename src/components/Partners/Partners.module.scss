@@ -168,7 +168,9 @@
   background-color: $hardGrey;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
 }
-
+.partners_content {
+  height: 87vh;
+}
 .message_block {
   position: relative;
   margin-top: 30px;
@@ -213,5 +215,21 @@
     right: 15px;
     width: 30px;
     height: 30px;
+  }
+  .input_file {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-transform: uppercase;
+    width: 315;
+    padding: 5px 45px;
+    border-radius: 8px;
+    border: 2px solid #bcbab5;
+    background-color: #f8f7f0;
+    font-weight: bold;
+    color: #333030;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
   }
 }
