@@ -23,7 +23,7 @@ const FavoriteList = ({ items, handelClick }) => {
   const [cardsPerPage, setCardsPerPage] = useState(6);
   const [lastPage, setLastPage] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
-
+  console.log('cards favorite list ', cards);
   const changeCardsQuantity = (width) => {
     if (width > 1575) {
       setCardsPerPage(6);
@@ -60,7 +60,7 @@ const FavoriteList = ({ items, handelClick }) => {
 
   const renderCards = () => {
     return cards.map(
-      ({ id, pictures, name, priceUAH, priseUSD, stock, minQuantity
+      ({ id, pictures, name, priceUAH, priceUSD, stock, minQuantity
       }, index) => (
         <FavoriteCard
           key={id}
@@ -68,7 +68,7 @@ const FavoriteList = ({ items, handelClick }) => {
           imgUrl={pictures[0]}
           title={name}
           priceUAH={priceUAH}
-          priseUSD={priseUSD}
+          priceUSD={priceUSD}
           inStock={stock}
           minQuantity={minQuantity}
           handelClick={handelClick}

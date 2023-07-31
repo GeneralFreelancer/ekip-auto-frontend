@@ -99,6 +99,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     const handleClickWindow = (e) => {
+      console.log("click window")
       if (showResults === true) {
         if (
           wrapperSearchBarRef.current &&
@@ -128,8 +129,9 @@ const SearchBar = () => {
   };
 
   const handleBlur = () => {
+    console.log("blur")
     if (showResults === false) {
-      setIsFocused(false);
+      // setIsFocused(false);
     }
 
     const newTimerId = setTimeout(() => {
@@ -137,7 +139,7 @@ const SearchBar = () => {
       setShowResults(false);
       setSearchQuery("");
       setSearchItems([]);
-    }, 10000);
+    }, 1000000000000000);
     setTimerId(newTimerId);
   };
 
@@ -150,12 +152,13 @@ const SearchBar = () => {
   };
 
   const handleItemClick = (id) => {
+    console.log("click item", id)
     dispatch(setOneProduct({}));
     navigate(`/${id}`);
-    setIsFocused(false);
+    // setIsFocused(false);
     setShowResults(false);
-    setSearchQuery("");
-    setSearchItems([]);
+    // setSearchQuery("");
+    // setSearchItems([]);
   };
 
   // const searchedFinalItems = useMemo(() => {
@@ -182,7 +185,7 @@ const SearchBar = () => {
         placeholder="Пошук..."
         value={searchQuery}
         onChange={handleSearch}
-        onBlur={handleBlur}
+        // onBlur={handleBlur}
         onFocus={handleFocus}
       />
       {showResults && (
@@ -206,7 +209,7 @@ const SearchBar = () => {
                   </div>
                 </div>
 
-                <div style={{textAlign: 'end'}}>
+                <div className={s.price_wrapper}>
                   <p>{item.priceUAH} UAH</p>
                   <p>{item.priceUSD} USD</p>
                 </div>

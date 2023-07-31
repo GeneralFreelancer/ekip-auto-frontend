@@ -105,8 +105,27 @@
     padding: 0 15px;
     border-bottom: 1px solid $lightGrey;
     list-style: none;
-    height: 55px;
+    height: fit-content;
     cursor: pointer;
+    @media screen and (max-width: 1273px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    @media screen and (max-width: 1233px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: row;
+    }
+    @media screen and (max-width: 730px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    @media screen and (max-width: 540px) {
+      flex-direction: column;
+    }
     .search_item_block {
       display: flex;
       align-items: center;
@@ -121,8 +140,26 @@
         object-fit: contain;
       }
     }
-    p {
-      margin: 5px;
+    .price_wrapper {
+      text-align: end;
+      @media screen and (max-width: 1273px) {
+        display: flex;
+      }
+      @media screen and (max-width: 1233px) {
+        display: flex;
+      }
+      @media screen and (max-width: 1024px) {
+        display: block;
+      }
+      @media screen and (max-width: 730px) {
+          display: flex;
+      }
+      @media screen and (max-width: 540px) {
+        display: flex;
+      }
+      p {
+        margin: 5px;
+      }
     }
     span {
       background-color: $lightGrey;
@@ -168,28 +205,36 @@
   @media screen and (max-width: 729px) {
     right: 0px;
     // width: 400px;
-    width: 87%;
+    width: fit-content;
+    max-width: 87%;
   }
 
   @media screen and (max-width: 540px) {
     right: 0px;
     // width: 390px;
-    width: 100%;
+     width: fit-content;
+     max-width: 360px;
+    
   }
   @media screen and (max-width: 460px) {
     right: 0px;
     // width: 360px;
-    width: 100%;
+     width: fit-content;
+     max-width: 360px;
+    
   }
   @media screen and (max-width: 430px) {
     // width: 340px;
-    width: 100%;
+     width: fit-content;
+     max-width: 360px;
   }
 
   @media screen and (max-width: 380px) {
     right: 0px;
     // width: 330px;
-    width: 100%;
+     width: fit-content;
+     max-width: 360px;
+    
   }
 }
 

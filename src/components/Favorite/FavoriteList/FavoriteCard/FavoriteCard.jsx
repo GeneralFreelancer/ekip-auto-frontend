@@ -24,7 +24,7 @@ const FavoriteCard = ({
   imgUrl,
   title,
   priceUAH,
-  priseUSD,
+  priceUSD,
   inStock,
   styleCard,
   minQuantity,
@@ -52,7 +52,7 @@ const FavoriteCard = ({
       console.error("Error:", error.message);
     }
   };
-
+  console.log('priseUSD ', priceUSD, priceUAH)
   return (
     <div className={styleCard ? `${s[`${styleCard}`]} ${s.card}` : s.card}>
       <span id={id} className={s.heart} onClick={() => handelClick(id)}></span>
@@ -76,7 +76,7 @@ const FavoriteCard = ({
           <p className={`${s.inStock} ${s.inStockNo}`}>Немає в наявності</p>
         )}
         <div className={s.wrapperPrice}>
-          <p className={s.priceUSD}>{priseUSD} $</p>
+          <p className={s.priceUSD}>{priceUSD} $</p>
           <p className={s.priceUAH}>{priceUAH} ₴</p>
         </div>
       </div>

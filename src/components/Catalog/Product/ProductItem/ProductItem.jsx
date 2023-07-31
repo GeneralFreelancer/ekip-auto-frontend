@@ -181,9 +181,11 @@ const ProductItem = ({ selectedProduct }) => {
       );
     }
   };
+
   const hadleMouseEnter = () => {
     setMouseEnter(true);
   };
+  
   const hadleMouseLeave = () => {
     setMouseEnter(false);
   };

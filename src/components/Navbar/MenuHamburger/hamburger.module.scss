@@ -3,18 +3,26 @@
 .menu {
   &__hamburger {
     position: relative;
-    margin-right: 58px;
+    margin-right: 15px;
     z-index: 50;
+    width: 73px;
+    height: 73px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer; 
     @media screen and (max-width: 1420px) {
-      margin-right: 20px;
+      margin-right: 15px;
+      width: auto;
     }
     @media screen and (max-width: 540px) {
-      margin: 20px;
+      margin: 0 15px;
+      width: auto;
     }
   }
   &__icon {
-    width: 35px;
-    height: 35px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     fill: $lightWhite;
   }

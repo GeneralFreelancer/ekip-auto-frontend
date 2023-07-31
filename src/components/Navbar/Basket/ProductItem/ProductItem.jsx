@@ -1,4 +1,7 @@
 import style from "./ProductItem.module.scss";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setOneProduct } from "../../../../redux/features/productsSlice";
 
 const ProductItem = ({
   id,
@@ -9,6 +12,12 @@ const ProductItem = ({
   amount,
   removeFromBasket,
 }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleRedirect = (id) => { 
+    dispatch(setOneProduct({}));
+    navigate(`/${id}`);
+  }
   const handleClick = () => {
     removeFromBasket(id);
   };
@@ -24,14 +33,14 @@ const ProductItem = ({
   return (
     <li className={style.item}>
       <img className={style.image} src={imgUrl} alt="img" />
-      <div className={style.wrapper}>
+      <div className={style.wrapper} onClick={() => handleRedirect(id)}>
         <div className={style.wrapperFirst}>
           <p>{trimString(title)}</p>
           <p>{amount} од.</p>
         </div>
         <div style={{ textAlign: "end" }}>
-          <p>{priceUAH} UAH</p>
-          <p>{priseUSD} $</p>
+          <p>{amount * priceUAH} UAH</p>
+          <p>{amount * priseUSD} $</p>
         </div>
       </div>
       <span id={id} className={style.garbage} onClick={handleClick}></span>
