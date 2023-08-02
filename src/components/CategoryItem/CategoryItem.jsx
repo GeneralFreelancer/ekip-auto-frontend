@@ -26,7 +26,8 @@ const CategoryItem = (props) => {
   const [categoryLink, setCategoryLink] = useState(false);
   const [catPosition, setCatPosition] = useState("");
   const [isScroll, setIsScroll] = useState(0);
-
+  const [enterState, setEnterState] = useState(false);
+  console.log('enter state', enterState);
   const dispatch = useDispatch();
 
   const handleScroll = (event) => {
@@ -62,7 +63,7 @@ const CategoryItem = (props) => {
           : s.menu__wrapper
       }
     >
-      <div className={s.menu__content} onScroll={handleScroll}>
+      <div className={s.menu__content} data-name={'category'} onScroll={handleScroll}>
         {props.data.map(({ id, category, subcategories }, i) => (
           <React.Fragment key={id}>
             <Link
@@ -76,7 +77,7 @@ const CategoryItem = (props) => {
               to={`/category`}
               onMouseEnter={(e) => {
                 if (subcategories?.length > 0) {
-                  console.log("menu target ", id, e.target.offsetTop);
+                  console.log("menu target ", id, e.target);
                   setIsSubCat(true);
                   setCatId(id);
                   setCategoryLink(`/${translit(category)}`);
@@ -95,6 +96,15 @@ const CategoryItem = (props) => {
                 localStorage.setItem("category", category);
                 localStorage.removeItem("subcategory");
               }}
+              onMouseLeave={(e) => {
+                let target = e.relatedTarget.dataset.name;
+                
+                if (target !== 'subcat') {
+                  setIsSubCat(false);
+                  setCategoryLink(false);
+                }
+                
+              }}
             >
               {category}
             </Link>
@@ -110,6 +120,7 @@ const CategoryItem = (props) => {
               subcategories={subcategories}
               categoryLink={categoryLink}
               state={setIsSubCat}
+              enter={setEnterState}
             />
           ) : (
             ""

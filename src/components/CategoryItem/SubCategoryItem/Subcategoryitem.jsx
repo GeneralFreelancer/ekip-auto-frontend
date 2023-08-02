@@ -18,7 +18,7 @@ const translit = (name) => {
 };
 
 const Subcategoryitem = (props) => {
-  const {state} = props;
+  const {state, enter} = props;
   const dispatch = useDispatch();
 
   const fetchProductsBySubCategory = async (title) => {
@@ -39,8 +39,13 @@ const Subcategoryitem = (props) => {
     <div
       className={style.menu__subContent}
       style={{ top: `${props.catPosition}px` }}
+      data-name={"subcat"}
+      onMouseEnter={(e) => {
+        enter(true);
+      }}
       onMouseLeave={(e) => {
         state(false);
+        
       }}
       // onBlur={() => {
       //   console.log("Triggered because this input lost focus");
@@ -51,6 +56,7 @@ const Subcategoryitem = (props) => {
           <Link
             key={id}
             id={id}
+            
             className={style.menu__content__link}
             // to={`${props.categoryLink}/${translit(title)}`}
             // to={`/${translit(title)}`}

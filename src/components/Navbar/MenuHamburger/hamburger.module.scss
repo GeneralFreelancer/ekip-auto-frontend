@@ -9,11 +9,17 @@
     height: 73px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    cursor: pointer; 
+    
+    cursor: pointer;
+    @media screen and (max-width: 4000px) {
+      justify-content: center;
+      left: -22px;
+    } 
     @media screen and (max-width: 1420px) {
       margin-right: 15px;
       width: auto;
+      justify-content: flex-start;
+      left: 0;
     }
     @media screen and (max-width: 540px) {
       margin: 0 15px;
