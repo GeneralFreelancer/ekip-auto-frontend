@@ -400,6 +400,7 @@ const ProductItem = ({ selectedProduct }) => {
                             position: "absolute",
                             top: "0px",
                             left: "0px",
+                            cursor: "pointer",
                           }}
                           onClick={() => {
                             if (galleryExitRef.current) {

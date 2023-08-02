@@ -1,6 +1,6 @@
 import s from "./Category.module.scss";
 import CyrillicToTranslit from "cyrillic-to-translit-js";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
 import Subcategoryitem from "./SubCategoryItem";
 import axios from "axios";
@@ -27,9 +27,9 @@ const CategoryItem = (props) => {
   const [catPosition, setCatPosition] = useState("");
   const [isScroll, setIsScroll] = useState(0);
   const [enterState, setEnterState] = useState(false);
-  console.log('enter state', enterState);
+  
   const dispatch = useDispatch();
-
+  
   const handleScroll = (event) => {
     let value = Math.round(event.target.scrollTop);
     setIsScroll(value);
@@ -63,7 +63,7 @@ const CategoryItem = (props) => {
           : s.menu__wrapper
       }
     >
-      <div className={s.menu__content} data-name={'category'} onScroll={handleScroll}>
+      <div className={s.menu__content} data-name={'category'} onScroll={handleScroll} >
         {props.data.map(({ id, category, subcategories }, i) => (
           <React.Fragment key={id}>
             <Link
@@ -97,13 +97,11 @@ const CategoryItem = (props) => {
                 localStorage.removeItem("subcategory");
               }}
               onMouseLeave={(e) => {
-                let target = e.relatedTarget.dataset.name;
                 
-                if (target !== 'subcat') {
+                if (e.relatedTarget.dataset.name !== 'subcat') {
                   setIsSubCat(false);
                   setCategoryLink(false);
                 }
-                
               }}
             >
               {category}
