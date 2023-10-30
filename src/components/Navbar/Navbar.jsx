@@ -1,11 +1,11 @@
-import style from "./navbar.module.scss";
-import { useEffect, useState } from "react";
-import MenuHamburger from "./MenuHamburger";
-import NavbarLink from "./NavbarLinkLogo/NavbarLink";
-import SearchBar from "./SearchBar";
-import Basket from "./Basket";
-import AuthNav from "./AuthNav";
-import Logo from "./NavbarLinkLogo/Logo/Logo";
+import style from './navbar.module.scss';
+import {useEffect, useState} from 'react';
+import MenuHamburger from './MenuHamburger';
+import NavbarLink from './NavbarLinkLogo/NavbarLink';
+import SearchBar from './SearchBar';
+import Basket from './Basket';
+import AuthNav from './AuthNav';
+import Logo from './NavbarLinkLogo/Logo/Logo';
 
 const Navbar = (props) => {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
@@ -17,8 +17,8 @@ const Navbar = (props) => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
     }
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -26,10 +26,10 @@ const Navbar = (props) => {
       <div className={style.wrapper}>
         <div className={style.container}>
           <MenuHamburger onShowModal={props.onShowModal} />
-          {mobileV && <Logo/>}
+          {mobileV && <Logo />}
           {desktopV && <NavbarLink />}
           <SearchBar />
-          <Basket />
+          <Basket onShowModal={props.onShowModal} />
           {desktopV && <AuthNav onShowModal={props.onShowModal} />}
         </div>
       </div>

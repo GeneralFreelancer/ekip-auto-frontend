@@ -2,7 +2,7 @@
 
 .breadcrumbs_block {
   font-size: 18px;
-  margin: 20px 0;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -39,7 +39,6 @@
   }
 
   @media screen and (max-width: 500px) {
-    // overflow-x: scroll;
     overflow: hidden;
   }
 }

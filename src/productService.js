@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   setAllProducts,
   setDateProducts,
@@ -6,28 +6,22 @@ import {
   setLastSeenProducts,
   setCategoryNames,
   setInterestProducts,
-  setLoading
-} from "./redux/features/productsSlice";
+  setLoading,
+} from './redux/features/productsSlice';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
-const obj = localStorage.getItem("persist:root");
+const obj = localStorage.getItem('persist:root');
 const userToken = JSON.parse(obj)?.token;
 
 const authorization = userToken ? `Bearer ${JSON.parse(userToken)}` : undefined;
 
 if (
   authorization &&
-  authorization !== "Bearer null" &&
-  authorization !== "Bearer "
+  authorization !== 'Bearer null' &&
+  authorization !== 'Bearer '
 ) {
-  axios.defaults.headers.common["Authorization"] = authorization;
-  // console.log(axios.defaults.headers.common["Authorization"]);
+  axios.defaults.headers.common['Authorization'] = authorization;
 }
-
-// const headers = userToken ? {
-//   Authorization: `Bearer ${JSON.parse(userToken)}`,
-// } : {};
-// console.log(headers);
 
 // products
 export const getProductsAll = async (dispatch) => {
@@ -35,10 +29,10 @@ export const getProductsAll = async (dispatch) => {
   try {
     const response = await axios.get(`${baseUrl}/product`);
     dispatch(setAllProducts(response.data.products));
-    dispatch(setCategoryNames(response.data.categories))
+    dispatch(setCategoryNames(response.data.categories));
     dispatch(setLoading(false));
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error('Error:', error.message);
     dispatch(setLoading(false));
   }
 };
@@ -50,7 +44,7 @@ export const getProductsWithDateFilter = async (dispatch) => {
     dispatch(setDateProducts(response.data.products));
     dispatch(setLoading(false));
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error('Error:', error.message);
     dispatch(setLoading(false));
   }
 };
@@ -62,7 +56,7 @@ export const getProductsWithTopFilter = async (dispatch) => {
     dispatch(setTopProducts(response.data.products));
     dispatch(setLoading(false));
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error('Error:', error.message);
     dispatch(setLoading(false));
   }
 };
@@ -73,7 +67,7 @@ export const getProductsWithLast_seenFilter = async (dispatch, user) => {
     let response;
     if (user?.isLoggedIn) {
       response = await axios.get(
-        `${baseUrl}/product/?filter=last_seen&userId=${user.userdata?.id}`
+        `${baseUrl}/product/?filter=last_seen&userId=${user.userdata?.id}`,
       );
     } else {
       response = await axios.get(`${baseUrl}/product/?filter=last_seen`);
@@ -81,7 +75,7 @@ export const getProductsWithLast_seenFilter = async (dispatch, user) => {
     dispatch(setLastSeenProducts(response.data.products));
     dispatch(setLoading(false));
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error('Error:', error.message);
     dispatch(setLoading(false));
   }
 };
@@ -93,7 +87,7 @@ export const getProductsWithInterestFilter = async (dispatch) => {
     dispatch(setInterestProducts(response.data.products));
     dispatch(setLoading(false));
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error('Error:', error.message);
     dispatch(setLoading(false));
   }
 };

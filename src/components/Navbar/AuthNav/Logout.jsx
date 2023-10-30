@@ -1,14 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Logout = () => {
-
-  // dispatch(logout())
-
-  return (
-    <div>
-    
-    </div>
-  )
+  return <div></div>;
 };
 
 export default Logout;

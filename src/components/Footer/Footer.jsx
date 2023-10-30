@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { ReactComponent as Tick } from "../../assets/svg/Tick.svg";
-import { ReactComponent as Setting } from "../../assets/svg/setting.svg";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../redux/features/userSlice";
-import s from "./footer.module.scss";
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import {ReactComponent as Tick} from '../../assets/svg/Tick.svg';
+import {ReactComponent as Setting} from '../../assets/svg/setting.svg';
+import {useSelector} from 'react-redux';
+import {selectedUser} from '../../redux/features/userSlice';
+import s from './footer.module.scss';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Footer = (props) => {
   const [role, setRole] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState('');
 
-  const localStor = localStorage.getItem("role");
+  const localStor = localStorage.getItem('role');
   const user = useSelector(selectedUser);
 
   useEffect(() => {
@@ -25,8 +25,10 @@ const Footer = (props) => {
           },
         });
         setCurrency(response.data.usdRate);
+        localStorage.removeItem('exchangeRate');
+        localStorage.setItem('exchangeRate', response.data.usdRate);
       } catch (error) {
-        console.error("Error:", error.message);
+        console.error('Error:', error.message);
       }
     };
     if (user.token) {
@@ -35,7 +37,7 @@ const Footer = (props) => {
   }, [user.token]);
 
   useEffect(() => {
-    if (localStorage.getItem("role") === "admin") {
+    if (localStorage.getItem('role') === 'admin') {
       setRole(true);
     } else {
       setRole(false);
@@ -51,15 +53,19 @@ const Footer = (props) => {
     try {
       const response = await axios.post(
         `${baseUrl}/exchange`,
-        { usdRate: currency },
+        {usdRate: currency},
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
+      if (response.usdRate) {
+        localStorage.removeItem('exchangeRate');
+        localStorage.setItem('exchangeRate', response.usdRate);
+      }
     } catch (error) {
-      console.error("Error:", error.message);
+      console.error('Error:', error.message);
     }
   };
 
@@ -83,8 +89,7 @@ const Footer = (props) => {
                     </p>
                     <button
                       className={`${s.icon} ${s.save}`}
-                      onClick={handleSaveClick}
-                    >
+                      onClick={handleSaveClick}>
                       <Tick />
                     </button>
                   </>

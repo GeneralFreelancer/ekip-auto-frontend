@@ -1,0 +1,40 @@
+.priceSliderContainer {
+	padding-right: 100px;
+}
+
+.partsContainer {
+	display: flex;
+}
+
+.priceSliderFirstPart {
+	width: 52%;
+}
+
+.priceSliderSecondPart {
+	width: 48%;
+	text-align: right;
+}
+
+.priceFirstGroup,
+.priceSecondGroup {
+	display: flex;
+	justify-content: space-between;
+}
+
+.lineContainer {
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding-right: 2px;
+	padding-left: 23px;
+	margin-bottom: 12px;
+}
+
+.productItemQuontity {
+	display: flex;
+	justify-content: space-between;
+	&_last {
+		position: relative;
+		left: 15%;
+	}
+}

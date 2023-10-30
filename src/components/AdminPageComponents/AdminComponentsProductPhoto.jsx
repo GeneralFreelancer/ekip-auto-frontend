@@ -1,16 +1,17 @@
-import { useState, useEffect, useRef } from "react";
-import AdminTitle from "./AdminCardList/AdminTitle";
-import AdminCardList from "./AdminCardList";
-import AdminButtons from "./AdminButtons";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../redux/features/userSlice";
-import { useParams, useNavigate } from "react-router-dom";
-import { setOneProduct } from "../../redux/features/productsSlice";
-import { useDispatch } from "react-redux";
+import {useState, useEffect, useRef} from 'react';
+import AdminTitle from './AdminCardList/AdminTitle';
+import AdminCardList from './AdminCardList';
+import AdminButtons from './AdminButtons';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {selectedUser} from '../../redux/features/userSlice';
+import {useParams, useNavigate} from 'react-router-dom';
+import {setOneProduct} from '../../redux/features/productsSlice';
+import {useDispatch} from 'react-redux';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
+// Examples of images in clowd storage
 // const images = [
 //   "https://www.mukachevo.net/Content/Uploads/IIIRomeoIII/61b0a55a500d3.jpg",
 //   "https://i1.poltava.to/uploads/2022/10/23/tv.jpg",
@@ -22,7 +23,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 const AdminComponentsProductPhoto = () => {
   const [images, setImages] = useState([]);
   const user = useSelector(selectedUser);
-  const { id } = useParams();
+  const {id} = useParams();
   const fileInputRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const AdminComponentsProductPhoto = () => {
       });
       setImages(response.data.product.pictures);
     } catch (error) {
-      console.error("Error:", error.message);
+      console.error('Error:', error.message);
     }
   };
 
@@ -46,14 +47,14 @@ const AdminComponentsProductPhoto = () => {
   }, []);
 
   const onDelete = async (index, filename) => {
-    let formattedArray = filename.split("/");
+    let formattedArray = filename.split('/');
     let formattedFileName = formattedArray[formattedArray.length - 1];
     let updatedArray = [];
     updatedArray = images.slice(0, index).concat(images.slice(index + 1));
     setImages(updatedArray);
     try {
       const response = await axios.delete(`${baseUrl}/product/image`, {
-        data: { productId: id, image: formattedFileName },
+        data: {productId: id, image: formattedFileName},
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -68,12 +69,12 @@ const AdminComponentsProductPhoto = () => {
   const onChangePosition = (direction, index) => {
     let updatedArray = [];
     updatedArray = [...images];
-    if (direction === "left" && index > 0) {
+    if (direction === 'left' && index > 0) {
       [updatedArray[index - 1], updatedArray[index]] = [
         updatedArray[index],
         updatedArray[index - 1],
       ];
-    } else if (direction === "right" && index < updatedArray.length - 1) {
+    } else if (direction === 'right' && index < updatedArray.length - 1) {
       [updatedArray[index], updatedArray[index + 1]] = [
         updatedArray[index + 1],
         updatedArray[index],
@@ -84,20 +85,20 @@ const AdminComponentsProductPhoto = () => {
   };
 
   const onClickMainButton = (name) => {
-    if (name === "cancel") {
+    if (name === 'cancel') {
       navigate(-1);
-    } else if (name === "save") {
-      let formattedArray = images.map((image) => image.split("/").pop());
+    } else if (name === 'save') {
+      let formattedArray = images.map((image) => image.split('/').pop());
       const savePhotoArray = async () => {
         try {
           const response = await axios.put(
             `${baseUrl}/product`,
-            { id, pictures: formattedArray },
+            {id, pictures: formattedArray},
             {
               headers: {
                 Authorization: `Bearer ${user.token}`,
               },
-            }
+            },
           );
           setImages(response.data.product.pictures);
           dispatch(setOneProduct(response.data.product));
@@ -126,14 +127,14 @@ const AdminComponentsProductPhoto = () => {
 
   const sendImageToBD = async (id, file, filename) => {
     const formData = new FormData();
-   
-    formData.append("image", file, filename);
-    formData.append("productId", id);
+
+    formData.append('image', file, filename);
+    formData.append('productId', id);
     try {
       const response = await axios.post(`${baseUrl}/product/image`, formData, {
         headers: {
           Authorization: `Bearer ${user.token}`,
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
       setImages(response.data.product.pictures);
@@ -145,21 +146,21 @@ const AdminComponentsProductPhoto = () => {
 
   return (
     <>
-      <div style={{ marginBottom: "70px" }}>
-        <AdminTitle title={"Редагування фото продукта"} />
+      <div style={{marginBottom: '70px'}}>
+        <AdminTitle title={'Редагування фото продукта'} />
         <AdminCardList
-          name={"desktop"}
+          name={'desktop'}
           onChangePosition={onChangePosition}
           onDelete={onDelete}
           arr={images}
-          size={"1135px × 375px"}
+          size={'1135px × 375px'}
           addNewCard={addNewCard}
-          styleName={"imgProduct"}
+          styleName={'imgProduct'}
         />
 
         <input
           ref={fileInputRef}
-          style={{ opacity: "0" }}
+          style={{opacity: '0'}}
           type="file"
           onChange={handleFileChange}
           accept="image/*,.png,.jpg,.web"

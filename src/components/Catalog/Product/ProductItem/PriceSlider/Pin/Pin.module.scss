@@ -1,0 +1,28 @@
+.dragDropContextContainer {
+}
+
+.droppable {
+	position: relative;
+	top: 9px;
+	left: 2.5%;
+}
+
+.middleButton {
+	position: absolute;
+	z-index: 3;
+	top: 30%;
+	left: 46%;
+	width: 34px;
+	height: 34px;
+}
+
+.pinContainer {
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	svg {
+		width: 24px;
+		height: 24px;
+		fill: #000000;
+	}
+}

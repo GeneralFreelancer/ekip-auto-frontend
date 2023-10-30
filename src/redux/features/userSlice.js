@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
   isLoggedIn: false,
   userdata: null,
-  token: "",
+  token: '',
   roles: [],
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     login: (state, action) => {
@@ -28,7 +28,7 @@ const userSlice = createSlice({
       state.isRegistered = null;
       state.isRegisteredConfirmed = null;
       state.isDataFullFilled = null;
-      localStorage.removeItem("role");
+      localStorage.removeItem('role');
     },
     register: (state, action) => {
       state.isRegistered = true;
@@ -50,14 +50,10 @@ const userSlice = createSlice({
       state.userdata.lastName = action.payload.user?.lastName;
       state.userdata.secondName = action.payload.user?.secondName;
       state.userdata.email = action.payload.user?.email;
-      // state.userdata.livingAddress.street = action.payload.user?.livingAddress.street;
-      // state.userdata.livingAddress.city = action.payload.user?.livingAddress.city;
-      // state.userdata.livingAddress.additionalInfo =
-      //   action.payload.user?.livingAddress.additionalInfo;
     },
     addToFavorites: (state, action) => {
-      state.userdata.favoriteProducts = action.payload
-    }
+      state.userdata.favoriteProducts = action.payload;
+    },
   },
 });
 
@@ -67,7 +63,7 @@ export const {
   register,
   registerConfirmed,
   fullUserRegistered,
-  addToFavorites
+  addToFavorites,
 } = userSlice.actions;
 export default userSlice.reducer;
 export const selectedUser = (state) => state.user;

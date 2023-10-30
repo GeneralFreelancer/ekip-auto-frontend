@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./features/userSlice";
-import cartReducer from "./features/cartSlice";
-import productsReducer from "./features/productsSlice";
-import favoriteReducer from "./features/favoriteSlice";
-import advertisingReducer from "./features/advertisingSlice";
+import {configureStore} from '@reduxjs/toolkit';
+import userReducer from './features/userSlice';
+import cartReducer from './features/cartSlice';
+import productsReducer from './features/productsSlice';
+import favoriteReducer from './features/favoriteSlice';
+import advertisingReducer from './features/advertisingSlice';
 
 import {
   persistStore,
@@ -14,17 +14,15 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  // blacklist: [pokemonApi.reducerPath],
 };
 
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
-// const persistedAdvertisingReducer = persistReducer(persistConfig, advertisingReducer);
 
 export const store = configureStore({
   reducer: {
@@ -32,7 +30,7 @@ export const store = configureStore({
     cart: cartReducer,
     products: productsReducer,
     favorite: favoriteReducer,
-    advertising: advertisingReducer
+    advertising: advertisingReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -40,12 +38,6 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-    // extraReducers: (builder) => {
-    //   builder.addCase(PURGE, (state) => {
-    //       customEntityAdapter.removeAll(state);
-    //   });
-    // }
 });
 
 export const persistor = persistStore(store);
-

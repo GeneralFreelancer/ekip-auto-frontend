@@ -14,7 +14,38 @@
     }
   }
 
+	.breadcrumbsContainer {
+		position: relative;
+		display: flex;
+		align-items: center;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	.titleWrapper {
+		width: 100%;
+		text-align: center;
+		div {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+
+	.titleContainer {
+		display: inline-block;
+		.lineContainer {
+			padding-right: 7.5%;
+			padding-left: 7.5%;
+		}
+		.line {
+			border-bottom: 1px solid $solidBlack;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+
   .title {
+		display: inline-block;
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;

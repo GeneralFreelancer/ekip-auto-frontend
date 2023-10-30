@@ -1,18 +1,16 @@
-import style from "./TableBody.module.scss";
-import React from "react";
+import style from './TableBody.module.scss';
+import React from 'react';
 
 const TableBodyMiddle = (props) => {
-  
   const orderDateHuman = (orderDate) => {
-    // return new Intl.DateTimeFormat('UKR', {year: 'numeric', month: 'numeric',day: '2-digit'}).format(orderDate);
     const date = new Date(orderDate);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
     return `${day}.${month}.${year}`;
   };
 
-  return props.data.map(({ _id, createdAt, status, user }, i) => (
+  return props.data.map(({_id, createdAt, status, user}, i) => (
     <React.Fragment key={_id}>
       <tr>
         <td className={style.share__table_number}>
@@ -35,8 +33,7 @@ const TableBodyMiddle = (props) => {
             onClick={() => {
               props.delete(_id);
             }}
-            className={style.icon}
-          ></span>
+            className={style.icon}></span>
         </td>
       </tr>
     </React.Fragment>

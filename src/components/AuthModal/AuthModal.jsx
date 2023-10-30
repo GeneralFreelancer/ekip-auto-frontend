@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import ModalWindow from "../ModalWindow/ModalWindow";
-import LoginTab from "./LoginTab";
-import RegisterTab from "./RegisterTab";
-import s from "./AuthModal.module.scss";
-import StartTimer from "./StartTimer";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../redux/features/userSlice";
-import axios from "axios";
+import React, {useState} from 'react';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import LoginTab from './LoginTab';
+import RegisterTab from './RegisterTab';
+import s from './AuthModal.module.scss';
+import StartTimer from './StartTimer';
+import {useSelector} from 'react-redux';
+import {selectedUser} from '../../redux/features/userSlice';
+import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const AuthModal = (props) => {
-  const [activeTab, setActiveTab] = useState("login");
+  // const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('login');
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const user = useSelector(selectedUser);
 
@@ -24,9 +25,9 @@ const AuthModal = (props) => {
       await axios.post(`${baseUrl}/user/verification-email`, {
         email: user.userdata.email,
       });
-      console.log("Verification email sent successfully");
+      console.log('Verification email sent successfully');
     } catch (error) {
-      console.log("Error resending verification email:", error.message);
+      console.log('Error resending verification email:', error.message);
     }
   };
 
@@ -52,7 +53,14 @@ const AuthModal = (props) => {
         </div>
 
         <div className={s.modalRegistSuccess_btn}>
-          <button onClick={props.onHideModal}>Закрити</button>
+          <button
+            onClick={() => {
+              localStorage.removeItem('persist:root');
+              document.location.reload();
+              props.onHideModal();
+            }}>
+            Закрити
+          </button>
         </div>
       </div>
     );
@@ -69,23 +77,21 @@ const AuthModal = (props) => {
             <div className={s.modal_tabs}>
               <div
                 className={`${s.modal_tab1} ${
-                  activeTab === "login" ? s.modal_tab_active : ""
+                  activeTab === 'login' ? s.modal_tab_active : ''
                 }`}
-                onClick={() => handleTabChange("login")}
-              >
+                onClick={() => handleTabChange('login')}>
                 Увійти
               </div>
               <div
                 className={`${s.modal_tab2} ${
-                  activeTab === "register" ? s.modal_tab_active : ""
+                  activeTab === 'register' ? s.modal_tab_active : ''
                 }`}
-                onClick={() => handleTabChange("register")}
-              >
+                onClick={() => handleTabChange('register')}>
                 Зареєструватися
               </div>
             </div>
 
-            {activeTab === "login" ? (
+            {activeTab === 'login' ? (
               <LoginTab onSubmit={props.onHideModal} />
             ) : (
               <RegisterTab onSubmit={handleFormSubmit} />

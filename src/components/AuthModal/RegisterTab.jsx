@@ -1,44 +1,41 @@
-import React, { useState, useEffect } from "react";
-import s from "./AuthModal.module.scss";
-import { useDispatch } from "react-redux";
-import { register } from "../../redux/features/userSlice";
-import axios from "axios";
-
-const baseUrl = process.env.REACT_APP_BASE_URL;
+import React, {useState, useEffect} from 'react';
+import s from './AuthModal.module.scss';
+import {useDispatch} from 'react-redux';
+import {register} from '../../redux/features/userSlice';
+import {registerRequest} from '../../api/authRequests';
 
 const RegisterTab = (props) => {
   const [registerForm, setRegisterForm] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [regiserErrors, setRegisterErrors] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
   const [errorRegisterMessage, setErrorRegisterMessage] = useState(null);
 
   const dispatch = useDispatch();
 
-    useEffect(() => {
-    if (errorRegisterMessage === "") {
+  useEffect(() => {
+    if (errorRegisterMessage === '') {
       props.onSubmit(true);
     }
   }, [errorRegisterMessage, props]);
 
-
   const validateRegisterForm = (name, value) => {
-    let errors = { ...regiserErrors };
+    let errors = {...regiserErrors};
     switch (name) {
-      case "email":
+      case 'email':
         errors.email = isValidEmail(value);
         break;
-      case "password":
+      case 'password':
         errors.password = isValidPassword(value);
         break;
-      case "confirmPassword":
+      case 'confirmPassword':
         errors.confirmPassword = isValidConfirmPassword(value);
         break;
       default:
@@ -49,25 +46,25 @@ const RegisterTab = (props) => {
 
   function isValidEmail(value) {
     if (!value) {
-      return "Введіть Email";
+      return 'Введіть Email';
     } else if (!/\S+@\S+\.\S+/.test(value)) {
-      return "Email введено неправильно";
+      return 'Email введено неправильно';
     }
   }
 
   function isValidPassword(value) {
     if (!value) {
-      return "Введіть пароль";
+      return 'Введіть пароль';
     } else if (value.length < 6) {
-      return "Пароль повинен містити не менше 6 символів";
+      return 'Пароль повинен містити не менше 6 символів';
     }
   }
 
   function isValidConfirmPassword(value) {
     if (!value) {
-      return "Підтвердіть пароль";
+      return 'Підтвердіть пароль';
     } else if (registerForm.password !== value) {
-      return "Паролі не співпадають";
+      return 'Паролі не співпадають';
     }
   }
 
@@ -79,47 +76,44 @@ const RegisterTab = (props) => {
     validateRegisterForm(event.target.name, event.target.value);
   };
 
-
   const submitRegisterHandler = async (e) => {
     e.preventDefault();
     if (
       registerForm.email &&
       registerForm.password &&
-      (registerForm.password.trim() === registerForm.confirmPassword.trim()) 
+      registerForm.password.trim() === registerForm.confirmPassword.trim()
     ) {
       try {
-        const response = await axios.post(`${baseUrl}/auth/register`, {
-          ...registerForm,
-        });
+        const response = await registerRequest({...registerForm});
+
         setRegisterForm({
-          email: "",
-          password: "",
+          email: '',
+          password: '',
         });
+
         dispatch(
           register({
             email: response.data.user.email,
             password: registerForm.password,
-          })
+          }),
         );
       } catch (error) {
         if (error.response && error.response.status === 409) {
-          setErrorRegisterMessage(error.response.data.message)
+          setErrorRegisterMessage(error.response.data.message);
         } else {
-          console.log("Error:", error.message);
+          console.log('Error:', error.message);
         }
       }
     } else if (!registerForm.email) {
-      validateRegisterForm("email", null);
+      validateRegisterForm('email', null);
     } else if (!registerForm.password) {
-      validateRegisterForm("password", null);
+      validateRegisterForm('password', null);
     } else if (!registerForm.confirmPassword) {
-      validateRegisterForm("confirmPassword", null);
+      validateRegisterForm('confirmPassword', null);
     }
-    
   };
 
   const handleShowPasswordChange = (e) => setShowPassword(e.target.checked);
-
 
   return (
     <>
@@ -131,7 +125,7 @@ const RegisterTab = (props) => {
               type="email"
               name="email"
               className={`${s.form_input} ${
-                regiserErrors.email ? s.input_error : ""
+                regiserErrors.email ? s.input_error : ''
               }`}
               value={registerForm.email}
               onChange={changeRegisterHandler}
@@ -145,10 +139,10 @@ const RegisterTab = (props) => {
           <div className={s.form_group}>
             <label>Введіть пароль:</label>
             <input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               name="password"
               className={`${s.form_input} ${
-                regiserErrors.password ? s.input_error : ""
+                regiserErrors.password ? s.input_error : ''
               }`}
               value={registerForm.password}
               onChange={changeRegisterHandler}
@@ -161,10 +155,10 @@ const RegisterTab = (props) => {
           <div className={s.form_group}>
             <label>Підтвердити пароль:</label>
             <input
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               name="confirmPassword"
               className={`${s.form_input} ${
-                regiserErrors.confirmPassword ? s.input_error : ""
+                regiserErrors.confirmPassword ? s.input_error : ''
               }`}
               value={registerForm.confirmPassword}
               onChange={changeRegisterHandler}
@@ -191,7 +185,11 @@ const RegisterTab = (props) => {
             <button type="submit" onClick={submitRegisterHandler}>
               Зареєструватися
             </button>
-            {errorRegisterMessage ? (<p className={s.error_message}>{errorRegisterMessage}</p>) : ('')}
+            {errorRegisterMessage ? (
+              <p className={s.error_message}>{errorRegisterMessage}</p>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </form>

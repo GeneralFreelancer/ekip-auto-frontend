@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
-import s from "./Description.module.scss";
-import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
-import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
-import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
-import { ReactComponent as Plus } from "../../../../assets/svg/plus.svg";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../../../redux/features/userSlice";
+import React, {useState, useEffect} from 'react';
+import s from './Description.module.scss';
+import {ReactComponent as Cross} from '../../../../assets/svg/cross.svg';
+import {ReactComponent as Tick} from '../../../../assets/svg/Tick.svg';
+import {ReactComponent as Pen} from '../../../../assets/svg/edit.svg';
+import {ReactComponent as Plus} from '../../../../assets/svg/plus.svg';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {selectedUser} from '../../../../redux/features/userSlice';
 
+// Example of delivery options
 // const initialData = [
 //   { name: "Кількість в коробці", value: "500 шт." },
 //   { name: "Кількість в упаковці", value: "50 см" },
@@ -17,7 +18,7 @@ import { selectedUser } from "../../../../redux/features/userSlice";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Pack = (props) => {
-  const { id, deliveryOptions, role } = props;
+  const {id, deliveryOptions, role} = props;
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [charactData, setCharactData] = useState(deliveryOptions);
@@ -31,8 +32,8 @@ const Pack = (props) => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
     }
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleEditClick = () => {
@@ -42,20 +43,20 @@ const Pack = (props) => {
   const handleSaveClick = async (id, deliveryOptions) => {
     let updDeliveryOptions = [];
     for (let item of deliveryOptions) {
-      if (item.name !== "" || item.value !== "") {
-        updDeliveryOptions.push({ name: item.name, value: item.value });
+      if (item.name !== '' || item.value !== '') {
+        updDeliveryOptions.push({name: item.name, value: item.value});
       }
     }
     setIsEditMode(false);
     try {
       const response = await axios.put(
         `${baseUrl}/product`,
-        { id, deliveryOptions: updDeliveryOptions },
+        {id, deliveryOptions: updDeliveryOptions},
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
       setCharactData(response.data.product.deliveryOptions);
     } catch (error) {
@@ -63,7 +64,7 @@ const Pack = (props) => {
     }
   };
 
-  const handleCancelClick = async() => {
+  const handleCancelClick = async () => {
     setIsEditMode(false);
     try {
       const response = await axios.get(`${baseUrl}/product/${id}`, {
@@ -75,11 +76,10 @@ const Pack = (props) => {
     } catch (error) {
       console.error(error);
     }
-    // setCharactData(deliveryOptions.map((item) => ({ ...item })));
   };
 
   const handleAddCharactClick = () => {
-    setCharactData((prevState) => [...prevState, { name: "", value: "" }]);
+    setCharactData((prevState) => [...prevState, {name: '', value: ''}]);
   };
 
   const handleCharactNameChange = (index, e) => {
@@ -109,7 +109,10 @@ const Pack = (props) => {
       )}
       {isEditMode ? (
         <>
-          <h1 className={s.characteristic_h}>Характеристики пакування:</h1>
+          <div className={s.devider_container} style={{marginBottom: '21px'}}>
+            <h1 className={s.characteristic_h}>Характеристики пакування:</h1>
+            <div className={s.productItem_devider}></div>
+          </div>
           {charactData.map((charact, index) => (
             <div key={index} className={s.characteristic_line}>
               <input
@@ -135,14 +138,12 @@ const Pack = (props) => {
           ))}
           <button
             className={s.characteristic_btn_add}
-            onClick={handleAddCharactClick}
-          >
+            onClick={handleAddCharactClick}>
             <Plus />
           </button>
           <button
             className={s.character_btn_cancel}
-            onClick={handleCancelClick}
-          >
+            onClick={handleCancelClick}>
             <div className={s.btn_cancel}>
               <Cross />
             </div>
@@ -150,14 +151,16 @@ const Pack = (props) => {
 
           <button
             className={s.character_btn_save}
-            onClick={() => handleSaveClick(id, charactData)}
-          >
+            onClick={() => handleSaveClick(id, charactData)}>
             <Tick />
           </button>
         </>
       ) : (
         <>
-          <h1 className={s.characteristic_h}>Характеристики пакування:</h1>
+          <div className={s.devider_container} style={{marginBottom: '21px'}}>
+            <h1 className={s.characteristic_h}>Характеристики пакування:</h1>
+            <div className={s.productItem_devider}></div>
+          </div>
           {charactData.map((char, index) => (
             <div key={index} className={s.characteristic_line}>
               <p>{char.name}</p>

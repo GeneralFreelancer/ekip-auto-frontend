@@ -1,13 +1,16 @@
-import "react-slideshow-image/dist/styles.css";
-import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { Slide } from "react-slideshow-image";
-import "../SideBarSlider/Slider/Slider.scss";
-import style from "./ListCards.module.scss";
-import Card from "./Card";
-import CyrillicToTranslit from "cyrillic-to-translit-js";
-import { setCategoryProducts, setSubCategoryProducts } from "../../redux/features/productsSlice";
-import { useDispatch } from "react-redux";
+import 'react-slideshow-image/dist/styles.css';
+import {useState, useEffect} from 'react';
+import {NavLink} from 'react-router-dom';
+import {Slide} from 'react-slideshow-image';
+import '../SideBarSlider/Slider/Slider.scss';
+import style from './ListCards.module.scss';
+import Card from './Card';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import {
+  setCategoryProducts,
+  setSubCategoryProducts,
+} from '../../redux/features/productsSlice';
+import {useDispatch} from 'react-redux';
 
 const properties = {
   autoplay: false,
@@ -18,7 +21,7 @@ const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
 const translit = (name) => {
   return cyrillicToTranslit
-    .transform(String(name).replace(",", ""), "-")
+    .transform(String(name).replace(',', ''), '-')
     .toLowerCase();
 };
 
@@ -32,7 +35,6 @@ const ListCards = ({
   const [cards, setCards] = useState(items);
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage, setCardsPerPage] = useState(6);
-  // const [lastPage, setLastPage] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
   const dispatch = useDispatch();
@@ -59,8 +61,8 @@ const ListCards = ({
     function handleResize() {
       setViewportWidth(window.innerWidth);
     }
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -71,69 +73,39 @@ const ListCards = ({
     changeCardsQuantity(viewportWidth);
   }, [viewportWidth]);
 
-  // const isLastPage = () => {
-  //   const totalPages = Math.ceil(cards.length / cardsPerPage);
-  //   if (currentPage === totalPages) {
-  //     setLastPage(true);
-  //   } else {
-  //     setLastPage(false);
-  //   }
-  // };
-
-  // const handlePageClick = (event) => {
-  //   event.preventDefault();
-  //   const totalPages = Math.ceil(cards.length / cardsPerPage);
-  //   if (currentPage < totalPages) {
-  //     setCurrentPage((prevState) => prevState + 1);
-  //     if (cards.length / cardsPerPage === currentPage + 1) {
-  //       setLastPage(true);
-  //     }
-  //   } else {
-  //     setLastPage(true);
-  //   }
-  // };
-
-  // const handleCollapseClick = (event) => {
-  //   event.preventDefault();
-  //   setCurrentPage(1);
-  //   setLastPage(false);
-  // };
-
   const renderCards = (showAll) => {
     const indexOfLastCard = currentPage * cardsPerPage;
     const cardsToShow = cards?.slice(0, indexOfLastCard);
 
     if (!showAll) {
       return cardsToShow?.map(
-        ({ id, pictures, name, priceUAH, priceUSD, stock }, index) => (
+        ({id, pictures, name, priceUAH, priceUSD, stock}, index) => (
           <Card
             key={id}
             id={id}
             imgUrl={pictures[0]}
-            // imgUrl={pictures && pictures.length > 0 ? pictures[0] : 'Нема зображення'}
             name={name}
             priceUAH={priceUAH}
             priceUSD={priceUSD}
             stock={stock}
-            styleCard={(index + 1) % cardsPerPage === 0 && "lastCard"}
+            styleCard={(index + 1) % cardsPerPage === 0 && 'lastCard'}
           />
-        )
+        ),
       );
     } else {
       return cards.map(
-        ({ id, pictures, name, priceUAH, priceUSD, stock }, index) => (
+        ({id, pictures, name, priceUAH, priceUSD, stock}, index) => (
           <Card
             key={id}
             id={id}
             imgUrl={pictures[0]}
-            // imgUrl={pictures && pictures.length > 0 ? pictures[0] : 'Нема зображення'}
             name={name}
             priceUAH={priceUAH}
             priceUSD={priceUSD}
             stock={stock}
-            styleCard={(index + 1) % cardsPerPage === 0 ? "lastCard" : "card"}
+            styleCard={(index + 1) % cardsPerPage === 0 ? 'lastCard' : 'card'}
           />
-        )
+        ),
       );
     }
   };
@@ -154,34 +126,33 @@ const ListCards = ({
                   onClick={() => {
                     dispatch(setCategoryProducts([]));
                     dispatch(setSubCategoryProducts([]));
-                    localStorage.removeItem('category')
-                    localStorage.removeItem('subcategory')
+                    localStorage.removeItem('category');
+                    localStorage.removeItem('subcategory');
                     window.scrollTo(0, 0);
-                  }}
-                >
+                  }}>
                   Показати ще...
                 </NavLink>
               )}
-
             </div>
           </div>
         ) : need_A_Slider ? (
           <div className="wrapperSlider sliderCard">
             {title && (
-              <NavLink to={`/${translit(title)}`}
-              onClick={() => {
-                dispatch(setCategoryProducts([]));
-                dispatch(setSubCategoryProducts([]));
-                localStorage.removeItem('category')
-                localStorage.removeItem('subcategory')
-                window.scrollTo(0, 0);
-              }}>
+              <NavLink
+                to={`/${translit(title)}`}
+                onClick={() => {
+                  dispatch(setCategoryProducts([]));
+                  dispatch(setSubCategoryProducts([]));
+                  localStorage.removeItem('category');
+                  localStorage.removeItem('subcategory');
+                  window.scrollTo(0, 0);
+                }}>
                 <h2 className={style.titleCategory}>{title} :</h2>
               </NavLink>
             )}
             <Slide {...properties}>
               {cards.map(
-                ({ id, pictures, name, priceUAH, priceUSD, stock }, index) => (
+                ({id, pictures, name, priceUAH, priceUSD, stock}, index) => (
                   <Card
                     key={id}
                     id={id}
@@ -190,9 +161,9 @@ const ListCards = ({
                     priceUAH={priceUAH}
                     priceUSD={priceUSD}
                     stock={stock}
-                    styleCard={"lastCard"}
+                    styleCard={'lastCard'}
                   />
-                )
+                ),
               )}
             </Slide>
           </div>

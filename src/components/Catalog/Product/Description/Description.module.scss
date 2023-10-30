@@ -2,12 +2,21 @@
 
 .characteristic_block {
   font-size: 16px;
-  // padding-top: 15px;
   margin-bottom: 30px;
   position: relative;
   @media screen and (max-width: 800px) {
     margin-bottom: 0px;
   }
+}
+
+.devider_container {
+	display: inline-block;
+}
+
+.productItem_devider {
+	width: 85%;
+	margin-left: 20px;
+	outline: 1px solid #333030;
 }
 
 .characteristic_line {
@@ -35,8 +44,9 @@
 }
 
 .characteristic_h {
-  font-size: 26px;
+	margin-bottom: 4px;
   margin-left: 20px;
+  font-size: 26px;
   @media screen and (max-width: 510px) {
     margin-left: 0px;
     font-size: 22px;
@@ -329,15 +339,6 @@
   width: 100%;
   font-size: 16px;
   font-family: "Lato", sans-serif;
-  // resize: none;
-  // outline: none;
-  // border: none;
-  // overflow: scroll;
-  // &::placeholder {
-  //   font-size: 18px;
-  //   font-family: "Lato", sans-serif;
-  //   padding: 4px;
-  // }
   @media screen and (max-width: 800px) {
     width: 100%;
   }

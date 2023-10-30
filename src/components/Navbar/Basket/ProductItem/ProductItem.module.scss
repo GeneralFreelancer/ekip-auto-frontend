@@ -18,10 +18,11 @@
 }
 
 .wrapper {
+	display: flex;
   flex-basis: 77%;
-  display: flex;
   justify-content: space-between;
-  padding: 15px;
+	padding-right: 0;
+	padding-left: 0;
   border-right: 1px solid black;
   border-left: 1px solid black;
   cursor: pointer;
@@ -29,6 +30,74 @@
 
 .wrapperFirst {
   margin-right: 110px;
+}
+
+.title {
+	padding-left: 15px;
+}
+
+.lineContainer {
+	text-align: right;
+}
+
+.line {
+	display: inline-block;
+	width: 85%;
+	border-bottom: 1px solid black;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.price {
+	padding-right: 15px;
+}
+
+.productItem_quantity {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding-left: 15px;
+	margin-bottom: 5px;
+	&_info {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 68px;
+		height: 21px;
+		border: 1px solid $hardGrey;
+		border-radius: 3px;
+		margin-top: 0;
+		background-color: $lightWhite;
+		outline: none;
+		box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+	}
+	.minus {
+		width: 22px;
+		height: 22px;
+		cursor: pointer;
+		img {
+			width: 22px;
+			height: 6px;
+		}
+		&:active {
+			scale: 1.1;
+		}
+	}
+	.plus {
+		width: 22px;
+		height: 22px;
+		cursor: pointer;
+		img {
+			width: 22px;
+			height: 22px;
+		}
+		&:active {
+			scale: 1.1;
+		}
+	}
+	@media screen and (max-width: 1024px) {
+		justify-content: center;
+	}
 }
 
 .garbage {

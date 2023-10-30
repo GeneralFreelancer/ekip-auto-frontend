@@ -1,15 +1,16 @@
-import React, { useState, useMemo, useEffect, useRef } from "react";
-import s from "./SearchBar.module.scss";
-import { ReactComponent as Search } from "../../../assets/magnifying-glass.svg";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setOneProduct } from "../../../redux/features/productsSlice";
+import React, {useState, useEffect, useRef} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {ReactComponent as Search} from '../../../assets/magnifying-glass.svg';
+import {ReactComponent as Cross} from '../../../assets/svg/cross.svg';
+import {setOneProduct} from '../../../redux/features/productsSlice';
+import axios from 'axios';
+import s from './SearchBar.module.scss';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const SearchBar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [searchItems, setSearchItems] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -18,7 +19,8 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  
+
+  // Example of search results cards array
   // const products = [
   //   {
   //     id: 1,
@@ -28,119 +30,80 @@ const SearchBar = () => {
   //     priceUAH: "5000",
   //     priceUSD: "500",
   //   },
-  //   {
-  //     id: 2,
-  //     name: "Product 2",
-  //     article: "Art: SU B002",
-  //     src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
-  //     priceUAH: "5000",
-  //     priceUSD: "500",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Product 3",
-  //     article: "Art: SU C003",
-  //     src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
-  //     priceUAH: "5000",
-  //     priceUSD: "500",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Product 4",
-  //     article: "Art: SU D004",
-  //     src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
-  //     priceUAH: "5000",
-  //     priceUSD: "500",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Product 5",
-  //     article: "Art: SU E005",
-  //     src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
-  //     priceUAH: "5000",
-  //     priceUSD: "500",
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Product 6",
-  //     article: "Art: SU F006",
-  //     src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
-  //     priceUAH: "5000",
-  //     priceUSD: "500",
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Product 7",
-  //     article: "Art: SU G007",
-  //     src: "https://cdn.27.ua/799/c1/72/1032562_1.jpeg",
-  //     priceUAH: "5000",
-  //     priceUSD: "500",
-  //   },
   // ];
 
   useEffect(() => {
     const getProductsBySearch = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/product/?search=${searchQuery}`);
+        const response = await axios.get(
+          `${baseUrl}/product/?search=${searchQuery}`,
+        );
         setSearchItems(response.data.products);
       } catch (error) {
-        console.error("Error:", error.message);
+        console.error('Error:', error.message);
       }
     };
     if (searchQuery !== '') {
       getProductsBySearch();
-    } 
-    else {
-      setSearchItems([])
+    } else {
+      setSearchItems([]);
     }
   }, [searchQuery]);
-
+  // console.log('Search query: ', searchQuery);
   const wrapperSearchBarRef = useRef(null);
-
   useEffect(() => {
     const handleClickWindow = (e) => {
-      console.log("click window")
       if (showResults === true) {
         if (
           wrapperSearchBarRef.current &&
-          !wrapperSearchBarRef.current.contains(e.target)
+          !wrapperSearchBarRef.current.contains(e.target) &&
+          searchQuery === ''
         ) {
           setIsFocused(false);
           setShowResults(false);
-          setSearchQuery("");
+          setSearchQuery('');
           setSearchItems([]);
         }
       }
     };
+
     if (showResults === true) {
-      window.addEventListener("click", handleClickWindow);
+      window.addEventListener('click', handleClickWindow);
     } else {
-      window.removeEventListener("click", handleClickWindow);
+      window.removeEventListener('click', handleClickWindow);
     }
+
+    if (localStorage.getItem('search') && searchQuery === '') {
+      setSearchQuery(localStorage.getItem('search'));
+    }
+
     return () => {
-      window.removeEventListener("click", handleClickWindow);
+      window.removeEventListener('click', handleClickWindow);
     };
-  }, [showResults]);
+  }, [showResults, searchQuery]);
 
   const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
+    setSearchQuery((prevState) => {
+      if (prevState.length >= 1) {
+        localStorage.removeItem('search');
+      }
+      return e.target.value;
+    });
     setShowResults(true);
-    // setSearchItems(products);
   };
 
   const handleBlur = () => {
-    console.log("blur")
-    if (showResults === false) {
-      // setIsFocused(false);
+    if (searchQuery === '') {
+      const newTimerId = setTimeout(() => {
+        setIsFocused(false);
+        setShowResults(false);
+        setSearchItems([]);
+      }, 1000000000000000);
+      setTimerId(newTimerId);
     }
-
-    const newTimerId = setTimeout(() => {
-      setIsFocused(false);
-      setShowResults(false);
-      setSearchQuery("");
-      setSearchItems([]);
-    }, 1000000000000000);
-    setTimerId(newTimerId);
+    if (searchQuery !== '') {
+      localStorage.setItem('search', searchQuery);
+    }
   };
 
   const handleFocus = () => {
@@ -152,26 +115,23 @@ const SearchBar = () => {
   };
 
   const handleItemClick = (id) => {
-    console.log("click item", id)
+    console.log('click item', id);
     dispatch(setOneProduct({}));
     navigate(`/${id}`);
-    // setIsFocused(false);
     setShowResults(false);
-    // setSearchQuery("");
-    // setSearchItems([]);
   };
 
-  // const searchedFinalItems = useMemo(() => {
-  //   return searchItems?.filter(
-  //     (item) =>
-  //       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //       item.sku.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-  // }, [searchQuery, searchItems]);
+  const handleCrossClick = (e) => {
+    e.preventDefault();
+    setShowResults(false);
+    setSearchItems([]);
+    setSearchQuery('');
+    localStorage.removeItem('search');
+  };
 
   function trimString(str) {
     if (str.length > 20) {
-      return str.slice(0, 20) + "...";
+      return str.slice(0, 20) + '...';
     } else {
       return str;
     }
@@ -179,15 +139,21 @@ const SearchBar = () => {
 
   return (
     <div className={s.search_block} ref={wrapperSearchBarRef}>
-      <Search className={`${s.search_img} ${isFocused ? s.hidden : ""}`} />
+      <Search className={`${s.search_img} ${isFocused ? s.hidden : ''}`} />
       <input
-        className={`${s.input_block} ${isFocused ? s.input_block_wide : ""}`}
+        className={`${s.input_block} ${isFocused ? s.input_block_wide : ''}`}
         placeholder="Пошук..."
         value={searchQuery}
         onChange={handleSearch}
-        // onBlur={handleBlur}
+        onBlur={handleBlur}
         onFocus={handleFocus}
       />
+      <div
+        className={s.search_cross_container}
+        style={isFocused ? {} : {display: 'none'}}
+        onClick={(e) => handleCrossClick(e)}>
+        <Cross className={`${s.search_cross} ${isFocused ? '' : s.hidden}`} />
+      </div>
       {showResults && (
         <div className={s.search_results}>
           {searchItems.length > 0 ? (
@@ -195,8 +161,7 @@ const SearchBar = () => {
               <div
                 key={item.id}
                 className={s.search_item}
-                onClick={() => handleItemClick(item.id)}
-              >
+                onClick={() => handleItemClick(item.id)}>
                 <div className={s.search_item_block}>
                   <div className={s.search_item_image}>
                     <img src={item.pictures[0]} alt="img" />

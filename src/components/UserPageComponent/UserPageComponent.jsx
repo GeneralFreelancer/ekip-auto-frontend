@@ -1,14 +1,13 @@
-// import Cart from './Cart/Cart';
 import {Outlet} from 'react-router-dom';
-import PageMenu from './PageMenu'
+import PageMenu from './PageMenu';
 
 const UserPageComponent = () => {
-  return(
+  return (
     <>
-      <PageMenu />  
-      <Outlet/>
+      <PageMenu />
+      <Outlet />
     </>
-  )
-}
+  );
+};
 
 export default UserPageComponent;

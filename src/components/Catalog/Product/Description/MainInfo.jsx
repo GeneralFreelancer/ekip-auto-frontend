@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import s from "./Description.module.scss";
-import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
-import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
-import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../../../redux/features/userSlice";
+import React, {useEffect, useState} from 'react';
+import s from './Description.module.scss';
+import {ReactComponent as Cross} from '../../../../assets/svg/cross.svg';
+import {ReactComponent as Tick} from '../../../../assets/svg/Tick.svg';
+import {ReactComponent as Pen} from '../../../../assets/svg/edit.svg';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {selectedUser} from '../../../../redux/features/userSlice';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const MainInfo = (props) => {
-  const { id, description, role } = props;
+  const {id, description, role} = props;
   const [isEditMode, setIsEditMode] = useState(false);
   const [text, setText] = useState(description);
   const user = useSelector(selectedUser);
@@ -27,12 +27,12 @@ const MainInfo = (props) => {
       try {
         const response = await axios.put(
           `${baseUrl}/product`,
-          { id, description },
+          {id, description},
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
-          }
+          },
         );
       } catch (error) {
         console.error(error);
@@ -43,7 +43,6 @@ const MainInfo = (props) => {
   const handleCancelClick = () => {
     setIsEditMode(false);
     setText(description);
-    console.log(text);
   };
 
   return (
@@ -56,6 +55,7 @@ const MainInfo = (props) => {
       {isEditMode ? (
         <>
           <h1 className={s.characteristic_h}>Основана інформація:</h1>
+          <div className={s.productItem_devider}></div>
           <div className={s.characteristic_block}>
             <textarea
               className={s.characteristic_textarea}
@@ -64,23 +64,24 @@ const MainInfo = (props) => {
             />
             <button
               className={s.characteristic_btn_cancel}
-              onClick={handleCancelClick}
-            >
+              onClick={handleCancelClick}>
               <div className={s.btn_cancel}>
                 <Cross />
               </div>
             </button>
             <button
               className={s.characteristic_btn_save}
-              onClick={() => handleSaveClick(id, text)}
-            >
+              onClick={() => handleSaveClick(id, text)}>
               <Tick />
             </button>
           </div>
         </>
       ) : (
         <>
-          <h1 className={s.characteristic_h}>Основана інформація:</h1>
+          <div className={s.devider_container} style={{marginBottom: '21px'}}>
+            <h1 className={s.characteristic_h}>Основана інформація:</h1>
+            <div className={s.productItem_devider}></div>
+          </div>
           <div className={s.characteristic_block}>
             {textParts.map((paragraph, index) => (
               <React.Fragment key={index}>

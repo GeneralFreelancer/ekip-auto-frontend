@@ -1,14 +1,14 @@
 @import "../../../style/variables.scss";
 .modalCard {
+  position: absolute;
+  top: 73px;
+  right: 11%;
+  z-index: 1;
+  display: block;
   width: 565px;
   border: 1px solid #9f9e9e;
   border-radius: 4px;
-  position: absolute;
-  z-index: 1;
-  display: block;
-  right: 0;
   background: white;
-  top: 73px;
   & > ul {
     margin-bottom: 8px;
     max-height: 333px;
@@ -109,16 +109,49 @@
 }
 
 .wrapperPrice {
-  display: flex;
-  /* margin-right: 40px; */
-  justify-content: flex-end;
-  margin-bottom: 5px;
-  border-top: 1px solid #9f9e9e;
   padding-right: 40px;
+  border-top: 1px solid #9f9e9e;
+  margin-bottom: 5px;
+	text-align: center;
 }
 
 .price {
-  margin-right: 10px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.topLine {
+	width: 33%;
+	border-bottom: 1px solid black;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.priceContainer {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 40%;
+}
+
+.priceContainer > p {
+	margin-top: 2px;
+}
+
+.priceDevider {
+	display: flex;
+	flex-direction: column;
+	height: 21px;
+}
+
+.priceLine {
+	height: 49%;
+	border-right: 1px solid black;
+}
+
+.deviderItem {
+	width: 1px;
+	height: 51%;
 }
 
 .button {
@@ -131,5 +164,6 @@
   text-decoration: none;
   &:hover {
     background-color: $lightWhite;
+		cursor: pointer;
   }
 }

@@ -1,30 +1,45 @@
-import React, { useEffect, useState } from "react";
-import "./index.scss";
-import HomePage from "./pages/HomePage";
-import { Routes, Route } from "react-router-dom";
-import UserPage from "./pages/UserPage";
-import Cart from "./components/UserPageComponent/Cart/Cart";
-import MyData from "./components/UserPageComponent/MyData/MyData";
-import Catalog from "./pages/Catalog";
-import Favorite from "./components/Favorite";
-import ProductItemPage from "./pages/ProductItemPage";
-import OrderList from "./components/UserPageComponent/Order/OrderList";
-import OrderDetails from "./components/UserPageComponent/OrderDetails/OrderDetails";
-import AdminSliderPage from "./pages/AdminSliderPage";
-import AdminProductPhotoPage from "./pages/AdminProductPhotoPage";
-import AdminShareStocksPage from "./components/AdminPageComponents/AdminShare/AdminComponentsShare";
-import PartnerPage from "./pages/PartnerPage";
-import AboutUs from "./pages/AboutUs";
-import RedirectPage from "./pages/RedirectPage";
-import { PivateRouter } from "./components/AuthModal/PrivateRouter";
-import { ProtectedRoute } from "./components/AuthModal/protectedRoute";
+import React, {useEffect, useState} from 'react';
+import './index.scss';
+import HomePage from './pages/HomePage';
+import {Routes, Route, useParams} from 'react-router-dom';
+import UserPage from './pages/UserPage';
+import Cart from './components/UserPageComponent/Cart/Cart';
+import MyData from './components/UserPageComponent/MyData/MyData';
+import Catalog from './pages/Catalog';
+import Favorite from './components/Favorite';
+import ProductItemPage from './pages/ProductItemPage';
+import OrderList from './components/UserPageComponent/Order/OrderList';
+import OrderDetails from './components/UserPageComponent/OrderDetails/OrderDetails';
+import AdminSliderPage from './pages/AdminSliderPage';
+import AdminProductPhotoPage from './pages/AdminProductPhotoPage';
+import AdminShareStocksPage from './components/AdminPageComponents/AdminShare/AdminComponentsShare';
+import PartnerPage from './pages/PartnerPage';
+import AboutUs from './pages/AboutUs';
+import RedirectPage from './pages/RedirectPage';
+import {PivateRouter} from './components/AuthModal/PrivateRouter';
+import {ProtectedRoute} from './components/AuthModal/protectedRoute';
 import {
   selectDateProducts,
   selectTopProducts,
   selectLastSeenProducts,
   selectInterestProducts,
-} from "./redux/features/productsSlice";
-import { useSelector } from "react-redux";
+} from './redux/features/productsSlice';
+import {useSelector} from 'react-redux';
+
+const RoteWrapper = () => {
+  const {id} = useParams();
+  const isId = (id) => {
+    let isId = false;
+
+    for (let letter of id) {
+      if (!isNaN(Number(letter))) {
+        isId = true;
+      }
+    }
+    return isId;
+  };
+  return <>{isId(id) ? <ProductItemPage /> : <Catalog />}</>;
+};
 
 function App() {
   const dateProducts = useSelector(selectDateProducts);
@@ -62,19 +77,19 @@ function App() {
         <Route
           path="ostannі-nadkhodzhennya"
           element={
-            <Catalog products={dateProducts} title={"Останні надходження"} />
+            <Catalog products={dateProducts} title={'Останні надходження'} />
           }
         />
         <Route
           path="top-prodazhu"
-          element={<Catalog products={topProducts} title={"Топ продажу"} />}
+          element={<Catalog products={topProducts} title={'Топ продажу'} />}
         />
         <Route
           path="ostannі-pereglyanutі"
           element={
             <Catalog
               products={lastSeenProducts}
-              title={"Останні переглянуті"}
+              title={'Останні переглянуті'}
             />
           }
         />
@@ -83,13 +98,10 @@ function App() {
           element={
             <Catalog
               products={interestProducts}
-              title={"Вас може зацікавити"}
+              title={'Вас може зацікавити'}
             />
           }
         />
-
-        <Route path="/category" element={<Catalog />} />
-        <Route path="/:id" element={<ProductItemPage />} />
 
         <Route
           path="ostannі-nadkhodzhennya/:id"
@@ -98,6 +110,14 @@ function App() {
         <Route path="ostannі-pereglyanutі/:id" element={<ProductItemPage />} />
         <Route path="vas-mozhe-zatsіkaviti/:id" element={<ProductItemPage />} />
         <Route path="top-prodazhu/:id" element={<ProductItemPage />} />
+
+        <Route path="/:id" element={<RoteWrapper />} />
+        <Route path="/:category" element={<Catalog />} />
+        <Route path="/:category/:id" element={<RoteWrapper />} />
+        <Route
+          path="/:category/:subcategory/:id"
+          element={<ProductItemPage />}
+        />
 
         <Route path="myprofile" element={<UserPage />}>
           <Route

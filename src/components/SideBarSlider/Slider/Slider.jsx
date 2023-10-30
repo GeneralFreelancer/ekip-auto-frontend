@@ -1,16 +1,17 @@
-import { Slide } from "react-slideshow-image";
-import "react-slideshow-image/dist/styles.css";
-import "./Slider.scss";
-import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { ReactComponent as Setting } from "../../../assets/svg/setting.svg";
-import { useSelector } from "react-redux";
+import {Slide} from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
+import './Slider.scss';
+import {useState, useEffect} from 'react';
+import {NavLink} from 'react-router-dom';
+import {ReactComponent as Setting} from '../../../assets/svg/setting.svg';
+import {useSelector} from 'react-redux';
 import {
   selectedAdvertisingDesktop,
   selectedAdvertisingTablet,
   selectedAdvertisingMobile,
-} from "../../../redux/features/advertisingSlice";
+} from '../../../redux/features/advertisingSlice';
 
+// Example of pictures array for slider
 // const photos = [
 //   {
 //     Image: "http://localhost:5502/images/777270_adver1.jpg",
@@ -54,11 +55,15 @@ const Slider = () => {
     images = advertisingDesktop;
   }
 
-  const localStor = localStorage.getItem("role");
+  const localStor = localStorage.getItem('role');
 
   useEffect(() => {
-    if (localStorage.getItem("role") === "admin") {
+    if (localStorage.getItem('role') === 'admin') {
       setRole(true);
+    }
+
+    if (localStorage.getItem('role') !== 'admin') {
+      setRole(false);
     }
   }, [localStor]);
 
@@ -66,8 +71,8 @@ const Slider = () => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
     }
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleImageClick = (imageUrl) => {
@@ -83,16 +88,19 @@ const Slider = () => {
           </button>
         </NavLink>
       )}
-      {viewportWidth < 825 ? (
+      {images.length > 0 && viewportWidth < 825 ? (
         <Slide indicators={indicators} scale={1.4} {...properties}>
           {images?.map((each, index) => (
-            <div key={index} style={{ width: "100%" }}>
+            <div
+              key={index}
+              className="sliderImageContainer"
+              style={{width: '100%'}}>
               <img
                 style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "375px",
-                  cursor: "pointer",
+                  objectFit: 'cover',
+                  width: '100%',
+                  height: '375px',
+                  cursor: 'pointer',
                 }}
                 alt="Slide img"
                 src={each.Image}
@@ -102,23 +110,32 @@ const Slider = () => {
           ))}
         </Slide>
       ) : (
-        <Slide indicators={indicators} scale={1.4} {...properties}>
-          {images?.map((each, index) => (
-            <div key={index} style={{ width: "100%" }}>
-              <img
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "375px",
-                  cursor: "pointer",
-                }}
-                alt="Slide img"
-                src={each.Image}
-                onClick={() => handleImageClick(each.url)}
-              />
-            </div>
-          ))}
-        </Slide>
+        <>
+          {images.length > 0 ? (
+            <Slide indicators={indicators} scale={1.4} {...properties}>
+              {images?.map((each, index) => (
+                <div
+                  key={index}
+                  className="sliderImageContainer"
+                  style={{width: '100%'}}>
+                  <img
+                    style={{
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: '375px',
+                      cursor: 'pointer',
+                    }}
+                    alt="Slide img"
+                    src={each.Image}
+                    onClick={() => handleImageClick(each.url)}
+                  />
+                </div>
+              ))}
+            </Slide>
+          ) : (
+            ''
+          )}
+        </>
       )}
     </div>
   );

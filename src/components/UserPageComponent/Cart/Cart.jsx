@@ -1,36 +1,40 @@
-import style from "./Cart.module.scss";
-import { useMediaPredicate } from "react-media-hook";
-import { useEffect, useState } from "react";
-import TableHead from "./TableHead/TableHead";
-import TableHeadMiddle from "./TableHead/TableHeadMiddle";
-import TableBody from "./TableBody/TableBody";
-import TableBodyMiddle from "./TableBody/TableBodyMiddle";
-import TableFooter from "./TableFooter/TableFooter";
-import TableFooterMiddle from "./TableFooter/TableFooterMiddle";
-import TableBodyMobile from "./TableBody/TableBodyMobile";
-import TableFooterMobile from "./TableFooter/TableFooterMobile";
-import { setProductsInCart } from "../../../redux/features/cartSlice";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../../redux/features/userSlice";
-import { selectedCart } from "../../../redux/features/cartSlice";
-import { Link } from "react-router-dom";
+import style from './Cart.module.scss';
+import {useMediaPredicate} from 'react-media-hook';
+import {useEffect, useState} from 'react';
+import TableHead from './TableHead/TableHead';
+import TableHeadMiddle from './TableHead/TableHeadMiddle';
+import TableBody from './TableBody/TableBody';
+import TableBodyMiddle from './TableBody/TableBodyMiddle';
+import TableFooter from './TableFooter/TableFooter';
+import TableFooterMiddle from './TableFooter/TableFooterMiddle';
+import TableBodyMobile from './TableBody/TableBodyMobile';
+import TableFooterMobile from './TableFooter/TableFooterMobile';
+import {
+  setProductsInCart,
+  addProductsToCart,
+  deleteProductsFromCart,
+  updateProductQuantityInCart,
+} from '../../../redux/features/cartSlice';
+import {useDispatch} from 'react-redux';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {selectedUser} from '../../../redux/features/userSlice';
+import {selectedCart} from '../../../redux/features/cartSlice';
+import {Link} from 'react-router-dom';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Cart = () => {
-  const desktop = useMediaPredicate("(min-width: 1024px)");
+  const desktop = useMediaPredicate('(min-width: 1024px)');
   const middle = useMediaPredicate(
-    "(min-width: 540px) and (max-width: 1023px)"
+    '(min-width: 540px) and (max-width: 1023px)',
   );
-  const mobile = useMediaPredicate("(max-width: 540px)");
+  const mobile = useMediaPredicate('(max-width: 540px)');
   const [dataCartItems, setDataCartItems] = useState([]);
   const [isActive, setIsActive] = useState(false);
-  // const [isFavorite, setIsFavorite] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   const dispatch = useDispatch();
   const user = useSelector(selectedUser);
@@ -38,111 +42,90 @@ const Cart = () => {
 
   useEffect(() => {
     const getProductsFromCart = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/basket`, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-        setDataCartItems(response.data.basket.products);
-        dispatch(setProductsInCart(response.data.basket.products));
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error:", error.message);
-        setIsLoading(false);
+      const productsFromLocalStorage = JSON.parse(
+        localStorage.getItem('basket'),
+      );
+
+      if (localStorage.getItem('basket')) {
+        setDataCartItems(productsFromLocalStorage);
+        dispatch(addProductsToCart(productsFromLocalStorage));
       }
+
+      setIsLoading(false);
     };
     getProductsFromCart();
   }, [dispatch, user.token]);
 
   const remove = async (id) => {
     const arrayWithoutDeletedProduct = [...dataCartItems]
-      .filter((item) => item.product.id !== id)
-      .map((p) => ({ product: p.product.id, number: p.number }));
-    try {
-      const response = await axios.post(
-        `${baseUrl}/basket`,
-        { products: arrayWithoutDeletedProduct },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      setDataCartItems(response.data.basket.products);
-      dispatch(setProductsInCart(response.data.basket.products));
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
+      .filter((item) => item.id !== id)
+      .map((p) => ({product: p.id, quantity: p.quantity}));
+    setDataCartItems(arrayWithoutDeletedProduct);
+    dispatch(deleteProductsFromCart(arrayWithoutDeletedProduct));
+    localStorage.removeItem('basket');
+    localStorage.setItem('basket', JSON.stringify(arrayWithoutDeletedProduct));
   };
 
   // change quantity
   const changeQuantity = async (id, btnType) => {
     let updateQuantity = [...dataCartItems];
-    if (btnType === "up") {
+    if (btnType === 'up') {
       updateQuantity = updateQuantity.map((item) => {
-        if (item.product.id === id) {
+        if (item.id === id) {
           return {
-            product: item.product.id,
-            number: item.number + item.product.minQuantity,
+            ...item,
+            product: item.id,
+            quantity: item.quantity + 1,
           };
         } else {
-          return { product: item.product.id, number: item.number };
+          return item;
         }
       });
     }
-    if (btnType === "down") {
+    if (btnType === 'down') {
       updateQuantity = updateQuantity.map((item) => {
-        if (
-          item.product.id === id &&
-          item.number !== item.product.minQuantity
-        ) {
+        if (item.id === id && item.quantity > 1) {
           return {
-            product: item.product.id,
-            number: item.number - item.product.minQuantity,
+            ...item,
+            product: item.id,
+            quantity: item.quantity - 1,
           };
         } else {
-          return { product: item.product.id, number: item.number };
+          return item;
         }
       });
     }
-    try {
-      const response = await axios.post(
-        `${baseUrl}/basket`,
-        {
-          products: updateQuantity,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      setDataCartItems(response.data.basket.products);
-      dispatch(setProductsInCart(response.data.basket.products));
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
+
+    setDataCartItems(updateQuantity);
+    updateQuantity.forEach((product) =>
+      dispatch(updateProductQuantityInCart(product)),
+    );
+    localStorage.removeItem('basket');
+    localStorage.setItem('basket', JSON.stringify(updateQuantity));
   };
 
   const createOrder = async () => {
     const orderProducts = dataCartItems?.map((item) => ({
-      product: item.product.id,
-      number: item.number,
+      product: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      weight: 0,
+      payed: false,
     }));
 
     try {
       const response = await axios.post(
         `${baseUrl}/order-history`,
-        { products: orderProducts, comment: comment },
+        {products: orderProducts, comment: comment},
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
       setOrderSuccess(response.data.success);
-      dispatch(setProductsInCart(null));
+      dispatch(setProductsInCart());
+      localStorage.removeItem('basket');
     } catch (error) {
       console.error(error);
     }
@@ -152,18 +135,18 @@ const Cart = () => {
     try {
       const response = await axios.get(`${baseUrl}/basket/xlsx`);
       const fileUrl = response.data.file;
-      window.open(fileUrl, "_blank");
+      window.open(fileUrl, '_blank');
     } catch (error) {
-      console.error("Error:", error.message);
+      console.error('Error:', error.message);
     }
   };
 
   const sumUAH = dataCartItems?.reduce((total, item) => {
-    return total + item.number * item.product.priceUAH;
+    return total + item.quantity * item.priceUAH;
   }, 0);
 
   const sumUSD = dataCartItems?.reduce((total, item) => {
-    return total + item.number * item.product.priceUSD;
+    return total + item.quantity * item.priceUSD;
   }, 0);
 
   const leftComment = (event) => {
@@ -232,25 +215,25 @@ const Cart = () => {
                       </div>
                     </div>
                     <div className={style.cart__commentToOrder}>
-                      <form name={"comment"}>
+                      <form name={'comment'}>
                         <div className={style.cart__commentToOrder_wrapper}>
                           {isActive && (
                             <textarea
-                              name={"comment"}
-                              id={"dsfsdf"}
+                              name={'comment'}
+                              id={'dsfsdf'}
                               cols="30"
                               rows="10"
                               value={comment}
-                              onChange={(e) => setComment(e.target.value)}
-                            ></textarea>
+                              onChange={(e) =>
+                                setComment(e.target.value)
+                              }></textarea>
                           )}
                           <button
                             onClick={(e) => {
                               leftComment(e);
                             }}
-                            className={isActive ? style.active : ""}
-                            type="submit"
-                          >
+                            className={isActive ? style.active : ''}
+                            type="submit">
                             додати коментар до замовлення
                           </button>
                         </div>
@@ -258,7 +241,7 @@ const Cart = () => {
                     </div>
                   </>
                 ) : (
-                  <div style={{ textAlign: "center" }}>
+                  <div style={{textAlign: 'center'}}>
                     <h1>Корзина пуста</h1>
                   </div>
                 )}
@@ -280,14 +263,13 @@ const Cart = () => {
                           <button
                             type="submit"
                             onClick={createOrder}
-                            disabled={cart.cartProducts === null}
-                          >
+                            disabled={cart.cartProducts === null}>
                             замовити
                           </button>
                         </>
                       ) : (
                         <>
-                          <Link to="/myprofile/mydata" style={{ color: "red" }}>
+                          <Link to="/myprofile/mydata" style={{color: 'red'}}>
                             Для здійслення замовлення заповніть дані
                           </Link>
                         </>

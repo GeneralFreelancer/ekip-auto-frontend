@@ -34,13 +34,11 @@
     bottom: 15px;
   }
   @media screen and (max-width: 540px) {
-    // bottom: 5px;
   }
 }
 
 .callBackModal {
   width: 340px;
-  height: 230px;
   background-color: $white;
   border: 2px solid $hardGrey;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.56);
@@ -95,6 +93,7 @@
   flex-direction: column;
   gap: 8px;
   padding: 10px 20px;
+	padding-bottom: 20px;
   form {
     display: flex;
     align-items: center;

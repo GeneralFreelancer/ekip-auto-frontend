@@ -1,57 +1,21 @@
-import s from "./CatalogComponents.module.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import InStock from "./InStock";
-import Filter from "./Filter";
-import ListCards from "../ListCards";
-import Pagination from "rc-pagination";
-import { ReactComponent as Arrow } from "../../assets/svg/up-arrow.svg";
-import "./Pagination/Pagination.scss";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../redux/features/userSlice";
+import {useEffect, useState} from 'react';
+import InStock from './InStock';
+import Filter from './Filter';
+import ListCards from '../ListCards';
+import Pagination from 'rc-pagination';
+import Breadcrumbs from '../Catalog/Breadcrumps/Breadcrumbs';
+import {ReactComponent as Arrow} from '../../assets/svg/up-arrow.svg';
+import './Pagination/Pagination.scss';
+import s from './CatalogComponents.module.scss';
 
-// transition text
-// import { transliterate, slugify } from "transliteration";
-
-// const convert = require("translit-english-ukrainian");
-
-//text translations text
-
-// const translit = (text) => {
-//   const decodedText = decodeURIComponent(text);
-//   const ukrainianText = transliterate(decodedText).replace(/-/g, " ");
-
-//   const words = ukrainianText.split(" ");
-//   const capitalizedWords = words.map((word, index) => {
-//     if (index === 0) {
-//       return word.charAt(0).toUpperCase() + word.slice(1);
-//     } else {
-//       return word;
-//     }
-//   });
-
-//   const formattedText = capitalizedWords.join(" ");
-
-//   let result = convert(formattedText);
-//   console.log(result);
-//   return result;
-// };
-const baseUrl = process.env.REACT_APP_BASE_URL;
-
-const CatalogComponents = ({ products, title }) => {
-  const [filter, setFilter] = useState("new");
+const CatalogComponents = ({products, title}) => {
+  const [filter, setFilter] = useState('new');
   const [inStock, setInStock] = useState(false);
   const [items, setItems] = useState(products);
   const [filteredArr, setFilteredArr] = useState([]);
 
   const [perPage, setPerPage] = useState(10);
   const [current, setCurrent] = useState(1);
-  const user = useSelector(selectedUser);
-
-  const dispatch = useDispatch();
-
-  const [translitText, setTranslitText] = useState(""); //test translit text
 
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
@@ -80,9 +44,9 @@ const CatalogComponents = ({ products, title }) => {
     function handleResize() {
       setViewportWidth(window.innerWidth);
     }
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
@@ -91,37 +55,33 @@ const CatalogComponents = ({ products, title }) => {
   }, [viewportWidth]);
 
   useEffect(() => {
-    const pathArray = window.location.pathname.split("/");
-    const category = pathArray[1];
-    const subCategory = pathArray.length === 3 && pathArray[2];
-
     setItems(products);
   }, []);
 
   useEffect(() => {
     let filteredItems;
     filteredItems = items.filter((item) =>
-      inStock ? item.stock === inStock : item
+      inStock ? item.stock === inStock : item,
     );
     switch (filter) {
-      case "new":
+      case 'new':
         filteredItems = [...filteredItems].sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
         break;
-      case "popular":
+      case 'popular':
         filteredItems = [...filteredItems].sort(
-          (a, b) => b.inTopRate - a.inTopRate
+          (a, b) => b.inTopRate - a.inTopRate,
         );
         break;
-      case "cheap":
+      case 'cheap':
         filteredItems = [...filteredItems].sort(
-          (a, b) => a.priceUAH - b.priceUAH
+          (a, b) => a.priceUAH - b.priceUAH,
         );
         break;
-      case "expensive":
+      case 'expensive':
         filteredItems = [...filteredItems].sort(
-          (a, b) => b.priceUAH - a.priceUAH
+          (a, b) => b.priceUAH - a.priceUAH,
         );
         break;
       default:
@@ -132,7 +92,7 @@ const CatalogComponents = ({ products, title }) => {
   }, [filter, inStock, items]);
 
   const onChangeParams = (name, value) => {
-    if (name === "filter") {
+    if (name === 'filter') {
       setFilter(value);
     } else {
       setInStock(value);
@@ -153,14 +113,14 @@ const CatalogComponents = ({ products, title }) => {
   };
 
   const PrevNextArrow = (current, type, originalElement) => {
-    if (type === "prev") {
+    if (type === 'prev') {
       return (
-        <Arrow className="arrow left" style={{ transform: "rotate(270deg)" }} />
+        <Arrow className="arrow left" style={{transform: 'rotate(270deg)'}} />
       );
     }
-    if (type === "next") {
+    if (type === 'next') {
       return (
-        <Arrow className="arrow right" style={{ transform: "rotate(90deg)" }} />
+        <Arrow className="arrow right" style={{transform: 'rotate(90deg)'}} />
       );
     }
     return originalElement;
@@ -169,7 +129,18 @@ const CatalogComponents = ({ products, title }) => {
   return (
     <section>
       <div className={s.mainWrapper}>
-        <div className={s.title}>{title}</div>
+        <div className={s.breadcrumbsContainer}>
+          <Breadcrumbs selectedProduct={items[0]} absolute={true} />
+          <div className={s.titleWrapper}>
+            <div className={s.titleContainer}>
+              <div className={s.title}>{title}</div>
+              <div className={s.lineContainer}>
+                <div className={s.line}></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className={s.wrapper}>
           <Filter onChangeParams={onChangeParams} />
           <Pagination

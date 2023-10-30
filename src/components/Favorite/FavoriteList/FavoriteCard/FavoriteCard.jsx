@@ -1,97 +1,60 @@
-import s from "./FavoriteCard.module.scss";
-import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import CyrillicToTranslit from "cyrillic-to-translit-js";
-import { ReactComponent as Heart } from "../../../../assets/svg/black_heart.svg";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../../../redux/features/userSlice";
-import { useDispatch } from "react-redux";
-import { setProductsInCart } from "../../../../redux/features/cartSlice";
+import {NavLink} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import {ReactComponent as Heart} from '../../../../assets/svg/black_heart.svg';
+import {addProductsToCart} from '../../../../redux/features/cartSlice';
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
+import s from './FavoriteCard.module.scss';
 
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
 const translit = (name) => {
   return cyrillicToTranslit
-    .transform(String(name).replace(",", ""), "-")
+    .transform(String(name).replace(',', ''), '-')
     .toLowerCase();
 };
 
-const FavoriteCard = ({
-  id,
-  imgUrl,
-  title,
-  priceUAH,
-  priceUSD,
-  inStock,
-  styleCard,
-  minQuantity,
-  handelClick,
-}) => {
+const FavoriteCard = ({card, handelClick}) => {
   const dispatch = useDispatch();
-  const user = useSelector(selectedUser);
 
   const handleAddToCart = async () => {
-    try {
-      const response = await axios.put(
-        `${baseUrl}/basket`,
-        {
-          product: id,
-          number: minQuantity
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
-      dispatch(setProductsInCart(response.data.basket.products));
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
+    dispatch(addProductsToCart(card));
   };
-  console.log('priseUSD ', priceUSD, priceUAH)
+  console.log('priseUSD ', card.priceUSD, card.priceUAH);
   return (
-    <div className={styleCard ? `${s[`${styleCard}`]} ${s.card}` : s.card}>
-      <span id={id} className={s.heart} onClick={() => handelClick(id)}></span>
+    <div
+      className={
+        card.styleCard ? `${s[`${card.styleCard}`]} ${s.card}` : s.card
+      }>
+      <span
+        id={card.id}
+        className={s.heart}
+        onClick={() => handelClick(card.id)}></span>
       {/* <Heart id={id} className={s.heart} onClick={() => handelClick(id)} /> */}
       <span
         className={s.clickArea}
-        id={id}
+        id={card.id}
         onClick={(e) => {
           // console.log(e.target.id); /**add riderect link */
-        }}
-      ></span>
+        }}></span>
       <div
         className={s.wrapperImg}
-        style={{ backgroundImage: `url(${imgUrl})` }}
-      ></div>
-      <h3 className={s.title}>{title}</h3>
+        style={{backgroundImage: `url(${card.pictures[0]})`}}></div>
+      <h3 className={s.title}>{card.title}</h3>
       <div className={s.wrapperText}>
-        {inStock ? (
+        {card.stock ? (
           <p className={`${s.inStock} ${s.inStockYes}`}>В наявності</p>
         ) : (
           <p className={`${s.inStock} ${s.inStockNo}`}>Немає в наявності</p>
         )}
         <div className={s.wrapperPrice}>
-          <p className={s.priceUSD}>{priceUSD} $</p>
-          <p className={s.priceUAH}>{priceUAH} ₴</p>
+          <p className={s.priceUSD}>{card.priceUSD} $</p>
+          <p className={s.priceUAH}>{card.priceUAH} ₴</p>
         </div>
       </div>
       <NavLink onClick={handleAddToCart} className={s.button}>
         Додати до кошика
       </NavLink>
-      {/* <NavLink
-        id={id}
-        className={s.button}
-        onClick={(e) => {
-          console.log(e.target.id);
-        }}
-      >
-        Додати до кошика
-      </NavLink> */}
     </div>
   );
 };

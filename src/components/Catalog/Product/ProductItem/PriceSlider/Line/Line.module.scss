@@ -1,0 +1,16 @@
+.lineDevider {
+	display: flex;
+	align-items: center;
+	width: 50%;
+	height: 12px;
+	border-right: 2px solid #000000;
+}
+
+.first {
+	border-left: 2px solid #000000;
+}
+
+.line {
+	width: 100%;
+	border-bottom: 2px solid #000000;
+}

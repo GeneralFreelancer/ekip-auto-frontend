@@ -45,6 +45,7 @@
 }
 
 .userWrapper_block {
+	position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -99,6 +100,8 @@
     display: none;
   }
   @media screen and (min-width: 1920px) {
-    margin-right: -70px;
+		position: absolute;
+		top: 20%;
+		left: 550%;
   }
 }

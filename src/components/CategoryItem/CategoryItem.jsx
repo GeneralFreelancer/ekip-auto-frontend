@@ -1,47 +1,49 @@
-import s from "./Category.module.scss";
-import CyrillicToTranslit from "cyrillic-to-translit-js";
-import React, { useState} from "react";
-import { Link } from "react-router-dom";
-import Subcategoryitem from "./SubCategoryItem";
-import axios from "axios";
+import React, {useState, useRef} from 'react';
+import {Link} from 'react-router-dom';
+import Subcategoryitem from './SubCategoryItem';
+import {ReactComponent as DownArrow} from '../../assets/svg/downArrow.svg';
+import {ReactComponent as Dot} from '../../assets/svg/dot-big.svg';
+import {ReactComponent as Minus} from '../../assets/svg/minus-big.svg';
+import {useDispatch} from 'react-redux';
 import {
   setCategoryProducts,
   setSubCategoryProducts,
   setLoading,
-} from "../../redux/features/productsSlice";
-import { useDispatch } from "react-redux";
+} from '../../redux/features/productsSlice';
+import axios from 'axios';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
+
+import s from './Category.module.scss';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 const cyrillicToTranslit = new CyrillicToTranslit();
 // rus to lat use this on backend for dynamic ulr
 const translit = (name) => {
   return cyrillicToTranslit
-    .transform(String(name).replace(",", ""), "-")
+    .transform(String(name).replace(',', ''), '-')
     .toLowerCase();
 };
 
 const CategoryItem = (props) => {
-  const [isActive, setIsSubCat] = useState(false);
+  const [isActive, setIsActive] = useState(isActiveData());
   const [catId, setCatId] = useState(false);
   const [categoryLink, setCategoryLink] = useState(false);
-  const [catPosition, setCatPosition] = useState("");
-  const [isScroll, setIsScroll] = useState(0);
-  const [enterState, setEnterState] = useState(false);
-  
+
   const dispatch = useDispatch();
-  
-  const handleScroll = (event) => {
-    let value = Math.round(event.target.scrollTop);
-    setIsScroll(value);
-  };
-  const currentHeight = (elem) => {
-    if (isScroll > 0) {
-      let value = elem.target.offsetTop - isScroll;
-      setCatPosition(value);
-    } else {
-      setCatPosition(elem.target.offsetTop);
-    }
-  };
+  const scrolableElement = useRef(null);
+
+  function isActiveData() {
+    const itemsWithSubCat = props.data.filter(
+      (item) => item.subcategories.length !== 0,
+    );
+
+    let isActiveData = {};
+    itemsWithSubCat.forEach((item) => {
+      isActiveData[item.id] = false;
+    });
+
+    return isActiveData;
+  }
 
   const fetchProductsByCategory = async (title) => {
     dispatch(setLoading(true));
@@ -50,10 +52,36 @@ const CategoryItem = (props) => {
       dispatch(setLoading(false));
       dispatch(setCategoryProducts(response.data.products));
     } catch (error) {
-      console.error("Error:", error.message);
+      console.error('Error:', error.message);
       dispatch(setLoading(false));
     }
   };
+
+  const handleToggleIsActive = (id) => {
+    let isActiveClosedAll = isActive;
+
+    setIsActive({...isActiveClosedAll, [id]: !isActive[id]});
+  };
+
+  function scrollToAnchor() {
+    if (scrolableElement) {
+      let scrollTopPrev = 0;
+      let scrollTopCurrent = scrolableElement.current.scrollTop;
+
+      const timerId = setTimeout(() => {
+        const intervalId = setInterval(() => {
+          scrollTopPrev = scrolableElement.current.scrollTop;
+          scrolableElement.current.scrollTop += 4;
+          scrollTopCurrent = scrolableElement.current.scrollTop;
+
+          if (scrollTopPrev === scrollTopCurrent) {
+            clearInterval(intervalId);
+            clearTimeout(timerId);
+          }
+        }, 20);
+      }, 500);
+    }
+  }
 
   return (
     <div
@@ -61,69 +89,63 @@ const CategoryItem = (props) => {
         props.styleItem
           ? `${s.menu__wrapper} ${s[`${props.styleItem}`]}`
           : s.menu__wrapper
-      }
-    >
-      <div className={s.menu__content} data-name={'category'} onScroll={handleScroll} >
-        {props.data.map(({ id, category, subcategories }, i) => (
-          <React.Fragment key={id}>
-            <Link
-              id={id}
-              className={
-                isActive && id === catId
-                  ? `${s.menu__content__link} ${s.activeCategory}`
-                  : s.menu__content__link
-              }
-              // to={`/${translit(title)}`}
-              to={`/category`}
-              onMouseEnter={(e) => {
-                if (subcategories?.length > 0) {
-                  console.log("menu target ", id, e.target);
-                  setIsSubCat(true);
-                  setCatId(id);
-                  setCategoryLink(`/${translit(category)}`);
-                } else {
-                  if (id !== catId) {
-                    setIsSubCat(false);
-                    setCategoryLink(false);
+      }>
+      <div className={s.menu__content} ref={scrolableElement}>
+        {props.data.map(({id, category, subcategories}, i) => (
+          <>
+            <div key={id} className={s.linkContainer}>
+              <div
+                className={
+                  isActive[id]
+                    ? `${s.openSubmenu} ${s.openSubmenuOpened}`
+                    : s.openSubmenu
+                }
+                onClick={(e) => {
+                  if (subcategories.length > 0) {
+                    handleToggleIsActive(id);
+                    setCatId(id);
+                    setCategoryLink(`${translit(category)}`);
+                    if (i === props.data.length - 1) {
+                      scrollToAnchor();
+                    }
+                  } else {
+                    if (id !== catId) {
+                      setCategoryLink(false);
+                    }
                   }
-                }
-                currentHeight(e);
-              }}
-              onClick={() => {
-                dispatch(setCategoryProducts([]));
-                dispatch(setSubCategoryProducts([]));
-                fetchProductsByCategory(category);
-                localStorage.setItem("category", category);
-                localStorage.removeItem("subcategory");
-              }}
-              onMouseLeave={(e) => {
-                
-                if (e.relatedTarget.dataset.name !== 'subcat') {
-                  setIsSubCat(false);
-                  setCategoryLink(false);
-                }
-              }}
-            >
-              {category}
-            </Link>
-          </React.Fragment>
-        ))}
-      </div>
-      {isActive &&
-        props.data.map(({ id, subcategories }) =>
-          subcategories.length > 0 && id === catId ? (
+                }}>
+                {subcategories.length === 0 ? (
+                  <Dot />
+                ) : isActive[id] ? (
+                  <Minus />
+                ) : (
+                  <DownArrow />
+                )}
+              </div>
+              <Link
+                id={id}
+                className={s.menu__content__link}
+                to={`/${translit(category)}`}
+                onClick={() => {
+                  dispatch(setCategoryProducts([]));
+                  dispatch(setSubCategoryProducts([]));
+                  fetchProductsByCategory(category);
+                  localStorage.setItem('category', category);
+                  localStorage.removeItem('subcategory');
+                }}>
+                {category}
+              </Link>
+            </div>
             <Subcategoryitem
-              key={id}
-              catPosition={catPosition}
+              key={id + i}
+              isActive={isActive[id]}
+              category={category}
               subcategories={subcategories}
               categoryLink={categoryLink}
-              state={setIsSubCat}
-              enter={setEnterState}
             />
-          ) : (
-            ""
-          )
-        )}
+          </>
+        ))}
+      </div>
     </div>
   );
 };

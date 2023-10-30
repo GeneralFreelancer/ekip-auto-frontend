@@ -1,16 +1,15 @@
-import s from "./Filter.module.scss";
+import s from './Filter.module.scss';
 import {ReactComponent as Arrow} from '../../../assets/svg/up-arrow.svg';
 
-import React from "react";
+import React from 'react';
 
-const Filter = ({ onChangeParams }) => {
+const Filter = ({onChangeParams}) => {
   return (
     <div className={s.wrapper}>
       <p className={s.title}>Спочатку:</p>
       <div
         className={s.wrapperSelect}
-        onChange={(e) => onChangeParams(e.target.name, e.target.value)}
-      >
+        onChange={(e) => onChangeParams(e.target.name, e.target.value)}>
         <select name="filter" className={s.select}>
           <option value="new" className={s.option}>
             Нове
@@ -25,7 +24,7 @@ const Filter = ({ onChangeParams }) => {
             Дорожчі
           </option>
         </select>
-        <Arrow/>
+        {/* <Arrow/> */}
       </div>
     </div>
   );

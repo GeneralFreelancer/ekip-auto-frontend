@@ -1,21 +1,20 @@
-import style from "./TableBody.module.scss";
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { ReactComponent as Pen } from "../../../../assets/svg/edit.svg";
-import { ReactComponent as Cross } from "../../../../assets/svg/cross.svg";
-import { ReactComponent as Tick } from "../../../../assets/svg/Tick.svg";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../../../redux/features/userSlice";
-import axios from "axios";
+import style from './TableBody.module.scss';
+import React from 'react';
+import {NavLink} from 'react-router-dom';
+import {ReactComponent as Pen} from '../../../../assets/svg/edit.svg';
+import {ReactComponent as Cross} from '../../../../assets/svg/cross.svg';
+import {ReactComponent as Tick} from '../../../../assets/svg/Tick.svg';
+import {useState} from 'react';
+import {useSelector} from 'react-redux';
+import {selectedUser} from '../../../../redux/features/userSlice';
+import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const TableBodyMiddle = (props) => {
-  const { id, name, products, totalPrice, weight, paidStatus } = props.data;
+  const {id, name, products, weight, paidStatus} = props.data;
   const [isEdite, setEdite] = useState(false);
   const [title, setTitle] = useState(name);
-  // const [quantity, setQuantity] = useState(500);
   const user = useSelector(selectedUser);
 
   let sumUAH = props.data.products?.reduce((total, item) => {
@@ -30,12 +29,12 @@ const TableBodyMiddle = (props) => {
     try {
       const response = await axios.put(
         `${baseUrl}/order-history/name`,
-        { id, name },
+        {id, name},
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        }
+        },
       );
     } catch (error) {
       console.error(error);
@@ -51,9 +50,6 @@ const TableBodyMiddle = (props) => {
     setEdite(false);
   };
 
-  // const redirect = (id) => {
-  //   console.log(id);
-  // };
   const editableInputTypes = () => {
     !isEdite ? setEdite(true) : setEdite(false);
   };
@@ -69,8 +65,7 @@ const TableBodyMiddle = (props) => {
             className={style.order__table_picture}
             style={{
               backgroundImage: `url(${products[0].product.pictures[0]})`,
-            }}
-          ></div>
+            }}></div>
         </td>
         <td colSpan="2" className={style.order__table_title}>
           <div className={style.order__table_title_row1}>
@@ -88,14 +83,12 @@ const TableBodyMiddle = (props) => {
                 <input type="text" value={title} onChange={handleChange} />
                 <button
                   className={style.productItem_btn}
-                  onClick={handleCancelClick}
-                >
+                  onClick={handleCancelClick}>
                   <Cross />
                 </button>
                 <button
                   className={style.productItem_btn}
-                  onClick={() => handleSaveClick(id, title)}
-                >
+                  onClick={() => handleSaveClick(id, title)}>
                   <Tick />
                 </button>
               </>
@@ -104,13 +97,7 @@ const TableBodyMiddle = (props) => {
         </td>
         <td rowSpan="3" className={style.order__table_riderect_middle}>
           <NavLink to={`/myprofile/order-history-details/${id}`}>
-            <span
-              id={id}
-              className={style.iconRiderect}
-              // onClick={() => {
-              //   redirect(id);
-              // }}
-            ></span>
+            <span id={id} className={style.iconRiderect}></span>
           </NavLink>
         </td>
       </tr>
@@ -135,8 +122,9 @@ const TableBodyMiddle = (props) => {
         </td>
         <td className={style.order__table_paid}>
           <div
-            className={paidStatus ? style.paidIconTrue : style.paidIconFalse}
-          ></div>
+            className={
+              paidStatus ? style.paidIconTrue : style.paidIconFalse
+            }></div>
         </td>
       </tr>
     </React.Fragment>

@@ -1,13 +1,13 @@
-import style from "./AuthNav.module.scss";
-import { ReactComponent as User } from "../../../assets/svg/authNav/user.svg";
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectedUser } from "../../../redux/features/userSlice";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../redux/features/userSlice";
-import { useNavigate } from "react-router-dom";
-import {setProductsInCart} from "../../../redux/features/cartSlice"
+import style from './AuthNav.module.scss';
+import {ReactComponent as User} from '../../../assets/svg/authNav/user.svg';
+import {useState, useEffect, useRef} from 'react';
+import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {selectedUser} from '../../../redux/features/userSlice';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../../redux/features/userSlice';
+import {useNavigate} from 'react-router-dom';
+import {setProductsInCart} from '../../../redux/features/cartSlice';
 
 const AuthNav = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -31,13 +31,13 @@ const AuthNav = (props) => {
     };
 
     if (showModal === true) {
-      window.addEventListener("click", handleClickWindow);
+      window.addEventListener('click', handleClickWindow);
     } else {
-      window.removeEventListener("click", handleClickWindow);
+      window.removeEventListener('click', handleClickWindow);
     }
-    // Повернути функцію очищення ефекту
+
     return () => {
-      window.removeEventListener("click", handleClickWindow);
+      window.removeEventListener('click', handleClickWindow);
     };
   }, [showModal]);
 
@@ -51,34 +51,33 @@ const AuthNav = (props) => {
     e.preventDefault();
     dispatch(logout());
     setShowModal(false);
-    navigate("/");
-    dispatch(setProductsInCart(null));
-    localStorage.removeItem("role");
+    navigate('/');
+    dispatch(setProductsInCart());
+    localStorage.removeItem('role');
   };
 
   return (
     <div className={style.userWrapper_block} ref={wrapperAuthRef}>
-      <div className={!showModal ? style.userWrapper : style.userWrapperOpen}>
-        <User
-          className={!showModal ? style.user : style.userOpen}
-          onClick={() => {
-            onClick();
-            props.onShowModal();
-          }}
-        />
+      <div
+        className={!showModal ? style.userWrapper : style.userWrapperOpen}
+        onClick={() => {
+          onClick();
+          props.onShowModal();
+        }}>
+        <User className={!showModal ? style.user : style.userOpen} />
         {showModal && (
           <ul className={style.list}>
-            <Link className={style.item} to={"/myprofile/mydata"}>
+            <Link className={style.item} to={'/myprofile/mydata'}>
               <li>Моя сторінка</li>
             </Link>
-            <Link className={style.item} to={"/myprofile/order-history"}>
+            <Link className={style.item} to={'/myprofile/order-history'}>
               <li>Замовлення</li>
             </Link>
             <Link className={style.item}>
               <li onClick={handleLogout}>Вийти</li>
             </Link>
-            {localStorage.getItem("role") === 'admin' && (
-              <Link className={style.item} to={"/myprofile/share-stocks"}>
+            {localStorage.getItem('role') === 'admin' && (
+              <Link className={style.item} to={'/myprofile/share-stocks'}>
                 <li>Залишки товару</li>
               </Link>
             )}
@@ -89,7 +88,7 @@ const AuthNav = (props) => {
         <p className={style.userLog}>{user?.userdata?.firstName}</p>
       )}
       {user.isRegisteredConfirmed && !user.isDataFullFilled && (
-        <Link className={style.userRegister} to={"/myprofile/mydata"}>
+        <Link className={style.userRegister} to={'/myprofile/mydata'}>
           Заповнити <br></br> дані
         </Link>
       )}
